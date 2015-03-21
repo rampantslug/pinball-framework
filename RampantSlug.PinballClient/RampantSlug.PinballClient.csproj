@@ -51,6 +51,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -73,6 +74,29 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="ClientBusController.cs" />
+    <Compile Include="ContractImplementations\SettingsMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\RequestSettingsMessage.cs" />
+    <Compile Include="ContractImplementations\DeviceMessage.cs" />
+    <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
+    <Compile Include="Events\ConfigureDevice.cs" />
+    <Compile Include="Events\SettingsResults.cs" />
+    <Compile Include="Events\DisplayMessageResults.cs" />
+    <Compile Include="IClientBusController.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\DeviceType.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\DeviceTypeViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\DriverViewModel.cs" />
+    <Compile Include="ClientDisplays\LogMessages\ILogMessages.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\IDeviceTree.cs" />
+    <Compile Include="ClientDisplays\SwitchMatrix\ISwitchMatrix.cs" />
+    <Compile Include="ClientDisplays\DeviceConfiguration\IDeviceConfiguration.cs" />
+    <Compile Include="ClientDisplays\DeviceConfiguration\SwitchConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\DeviceItemViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\DeviceTreeViewModel.cs" />
+    <Compile Include="ClientDisplays\IClientDisplay.cs" />
+    <Compile Include="ClientDisplays\DeviceConfiguration\DeviceConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\LogMessages\LogMessagesViewModel.cs" />
+    <Compile Include="ClientDisplays\SwitchMatrix\SwitchMatrixViewModel.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Model\TempData.cs" />
     <Compile Include="ShellViewModel.cs" />
@@ -81,6 +105,28 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\SwitchViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\TempConfig.cs" />
+    <Page Include="ClientDisplays\DeviceConfiguration\SwitchConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceTree\DeviceTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientDisplays\DeviceConfiguration\DeviceConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\LogMessages\LogMessagesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientDisplays\SwitchMatrix\SwitchMatrixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,7 +170,10 @@
       <Name>RampantSlug.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

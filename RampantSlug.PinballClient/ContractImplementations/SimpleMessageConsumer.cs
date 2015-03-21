@@ -14,9 +14,17 @@ namespace RampantSlug.PinballClient.ContractImplementations
     {
         public void Consume(IConsumeContext<ISimpleMessage> message)
         {
-            //var eventAggregator = IoC.Get<IEventAggregator>();
+            var eventAggregator = IoC.Get<IEventAggregator>();
 
-            TempData.SomeText = message.Message.Message;
+            eventAggregator.PublishOnUIThread(new DisplayMessageResults 
+            {
+                Timestamp = message.Message.Timestamp,
+                EventType = "System",
+                Name = "Simple Message",
+                State = "OK",
+                Information = message.Message.Message
+            });
+
         }
 
     }

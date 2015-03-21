@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.Core.2.0.1\lib\net45\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform">
+      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="Magnum">
       <HintPath>..\packages\Magnum.2.1.3\lib\NET40\Magnum.dll</HintPath>
     </Reference>
@@ -41,7 +47,11 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,8 +59,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppBootstrapper.cs" />
     <Compile Include="BusController.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ContractImplementations\RequestSettingsMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\DeviceMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\EventMessage.cs" />
+    <Compile Include="ContractImplementations\SettingsMessage.cs" />
     <Compile Include="ContractImplementations\SimpleMessage.cs" />
+    <Compile Include="RequestSettingsResult.cs" />
+    <Compile Include="DeviceMessageResult.cs" />
+    <Compile Include="GameController.cs" />
     <Compile Include="IBusController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

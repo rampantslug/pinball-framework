@@ -92,6 +92,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Configuration\NetProcGame GOT.json" />
+    <None Include="Configuration\machine.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -103,11 +107,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RampantSlug.Common\RampantSlug.Common.csproj">
+      <Project>{3975042e-176b-4da1-938d-46866eac82e7}</Project>
+      <Name>RampantSlug.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RampantSlug.ServerLibrary\RampantSlug.ServerLibrary.csproj">
       <Project>{60647c7d-2de4-41c9-832d-4c89754aa29c}</Project>
       <Name>RampantSlug.ServerLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

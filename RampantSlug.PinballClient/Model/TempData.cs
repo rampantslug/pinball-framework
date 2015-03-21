@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.PinballClient.Model
 {
+    // Change this back to use EventAggregator
+
+
     // This is a simple customer class that  
     // implements the IPropertyChange interface. 
     public class TempData: INotifyPropertyChanged

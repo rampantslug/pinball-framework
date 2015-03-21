@@ -1,0 +1,49 @@
+﻿{
+    "Switches": [
+        {
+            "Number": 1,
+            "Address": "01/01",
+            "Name": "Ball Trough 1",
+            "SwitchType": "Optical NC",
+            "State": "Inactive",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5404754+11:00",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "Number": 2,
+            "Address": "01/02",
+            "Name": "Ball Trough 2",
+            "SwitchType": "Optical NC",
+            "State": "Inactive",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "Number": 3,
+            "Address": "01/03",
+            "Name": "Ball Trough 3",
+            "SwitchType": "Optical NC",
+            "State": "Inactive",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "Number": 4,
+            "Address": "02/01",
+            "Name": "Left Flipper",
+            "SwitchType": "Optical NC",
+            "State": "Inactive",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "Number": 5,
+            "Address": "02/02",
+            "Name": "Right Flipper",
+            "SwitchType": "Optical NC",
+            "State": "Inactive",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
+            "WiringColors": "Grey/Green"
+        }
+    ]
+}

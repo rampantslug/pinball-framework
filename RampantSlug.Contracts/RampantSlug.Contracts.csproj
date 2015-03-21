@@ -39,8 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRequestSettingsMessage.cs" />
+    <Compile Include="ISettingsMessage.cs" />
+    <Compile Include="IDeviceMessage.cs" />
+    <Compile Include="IEventMessage.cs" />
     <Compile Include="ISimpleMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RampantSlug.Common\RampantSlug.Common.csproj">
+      <Project>{3975042e-176b-4da1-938d-46866eac82e7}</Project>
+      <Name>RampantSlug.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

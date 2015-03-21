@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTreeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:DeviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
+             >
+    <DockPanel>
+        <StackPanel
+            Orientation="Vertical"
+            DockPanel.Dock="Bottom"
+            >
+            <TextBlock  TextWrapping="Wrap" FontSize="12">Testing treeview control
+            </TextBlock>
+
+        </StackPanel>
+
+        <TreeView 
+            
+            BorderThickness="0"
+            ItemsSource="{Binding FirstGeneration}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
+
+
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate 
+                    DataType="{x:Type DeviceTree:DeviceTypeViewModel}" 
+                    ItemsSource="{Binding Children}"
+                    >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DeviceTypeName}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type DeviceTree:DriverViewModel}">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="{Binding DriverName}" />
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type DeviceTree:SwitchViewModel}">
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                        >
+
+                        <TextBlock Text="{Binding SwitchName}" />
+                        <StackPanel.ContextMenu >
+                            <ContextMenu>
+                                <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Configure Switch" 
+                                    cal:Message.Attach="ConfigureDevice()"
+                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    />
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+
+        </TreeView>
+
+    </DockPanel>
+</UserControl>
+
+
+<!-- Equipment Tree -->
+<!--<TreeView 
+            Grid.Row="1"
+             BorderThickness="0"
+            ItemsSource="{Binding FirstGeneration}">
+    <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </TreeView.ItemContainerStyle>
+
+    <TreeView.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+            <StackPanel 
+                        Orientation="Horizontal"
+                        >
+                <Grid 
+                        Width="16"
+                        Height="16">
+                    <Grid.Background
+                                >
+                        <VisualBrush 
+                                    Visual="{Binding EquipmentTypeVisual}"
+                                    Stretch="Uniform"
+                                    AlignmentX="Left"   
+                                >
+                        </VisualBrush>
+                    </Grid.Background>
+                </Grid>
+                <TextBlock
+                        Margin="2"
+                        Text="{Binding UniqueId}" 
+                            Foreground="{Binding LastEventTypeBrush}"
+                            />
+                <TextBlock 
+                        Margin="2"
+                        Text="{Binding Description}" 
+                            Foreground="{Binding LastEventTypeBrush}"/>
+                <StackPanel.ContextMenu>
+                    <ContextMenu 
+                                ItemsSource="{Binding AvailableCommands}"
+                                cal:Action.TargetWithoutContext="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.DataContext}"
+                                         >
+                        <ContextMenu.ItemTemplate>
+                            <HierarchicalDataTemplate>
+                                <MenuItem>
+                                    <MenuItem.Header>
+                                        <TextBlock 
+                                                    Text="{Binding DisplayName}"
+                                                    FontWeight="{Binding FontWeight}"
+                                                    />
+                                    </MenuItem.Header>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <cal:ActionMessage 
+                                                        MethodName="{Binding MethodName}" >
+                                                <cal:Parameter Value="{Binding RequiredAction}" />
+                                            </cal:ActionMessage>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </MenuItem>
+                            </HierarchicalDataTemplate>
+                        </ContextMenu.ItemTemplate>
+                    </ContextMenu>
+                </StackPanel.ContextMenu>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+    </TreeView.ItemTemplate>
+</TreeView>-->
+
+<!-- Search -->
+<!--<StackPanel 
+        HorizontalAlignment="Center" 
+        Margin="5" 
+        Orientation="Horizontal"
+            Grid.Row="2"
+            Height="28"
+        >
+    <TextBlock 
+            Text="Search for:"
+            FontSize="12"
+                VerticalAlignment="Center"
+                Foreground="#FFE7E7E7"
+                />
+    <TextBox 
+          x:Name="SearchText"
+          Margin="6,0"
+          Width="150"
+          
+          />
+    <Button 
+          x:Name="PerformSearch"
+          cal:Message.Attach="PerformSearch" 
+          Content="Find" 
+          Padding="8,0" 
+          />
+</StackPanel>
+</Grid>
+</UserControl> -->
