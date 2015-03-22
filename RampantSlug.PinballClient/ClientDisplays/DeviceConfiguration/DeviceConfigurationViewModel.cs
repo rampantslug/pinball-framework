@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 using RampantSlug.Common;
 using RampantSlug.Common.Devices;
 using System.Collections.ObjectModel;
+using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
 {
     //[Export(typeof(IClientDisplay))]
-    public class DeviceConfigurationViewModel : Conductor<IScreen>.Collection.OneActive,  IDeviceConfiguration, IHandle<ConfigureDevice>
+    public sealed class DeviceConfigurationViewModel : Conductor<IScreen>.Collection.OneActive,  IDeviceConfiguration, IHandle<ConfigureDevice>
     {
         private Switch _selectedSwitch;
-
-
-        public string ClientDisplayName { get { return "Device Configuration"; } }
-
 
         public Switch SelectedSwitch
         {
@@ -42,8 +39,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
+            DisplayName = "Device Configuration";
 
-           
         }
 
         protected override void OnViewLoaded(object view)

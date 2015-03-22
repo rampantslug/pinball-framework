@@ -15,12 +15,9 @@ namespace RampantSlug.ServerLibrary
 
         public List<Switch> Switches { get; set; }
 
-        //public string Name { get; set; }
-
-
 
          /// <summary>
-        /// Creates a new MachineConfiguration object and initializes all subconfiguration objects
+        /// Creates a new Configuration object and initializes all subconfiguration objects
         /// </summary>
         public Configuration()
         {
@@ -38,7 +35,7 @@ namespace RampantSlug.ServerLibrary
         /// <returns>A deserialized Configuration object</returns>
         public static Configuration FromJson(string json)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Configuration>(json);
+            return JsonConvert.DeserializeObject<Configuration>(json);
         }
 
         /// <summary>
@@ -47,7 +44,7 @@ namespace RampantSlug.ServerLibrary
         /// <returns>Pretty formatted Json code</returns>
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>

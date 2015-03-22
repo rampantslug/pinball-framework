@@ -16,7 +16,7 @@ namespace RampantSlug.PinballServerDemo {
 
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
-            //container.Singleton<IBusController, BusController>();
+            container.Singleton<IGameController, GameController>();
             container.PerRequest<IShell, ShellViewModel>();
         }
 

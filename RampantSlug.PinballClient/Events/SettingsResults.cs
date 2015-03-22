@@ -1,10 +1,7 @@
-﻿using RampantSlug.Common.Devices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using RampantSlug.Common.Devices;
 
-namespace RampantSlug.PinballClient.ContractImplementations
+namespace RampantSlug.PinballClient.Events
 {
     public class SettingsResults
     {

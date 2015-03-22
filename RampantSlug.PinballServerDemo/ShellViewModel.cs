@@ -3,9 +3,8 @@ using RampantSlug.Common.Devices;
 using RampantSlug.ServerLibrary;
 namespace RampantSlug.PinballServerDemo
 {
-    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell 
+    public class ShellViewModel : PropertyChangedBase, IShell 
     {
-        //private IBusController _busController;
         private GameController _gameController;
         private BindableCollection<Switch> _switches; 
 
@@ -37,9 +36,6 @@ namespace RampantSlug.PinballServerDemo
 
         public ShellViewModel() 
         {
-            //_busController = IoC.Get<IBusController>();
-            //_busController.Start();
-
             _switches = new BindableCollection<Switch>();
             _gameController = new GameController(); // TODO: Use DI for this?
         }

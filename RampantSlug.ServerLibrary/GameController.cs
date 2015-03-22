@@ -8,19 +8,20 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.ServerLibrary.Events;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class GameController: IHandle<DeviceMessageResult>, IHandle<RequestSettingsResult>
+    public class GameController: IGameController, IHandle<DeviceMessageResult>, IHandle<RequestSettingsResult>
     {
         private AppBootstrapper _bootstrapper;
         public List<Switch> _switches;
         private IEventAggregator _eventAggregator;
         private Configuration _gameConfiguration;
 
-        private IBusController _busController;
+        private IServerBusController _busController;
 
-        public IBusController ServerBusController 
+        public IServerBusController ServerBusController 
         {
             get
             {
@@ -33,7 +34,7 @@ namespace RampantSlug.ServerLibrary
             _switches = new List<Switch>();
             _bootstrapper = new AppBootstrapper();
 
-            _busController = IoC.Get<IBusController>();
+            _busController = IoC.Get<IServerBusController>();
             _busController.Start();
 
             _eventAggregator = IoC.Get<IEventAggregator>();

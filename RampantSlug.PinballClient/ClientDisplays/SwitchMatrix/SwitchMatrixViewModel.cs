@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.PinballClient.ClientDisplays.SwitchMatrix
 {
-  //  [Export(typeof(IClientDisplay))]
     [Export(typeof(SwitchMatrixViewModel))]
-    public class SwitchMatrixViewModel: Screen, ISwitchMatrix
+    public sealed class SwitchMatrixViewModel: Screen, ISwitchMatrix
     {
 
-        public string ClientDisplayName { get { return "Switch Matrix"; } }
+        public SwitchMatrixViewModel()
+        {
+            DisplayName = "Switch Matrix";
+        }
 
     }
 }

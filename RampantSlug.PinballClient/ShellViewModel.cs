@@ -11,65 +11,96 @@ using RampantSlug.PinballClient.ClientDisplays.LogMessages;
 using RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree;
+using RampantSlug.PinballClient.ClientDisplays.GameStatus;
+using RampantSlug.PinballClient.ClientDisplays.Playfield;
 
 namespace RampantSlug.PinballClient {
     [Export(typeof(IShell))]
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IPartImportsSatisfiedNotification
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell//, IPartImportsSatisfiedNotification
 
     {
+        private IClientBusController _busController;
+        private BindableCollection<IScreen> _midTabs;
+        private BindableCollection<IScreen> _rightTabs;
 
+
+        // Client Displays
         public IDeviceConfiguration DeviceConfiguration { get; private set; }
         public ILogMessages LogMessages { get; private set; }
         public ISwitchMatrix SwitchMatrix { get; private set; }
         public IDeviceTree DeviceTree { get; private set; }
+        public IGameStatus GameStatus { get; private set; }
+        public IPlayfield Playfield { get; private set; }
 
-        [ImportMany(typeof(IClientDisplay))]
-        private IEnumerable<IClientDisplay> _clientDisplays;
 
-        private IClientBusController _busController;
+        public BindableCollection<IScreen> MidTabs
+        {
+            get
+            {
+                return _midTabs;
+            }
+            set
+            {
+                _midTabs = value;
+                NotifyOfPropertyChange(() => MidTabs);
+            }
+        }
+
+        public BindableCollection<IScreen> RightTabs
+        {
+            get
+            {
+                return _rightTabs;
+            }
+            set
+            {
+                _rightTabs = value;
+                NotifyOfPropertyChange(() => RightTabs);
+            }
+        }
 
 
         [ImportingConstructor]
-        public ShellViewModel(ILogMessages logMessages, IDeviceConfiguration deviceConfiguration, ISwitchMatrix switchMatrix, IDeviceTree deviceTree) 
+        public ShellViewModel(
+            ILogMessages logMessages, 
+            IDeviceConfiguration deviceConfiguration, 
+            ISwitchMatrix switchMatrix, 
+            IDeviceTree deviceTree,
+            IGameStatus gameStatus,
+            IPlayfield playfield       
+            ) 
         {
             LogMessages = logMessages;
             DeviceConfiguration = deviceConfiguration;
             SwitchMatrix = switchMatrix;
             DeviceTree = deviceTree;
-
+            GameStatus = gameStatus;
+            Playfield = playfield;
 
             _busController = IoC.Get<IClientBusController>();
             _busController.Start();
 
-          /*  _bus = BusInitializer.CreateBus("TestSubscriber", x =>
-            {
-                x.Subscribe(subs =>
-                {
-                    subs.Consumer<SimpleMessageConsumer>().Permanent();
-                    subs.Consumer<EventMessageConsumer>().Permanent();
-                });
-            });*/
+            MidTabs = new BindableCollection<IScreen>();
+            RightTabs = new BindableCollection<IScreen>();
         }
 
-        // Add all instances of IClientDisplay as tabs to this shell
-        public void OnImportsSatisfied() 
+
+        public void Exit()
         {
-            foreach (var clientDisplay in _clientDisplays)
-            {
-                ActivateItem((Screen)clientDisplay);
-            }
+            _busController.Stop();
         }
-
-        public void Exit() { _busController.Stop(); }
 
         protected override void OnViewLoaded(object view)
         {
 
             base.OnViewLoaded(view);
-          //  ActivateItem(new LogViewModel()); // Retrieve this from config file 
-            // instead of hardcoded (then save it back to config if successful connection)
 
+            MidTabs.Add(Playfield);
+            MidTabs.Add(DeviceConfiguration);
 
+            RightTabs.Add(SwitchMatrix);
+            RightTabs.Add(GameStatus);
+            
         }
 
         public void GetSettings()

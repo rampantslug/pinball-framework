@@ -9,7 +9,6 @@ namespace RampantSlug.PinballClient
 {
     public interface IClientDisplay: IScreen
     {
-        string ClientDisplayName { get; }
 
     }
 }

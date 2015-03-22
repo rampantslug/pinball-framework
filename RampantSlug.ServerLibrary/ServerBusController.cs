@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class BusController: IBusController
+    public class ServerBusController: IServerBusController
     {
         private IServiceBus _bus;
 

@@ -7,6 +7,7 @@
     <Grid>
 
         <ListView
+            Background="Transparent"
 
                     ItemsSource="{Binding Events}"
                     IsSynchronizedWithCurrentItem="True"

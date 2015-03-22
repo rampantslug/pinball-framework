@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.ServerLibrary
 {
-    public interface IBusController
+    public interface IServerBusController
     {
         void Start();
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace RampantSlug.PinballClient.ContractImplementations
+namespace RampantSlug.PinballClient.Events
 {
     public class DisplayMessageResults
     {

@@ -60,17 +60,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="BusController.cs" />
+    <Compile Include="Hardware\Proc\Pinproc.cs" />
+    <Compile Include="IGameController.cs" />
+    <Compile Include="ServerBusController.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ContractImplementations\RequestSettingsMessageConsumer.cs" />
     <Compile Include="ContractImplementations\DeviceMessageConsumer.cs" />
     <Compile Include="ContractImplementations\EventMessage.cs" />
     <Compile Include="ContractImplementations\SettingsMessage.cs" />
     <Compile Include="ContractImplementations\SimpleMessage.cs" />
-    <Compile Include="RequestSettingsResult.cs" />
-    <Compile Include="DeviceMessageResult.cs" />
+    <Compile Include="Events\RequestSettingsResult.cs" />
+    <Compile Include="Events\DeviceMessageResult.cs" />
     <Compile Include="GameController.cs" />
-    <Compile Include="IBusController.cs" />
+    <Compile Include="IServerBusController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +87,12 @@
       <Project>{62013772-db89-4da9-91ae-eeb6d9780761}</Project>
       <Name>RampantSlug.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Hardware\Proc\pinproc.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hardware\Arduino\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
