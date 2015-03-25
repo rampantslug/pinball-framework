@@ -15,7 +15,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
     {        
         public DateTime Timestamp { get; set; }
 
-        public Switch Device { get; set; }
+        public IDevice Device { get; set; }
 
     }
 }

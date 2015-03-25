@@ -1,11 +1,16 @@
+using System;
+using System.ComponentModel;
 using Caliburn.Micro;
 using RampantSlug.Common.Devices;
 using RampantSlug.ServerLibrary;
+using RampantSlug.ServerLibrary.Hardware;
+using RampantSlug.ServerLibrary.Logging;
+
 namespace RampantSlug.PinballServerDemo
 {
-    public class ShellViewModel : PropertyChangedBase, IShell 
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell 
     {
-        private GameController _gameController;
+        private IGameController _gameController;
         private BindableCollection<Switch> _switches; 
 
         public string TextToTransmit { get; set; }
@@ -37,7 +42,7 @@ namespace RampantSlug.PinballServerDemo
         public ShellViewModel() 
         {
             _switches = new BindableCollection<Switch>();
-            _gameController = new GameController(); // TODO: Use DI for this?
+            
         }
 
         public void Exit() 
@@ -48,12 +53,27 @@ namespace RampantSlug.PinballServerDemo
         public void UpdateUI()   // TODO: Manual update of the UI for initial testing only
         {
             Switches.Clear();
-            _gameController._switches.ForEach(device => Switches.Add(device));
+           // _gameController._switches.ForEach(device => Switches.Add(device));
         }
 
         public void SaveConfig() 
         {
             _gameController.SaveConfigurationToFile();
+        }
+
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+
+            _gameController = IoC.Get<IGameController>();
+            _gameController.ConnectToHardware();
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            _gameController.CloseHardware();
+            Exit();
+            base.OnDeactivate(close);
         }
     }
 }

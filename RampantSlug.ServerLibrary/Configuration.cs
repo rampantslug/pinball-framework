@@ -14,6 +14,7 @@ namespace RampantSlug.ServerLibrary
     {
 
         public List<Switch> Switches { get; set; }
+        public List<Coil> Coils { get; set; }
 
 
          /// <summary>
@@ -22,6 +23,7 @@ namespace RampantSlug.ServerLibrary
         public Configuration()
         {
             Switches = new List<Switch>();
+            Coils = new List<Coil>();
   
         }
 

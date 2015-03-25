@@ -6,38 +6,38 @@
         >
     <Grid>
 
-        <ListView
+        <DataGrid
             Background="Transparent"
+            ItemsSource="{Binding Events}"
+            IsSynchronizedWithCurrentItem="True"
+            AutoGenerateColumns="False"
+            AlternatingRowBackground="Coral"
+            >
+            <DataGrid.Columns>
 
-                    ItemsSource="{Binding Events}"
-                    IsSynchronizedWithCurrentItem="True"
-                    >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn 
+                    <DataGridTextColumn
                         Header="Timestamp" 
-                        DisplayMemberBinding="{Binding Timestamp}" 
+                        Binding="{Binding Timestamp}" 
                         Width="150"/>
-                    <GridViewColumn 
+                <DataGridTextColumn 
                         Header="Event Type" 
-                        DisplayMemberBinding="{Binding EventType}" 
+                        Binding="{Binding EventType}" 
                         Width="100"/>
-                    <GridViewColumn 
+                <DataGridTextColumn 
                         Header="Name" 
-                        DisplayMemberBinding="{Binding Name}" 
+                        Binding="{Binding Name}" 
                         Width="150"/>
-                    <GridViewColumn 
+                <DataGridTextColumn 
                         Header="State" 
-                        DisplayMemberBinding="{Binding State}" 
+                        Binding="{Binding State}" 
                         Width="100"/>
-                    <GridViewColumn 
+                <DataGridTextColumn 
                         Header="Information" 
-                        DisplayMemberBinding="{Binding Information}" 
+                        Binding="{Binding Information}" 
                         Width="300"/>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
+            </DataGrid.Columns>
+        </DataGrid>
 
 
     </Grid>

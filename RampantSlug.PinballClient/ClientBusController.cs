@@ -31,7 +31,7 @@ namespace RampantSlug.PinballClient
           
         }
 
-        public void SendDeviceMessage(Switch device) 
+        public void SendDeviceMessage(IDevice device) 
         {
             var message = new DeviceMessage() { Device = device , Timestamp = DateTime.Now };
             _bus.Publish<DeviceMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });

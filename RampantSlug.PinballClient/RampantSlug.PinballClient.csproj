@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Bin\Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Bin\Client\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
+    <Compile Include="ClientDisplays\DeviceTree\IDeviceItemViewModel.cs" />
     <Compile Include="ClientDisplays\GameStatus\IGameStatus.cs" />
     <Compile Include="ClientDisplays\GameStatus\GameStatusViewModel.cs" />
     <Compile Include="ClientDisplays\Playfield\IPlayfield.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="ContractImplementations\RequestSettingsMessage.cs" />
     <Compile Include="ContractImplementations\DeviceMessage.cs" />
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
-    <Compile Include="Events\ConfigureDevice.cs" />
+    <Compile Include="Events\ShowDeviceConfig.cs" />
     <Compile Include="Events\SettingsResults.cs" />
     <Compile Include="Events\DisplayMessageResults.cs" />
     <Compile Include="IClientBusController.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="ClientDisplays\SwitchMatrix\SwitchMatrixViewModel.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Model\TempData.cs" />
+    <Compile Include="MidPanelViewModel.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -141,6 +143,10 @@
     <Page Include="ClientDisplays\SwitchMatrix\SwitchMatrixView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MidPanelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>

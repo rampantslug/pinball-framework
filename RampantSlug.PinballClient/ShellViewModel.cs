@@ -13,13 +13,17 @@ using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree;
 using RampantSlug.PinballClient.ClientDisplays.GameStatus;
 using RampantSlug.PinballClient.ClientDisplays.Playfield;
+using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient {
     [Export(typeof(IShell))]
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell//, IPartImportsSatisfiedNotification
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IHandle<ShowDeviceConfig>
 
     {
         private IClientBusController _busController;
+        private IEventAggregator _eventAggregator;
+
+
         private BindableCollection<IScreen> _midTabs;
         private BindableCollection<IScreen> _rightTabs;
 
@@ -32,6 +36,8 @@ namespace RampantSlug.PinballClient {
         public IGameStatus GameStatus { get; private set; }
         public IPlayfield Playfield { get; private set; }
 
+
+        public MidPanelViewModel MidPanel { get; private set; }
 
         public BindableCollection<IScreen> MidTabs
         {
@@ -62,7 +68,8 @@ namespace RampantSlug.PinballClient {
 
         [ImportingConstructor]
         public ShellViewModel(
-            ILogMessages logMessages, 
+            IEventAggregator eventAggregator,
+            ILogMessages logMessages,
             IDeviceConfiguration deviceConfiguration, 
             ISwitchMatrix switchMatrix, 
             IDeviceTree deviceTree,
@@ -70,6 +77,7 @@ namespace RampantSlug.PinballClient {
             IPlayfield playfield       
             ) 
         {
+            _eventAggregator = eventAggregator;
             LogMessages = logMessages;
             DeviceConfiguration = deviceConfiguration;
             SwitchMatrix = switchMatrix;
@@ -82,6 +90,10 @@ namespace RampantSlug.PinballClient {
 
             MidTabs = new BindableCollection<IScreen>();
             RightTabs = new BindableCollection<IScreen>();
+            
+            DisplayName = "Client";
+
+            MidPanel = new MidPanelViewModel(eventAggregator, deviceConfiguration, playfield);
         }
 
 
@@ -95,17 +107,36 @@ namespace RampantSlug.PinballClient {
 
             base.OnViewLoaded(view);
 
-            MidTabs.Add(Playfield);
-            MidTabs.Add(DeviceConfiguration);
+            //MidTabs.Add(Playfield);
+            //MidTabs.Add(DeviceConfiguration);
 
             RightTabs.Add(SwitchMatrix);
             RightTabs.Add(GameStatus);
-            
+
+            _eventAggregator.Subscribe(this);
+
+            _busController.RequestSettings();
         }
 
         public void GetSettings()
         {
             _busController.RequestSettings();
+        }
+
+        /// <summary>
+        /// Request to update config of a device. Make DeviceConfiguration active if not already
+        /// </summary>
+        /// <param name="deviceMessage"></param>
+        public void Handle(ShowDeviceConfig deviceMessage)
+        {
+            Playfield.Deactivate(false);
+            DeviceConfiguration.Activate();
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            Exit();
+            base.OnDeactivate(close);
         }
        
     }

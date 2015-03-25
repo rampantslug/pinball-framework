@@ -15,6 +15,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             : base(parentDeviceType)
         {
             _switch = switchDevice;
+            _device = switchDevice;
         }
 
         public string SwitchName

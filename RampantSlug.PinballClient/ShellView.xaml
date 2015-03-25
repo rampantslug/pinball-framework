@@ -1,4 +1,5 @@
-<Controls:MetroWindow x:Class="RampantSlug.PinballClient.ShellView"
+<Controls:MetroWindow 
+    x:Class="RampantSlug.PinballClient.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
@@ -7,8 +8,10 @@
         xmlns:SwitchMatrix="clr-namespace:RampantSlug.PinballClient.ClientDisplays.SwitchMatrix"
         xmlns:DeviceConfiguration="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration"
         xmlns:DeviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
+        xmlns:Local="clr-namespace:RampantSlug.PinballClient"
         Width="1280"
-        Height="600">
+        Height="600"
+                      >
 
     <Grid Background="#FFC1C0C0">
         <Grid.ColumnDefinitions>
@@ -46,7 +49,15 @@
             cal:View.Model="{Binding DeviceTree}" />
 
         <!-- Middle (Main) Column Area -->
-        <Grid
+        <Local:MidPanelView 
+            Grid.Column="1"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Margin="2"
+            Background="#FFECECEC"
+            cal:View.Model="{Binding MidPanel}" />
+
+        <!--<Grid
             Grid.Column="1"
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -64,7 +75,7 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
-        </Grid>
+        </Grid>-->
  
         <!-- Right Hand Column Area -->
         <Grid

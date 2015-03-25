@@ -8,6 +8,10 @@ namespace RampantSlug.ServerLibrary
 {
     public interface IGameController
     {
+        IServerBusController ServerBusController { get; }
+        void SaveConfigurationToFile();
 
+        void ConnectToHardware();
+        void CloseHardware();
     }
 }

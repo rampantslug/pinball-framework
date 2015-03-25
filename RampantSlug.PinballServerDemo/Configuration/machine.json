@@ -1,11 +1,32 @@
 ﻿{
+    "Coils": [
+        {
+            "Number": 1,
+            "Address": "01/01",
+            "Name": "Pop Bumper 1",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5404754+11:00",
+            "WiringColors": "Blue/White"
+        },
+        {
+            "Number": 2,
+            "Address": "01/02",
+            "Name": "Pop Bumper 2",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
+            "WiringColors": "Blue/Red"
+        },
+        {
+            "Number": 3,
+            "Address": "01/03",
+            "Name": "Pop Bumper 3",
+            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
+            "WiringColors": "Blue/Black"
+        }
+    ],
     "Switches": [
         {
             "Number": 1,
             "Address": "01/01",
             "Name": "Ball Trough 1",
-            "SwitchType": "Optical NC",
-            "State": "Inactive",
             "LastChangeTimeStamp": "2015-03-20T11:46:31.5404754+11:00",
             "WiringColors": "Grey/Green"
         },

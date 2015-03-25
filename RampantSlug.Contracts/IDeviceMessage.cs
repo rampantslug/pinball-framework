@@ -12,6 +12,6 @@ namespace RampantSlug.Contracts
         
         DateTime Timestamp { get; }
 
-        Switch Device { get; }  // TODO: Change this to a higher level IDevice that switch/coil etc... inherits from
+        IDevice Device { get; } 
     }
 }

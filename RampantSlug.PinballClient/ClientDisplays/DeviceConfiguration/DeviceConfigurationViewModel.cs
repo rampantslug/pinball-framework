@@ -14,23 +14,27 @@ using RampantSlug.PinballClient.Events;
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
 {
     //[Export(typeof(IClientDisplay))]
-    public sealed class DeviceConfigurationViewModel : Conductor<IScreen>.Collection.OneActive,  IDeviceConfiguration, IHandle<ConfigureDevice>
+    public sealed class DeviceConfigurationViewModel : Conductor<IScreen>.Collection.OneActive, IDeviceConfiguration, IHandle<ShowDeviceConfig>
     {
-        private Switch _selectedSwitch;
+        private IDevice _selectedDevice;
 
-        public Switch SelectedSwitch
+        public IDevice SelectedDevice
         {
             get
             {
-                return _selectedSwitch;
+                return _selectedDevice;
             }
             set
             {
-                _selectedSwitch = value;
-                NotifyOfPropertyChange(() => SelectedSwitch);
+                _selectedDevice = value;
+                NotifyOfPropertyChange(() => SelectedDevice);
 
-                // Update displayed switch 
-                ActivateItem(new SwitchConfigurationViewModel(_selectedSwitch));
+                var switchDevice = _selectedDevice as Switch;
+                if (switchDevice != null)
+                {
+                    // Update displayed switch 
+                    ActivateItem(new SwitchConfigurationViewModel(switchDevice));
+                }
             }
         }
 
@@ -56,12 +60,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
             // TODO: Change this to retrieve updated info from viewmodel before sending to server
 
             var busController = IoC.Get<IClientBusController>();
-            busController.SendDeviceMessage(SelectedSwitch); 
+            busController.SendDeviceMessage(SelectedDevice); 
         }
 
-        public void Handle(ConfigureDevice deviceMessage)
+        public void Handle(ShowDeviceConfig deviceMessage)
         {
-            SelectedSwitch = deviceMessage.Device;
+            SelectedDevice = deviceMessage.Device;
         }
 
  

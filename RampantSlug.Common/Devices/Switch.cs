@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.Common.Devices
 {
-    public class Switch:Device, IDevice
+    public class Switch: Device, IDevice
     {
         #region Properties
 
@@ -72,8 +72,7 @@ namespace RampantSlug.Common.Devices
         }
 
         // TODO: Should this be an enum of available colours based on what is set for the project
-        private string _wiringColors;
-        
+        private string _wiringColors;      
         public string WiringColors
         {
             get { return _wiringColors; }
@@ -87,14 +86,6 @@ namespace RampantSlug.Common.Devices
 
         public Switch() 
         {
-
-            Number = 1;
-            Address = "01/01";
-            Name = "Ball Trough 1";
-            SwitchType = "Optical NC";
-            State = "Inactive";
-            LastChangeTimeStamp = DateTime.Now;
-            WiringColors = "Grey/Green";
 
         }
 

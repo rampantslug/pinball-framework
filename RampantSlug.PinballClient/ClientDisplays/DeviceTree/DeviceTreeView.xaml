@@ -5,16 +5,6 @@
         xmlns:DeviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
-    <DockPanel>
-        <StackPanel
-            Orientation="Vertical"
-            DockPanel.Dock="Bottom"
-            >
-            <TextBlock  TextWrapping="Wrap" FontSize="12">Testing treeview control
-            </TextBlock>
-
-        </StackPanel>
-
         <TreeView 
             Background="Transparent"
             BorderThickness="0"
@@ -62,7 +52,7 @@
                                     FontWeight="Bold" 
                                     Header="Configure Switch" 
                                     cal:Message.Attach="ConfigureDevice()"
-                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    
                                     />
                             </ContextMenu>
                         </StackPanel.ContextMenu>
@@ -71,13 +61,15 @@
             </TreeView.Resources>
 
         </TreeView>
-
-    </DockPanel>
 </UserControl>
 
 
 <!-- Equipment Tree -->
 <!--<TreeView 
+    
+    
+    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+    
             Grid.Row="1"
              BorderThickness="0"
             ItemsSource="{Binding FirstGeneration}">
