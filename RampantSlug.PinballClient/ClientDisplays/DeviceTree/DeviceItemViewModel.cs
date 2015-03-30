@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using RampantSlug.Common.Devices;
+using RampantSlug.PinballClient.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +14,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
     {
         readonly ObservableCollection<DeviceItemViewModel> _children;
         readonly DeviceItemViewModel _parent;
-        //private IDevice _device;
+        protected IDevice _device;
 
         bool _isExpanded;
         bool _isSelected;
@@ -64,6 +66,14 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
         /// </summary>
         protected virtual void LoadChildren()
         {
+        }
+
+
+        public void ConfigureDevice()
+        {
+            bool breakhere = true;
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
         }
     }
 }

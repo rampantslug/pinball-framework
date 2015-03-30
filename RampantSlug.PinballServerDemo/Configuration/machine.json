@@ -1,49 +1,85 @@
 ﻿{
     "Switches": [
         {
-            "Number": 1,
             "Address": "01/01",
             "Name": "Ball Trough 1",
-            "SwitchType": "Optical NC",
-            "State": "Inactive",
-            "LastChangeTimeStamp": "2015-03-20T11:46:31.5404754+11:00",
             "WiringColors": "Grey/Green"
         },
         {
-            "Number": 2,
+            "SwitchType": "Optical NC",
             "Address": "01/02",
             "Name": "Ball Trough 2",
-            "SwitchType": "Optical NC",
-            "State": "Inactive",
-            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
             "WiringColors": "Grey/Green"
         },
         {
-            "Number": 3,
+            "SwitchType": "Optical NC",
             "Address": "01/03",
             "Name": "Ball Trough 3",
-            "SwitchType": "Optical NC",
-            "State": "Inactive",
-            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
             "WiringColors": "Grey/Green"
         },
         {
-            "Number": 4,
+            "SwitchType": "Optical NC",
             "Address": "02/01",
             "Name": "Left Flipper",
-            "SwitchType": "Optical NC",
-            "State": "Inactive",
-            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
             "WiringColors": "Grey/Green"
         },
         {
-            "Number": 5,
+            "SwitchType": "Optical NC",
             "Address": "02/02",
             "Name": "Right Flipper",
-            "SwitchType": "Optical NC",
-            "State": "Inactive",
-            "LastChangeTimeStamp": "2015-03-20T11:46:31.5434757+11:00",
             "WiringColors": "Grey/Green"
         }
+    ],
+    "Coils": [
+        {
+            "Address": "01/01",
+            "Name": "Pop Bumper 1",
+            "WiringColors": "Blue/White"
+        },
+        {
+            "Address": "01/02",
+            "Name": "Pop Bumper 2",
+            "WiringColors": "Blue/Red"
+        },
+        {
+            "Address": "01/03",
+            "Name": "Pop Bumper 3",
+            "WiringColors": "Blue/Black"
+        }
+    ],
+     "Servos": [
+        {
+            "Address": "05/05",
+            "Name": "Wall Gate",
+            "WiringColors": "Blue/White"
+        },
+        {
+            "Address": "05/06",
+            "Name": "Diverter 1",
+            "WiringColors": "Blue/Red"
+        }
+    ],
+    
+    "StepperMotors": [
+        {
+            "Address": "06/01",
+            "Name": "Map Tilt",
+            "WiringColors": "Blue/White"
+        },
+        {
+            "Address": "06/02",
+            "Name": "Tree",
+            "WiringColors": "Blue/Red"
+        }
+    ],
+   "DCMotors": [
+        {
+            "Address": "07/01",
+            "Name": "Lift",
+            "WiringColors": "Blue/White"
+        }
+    ],
+    "Leds": [ 
+
     ]
 }

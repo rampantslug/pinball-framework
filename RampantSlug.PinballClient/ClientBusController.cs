@@ -23,7 +23,7 @@ namespace RampantSlug.PinballClient
                 {
                     subs.Consumer<SimpleMessageConsumer>().Permanent();
                     subs.Consumer<EventMessageConsumer>().Permanent();
-                    subs.Consumer<SettingsMessageConsumer>().Permanent();
+                    subs.Consumer<ConfigMessageConsumer>().Permanent();
                 });
             
             
@@ -31,7 +31,7 @@ namespace RampantSlug.PinballClient
           
         }
 
-        public void SendDeviceMessage(Switch device) 
+        public void SendDeviceMessage(IDevice device) 
         {
             var message = new DeviceMessage() { Device = device , Timestamp = DateTime.Now };
             _bus.Publish<DeviceMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
@@ -39,7 +39,7 @@ namespace RampantSlug.PinballClient
 
         public void RequestSettings() 
         {
-            _bus.Publish<RequestSettingsMessage>(new RequestSettingsMessage(), x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+            _bus.Publish<RequestConfigMessage>(new RequestConfigMessage(), x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
         public void Stop() { _bus.Dispose(); }

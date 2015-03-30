@@ -11,7 +11,7 @@ namespace RampantSlug.PinballClient
     {
         void Start();
 
-        void SendDeviceMessage(Switch device);
+        void SendDeviceMessage(IDevice device);
 
         void RequestSettings();
 

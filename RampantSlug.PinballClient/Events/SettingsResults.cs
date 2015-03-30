@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using RampantSlug.Common;
 using RampantSlug.Common.Devices;
 
 namespace RampantSlug.PinballClient.Events
 {
-    public class SettingsResults
+    public class ConfigResults
     {
         
-        public List<Switch> Switches { get; set; }
+        public Configuration MachineConfiguration { get; set; }
 
 
     }

@@ -7,6 +7,8 @@
     using System.ComponentModel.Composition.Primitives;
     using System.ComponentModel.Composition;
     using System.Reflection;
+    using RampantSlug.ServerLibrary.Hardware;
+    using RampantSlug.ServerLibrary.Hardware.Proc;
 
 namespace RampantSlug.ServerLibrary
     {
@@ -30,6 +32,7 @@ namespace RampantSlug.ServerLibrary
                 //batch.AddExportedValue<IWindowManager>(window);
                 batch.AddExportedValue<IEventAggregator>(new EventAggregator());
                 batch.AddExportedValue<IServerBusController>(new ServerBusController());
+                batch.AddExportedValue<IHardwareController>(new ProcController());
 
                 batch.AddExportedValue(Container);
 

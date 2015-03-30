@@ -22,7 +22,7 @@ namespace RampantSlug.ServerLibrary
                 x.Subscribe(subs =>
                 {
                     subs.Consumer<DeviceMessageConsumer>().Permanent();
-                    subs.Consumer<RequestSettingsMessageConsumer>().Permanent();
+                    subs.Consumer<RequestConfigMessageConsumer>().Permanent();
                 });
             });
           
@@ -40,10 +40,10 @@ namespace RampantSlug.ServerLibrary
             _bus.Publish<SimpleMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendSettingsMessage(List<Switch> switches)
+        public void SendConfigurationMessage(Configuration configuration)
         {
-            var message = new SettingsMessage() { Switches = switches};
-            _bus.Publish<SettingsMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+            var message = new ConfigMessage() { MachineConfiguration = configuration };
+            _bus.Publish<ConfigMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
         public void Stop() { _bus.Dispose(); }

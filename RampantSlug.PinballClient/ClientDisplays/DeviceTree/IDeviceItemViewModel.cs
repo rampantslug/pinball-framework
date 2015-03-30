@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RampantSlug.Contracts
+namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 {
-    public interface IRequestSettingsMessage
+    public interface IDeviceItemViewModel
     {
 
+        IDevice Device {get; set;}
     }
 }

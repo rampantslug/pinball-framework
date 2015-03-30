@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using MassTransit;
 using RampantSlug.Contracts;
-using RampantSlug.PinballClient.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +10,9 @@ using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ContractImplementations
 {
-    class SettingsMessageConsumer: Consumes<ISettingsMessage>.Context
+    class ConfigMessageConsumer: Consumes<IConfigMessage>.Context
     {
-        public void Consume(IConsumeContext<ISettingsMessage> message)
+        public void Consume(IConsumeContext<IConfigMessage> message)
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
@@ -27,9 +26,9 @@ namespace RampantSlug.PinballClient.ContractImplementations
                  
             });
 
-            eventAggregator.PublishOnUIThread(new SettingsResults
+            eventAggregator.PublishOnUIThread(new ConfigResults
             {
-                Switches = message.Message.Switches
+                MachineConfiguration = message.Message.MachineConfiguration
             });
 
         }

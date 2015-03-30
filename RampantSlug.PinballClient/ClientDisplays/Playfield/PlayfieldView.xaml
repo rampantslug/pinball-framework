@@ -7,14 +7,11 @@
         Width="300"
         Height="500"
         >
-        <Rectangle
+        <Image
             Width="200"
             Height="400"
-            Fill="Aqua"
-            ></Rectangle>
-        <TextBlock Text="Playfield Goes Here"/>
-
-       
+            Source="{Binding PlayfieldImage}"
+            ></Image>
         
     </Grid>
 </UserControl>

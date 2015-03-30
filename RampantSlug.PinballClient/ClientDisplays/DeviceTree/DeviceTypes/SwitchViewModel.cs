@@ -1,11 +1,6 @@
 ﻿using RampantSlug.Common.Devices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
+namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
 {
     public class SwitchViewModel : DeviceItemViewModel
     {
@@ -15,6 +10,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             : base(parentDeviceType)
         {
             _switch = switchDevice;
+            _device = switchDevice;
         }
 
         public string SwitchName

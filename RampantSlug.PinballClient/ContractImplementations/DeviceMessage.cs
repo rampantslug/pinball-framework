@@ -2,7 +2,6 @@
 using MassTransit;
 using RampantSlug.Common.Devices;
 using RampantSlug.Contracts;
-using RampantSlug.PinballClient.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
     {        
         public DateTime Timestamp { get; set; }
 
-        public Switch Device { get; set; }
+        public IDevice Device { get; set; }
 
     }
 }

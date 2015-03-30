@@ -19,20 +19,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 
     }
 
-    public class CoilType : DeviceType
-    {
-        public CoilType(string deviceTypeName)
-            : base(deviceTypeName)
-        {
-        }
-
-        readonly List<Driver> _coils = new List<Driver>();
-        public List<Driver> Coils
-        {
-            get { return _coils; }
-        }
-    }
-
     public class SwitchType : DeviceType
     {
         public SwitchType(string deviceTypeName)
@@ -46,4 +32,75 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             get { return _switches; }
         }
     }
+
+    public class CoilType : DeviceType
+    {
+        public CoilType(string deviceTypeName)
+            : base(deviceTypeName)
+        {
+        }
+
+        readonly List<Coil> _coils = new List<Coil>();
+        public List<Coil> Coils
+        {
+            get { return _coils; }
+        }
+    }
+
+    public class ServoType : DeviceType
+    {
+        public ServoType(string deviceTypeName)
+            : base(deviceTypeName)
+        {
+        }
+
+        readonly List<Servo> _servos = new List<Servo>();
+        public List<Servo> Servos
+        {
+            get { return _servos; }
+        }
+    }
+
+    public class StepperMotorType : DeviceType
+    {
+        public StepperMotorType(string deviceTypeName)
+            : base(deviceTypeName)
+        {
+        }
+
+        readonly List<StepperMotor> _stepperMotors = new List<StepperMotor>();
+        public List<StepperMotor> StepperMotors
+        {
+            get { return _stepperMotors; }
+        }
+    }
+
+    public class DCMotorType : DeviceType
+    {
+        public DCMotorType(string deviceTypeName)
+            : base(deviceTypeName)
+        {
+        }
+
+        readonly List<DCMotor> _dcMotors = new List<DCMotor>();
+        public List<DCMotor> DCMotors
+        {
+            get { return _dcMotors; }
+        }
+    }
+
+    public class LedType : DeviceType
+    {
+        public LedType(string deviceTypeName)
+            : base(deviceTypeName)
+        {
+        }
+
+        readonly List<Led> _leds = new List<Led>();
+        public List<Led> Leds
+        {
+            get { return _leds; }
+        }
+    }
+
 }

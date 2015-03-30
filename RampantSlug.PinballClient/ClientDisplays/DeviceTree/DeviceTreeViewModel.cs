@@ -8,12 +8,13 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common;
 using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 {
     //[Export(typeof(IClientDisplay))]
-    public class DeviceTreeViewModel: Screen, IDeviceTree, IHandle<SettingsResults>
+    public class DeviceTreeViewModel: Screen, IDeviceTree, IHandle<ConfigResults>
     {
         public string ClientDisplayName { get { return "Device Tree"; } }
 
@@ -53,32 +54,41 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             _eventAggregator.Subscribe(this);
         }
 
-        private void RebuildTree(List<Switch> switches) 
+        private void RebuildTree(Configuration configuration) 
         {
-            //var deviceTypes = TempConfig.GetDeviceTypes();
+
             _firstGeneration = new ObservableCollection<DeviceTypeViewModel>();
 
-            _firstGeneration.Add(new DeviceTypeViewModel(new CoilType("Coils"), new List<IDevice> {new Driver()
-                            {
-                                Name = "Coil 1",
-                                Description = "test coil description"
-                            }}));
-
-
-
-            var swDevices = new List<IDevice>();
-            foreach(Switch sw in switches)
-            {
-                swDevices.Add(sw);
-            }
+            // Add Switches
+            var swDevices = configuration.Switches.Cast<IDevice>().ToList();
             _firstGeneration.Add(new DeviceTypeViewModel(new SwitchType("Switches"), swDevices));
+
+            // Add Coils
+            var swCoils = configuration.Coils.Cast<IDevice>().ToList();
+            _firstGeneration.Add(new DeviceTypeViewModel(new CoilType("Coils"), swCoils));
+
+            // Add Servos
+            var swServos = configuration.Servos.Cast<IDevice>().ToList();
+            _firstGeneration.Add(new DeviceTypeViewModel(new ServoType("Servos"), swServos));
+
+            // Add Steppers
+            var swSteppers = configuration.StepperMotors.Cast<IDevice>().ToList();
+            _firstGeneration.Add(new DeviceTypeViewModel(new StepperMotorType("Stepper Motors"), swSteppers));
+
+            // Add DC Motors
+            var swDCMotors = configuration.DCMotors.Cast<IDevice>().ToList();
+            _firstGeneration.Add(new DeviceTypeViewModel(new DCMotorType("DC Motors"), swDCMotors));
+
+            // Add LEDs
+            var swLeds = configuration.Leds.Cast<IDevice>().ToList();
+            _firstGeneration.Add(new DeviceTypeViewModel(new LedType("Leds"), swLeds));          
 
             NotifyOfPropertyChange(() => FirstGeneration);
         }
 
-        public void Handle(SettingsResults message)
+        public void Handle(ConfigResults message)
         {
-            RebuildTree(message.Switches);
+            RebuildTree(message.MachineConfiguration);
         }
 
         public void ConfigureDevice() 

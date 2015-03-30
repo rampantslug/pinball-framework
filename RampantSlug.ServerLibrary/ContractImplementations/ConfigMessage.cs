@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common;
 
 namespace RampantSlug.ServerLibrary.ContractImplementations
 {
-    class SettingsMessage: ISettingsMessage
+    class ConfigMessage: IConfigMessage
     {
-        public List<Switch> Switches { get; set; }
+        public Configuration MachineConfiguration
+        {
+            get; set;
+        }
     }
 }

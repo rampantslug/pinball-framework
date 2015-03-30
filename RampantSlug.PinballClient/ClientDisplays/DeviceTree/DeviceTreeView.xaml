@@ -4,17 +4,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:DeviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        >
-    <DockPanel>
-        <StackPanel
-            Orientation="Vertical"
-            DockPanel.Dock="Bottom"
-            >
-            <TextBlock  TextWrapping="Wrap" FontSize="12">Testing treeview control
-            </TextBlock>
-
-        </StackPanel>
-
+        xmlns:DeviceTypes="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes">
         <TreeView 
             Background="Transparent"
             BorderThickness="0"
@@ -43,13 +33,8 @@
                         <TextBlock Text="{Binding DeviceTypeName}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type DeviceTree:DriverViewModel}">
-                    <StackPanel Orientation="Horizontal">
-
-                        <TextBlock Text="{Binding DriverName}" />
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type DeviceTree:SwitchViewModel}">
+           <!-- Switches -->
+            <DataTemplate DataType="{x:Type DeviceTypes:SwitchViewModel}">
                     <StackPanel 
                         Orientation="Horizontal"
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
@@ -62,22 +47,60 @@
                                     FontWeight="Bold" 
                                     Header="Configure Switch" 
                                     cal:Message.Attach="ConfigureDevice()"
-                                    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+                                    
                                     />
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                     </StackPanel>
                 </DataTemplate>
-            </TreeView.Resources>
+
+            <!-- Coils -->
+            <DataTemplate DataType="{x:Type DeviceTypes:CoilViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding CoilName}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <!-- Servos -->
+            <DataTemplate DataType="{x:Type DeviceTypes:ServoViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ServoName}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <!-- Stepper Motors -->
+            <DataTemplate DataType="{x:Type DeviceTypes:StepperMotorViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding StepperMotorName}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <!-- DC Motors -->
+            <DataTemplate DataType="{x:Type DeviceTypes:DCMotorViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding DCMotorName}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <!-- Leds -->
+            <DataTemplate DataType="{x:Type DeviceTypes:LedViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding LedName}" />
+                </StackPanel>
+            </DataTemplate>
+
+        </TreeView.Resources>
 
         </TreeView>
-
-    </DockPanel>
 </UserControl>
 
 
 <!-- Equipment Tree -->
 <!--<TreeView 
+    
+    
+    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
+    
             Grid.Row="1"
              BorderThickness="0"
             ItemsSource="{Binding FirstGeneration}">

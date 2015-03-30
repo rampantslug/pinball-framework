@@ -10,15 +10,15 @@ using RampantSlug.ServerLibrary.Events;
 
 namespace RampantSlug.ServerLibrary.ContractImplementations
 {
-    class RequestSettingsMessageConsumer : Consumes<IRequestSettingsMessage>.Context
+    class RequestConfigMessageConsumer : Consumes<IRequestConfigMessage>.Context
     {
-        public void Consume(IConsumeContext<IRequestSettingsMessage> message)
+        public void Consume(IConsumeContext<IRequestConfigMessage> message)
         {
             //TODO: Do we need access to the configuration or general 'game' info at this point rather than marshalling to the event Aggregator
             
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new RequestSettingsResult());
+            eventAggregator.PublishOnUIThread(new RequestConfigResult());
 
         }
 

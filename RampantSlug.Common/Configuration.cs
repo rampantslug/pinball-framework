@@ -1,19 +1,25 @@
-﻿using Newtonsoft.Json;
-using RampantSlug.Common.Devices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using RampantSlug.Common.Devices;
+using System.Windows.Media.Imaging;
 
-namespace RampantSlug.ServerLibrary
+namespace RampantSlug.Common
 {
-    class Configuration
+    public class Configuration
     {
+        //[JsonIgnore]
+        public string PlayfieldImage { get; set; }
 
         public List<Switch> Switches { get; set; }
+        public List<Coil> Coils { get; set; }
+        public List<Servo> Servos { get; set; }
+        public List<StepperMotor> StepperMotors { get; set; }
+        public List<DCMotor> DCMotors { get; set; }
+        public List<Led> Leds { get; set; }
+
 
 
          /// <summary>
@@ -22,8 +28,40 @@ namespace RampantSlug.ServerLibrary
         public Configuration()
         {
             Switches = new List<Switch>();
-  
+            Coils = new List<Coil>();
+            DCMotors = new List<DCMotor>();
+            StepperMotors = new List<StepperMotor>();
+            Servos = new List<Servo>();
+            Leds = new List<Led>();
+
+
+         /*   PlayfieldImage = new BitmapImage();
+            PlayfieldImage.BeginInit();
+            PlayfieldImage.UriSource = new Uri("Configuration/playfield.png", UriKind.Relative);
+            PlayfieldImage.EndInit();*/
+            // PlayfieldImage.Source = logo;
         }
+
+        private void ImageSerialize()
+        {
+            var blobData = ImageConversion.ConvertImageFileToString("Configuration/playfield.png");
+            PlayfieldImage = blobData;
+            /*using (MemoryStream ms = new MemoryStream())
+            {
+                // This is a BitmapImage fetched from a dictionary.
+                BitmapImage image = new BitmapImage(new Uri("Configuration/playfield.png", UriKind.Relative));
+
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(ms);
+                ms.Flush();
+               // byte[] buffer = ms.GetBuffer();
+
+                // Here I'm adding the byte[] array to SerializationInfo
+                PlayfieldImage = ms.ToArray();
+            }*/
+        }
+
 
 
 
@@ -35,7 +73,10 @@ namespace RampantSlug.ServerLibrary
         /// <returns>A deserialized Configuration object</returns>
         public static Configuration FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<Configuration>(json);
+            var configuration = JsonConvert.DeserializeObject<Configuration>(json);
+            // TODO: Move this out to be specific to PinbalServerDemo location. As Configuration exists on client also...
+            configuration.ImageSerialize();
+            return configuration;
         }
 
         /// <summary>

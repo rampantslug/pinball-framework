@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using MassTransit;
 using RampantSlug.Contracts;
-using RampantSlug.PinballClient.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

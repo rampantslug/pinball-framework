@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 {
-    public static class TempConfig
+ /*   public static class TempConfig
     {
         public static DeviceType[] GetDeviceTypes()
         {
@@ -48,6 +48,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             return null;
         }
 
-    }
+    }*/
 }
 

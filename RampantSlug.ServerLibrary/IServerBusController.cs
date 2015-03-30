@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common;
 
 namespace RampantSlug.ServerLibrary
 {
@@ -15,7 +16,7 @@ namespace RampantSlug.ServerLibrary
 
         void SendSimpleMessage(string text);
 
-        void SendSettingsMessage(List<Switch> switches);
+        void SendConfigurationMessage(Configuration configuration);
 
         void Stop() ;
     }
