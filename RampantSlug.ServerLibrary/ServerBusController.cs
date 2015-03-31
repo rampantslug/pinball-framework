@@ -23,6 +23,7 @@ namespace RampantSlug.ServerLibrary
                 {
                     subs.Consumer<DeviceMessageConsumer>().Permanent();
                     subs.Consumer<RequestConfigMessageConsumer>().Permanent();
+                    subs.Consumer<DeviceCommandMessageConsumer>().Permanent();
                 });
             });
           

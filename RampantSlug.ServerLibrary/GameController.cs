@@ -12,12 +12,13 @@ using System.Threading.Tasks;
 using RampantSlug.Common;
 using RampantSlug.ServerLibrary.Events;
 using RampantSlug.ServerLibrary.Hardware;
+using RampantSlug.ServerLibrary.Hardware.Arduino;
 using RampantSlug.ServerLibrary.Hardware.Proc;
 using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class GameController: IGameController, IHandle<DeviceMessageResult>, IHandle<RequestConfigResult>
+    public class GameController : IGameController, IHandle<DeviceMessageResult>, IHandle<RequestConfigResult>, IHandle<DeviceCommandResult>
     {
         private AppBootstrapper _bootstrapper;       
         private IEventAggregator _eventAggregator;
@@ -32,6 +33,7 @@ namespace RampantSlug.ServerLibrary
 
         public List<Switch> _switches;
         public List<Coil> _coils;
+        private ArduinoDevice _tempArduino;
 
         public IServerBusController ServerBusController 
         {
@@ -59,6 +61,8 @@ namespace RampantSlug.ServerLibrary
             _gameConfiguration = Configuration.FromFile(filePath + @"\Configuration\machine.json");
             _switches = _gameConfiguration.Switches;
             _coils = _gameConfiguration.Coils;
+
+            
         }
 
 
@@ -75,6 +79,17 @@ namespace RampantSlug.ServerLibrary
 
             RsLogManager.GetCurrent.LogTestMessage("Received device settings message from client");
         }
+
+        public void Handle(DeviceCommandResult message)
+        {
+            if (_tempArduino == null)
+            {
+                _tempArduino = new ArduinoDevice();
+            }
+            RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
+            _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
+        }
+
 
         public void Handle(RequestConfigResult message)
         {

@@ -13,6 +13,8 @@ namespace RampantSlug.PinballClient
 
         void SendDeviceMessage(IDevice device);
 
+        void SendDeviceCommandMessage(IDevice device, string tempControllerMessage);
+
         void RequestSettings();
 
         void Stop() ;

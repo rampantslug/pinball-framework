@@ -89,6 +89,7 @@
     <Compile Include="ClientDisplays\Playfield\IPlayfield.cs" />
     <Compile Include="ClientDisplays\Playfield\PlayfieldViewModel.cs" />
     <Compile Include="ContractImplementations\ConfigMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\DeviceCommandMessage.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessage.cs" />
     <Compile Include="ContractImplementations\DeviceMessage.cs" />
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />

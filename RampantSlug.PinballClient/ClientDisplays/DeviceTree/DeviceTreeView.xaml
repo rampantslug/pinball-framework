@@ -72,6 +72,18 @@
             <DataTemplate DataType="{x:Type DeviceTypes:StepperMotorViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding StepperMotorName}" />
+                    <StackPanel.ContextMenu >
+                        <ContextMenu>
+                            <MenuItem 
+                                    Header="Rotate Right" 
+                                    cal:Message.Attach="RotateRight()"                                 
+                                    />
+                            <MenuItem 
+                                    Header="Rotate Left" 
+                                    cal:Message.Attach="RotateLeft()"                                 
+                                    />
+                        </ContextMenu>
+                    </StackPanel.ContextMenu>
                 </StackPanel>
             </DataTemplate>
 

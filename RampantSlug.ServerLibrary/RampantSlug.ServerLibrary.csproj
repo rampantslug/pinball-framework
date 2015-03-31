@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="ContractImplementations\DeviceCommandMessageConsumer.cs" />
+    <Compile Include="Events\DeviceCommandResult.cs" />
     <Compile Include="Hardware\Arduino\ArduinoDevice.cs" />
     <Compile Include="Hardware\IHardwareController.cs" />
     <Compile Include="Hardware\ProcController.cs" />

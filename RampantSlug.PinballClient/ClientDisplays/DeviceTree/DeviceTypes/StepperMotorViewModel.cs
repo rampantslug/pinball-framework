@@ -1,4 +1,6 @@
-﻿using RampantSlug.Common.Devices;
+﻿using Caliburn.Micro;
+using RampantSlug.Common.Devices;
+using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
 {
@@ -16,6 +18,19 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
         public string StepperMotorName
         {
             get { return _stepperMotor.Name; }
+        }
+
+
+        public void RotateRight()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendDeviceCommandMessage(_stepperMotor,"Right");
+        }
+
+        public void RotateLeft()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendDeviceCommandMessage(_stepperMotor, "Left");
         }
     }
 }

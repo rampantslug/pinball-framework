@@ -37,6 +37,12 @@ namespace RampantSlug.PinballClient
             _bus.Publish<DeviceMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
+        public void SendDeviceCommandMessage(IDevice device, string tempControllerMessage)
+        {
+            var message = new DeviceCommandMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage};
+            _bus.Publish<DeviceCommandMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
         public void RequestSettings() 
         {
             _bus.Publish<RequestConfigMessage>(new RequestConfigMessage(), x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });

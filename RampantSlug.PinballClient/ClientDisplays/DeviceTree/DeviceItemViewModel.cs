@@ -71,7 +71,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 
         public void ConfigureDevice()
         {
-            bool breakhere = true;
             var eventAggregator = IoC.Get<IEventAggregator>();
             eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
         }
