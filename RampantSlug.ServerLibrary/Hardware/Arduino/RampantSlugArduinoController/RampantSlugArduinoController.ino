@@ -1,24 +1,9 @@
 
-/*
- Stepper Motor Control - one step at a time
 
- This program drives a unipolar or bipolar stepper motor.
- The motor is attached to digital pins 8 - 11 of the Arduino.
-
- The motor will step one step at a time, very slowly.  You can use this to
- test that you've got the four wires of your stepper wired to the correct
- pins. If wired correctly, all steps should be in the same direction.
-
- Use this also to count the number of steps per revolution of your motor,
- if you don't know it.  Then plug that number into the oneRevolution
- example to see if you got it right.
-
- Created 30 Nov. 2009
- by Tom Igoe
-
- */
 // INCLUDES
-#include <Stepper.h>
+#include <Wire.h>
+#include <Adafruit_MotorShield.h>
+#include "utility/Adafruit_PWMServoDriver.h"
 
 /*   CONSTANTS                                                    */
 #define LED_TURN_ON_TIMEOUT  1000       //Timeout for LED power time (defines how long the LED stays powered on) in milliseconds
@@ -28,13 +13,23 @@
 #define ETX "\x03"                      //ASCII-Code 03, text representation of the ETX code
 #define RS  "$"                         //Used as RS code
 
+ /*   WARNING, ERROR AND STATUS CODES                              */
+//STATUS
+#define MSG_METHOD_SUCCESS 0                      //Code which is used when an operation terminated  successfully
+//WARNINGS
+#define WRG_NO_SERIAL_DATA_AVAILABLE 250            //Code indicates that no new data is available at the serial input buffer
+//ERRORS
+#define ERR_SERIAL_IN_COMMAND_NOT_TERMINATED -1   //Code is used when a serial input commands' last char is not a '#' 
+
 const int stepsPerRevolution = 200;  // change this to fit the number of steps per revolution
-// for your motor
+// Create the motor shield object with the default I2C address
+Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
+// Or, create it with a different I2C address (say for stacking)
+// Adafruit_MotorShield AFMS = Adafruit_MotorShield(0x61); 
 
-// initialize the stepper library on pins 8 through 11:
-Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
-
-int stepCount = 0;         // number of steps the motor has taken
+// Connect a stepper motor with 200 steps per revolution (1.8 degree)
+// to motor port #2 (M3 and M4)
+Adafruit_StepperMotor *myMotor = AFMS.getStepper(200, 2);
 
 
 
@@ -50,13 +45,15 @@ void setup(){
   pinMode(LED_PIN, OUTPUT);
   //setup serial pin
   Serial.begin(SERIAL_BAUDRATE);
+
+    Serial.println("Stepper test!");
+
+  AFMS.begin();  // create with the default frequency 1.6KHz
+  //AFMS.begin(1000);  // OR with a different frequency, say 1KHz
+  
+  myMotor->setSpeed(10);  // 10 rpm 
 }
 
-
-void setup() {
-  // initialize the serial port:
-  Serial.begin(9600);
-}
 
 void loop() {
 	String command = "";  //Used to store the latest received command
@@ -66,11 +63,12 @@ void loop() {
   if(serialResult == MSG_METHOD_SUCCESS){
     if(command == "1#"){//Request for sending weather data via Serial Interface
                         //For demonstration purposes this only writes dummy data
-        RotateStepperMotorRight();
+         myMotor->step(100, FORWARD, SINGLE); 
+  
     }
-	else if(command == "1#")
+	else if(command == "2#")
 	{
-	RotateStepperMotorLeft();
+	myMotor->step(100, BACKWARD, SINGLE); 
 	}
   }
   
@@ -86,6 +84,7 @@ void loop() {
       delay(2000);
     }
   }
+}
 
   int readSerialInputCommand(String *command){
   
@@ -111,25 +110,5 @@ void loop() {
   return operationStatus;
 }
 
-void RotateStepperMotorRight(){
-  // step one step:
-  myStepper.step(10);
-  Serial.print("steps:" );
-  //Serial.println(stepCount);
-  //stepCount++;
- // delay(500);
-}
-
-void RotateStepperMotorLeft(){
-  // step one step:
-  myStepper.step(-10);
-  Serial.print("steps:" );
-  //Serial.println(stepCount);
-  //stepCount++;
- // delay(500);
-}
-
-
-  
-}
+ 
 

@@ -64,15 +64,21 @@ namespace RampantSlug.ServerLibrary.Hardware.Arduino
             if (arduinoBoard.IsOpen)
             {
                 // Switch on the string that is sent through
+                try
+                {
+                    if (string.Equals(tempControllerString, "Right"))
+                    {
+                        arduinoBoard.Write("1#");
+                    }
 
-                if (string.Equals(tempControllerString, "Right"))
-                {
-                    arduinoBoard.Write("1#");
+                    else if (string.Equals(tempControllerString, "Left"))
+                    {
+                        arduinoBoard.Write("2#");
+                    }
                 }
-                
-                else if (string.Equals(tempControllerString, "Left"))
+                catch (System.IO.IOException ex)
                 {
-                    arduinoBoard.Write("2#");
+                    _logManager.LogTestMessage("Error: Arduino is not connected");
                 }
             }
             else
