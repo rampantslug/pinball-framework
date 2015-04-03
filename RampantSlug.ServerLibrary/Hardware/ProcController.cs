@@ -31,13 +31,18 @@ namespace RampantSlug.ServerLibrary.Hardware
 
         public bool Setup()
         {
-            // TODO: Push configuration data to PROC board
+            
             _logManager = RsLogManager.GetCurrent;
 
             try
             {
                 _proc = new ProcDevice(_logManager);
                 _proc.reset(1);
+                ProcessConfig();
+
+
+
+
                 return true;
             }
             catch (Exception ex)
@@ -47,6 +52,13 @@ namespace RampantSlug.ServerLibrary.Hardware
                 return false;
             }
         }
+
+        public int parse_matrix_num(string num)
+        {
+            string[] cr_list = num.Split('/');
+            return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
+        }
+
 
         public void Start()
         {
@@ -61,6 +73,82 @@ namespace RampantSlug.ServerLibrary.Hardware
         }
 
 
+        public void ProcessConfig()
+        {
+
+            // TODO: Push configuration data to PROC board
+            // Get this from config file and process it
+
+            var switch1 = (ushort)parse_matrix_num("0/0");
+            var switch2 = (ushort)parse_matrix_num("0/1");
+            var switch3 = (ushort)parse_matrix_num("0/2");
+            var switch4 = (ushort)parse_matrix_num("0/3");
+
+            //
+            // switch1
+            //
+            _proc.switch_update_rule(switch1,
+                    EventType.SwitchClosedDebounced,
+                    new SwitchRule { NotifyHost = true, ReloadActive = false },
+                    null,
+                    false
+                    );
+            _proc.switch_update_rule(switch1,
+                EventType.SwitchOpenDebounced,
+                new SwitchRule { NotifyHost = true, ReloadActive = false },
+                null,
+                false
+                );
+
+            // 
+            // switch2
+            //
+            _proc.switch_update_rule(switch2,
+                    EventType.SwitchClosedDebounced,
+                    new SwitchRule { NotifyHost = true, ReloadActive = false },
+                    null,
+                    false
+                    );
+            _proc.switch_update_rule(switch2,
+                EventType.SwitchOpenDebounced,
+                new SwitchRule { NotifyHost = true, ReloadActive = false },
+                null,
+                false
+                );
+
+            //
+            // switch3
+            //
+            _proc.switch_update_rule(switch3,
+                    EventType.SwitchClosedDebounced,
+                    new SwitchRule { NotifyHost = true, ReloadActive = false },
+                    null,
+                    false
+                    );
+            _proc.switch_update_rule(switch3,
+                EventType.SwitchOpenDebounced,
+                new SwitchRule { NotifyHost = true, ReloadActive = false },
+                null,
+                false
+                );
+
+            //
+            // switch4
+            //
+            _proc.switch_update_rule(switch4,
+                    EventType.SwitchClosedDebounced,
+                    new SwitchRule { NotifyHost = true, ReloadActive = false },
+                    null,
+                    false
+                    );
+            _proc.switch_update_rule(switch4,
+                EventType.SwitchOpenDebounced,
+                new SwitchRule { NotifyHost = true, ReloadActive = false },
+                null,
+                false
+                );
+
+        }
 
 
 
@@ -180,7 +268,7 @@ namespace RampantSlug.ServerLibrary.Hardware
                     _modes.handle_event(evt);
                 }*/
 
-                _logManager.LogTestMessage("Proc detected some event! Woohoo!");
+                _logManager.LogTestMessage("Proc detected some event! Woohoo! Switch? - " + evt.Value.ToString());
             }
         }
 

@@ -34,32 +34,12 @@ namespace RampantSlug.Common
             Servos = new List<Servo>();
             Leds = new List<Led>();
 
-
-         /*   PlayfieldImage = new BitmapImage();
-            PlayfieldImage.BeginInit();
-            PlayfieldImage.UriSource = new Uri("Configuration/playfield.png", UriKind.Relative);
-            PlayfieldImage.EndInit();*/
-            // PlayfieldImage.Source = logo;
         }
 
         private void ImageSerialize()
         {
             var blobData = ImageConversion.ConvertImageFileToString("Configuration/playfield.png");
             PlayfieldImage = blobData;
-            /*using (MemoryStream ms = new MemoryStream())
-            {
-                // This is a BitmapImage fetched from a dictionary.
-                BitmapImage image = new BitmapImage(new Uri("Configuration/playfield.png", UriKind.Relative));
-
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(image));
-                encoder.Save(ms);
-                ms.Flush();
-               // byte[] buffer = ms.GetBuffer();
-
-                // Here I'm adding the byte[] array to SerializationInfo
-                PlayfieldImage = ms.ToArray();
-            }*/
         }
 
 
@@ -74,7 +54,6 @@ namespace RampantSlug.Common
         public static Configuration FromJson(string json)
         {
             var configuration = JsonConvert.DeserializeObject<Configuration>(json);
-            // TODO: Move this out to be specific to PinbalServerDemo location. As Configuration exists on client also...
             configuration.ImageSerialize();
             return configuration;
         }

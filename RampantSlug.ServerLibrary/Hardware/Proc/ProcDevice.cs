@@ -8,11 +8,7 @@ namespace RampantSlug.ServerLibrary.Hardware.Proc
         public IntPtr ProcHandle;
         //public MachineType g_machineType;
         private static bool firstTime = true;
-       // private bool dmdConfigured = false;
-        //private int dmdMappingSize = 16;
-        //byte[] dmdMapping;
 
-        //byte[] testFrame = new byte[128 * 32];
 
         private bool swCoindoor = false;
 
@@ -31,7 +27,7 @@ namespace RampantSlug.ServerLibrary.Hardware.Proc
             Logger = logger;
             Logger.LogTestMessage("Initializing P-ROC device...");
 
-            // TODO: Determine if we need to support anything other than PDB Machines at the moment
+            // Only support Custom Machines. If we want to allow WPC etc... then need to move MachineType out to variable.
             ProcHandle = PinProc.PRCreate(MachineType.PDB);
             if (ProcHandle == IntPtr.Zero)
             {
@@ -44,18 +40,6 @@ namespace RampantSlug.ServerLibrary.Hardware.Proc
                 throw new InvalidOperationException("Failed to connect to PROC");
 
             } // TODO: Who is catching this error??
-
-
-     
-
-           /* dmdMapping = new byte[dmdMappingSize];
-            for (int i = 0; i < dmdMappingSize; i++)
-                dmdMapping[i] = (byte)i;*/
-
-           // g_machineType = machineType;
-
-            //dmdConfigured = false;
-
            
         }
 
