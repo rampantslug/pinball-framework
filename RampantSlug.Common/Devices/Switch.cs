@@ -8,7 +8,6 @@ namespace RampantSlug.Common.Devices
 {
     public class Switch: Device, IDevice
     {
-        
 
         // TODO: This needs to be changed to enum of switch types
         public string SwitchType { get; set; }
