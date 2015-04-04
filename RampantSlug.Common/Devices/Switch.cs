@@ -21,5 +21,16 @@ namespace RampantSlug.Common.Devices
 
         }
 
+
+        public override void UpdateNumberFromAddress()
+        {
+            Number = (ushort)parse_matrix_num(Address);
+        }
+
+        private static int parse_matrix_num(string num)
+        {
+            string[] cr_list = num.Split('/');
+            return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
+        }
     }
 }

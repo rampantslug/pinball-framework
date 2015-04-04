@@ -8,5 +8,9 @@ namespace RampantSlug.Common.Devices
 {
     public class Led : Device, IDevice
     {
+        public override void UpdateNumberFromAddress()
+        {
+        
+        }
     }
 }

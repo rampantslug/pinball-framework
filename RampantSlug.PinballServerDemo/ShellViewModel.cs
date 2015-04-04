@@ -3,15 +3,18 @@ using System.ComponentModel;
 using Caliburn.Micro;
 using RampantSlug.Common.Devices;
 using RampantSlug.ServerLibrary;
+using RampantSlug.ServerLibrary.Events;
 using RampantSlug.ServerLibrary.Hardware;
-using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.PinballServerDemo
 {
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell 
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IHandle<UpdateDisplayEvent>
     {
         private IGameController _gameController;
-        private BindableCollection<Switch> _switches; 
+        private BindableCollection<Switch> _switches;
+        private int _playerScore;
+        // private GameLibraryBootstrapper _gameLibrary;
+        private IEventAggregator _eventAggregator;
 
         public string TextToTransmit { get; set; }
 
@@ -25,6 +28,20 @@ namespace RampantSlug.PinballServerDemo
             {
                 _switches = value;
                 NotifyOfPropertyChange(() => Switches);
+            }
+        }
+
+
+        public int PlayerScore
+        {
+            get
+            {
+                return _playerScore;
+            }
+            set
+            {
+                _playerScore = value;
+                NotifyOfPropertyChange(() => PlayerScore);
             }
         }
 
@@ -65,15 +82,29 @@ namespace RampantSlug.PinballServerDemo
         {
             base.OnViewLoaded(view);
 
+
+
             _gameController = IoC.Get<IGameController>();
-            _gameController.ConnectToHardware();
+            if (_gameController.Configure())
+            {
+                _gameController.ConnectToHardware();
+            }
+
+            _eventAggregator = IoC.Get<IEventAggregator>();
+            _eventAggregator.Subscribe(this);
         }
 
         protected override void OnDeactivate(bool close)
         {
-            _gameController.CloseHardware();
+            _gameController.DisconnectFromHardware();
+
             Exit();
             base.OnDeactivate(close);
+        }
+
+        public void Handle(UpdateDisplayEvent message)
+        {
+            PlayerScore += message.PlayerScore;
         }
     }
 }

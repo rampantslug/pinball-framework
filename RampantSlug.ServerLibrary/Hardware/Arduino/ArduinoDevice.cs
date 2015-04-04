@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO.Ports;
+using RampantSlug.Common.Logging;
 using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.ServerLibrary.Hardware.Arduino

@@ -1,16 +1,22 @@
 ﻿using RampantSlug.ServerLibrary.Hardware.Proc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using MassTransit.Logging;
+using RampantSlug.Common.Logging;
+using RampantSlug.ServerLibrary.Events;
 using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.ServerLibrary.Hardware
 {
-    public class ProcController : IHardwareController
+    public class ProcController : IProcController
     {
+
+        private BackgroundWorker worker;
 
         /// <summary>
         /// Run loop exit condition. This continues until true
@@ -23,15 +29,30 @@ namespace RampantSlug.ServerLibrary.Hardware
         protected IProcDevice _proc;
 
         private RsLogManager _logManager;
+        private IEventAggregator _eventAggregator;
+
+        public IGameController GameController { get; private set; }
 
 
         public ProcController()
         {
+            GameController = IoC.Get<IGameController>();
+            _eventAggregator = IoC.Get<IEventAggregator>();
+
         }
 
-        public bool Setup()
+   
+        private void ProcWorkerThread(object sender, DoWorkEventArgs e)
         {
-            
+
+            System.Threading.Thread.CurrentThread.Name = "p-roc thread";
+
+            //            _procController = IoC.Get<IProcController>();
+            //            if (_procController.Setup())
+            //            {
+            //                _procController.Start();
+            //           }
+
             _logManager = RsLogManager.GetCurrent;
 
             try
@@ -40,24 +61,26 @@ namespace RampantSlug.ServerLibrary.Hardware
                 _proc.reset(1);
                 ProcessConfig();
 
-
-
-
-                return true;
             }
             catch (Exception ex)
             {
                 RsLogManager.GetCurrent.LogTestMessage("FATAL ERROR: Could not load P-ROC device.");
                 RsLogManager.GetCurrent.LogTestMessage(ex.Message);
-                return false;
             }
         }
 
-        public int parse_matrix_num(string num)
+        public bool Setup()
         {
-            string[] cr_list = num.Split('/');
-            return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
+            
+            //Put this onto a different thread...
+            worker = new BackgroundWorker();
+            worker.WorkerSupportsCancellation = false;
+            worker.DoWork += new DoWorkEventHandler(ProcWorkerThread);
+            worker.RunWorkerAsync();
+
+            return true;
         }
+
 
 
         public void Start()
@@ -75,79 +98,26 @@ namespace RampantSlug.ServerLibrary.Hardware
 
         public void ProcessConfig()
         {
-
-            // TODO: Push configuration data to PROC board
-            // Get this from config file and process it
-
-            var switch1 = (ushort)parse_matrix_num("0/0");
-            var switch2 = (ushort)parse_matrix_num("0/1");
-            var switch3 = (ushort)parse_matrix_num("0/2");
-            var switch4 = (ushort)parse_matrix_num("0/3");
-
-            //
-            // switch1
-            //
-            _proc.switch_update_rule(switch1,
+            // Add switches to PROC
+            foreach (var gameSwitch in GameController.Switches.Values)
+            {
+                _proc.switch_update_rule(gameSwitch.Number,
                     EventType.SwitchClosedDebounced,
                     new SwitchRule { NotifyHost = true, ReloadActive = false },
                     null,
                     false
                     );
-            _proc.switch_update_rule(switch1,
-                EventType.SwitchOpenDebounced,
-                new SwitchRule { NotifyHost = true, ReloadActive = false },
-                null,
-                false
-                );
-
-            // 
-            // switch2
-            //
-            _proc.switch_update_rule(switch2,
-                    EventType.SwitchClosedDebounced,
+                _proc.switch_update_rule(gameSwitch.Number,
+                    EventType.SwitchOpenDebounced,
                     new SwitchRule { NotifyHost = true, ReloadActive = false },
                     null,
                     false
                     );
-            _proc.switch_update_rule(switch2,
-                EventType.SwitchOpenDebounced,
-                new SwitchRule { NotifyHost = true, ReloadActive = false },
-                null,
-                false
-                );
+            } 
+   
+            // Add coils to PROC
 
-            //
-            // switch3
-            //
-            _proc.switch_update_rule(switch3,
-                    EventType.SwitchClosedDebounced,
-                    new SwitchRule { NotifyHost = true, ReloadActive = false },
-                    null,
-                    false
-                    );
-            _proc.switch_update_rule(switch3,
-                EventType.SwitchOpenDebounced,
-                new SwitchRule { NotifyHost = true, ReloadActive = false },
-                null,
-                false
-                );
-
-            //
-            // switch4
-            //
-            _proc.switch_update_rule(switch4,
-                    EventType.SwitchClosedDebounced,
-                    new SwitchRule { NotifyHost = true, ReloadActive = false },
-                    null,
-                    false
-                    );
-            _proc.switch_update_rule(switch4,
-                EventType.SwitchOpenDebounced,
-                new SwitchRule { NotifyHost = true, ReloadActive = false },
-                null,
-                false
-                );
-
+            // TODO: Complete configuration stuffs...
         }
 
 
@@ -259,16 +229,25 @@ namespace RampantSlug.ServerLibrary.Hardware
             else
             {
                // Generate Switch event or update switch state
-           /*     var sw = _switches[(ushort)evt.Value];
-                bool recvd_state = evt.Type == EventType.SwitchClosedDebounced;
+                var sw = GameController.Switches[(ushort)evt.Value];
+               
+                // Need to update the state of the switch before publishing...
 
+                _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent{UpdatedSwitch = sw});
+
+                // TODO: Trigger modes n stuff based on switch...
+                // NOTE: However that this will push up to a higher level where modes will be dealt with elsewhere
+                // To allow for mode triggering to occur from switch events sent via Client
+
+                /*bool recvd_state = evt.Type == EventType.SwitchClosedDebounced;
                 if (!sw.IsState(recvd_state))
                 {
                     sw.SetState(recvd_state);
                     _modes.handle_event(evt);
                 }*/
 
-                _logManager.LogTestMessage("Proc detected some event! Woohoo! Switch? - " + evt.Value.ToString());
+
+                
             }
         }
 

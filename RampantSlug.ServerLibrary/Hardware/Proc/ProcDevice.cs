@@ -1,4 +1,5 @@
 ﻿using System;
+using RampantSlug.Common.Logging;
 using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.ServerLibrary.Hardware.Proc

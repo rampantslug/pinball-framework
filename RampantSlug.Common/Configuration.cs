@@ -36,7 +36,7 @@ namespace RampantSlug.Common
 
         }
 
-        private void ImageSerialize()
+        public void ImageSerialize()
         {
             var blobData = ImageConversion.ConvertImageFileToString("Configuration/playfield.png");
             PlayfieldImage = blobData;

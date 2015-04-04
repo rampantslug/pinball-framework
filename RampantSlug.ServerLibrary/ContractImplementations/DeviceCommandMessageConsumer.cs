@@ -14,6 +14,10 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
     {
         public void Consume(IConsumeContext<IDeviceCommandMessage> message)
         {
+           
+            // Determine what type of Device it is and raise appropriate Update event for GameController to receive
+            
+            
             var eventAggregator = IoC.Get<IEventAggregator>();
 
             eventAggregator.PublishOnUIThread(new DeviceCommandResult

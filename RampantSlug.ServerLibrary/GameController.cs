@@ -2,6 +2,7 @@
 using RampantSlug.Common.Devices;
 using RampantSlug.ServerLibrary;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using RampantSlug.Common;
+using RampantSlug.Common.Logging;
 using RampantSlug.ServerLibrary.Events;
 using RampantSlug.ServerLibrary.Hardware;
 using RampantSlug.ServerLibrary.Hardware.Arduino;
@@ -18,63 +20,106 @@ using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class GameController : IGameController, IHandle<DeviceMessageResult>, IHandle<RequestConfigResult>, IHandle<DeviceCommandResult>
+    public class GameController : IGameController, IHandle<DeviceMessageResult>, IHandle<RequestConfigResult>, IHandle<DeviceCommandResult>, IHandle<SwitchUpdateEvent>
     {
-        private AppBootstrapper _bootstrapper;       
+        // Services used by GameController  
         private IEventAggregator _eventAggregator;
-        private Configuration _gameConfiguration;
-        private IServerBusController _busController;
+        public IServerBusController ServerBusController { get; private set; }
 
-
-        private static BackgroundWorker worker;
-
-        private static IHardwareController _procController;
-
-
-        public List<Switch> _switches;
-        public List<Coil> _coils;
-        private ArduinoDevice _tempArduino;
-
-        public IServerBusController ServerBusController 
+        public AttrCollection<ushort, string, Switch> Switches
         {
-            get
-            {
-                return _busController;
-            }
+            get { return _switches; }
+            set { _switches = value; }
         }
+
+
+        // Hardware Controllers
+        private IProcController _procController;
+        private IArduinoController _arduinoController;
+
+
+        // Devices used by Pinball Hardware
+        private AttrCollection<ushort, string, Switch> _switches;
+        private AttrCollection<ushort, string, Coil> _coils;
+        private DeviceCollection<Motor> _motors;
 
         public GameController() 
         {
-            _switches = new List<Switch>();
-            _bootstrapper = new AppBootstrapper();
+          //  _bootstrapper = new AppBootstrapper();
+        }
 
-            _busController = IoC.Get<IServerBusController>();
-            _busController.Start();
+
+  
+
+
+
+
+      
+
+        public bool Configure()
+        {
+            ServerBusController = IoC.Get<IServerBusController>();
+            ServerBusController.Start();
 
             _eventAggregator = IoC.Get<IEventAggregator>();
             _eventAggregator.Subscribe(this);
 
-           // _gameConfiguration = new Configuration();
-           
-            var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+            _procController = IoC.Get<IProcController>();
+            _arduinoController = IoC.Get<IArduinoController>();
 
-            _gameConfiguration = Configuration.FromFile(filePath + @"\Configuration\machine.json");
-            _switches = _gameConfiguration.Switches;
-            _coils = _gameConfiguration.Coils;
+            try
+            {
+                // Retrieve saved configuration information
+                var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+                var gameConfiguration = Configuration.FromFile(filePath + @"\Configuration\machine.json");
 
-            
+                // Update local information
+                _switches = DeviceCollection<Switch>.CreateCollection(gameConfiguration.Switches, RsLogManager.GetCurrent);
+                _coils = DeviceCollection<Coil>.CreateCollection(gameConfiguration.Coils, RsLogManager.GetCurrent);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Error Processing Configuration " + ex.Message);
+                return false;
+            }
         }
 
+        public void ConnectToHardware()
+        {
+            // Put this onto a different thread...
+
+//            worker = new BackgroundWorker();
+//            worker.WorkerSupportsCancellation = false;
+//            worker.DoWork += new DoWorkEventHandler(ProcWorkerThread);
+//            worker.RunWorkerAsync();
+        }
+
+        public void DisconnectFromHardware()
+        {
+            if(_procController != null)
+                _procController.Close();
+
+            if (_arduinoController != null)
+                _arduinoController.Close();
+        }
+
+
+
+       
+
+        #region Respond to EventAggregator Events
 
         public void Handle(DeviceMessageResult message)
         {
             var device = message.Device;
             var switchDevice = device as Switch;
-            if(switchDevice != null)
+            if (switchDevice != null)
             {
-                _switches.Add(switchDevice);
+                //_switches.Add(switchDevice);
                 // TODO: This maybe needs to be done in the Device Message Consumer?
-                _gameConfiguration.Switches.Add(switchDevice);
+                //_gameConfiguration.Switches.Add(switchDevice);
             }
 
             RsLogManager.GetCurrent.LogTestMessage("Received device settings message from client");
@@ -82,53 +127,57 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(DeviceCommandResult message)
         {
-            if (_tempArduino == null)
-            {
-                _tempArduino = new ArduinoDevice();
-            }
-            RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
-            _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
+            // Set the device into the desired state
+           // message.Device
+
+
+            // If appropriate hardware is connected then also drive the hardware to that state
+
+           // if (_tempArduino == null)
+          //  {
+           //     _tempArduino = new ArduinoDevice();
+          //  }
+           // RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
+           // _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
         }
 
 
         public void Handle(RequestConfigResult message)
         {
-            _busController.SendConfigurationMessage(_gameConfiguration);
+            var gameConfiguration = new Configuration();
+            gameConfiguration.ImageSerialize();
+            gameConfiguration.Switches = _switches.Values;
+            gameConfiguration.Coils = _coils.Values;
+            //gameConfiguration.StepperMotors = _motors.Values;
+
+            ServerBusController.SendConfigurationMessage(gameConfiguration);
         }
+
+        public void Handle(SwitchUpdateEvent message)
+        {
+            // Update local state of switch...
+            var sw = message.UpdatedSwitch;
+            if (sw != null)
+            {
+                _switches.Update(sw.Number, sw);
+                RsLogManager.GetCurrent.LogTestMessage("Switch Event for: " + sw.Name);
+
+                // Update score
+                // TODO: Clean this up and come up with a better solution
+                _eventAggregator.PublishOnUIThread(new UpdateDisplayEvent{PlayerScore = 10});
+            }
+        }
+
+
+        #endregion
+
 
         public void SaveConfigurationToFile()
         {
-           var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
-           _gameConfiguration.ToFile(filePath);
+            var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+            // _gameConfiguration.ToFile(filePath);
         }
 
-        public void ConnectToHardware()
-        {
-            // Put this onto a different thread...
-
-            worker = new BackgroundWorker();
-            worker.WorkerSupportsCancellation = false;
-            worker.DoWork += new DoWorkEventHandler(ProcWorkerThread);
-            worker.RunWorkerAsync();
-        }
-
-        public void CloseHardware()
-        {
-            _procController.Close();
-        }
-
-
-
-        private static void ProcWorkerThread(object sender, DoWorkEventArgs e)
-        {
-
-            System.Threading.Thread.CurrentThread.Name = "p-roc thread";
-
-            _procController = IoC.Get<IHardwareController>();
-            if (_procController.Setup())
-            {
-                _procController.Start();
-            }
-        }
+       
     }
 }

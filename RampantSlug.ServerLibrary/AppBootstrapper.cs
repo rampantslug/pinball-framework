@@ -15,12 +15,15 @@ namespace RampantSlug.ServerLibrary
         public class AppBootstrapper : BootstrapperBase
         {
             protected CompositionContainer Container;
+            public IGameController GameController { get; private set; }
 
             public AppBootstrapper()
             {
                 Initialize();
 
             }
+
+            
 
             protected override void Configure()
             {
@@ -30,9 +33,15 @@ namespace RampantSlug.ServerLibrary
                 //var window = new WindowManager();
 
                 //batch.AddExportedValue<IWindowManager>(window);
+
+                var gameController = new GameController();
+                GameController = gameController;
+                batch.AddExportedValue<IGameController>(gameController);
+
                 batch.AddExportedValue<IEventAggregator>(new EventAggregator());
                 batch.AddExportedValue<IServerBusController>(new ServerBusController());
-                batch.AddExportedValue<IHardwareController>(new ProcController());
+                batch.AddExportedValue<IProcController>(new ProcController());
+                batch.AddExportedValue<IArduinoController>(new ArduinoController());
 
                 batch.AddExportedValue(Container);
 

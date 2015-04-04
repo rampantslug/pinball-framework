@@ -8,7 +8,10 @@ namespace RampantSlug.Common.Devices
 {
     public interface IDevice
     {
-        string Description { get; set; }
+        ushort Number { get; }
+        string Address { get; set; }
         string Name { get; set; }
+
+        void UpdateNumberFromAddress();
     }
 }

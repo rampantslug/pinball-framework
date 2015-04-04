@@ -5,19 +5,32 @@
         Height="200"
         Title="Server Demo"
         >
-    <Grid>
-        <Grid.ColumnDefinitions>
+    <Grid
+        Background="Black"
+        >
+        <!--      <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+         <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
+
         <TextBlock 
+            x:Name="PlayerScore"
+            FontFamily="Trajan Pro"
+            FontSize="48"
+            Foreground="Azure"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            />
+
+
+        <!--  <TextBlock 
             Grid.ColumnSpan="2"
             Grid.Row="0"
             Text="Server Window"                  
@@ -99,7 +112,7 @@
         </ListView>
         
        
-        
+        -->
     </Grid>
 
 </Window>

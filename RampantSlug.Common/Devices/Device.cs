@@ -10,16 +10,17 @@ namespace RampantSlug.Common.Devices
     /// <summary>
     /// Base class for every type of Device found in a Pinball Machine
     /// </summary>
-    public class Device : IDevice
+    public abstract class Device : IDevice
     {
         #region Properties
 
         [JsonIgnore]
-        public int Number { get; set; }
+        public ushort Number { get; set; }
 
         public string Address { get; set; }
 
         public string Name { get; set; }
+       
 
         [JsonIgnore]
         public DateTime LastChangeTimeStamp { get; set; }
@@ -28,14 +29,16 @@ namespace RampantSlug.Common.Devices
         public string WiringColors { get; set; }
 
         #endregion
-        
-    
-        
-        
-        
-        
-        
-        public string Description { get; set; }
+
+        protected Device()
+        {
+
+        }
+
+
+
+
+        public abstract void UpdateNumberFromAddress();
 
     }
 }

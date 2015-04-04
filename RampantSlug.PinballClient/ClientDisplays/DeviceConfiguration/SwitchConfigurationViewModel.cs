@@ -18,7 +18,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
 
         #region Properties
 
-        public int Number
+        public ushort Number
         {
             get { return _switch.Number; }
             set

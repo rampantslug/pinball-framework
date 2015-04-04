@@ -6,6 +6,7 @@ namespace RampantSlug.PinballServerDemo {
 
     public class AppBootstrapper : BootstrapperBase {
         SimpleContainer container;
+        private GameLibraryBootstrapper gameLibrary;
 
         public AppBootstrapper() {
             Initialize();
@@ -16,7 +17,8 @@ namespace RampantSlug.PinballServerDemo {
 
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
-            container.Singleton<IGameController, GameController>();
+            // Create Game Library
+            gameLibrary = new GameLibraryBootstrapper(container);
             container.PerRequest<IShell, ShellViewModel>();
         }
 

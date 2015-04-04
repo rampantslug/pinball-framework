@@ -1,60 +1,54 @@
 ﻿{
     "Switches": [
         {
-            "Address": "01/01",
+            "Address": "0/0",
             "Name": "Ball Trough 1",
             "WiringColors": "Grey/Green"
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "01/02",
+            "Address": "0/1",
             "Name": "Ball Trough 2",
             "WiringColors": "Grey/Green"
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "01/03",
+            "Address": "0/2",
             "Name": "Ball Trough 3",
             "WiringColors": "Grey/Green"
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "02/01",
+            "Address": "0/3",
             "Name": "Left Flipper",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "02/02",
-            "Name": "Right Flipper",
             "WiringColors": "Grey/Green"
         }
     ],
     "Coils": [
         {
-            "Address": "01/01",
+            "Address": "01",
             "Name": "Pop Bumper 1",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "01/02",
+            "Address": "02",
             "Name": "Pop Bumper 2",
             "WiringColors": "Blue/Red"
         },
         {
-            "Address": "01/03",
+            "Address": "03",
             "Name": "Pop Bumper 3",
             "WiringColors": "Blue/Black"
         }
     ],
      "Servos": [
         {
-            "Address": "05/05",
+            "Address": "4",
             "Name": "Wall Gate",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "05/06",
+            "Address": "5",
             "Name": "Diverter 1",
             "WiringColors": "Blue/Red"
         }
@@ -62,19 +56,19 @@
     
     "StepperMotors": [
         {
-            "Address": "06/01",
+            "Address": "6",
             "Name": "Map Tilt",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "06/02",
+            "Address": "7",
             "Name": "Tree",
             "WiringColors": "Blue/Red"
         }
     ],
    "DCMotors": [
         {
-            "Address": "07/01",
+            "Address": "8",
             "Name": "Lift",
             "WiringColors": "Blue/White"
         }

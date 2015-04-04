@@ -1,13 +1,10 @@
-﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Caliburn.Micro;
+using RampantSlug.Common.Logging;
 
 namespace RampantSlug.ServerLibrary.Logging
 {
-    public class RsLogManager
+    public class RsLogManager : IRsLogManager
     {
         //public static ILog GetCurrent
 
