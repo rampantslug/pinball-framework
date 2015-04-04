@@ -12,7 +12,7 @@
 
 namespace RampantSlug.ServerLibrary
     {
-        public class AppBootstrapper : BootstrapperBase
+       /* public class AppBootstrapper : BootstrapperBase
         {
             protected CompositionContainer Container;
             public IGameController GameController { get; private set; }
@@ -77,5 +77,5 @@ namespace RampantSlug.ServerLibrary
             }
 
        
-        }
+        }*/
     }

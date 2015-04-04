@@ -61,6 +61,8 @@ namespace RampantSlug.ServerLibrary.Hardware
                 _proc.reset(1);
                 ProcessConfig();
 
+                Start();
+
             }
             catch (Exception ex)
             {

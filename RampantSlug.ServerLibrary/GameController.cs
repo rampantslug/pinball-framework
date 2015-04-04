@@ -88,12 +88,11 @@ namespace RampantSlug.ServerLibrary
 
         public void ConnectToHardware()
         {
-            // Put this onto a different thread...
 
-//            worker = new BackgroundWorker();
-//            worker.WorkerSupportsCancellation = false;
-//            worker.DoWork += new DoWorkEventHandler(ProcWorkerThread);
-//            worker.RunWorkerAsync();
+            //TODO: Need to rename this to a Connect method??
+            // And below to a disconnect instead of Close()?
+            _procController.Setup();
+
         }
 
         public void DisconnectFromHardware()
