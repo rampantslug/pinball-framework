@@ -16,7 +16,7 @@
                     <Setter Property="FontWeight" Value="Normal" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="FontWeight" Value="Bold" />
+                           <!-- <Setter Property="FontWeight" Value="Bold" />-->
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -31,7 +31,16 @@
                     >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding DeviceTypeName}" />
-                    </StackPanel>
+                        <StackPanel.ContextMenu >
+                            <ContextMenu>
+                                <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Add Device" 
+                                    cal:Message.Attach="AddDevice()"                                   
+                                    />
+                        </ContextMenu>
+                    </StackPanel.ContextMenu>
+                </StackPanel>
                 </HierarchicalDataTemplate>
            <!-- Switches -->
             <DataTemplate DataType="{x:Type DeviceTypes:SwitchViewModel}">
@@ -40,8 +49,24 @@
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
 
-                        <TextBlock Text="{Binding SwitchName}" />
-                        <StackPanel.ContextMenu >
+                        <TextBlock 
+                            Text="{Binding SwitchName}" />
+ 
+                        <Button
+                            Margin="10,0,10,0"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Content="{Binding SwitchState}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            ></Button>
+                        
+                       <!-- <TextBlock
+                        Margin="10,0,10,0"
+                      
+                            Text="{Binding SwitchState}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            />-->
+
+                    <StackPanel.ContextMenu >
                             <ContextMenu>
                                 <MenuItem 
                                     FontWeight="Bold" 

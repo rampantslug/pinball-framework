@@ -15,9 +15,9 @@ namespace RampantSlug.Common.Devices
         public string State { get; set; }
 
 
-        public Switch() 
+        public Switch()
         {
-
+            State = "Open";
         }
 
 

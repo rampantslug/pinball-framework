@@ -17,5 +17,16 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
         {
             get { return _switch.Name; }
         }
+
+        public string SwitchState
+        {
+            get { return _switch.State; }
+        }
+
+        public void ActivateDeviceState()
+        {
+           // var eventAggregator = IoC.Get<IEventAggregator>();
+            //eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
+        }
     }
 }

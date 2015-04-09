@@ -50,11 +50,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.LogMessages
         {
             while(Events.Count >= 200)
             {
-                Events.RemoveAt(0);
+                // Remove from bottom if overflowing
+                Events.RemoveAt(Events.Count - 1);
             }
 
-            Events.Add(message);
-            //ResponseText = string.Format("Received Message: {0} at {1}", message.Message, message.Timestamp);
+            // Place most recent message at the top
+            Events.Insert(0, message);
         }
     }
 }
