@@ -43,7 +43,7 @@ namespace RampantSlug.ServerLibrary
 
         public void SendConfigurationMessage(Configuration configuration)
         {
-            var message = new ConfigMessage() { MachineConfiguration = configuration };
+            var message = new ConfigMessage() { MachineConfiguration = configuration, Timestamp = DateTime.Now };
             _bus.Publish<ConfigMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
