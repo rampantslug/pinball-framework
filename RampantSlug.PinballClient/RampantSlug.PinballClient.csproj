@@ -140,7 +140,6 @@
     </Compile>
     <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\SwitchViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\TempConfig.cs" />
     <Page Include="ClientDisplays\DeviceConfiguration\SwitchConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -217,6 +216,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DeviceResources\" />
     <Folder Include="Model\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />

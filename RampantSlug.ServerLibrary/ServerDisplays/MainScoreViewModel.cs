@@ -8,11 +8,24 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.ServerLibrary.ServerDisplays
 {
+    [Export(typeof(IDisplayMainScore))]
+    public sealed class MainScoreViewModel : Screen, IDisplayMainScore
 
-    public sealed class MainScoreViewModel : Screen
     {
+        private int _playerScore;
 
-        public int PlayerScore { get; set; }
+        public int PlayerScore
+        {
+            get
+            {
+                return _playerScore;
+            }
+            set
+            {
+                _playerScore = value;
+                NotifyOfPropertyChange(() => PlayerScore);
+            }
+        }
 
         public MainScoreViewModel()
         {

@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace RampantSlug.PinballServerDemo {
     using System;
     using System.Collections.Generic;
@@ -40,6 +42,14 @@ namespace RampantSlug.PinballServerDemo {
 
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) {
             DisplayRootViewFor<IShell>();
+        }
+
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            return new[] {
+                Assembly.GetExecutingAssembly(), 
+                Assembly.LoadFrom("RampantSlug.ServerLibrary.dll")
+            };
         }
     }
 }

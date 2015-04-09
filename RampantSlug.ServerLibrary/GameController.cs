@@ -17,6 +17,7 @@ using RampantSlug.ServerLibrary.Hardware;
 using RampantSlug.ServerLibrary.Hardware.Arduino;
 using RampantSlug.ServerLibrary.Hardware.Proc;
 using RampantSlug.ServerLibrary.Logging;
+using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
 {
@@ -41,11 +42,17 @@ namespace RampantSlug.ServerLibrary
         // Devices used by Pinball Hardware
         private AttrCollection<ushort, string, Switch> _switches;
         private AttrCollection<ushort, string, Coil> _coils;
-        private DeviceCollection<Motor> _motors;
+        private AttrCollection<ushort, string, StepperMotor> _stepperMotors;
+
+
+        // Display Elements
+        public IDisplayBackgroundVideo BackgroundVideo { get; private set; }
+
+        public IDisplayMainScore MainScore { get; private set; }
 
         public GameController() 
         {
-          //  _bootstrapper = new AppBootstrapper();
+
         }
 
 
@@ -67,6 +74,9 @@ namespace RampantSlug.ServerLibrary
             _procController = IoC.Get<IProcController>();
             _arduinoController = IoC.Get<IArduinoController>();
 
+            BackgroundVideo = IoC.Get<IDisplayBackgroundVideo>();
+            MainScore = IoC.Get<IDisplayMainScore>();
+
             try
             {
                 // Retrieve saved configuration information
@@ -76,6 +86,7 @@ namespace RampantSlug.ServerLibrary
                 // Update local information
                 _switches = DeviceCollection<Switch>.CreateCollection(gameConfiguration.Switches, RsLogManager.GetCurrent);
                 _coils = DeviceCollection<Coil>.CreateCollection(gameConfiguration.Coils, RsLogManager.GetCurrent);
+                _stepperMotors = DeviceCollection<StepperMotor>.CreateCollection(gameConfiguration.StepperMotors, RsLogManager.GetCurrent);
 
                 return true;
             }
@@ -92,6 +103,8 @@ namespace RampantSlug.ServerLibrary
             //TODO: Need to rename this to a Connect method??
             // And below to a disconnect instead of Close()?
             _procController.Setup();
+
+            MainScore.PlayerScore += 10;
 
         }
 
@@ -138,6 +151,8 @@ namespace RampantSlug.ServerLibrary
           //  }
            // RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
            // _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
+
+            MainScore.PlayerScore += 10;
         }
 
 
@@ -147,7 +162,7 @@ namespace RampantSlug.ServerLibrary
             gameConfiguration.ImageSerialize();
             gameConfiguration.Switches = _switches.Values;
             gameConfiguration.Coils = _coils.Values;
-            //gameConfiguration.StepperMotors = _motors.Values;
+            gameConfiguration.StepperMotors = _stepperMotors.Values;
 
             ServerBusController.SendConfigurationMessage(gameConfiguration);
         }
@@ -163,7 +178,8 @@ namespace RampantSlug.ServerLibrary
 
                 // Update score
                 // TODO: Clean this up and come up with a better solution
-                _eventAggregator.PublishOnUIThread(new UpdateDisplayEvent{PlayerScore = 10});
+                //_eventAggregator.PublishOnUIThread(new UpdateDisplayEvent{PlayerScore = 10});
+                MainScore.PlayerScore += 10;
             }
         }
 
