@@ -9,6 +9,7 @@
     using System.Reflection;
     using RampantSlug.ServerLibrary.Hardware;
     using RampantSlug.ServerLibrary.Hardware.Proc;
+    using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
     {
@@ -25,6 +26,10 @@ namespace RampantSlug.ServerLibrary
                 container.Singleton<IProcController, ProcController>();
                 container.Singleton<IArduinoController, ArduinoController>();
                 container.Singleton<IGameController, GameController>();
+                
+                // Add Display elements
+                container.Singleton<IDisplayBackgroundVideo, BackgroundVideoViewModel>();
+                container.Singleton<IDisplayMainScore, MainScoreViewModel>();
             }   
         }
     }

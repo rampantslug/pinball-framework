@@ -2,10 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
-        >
+             >
     <Grid>
         <TextBlock 
-            x:Name="PlayerScore"/>
+            x:Name="PlayerScore"
+            FontFamily="Trajan Pro"
+            FontSize="48"
+            Foreground="Azure"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Visibility="Hidden"
+            />
 
     </Grid>
 </UserControl>
