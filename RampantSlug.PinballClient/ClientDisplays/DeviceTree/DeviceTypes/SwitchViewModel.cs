@@ -31,5 +31,16 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
             var busController = IoC.Get<IClientBusController>();
             busController.SendDeviceCommandMessage(Device, "ToggleOpenClosed");
         }
+
+        public string SwitchState
+        {
+            get { return _switch.State; }
+        }
+
+        public void ActivateDeviceState()
+        {
+           // var eventAggregator = IoC.Get<IEventAggregator>();
+            //eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
+        }
     }
 }
