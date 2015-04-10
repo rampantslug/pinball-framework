@@ -15,15 +15,23 @@ namespace RampantSlug.Common.Devices
         public string State { get; set; }
 
 
-        public Switch() 
+        public Switch()
         {
-
+            State = "Open";
         }
 
 
         public override void UpdateNumberFromAddress()
         {
             Number = (ushort)parse_matrix_num(Address);
+        }
+
+        public override bool IsDeviceActive
+        {
+            get
+            {
+                return string.Equals(State, "Open");
+            }
         }
 
         private static int parse_matrix_num(string num)

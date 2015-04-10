@@ -19,5 +19,7 @@ namespace RampantSlug.ServerLibrary
         void SendConfigurationMessage(Configuration configuration);
 
         void Stop() ;
+
+        void SendDeviceMessage(IDevice device);
     }
 }

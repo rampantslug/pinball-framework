@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
-using RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration;
+using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree;
 using RampantSlug.PinballClient.ClientDisplays.GameStatus;
 using RampantSlug.PinballClient.ClientDisplays.LogMessages;
@@ -38,7 +38,7 @@ namespace RampantSlug.PinballClient {
 
             // Add Client Displays
             batch.AddExportedValue<ILogMessages>(new LogMessagesViewModel());
-            batch.AddExportedValue<IDeviceConfiguration>(new DeviceConfigurationViewModel());
+            batch.AddExportedValue<IDeviceInformation>(new DeviceInformationViewModel());
             batch.AddExportedValue<ISwitchMatrix>(new SwitchMatrixViewModel());
             batch.AddExportedValue<IDeviceTree>(new DeviceTreeViewModel());
             batch.AddExportedValue<IGameStatus>(new GameStatusViewModel());

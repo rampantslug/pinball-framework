@@ -21,7 +21,7 @@ namespace RampantSlug.ServerLibrary
             {
                 x.Subscribe(subs =>
                 {
-                    subs.Consumer<DeviceMessageConsumer>().Permanent();
+                    subs.Consumer<DeviceConfigMessageConsumer>().Permanent();
                     subs.Consumer<RequestConfigMessageConsumer>().Permanent();
                     subs.Consumer<DeviceCommandMessageConsumer>().Permanent();
                 });
@@ -43,8 +43,14 @@ namespace RampantSlug.ServerLibrary
 
         public void SendConfigurationMessage(Configuration configuration)
         {
-            var message = new ConfigMessage() { MachineConfiguration = configuration };
+            var message = new ConfigMessage() { MachineConfiguration = configuration, Timestamp = DateTime.Now };
             _bus.Publish<ConfigMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
+        public void SendDeviceMessage(IDevice device)
+        {
+            var message = new DeviceMessage() { Device = device, Timestamp = DateTime.Now };
+            _bus.Publish<DeviceMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
         public void Stop() { _bus.Dispose(); }

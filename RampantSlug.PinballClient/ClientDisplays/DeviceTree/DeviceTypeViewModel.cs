@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes;
+using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 {
@@ -60,6 +62,20 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
                     base.Children.Add(new LedViewModel(device as Led, this));
                 }
 
+            }
+
+        }
+
+        public void AddDevice()
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            //eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
+
+            // Determine type of new device based on device type that this corresponds too...
+
+            if (_deviceType is SwitchType)
+            {
+                eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = new Switch() });
             }
 
         }

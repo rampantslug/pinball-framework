@@ -15,7 +15,9 @@ using RampantSlug.Common;
 namespace RampantSlug.PinballClient.ClientDisplays.Playfield
 {
     [Export(typeof(PlayfieldViewModel))]
-    public sealed class PlayfieldViewModel : Screen, IPlayfield, IHandle<ConfigResults>
+    public sealed class PlayfieldViewModel : Screen, IPlayfield, 
+        IHandle<ConfigResults>,
+        IHandle<HighlightDevice>
     {
         private ImageSource _playfieldImage;
         private IEventAggregator _eventAggregator;
@@ -51,6 +53,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             //DeserializeImage(message.MachineConfiguration.PlayfieldImage);
             //TestImage();
             PlayfieldImage = ImageConversion.ConvertStringToImage(message.MachineConfiguration.PlayfieldImage);
+        }
+
+        public void Handle(HighlightDevice message)
+        {
+            // TODO: Need to add devices to Playfield and then put highlight around selected object
+            // message.Device...
         }
 
 

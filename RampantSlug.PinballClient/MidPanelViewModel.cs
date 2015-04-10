@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 using RampantSlug.PinballClient;
 using System.Collections.Generic;
 using RampantSlug.PinballClient.ClientDisplays.LogMessages;
-using RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration;
+using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree;
 using RampantSlug.PinballClient.ClientDisplays.GameStatus;
@@ -22,19 +22,19 @@ namespace RampantSlug.PinballClient {
         private IEventAggregator _eventAggregator;
 
         // Client Displays
-        public IDeviceConfiguration DeviceConfiguration { get; private set; }
+        public IDeviceInformation DeviceInformation { get; private set; }
         public IPlayfield Playfield { get; private set; }
 
 
         [ImportingConstructor]
         public MidPanelViewModel(
             IEventAggregator eventAggregator,
-            IDeviceConfiguration deviceConfiguration, 
+            IDeviceInformation deviceInformation, 
              IPlayfield playfield       
             ) 
         {
             _eventAggregator = eventAggregator;
-            DeviceConfiguration = deviceConfiguration;
+            DeviceInformation = deviceInformation;
             Playfield = playfield;
         }
 
@@ -45,7 +45,7 @@ namespace RampantSlug.PinballClient {
 
             base.OnViewLoaded(view);
 
-            ActivateItem(DeviceConfiguration);
+            ActivateItem(DeviceInformation);
             ActivateItem(Playfield);
 
             _eventAggregator.Subscribe(this);
@@ -53,12 +53,12 @@ namespace RampantSlug.PinballClient {
 
      
         /// <summary>
-        /// Request to update config of a device. Make DeviceConfiguration active if not already
+        /// Request to update config of a device. Make DeviceInformation active if not already
         /// </summary>
         /// <param name="deviceMessage"></param>
         public void Handle(ShowDeviceConfig deviceMessage)
         {
-            ActivateItem(DeviceConfiguration);
+            ActivateItem(DeviceInformation);
         }
        
     }

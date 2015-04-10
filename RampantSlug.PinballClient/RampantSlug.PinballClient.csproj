@@ -98,6 +98,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\LedViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\CoilViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\ServoViewModel.cs" />
@@ -110,10 +111,13 @@
     <Compile Include="ClientDisplays\Playfield\PlayfieldViewModel.cs" />
     <Compile Include="ContractImplementations\ConfigMessageConsumer.cs" />
     <Compile Include="ContractImplementations\DeviceCommandMessage.cs" />
+    <Compile Include="ContractImplementations\DeviceMessageConsumer.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessage.cs" />
-    <Compile Include="ContractImplementations\DeviceMessage.cs" />
+    <Compile Include="ContractImplementations\DeviceConfigMessage.cs" />
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
+    <Compile Include="Events\DeviceChange.cs" />
     <Compile Include="Events\ShowDeviceConfig.cs" />
+    <Compile Include="Events\HighlightDevice.cs" />
     <Compile Include="Events\SettingsResults.cs" />
     <Compile Include="Events\DisplayMessageResults.cs" />
     <Compile Include="IClientBusController.cs" />
@@ -123,12 +127,12 @@
     <Compile Include="ClientDisplays\LogMessages\ILogMessages.cs" />
     <Compile Include="ClientDisplays\DeviceTree\IDeviceTree.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\ISwitchMatrix.cs" />
-    <Compile Include="ClientDisplays\DeviceConfiguration\IDeviceConfiguration.cs" />
-    <Compile Include="ClientDisplays\DeviceConfiguration\SwitchConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\IDeviceInformation.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\SwitchConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceItemViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTreeViewModel.cs" />
     <Compile Include="ClientDisplays\IClientDisplay.cs" />
-    <Compile Include="ClientDisplays\DeviceConfiguration\DeviceConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\DeviceInformationViewModel.cs" />
     <Compile Include="ClientDisplays\LogMessages\LogMessagesViewModel.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\SwitchMatrixViewModel.cs" />
     <Compile Include="IShell.cs" />
@@ -140,8 +144,11 @@
     </Compile>
     <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\SwitchViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\TempConfig.cs" />
-    <Page Include="ClientDisplays\DeviceConfiguration\SwitchConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceInformation\CoilConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceInformation\SwitchConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -149,7 +156,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfiguration\DeviceConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceInformation\DeviceInformationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -170,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MidPanelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -202,6 +213,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -217,9 +229,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DeviceResources\" />
     <Folder Include="Model\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

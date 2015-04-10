@@ -4,7 +4,44 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:DeviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:DeviceTypes="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes">
+        xmlns:DeviceTypes="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes"
+        xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common">
+    <UserControl.Resources>
+        <converters:BooleanConditionConverter x:Key="BooleanConditionConverter" />
+        <converters:ConditionalValue x:Key="StateActiveConditionalValue" ConditionTrueValue="Green" ConditionFalseValue="Transparent" />
+        <Style x:Key="VisibilityIcon" TargetType="{x:Type Rectangle}">
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <DataTrigger 
+                    Binding="{Binding Path=IsVisible}" Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
         <TreeView 
             Background="Transparent"
             BorderThickness="0"
@@ -16,7 +53,7 @@
                     <Setter Property="FontWeight" Value="Normal" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="FontWeight" Value="Bold" />
+                           <!-- <Setter Property="FontWeight" Value="Bold" />-->
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -31,17 +68,62 @@
                     >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding DeviceTypeName}" />
-                    </StackPanel>
+                        <StackPanel.ContextMenu >
+                            <ContextMenu>
+                                <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Add New Device" 
+                                    cal:Message.Attach="AddDevice()"                                   
+                                    />
+                        </ContextMenu>
+                    </StackPanel.ContextMenu>
+                </StackPanel>
                 </HierarchicalDataTemplate>
            <!-- Switches -->
             <DataTemplate DataType="{x:Type DeviceTypes:SwitchViewModel}">
-                    <StackPanel 
-                        Orientation="Horizontal"
+                <Grid 
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.Column="0"
+                            Text="{Binding SwitchName}" />
+ 
+                        <Button
+                            Grid.Column="1"
+                            Height="16"
+                            BorderThickness="0"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                            Content="{Binding SwitchState}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            VerticalContentAlignment="Center"
+                            FontSize="10"
+                            Margin="20,0,20,0"
+                            Padding="-2"
+                            Background="{Binding IsDeviceActive, Converter={StaticResource BooleanConditionConverter}, ConverterParameter={StaticResource StateActiveConditionalValue}}"
+                            ></Button>
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="16"
+                        cal:Message.Attach="ChangeVisibility()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                       
+                    </Rectangle>
+                        </Button>
 
-                        <TextBlock Text="{Binding SwitchName}" />
-                        <StackPanel.ContextMenu >
+                    <Grid.ContextMenu >
                             <ContextMenu>
                                 <MenuItem 
                                     FontWeight="Bold" 
@@ -50,8 +132,8 @@
                                     
                                     />
                             </ContextMenu>
-                        </StackPanel.ContextMenu>
-                    </StackPanel>
+                        </Grid.ContextMenu>
+                    </Grid>
                 </DataTemplate>
 
             <!-- Coils -->

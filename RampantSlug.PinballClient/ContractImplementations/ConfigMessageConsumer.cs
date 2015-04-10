@@ -18,7 +18,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
             eventAggregator.PublishOnUIThread(new DisplayMessageResults 
             {
-                //Timestamp = message.Message.Timestamp,
+                Timestamp = message.Message.Timestamp,
                 EventType = "System",
                 Name = "Received Settings",
                 State = "OK",                

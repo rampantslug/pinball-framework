@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.PinballClient.ContractImplementations
 {
-    class DeviceMessage: IDeviceMessage
+    class DeviceConfigMessage: IDeviceMessage
     {        
         public DateTime Timestamp { get; set; }
 

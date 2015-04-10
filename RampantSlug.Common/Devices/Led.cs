@@ -12,5 +12,13 @@ namespace RampantSlug.Common.Devices
         {
         
         }
+
+        public override bool IsDeviceActive
+        {
+            get
+            {
+                return false;
+            }
+        }
     }
 }

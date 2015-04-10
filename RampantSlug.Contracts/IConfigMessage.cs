@@ -9,7 +9,9 @@ using RampantSlug.Common;
 namespace RampantSlug.Contracts
 {
     public interface IConfigMessage
-    { 
+    {
+        DateTime Timestamp { get; }
+
         Configuration MachineConfiguration { get; }  
     }
 }

@@ -13,5 +13,7 @@ namespace RampantSlug.Common.Devices
         string Name { get; set; }
 
         void UpdateNumberFromAddress();
+
+        bool IsDeviceActive { get; }
     }
 }

@@ -47,11 +47,6 @@ namespace RampantSlug.ServerLibrary.Hardware
 
             System.Threading.Thread.CurrentThread.Name = "p-roc thread";
 
-            //            _procController = IoC.Get<IProcController>();
-            //            if (_procController.Setup())
-            //            {
-            //                _procController.Start();
-            //           }
 
             _logManager = RsLogManager.GetCurrent;
 

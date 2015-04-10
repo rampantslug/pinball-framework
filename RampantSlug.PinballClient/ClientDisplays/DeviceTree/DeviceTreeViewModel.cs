@@ -14,7 +14,7 @@ using RampantSlug.PinballClient.Events;
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 {
     //[Export(typeof(IClientDisplay))]
-    public class DeviceTreeViewModel: Screen, IDeviceTree, IHandle<ConfigResults>
+    public class DeviceTreeViewModel: Screen, IDeviceTree, IHandle<ConfigResults>, IHandle<DeviceChange>
     {
         public string ClientDisplayName { get { return "Device Tree"; } }
 
@@ -86,9 +86,22 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             NotifyOfPropertyChange(() => FirstGeneration);
         }
 
+        /// <summary>
+        /// Update tree based on received settings
+        /// </summary>
+        /// <param name="message"></param>
         public void Handle(ConfigResults message)
         {
             RebuildTree(message.MachineConfiguration);
+        }
+
+        /// <summary>
+        /// Update single device based on notification
+        /// </summary>
+        /// <param name="message"></param>
+        public void Handle(DeviceChange message)
+        {
+           
         }
 
         public void ConfigureDevice() 

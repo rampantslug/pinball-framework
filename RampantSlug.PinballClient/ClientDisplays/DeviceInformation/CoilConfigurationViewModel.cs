@@ -8,73 +8,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
+namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
 
-    public class SwitchConfigurationViewModel : Screen
+    public class CoilConfigurationViewModel : Screen
     {
 
-        private Switch _switch;
+        private Coil _coil;
 
         #region Properties
 
         public ushort Number
         {
-            get { return _switch.Number; }
+            get { return _coil.Number; }
             set
             {
-                _switch.Number = value;
+                _coil.Number = value;
                 NotifyOfPropertyChange(() => Number);
             }
         }
 
         public string Address
         {
-            get { return _switch.Address; }
+            get { return _coil.Address; }
             set
             {
-                _switch.Address = value;
+                _coil.Address = value;
                 NotifyOfPropertyChange(() => Address);
             }
         }
 
         public string Name
         {
-            get { return _switch.Name; }
+            get { return _coil.Name; }
             set
             {
-                _switch.Name = value;
+                _coil.Name = value;
                 NotifyOfPropertyChange(() => Name);
             }
         }
 
-        // TODO: This needs to be changed to enum of switch types
-        public string SwitchType
-        {
-            get { return _switch.SwitchType; }
-            set
-            {
-                _switch.SwitchType = value;
-                NotifyOfPropertyChange(() => SwitchType);
-            }
-        }
 
-        public string State
-        {
-            get { return _switch.State; }
-            set
-            {
-                _switch.State = value;
-                NotifyOfPropertyChange(() => State);
-            }
-        }
+
+ 
 
         public DateTime LastChangeTimeStamp
         {
-            get { return _switch.LastChangeTimeStamp; }
+            get { return _coil.LastChangeTimeStamp; }
             set
             {
-                _switch.LastChangeTimeStamp = value;
+                _coil.LastChangeTimeStamp = value;
                 NotifyOfPropertyChange(() => LastChangeTimeStamp);
             }
         }
@@ -82,22 +65,22 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceConfiguration
         // TODO: Should this be an enum of available colours based on what is set for the project        
         public string WiringColors
         {
-            get { return _switch.WiringColors; }
+            get { return _coil.WiringColors; }
             set
             {
-                _switch.WiringColors = value;
+                _coil.WiringColors = value;
                 NotifyOfPropertyChange(() => WiringColors);
             }
         }
 
         #endregion
 
-        public SwitchConfigurationViewModel(Switch switchDevice) 
+        public CoilConfigurationViewModel(Coil coilDevice) 
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
 
-            _switch = switchDevice;
+            _coil = coilDevice;
 
         }
 

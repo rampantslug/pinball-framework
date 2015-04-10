@@ -5,20 +5,21 @@ using RampantSlug.Common.Devices;
 using RampantSlug.ServerLibrary;
 using RampantSlug.ServerLibrary.Events;
 using RampantSlug.ServerLibrary.Hardware;
+using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.PinballServerDemo
 {
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IHandle<UpdateDisplayEvent>
     {
         private IGameController _gameController;
-        private BindableCollection<Switch> _switches;
-        private int _playerScore;
+        //private BindableCollection<Switch> _switches;
+        //private int _playerScore;
         // private GameLibraryBootstrapper _gameLibrary;
         private IEventAggregator _eventAggregator;
 
         public string TextToTransmit { get; set; }
 
-        public BindableCollection<Switch> Switches
+        /*public BindableCollection<Switch> Switches
         {
             get
             {
@@ -44,7 +45,10 @@ namespace RampantSlug.PinballServerDemo
                 NotifyOfPropertyChange(() => PlayerScore);
             }
         }
+        */
 
+        public IDisplayBackgroundVideo BackgroundVideo { get; private set; }
+        public IDisplayMainScore MainScore { get; private set; }
 
         public void SimpleMessage() 
         {
@@ -58,7 +62,7 @@ namespace RampantSlug.PinballServerDemo
 
         public ShellViewModel() 
         {
-            _switches = new BindableCollection<Switch>();
+            //_switches = new BindableCollection<Switch>();
             
         }
 
@@ -69,7 +73,7 @@ namespace RampantSlug.PinballServerDemo
 
         public void UpdateUI()   // TODO: Manual update of the UI for initial testing only
         {
-            Switches.Clear();
+           // Switches.Clear();
            // _gameController._switches.ForEach(device => Switches.Add(device));
         }
 
@@ -82,11 +86,14 @@ namespace RampantSlug.PinballServerDemo
         {
             base.OnViewLoaded(view);
 
-
-
             _gameController = IoC.Get<IGameController>();
             if (_gameController.Configure())
             {
+                BackgroundVideo = _gameController.BackgroundVideo;
+                MainScore = _gameController.MainScore;
+                NotifyOfPropertyChange(()=>BackgroundVideo);
+                NotifyOfPropertyChange(() => MainScore);
+
                 _gameController.ConnectToHardware();
             }
 
@@ -104,7 +111,7 @@ namespace RampantSlug.PinballServerDemo
 
         public void Handle(UpdateDisplayEvent message)
         {
-            PlayerScore += message.PlayerScore;
+          //  PlayerScore += message.PlayerScore;
         }
     }
 }

@@ -1,21 +1,35 @@
-﻿using RampantSlug.Common.Devices;
+﻿using Caliburn.Micro;
+using RampantSlug.Common.Devices;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
 {
     public class SwitchViewModel : DeviceItemViewModel
     {
-        readonly Switch _switch;
 
         public SwitchViewModel(Switch switchDevice, DeviceTypeViewModel parentDeviceType)
             : base(parentDeviceType)
         {
-            _switch = switchDevice;
-            _device = switchDevice;
+            _device = switchDevice;            
         }
 
         public string SwitchName
         {
-            get { return _switch.Name; }
+            get { return Device.Name; }
+        }
+
+        public string SwitchState
+        {
+            get
+            {
+                var sw = Device as Switch;
+                return sw != null ? sw.State : null;
+            }
+        }
+
+        public void ActivateDeviceState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendDeviceCommandMessage(Device, "ToggleOpenClosed");
         }
     }
 }

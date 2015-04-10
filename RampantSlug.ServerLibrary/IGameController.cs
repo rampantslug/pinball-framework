@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RampantSlug.Common;
 using RampantSlug.Common.Devices;
+using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
 {
@@ -13,6 +14,8 @@ namespace RampantSlug.ServerLibrary
     {
         IServerBusController ServerBusController { get; }
         AttrCollection<ushort, string, Switch> Switches { get; set; }
+        IDisplayBackgroundVideo BackgroundVideo { get; }
+        IDisplayMainScore MainScore { get; }
         void SaveConfigurationToFile();
 
         void ConnectToHardware();

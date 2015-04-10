@@ -19,6 +19,70 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
         bool _isExpanded;
         bool _isSelected;
 
+        private bool _isVisible;
+
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                _isVisible = value;
+                NotifyOfPropertyChange(() => IsVisible);
+            }
+        }
+
+        public bool IsDeviceActive
+        {
+            get
+            {
+                return _device.IsDeviceActive;
+            }
+        }
+
+        public IDevice Device
+        {
+            get
+            {
+                return _device;
+            }
+            set
+            {
+                _device = value;
+                NotifyOfPropertyChange(() => Device);
+            }
+        }
+
+        public bool IsExpanded
+        {
+            get
+            {
+                return _isExpanded;
+            }
+            set
+            {
+                _isExpanded = value;
+                NotifyOfPropertyChange(() => IsExpanded);
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                HighlightSelected();
+                _isSelected = value;
+                NotifyOfPropertyChange(() => IsSelected);
+            }
+        }
+
+       
 
         #region Constructors
 
@@ -40,6 +104,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
                           select new DeviceItemViewModel(child, this))
                           .ToList<DeviceItemViewModel>());          
              */
+
+            _isVisible = true;
         }
 
         #endregion
@@ -74,6 +140,18 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             var eventAggregator = IoC.Get<IEventAggregator>();
             eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
         }
+
+        public void ChangeVisibility()
+        {
+            IsVisible = !_isVisible;
+        }
+
+        private void HighlightSelected()
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.PublishOnUIThread(new HighlightDevice() { Device = _device });
+        }
+
     }
 }
 

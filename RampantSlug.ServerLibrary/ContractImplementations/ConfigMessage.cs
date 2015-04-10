@@ -11,9 +11,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
 {
     class ConfigMessage: IConfigMessage
     {
-        public Configuration MachineConfiguration
-        {
-            get; set;
-        }
+        public DateTime Timestamp { get; set; }
+
+        public Configuration MachineConfiguration{ get; set; }
     }
 }
