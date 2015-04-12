@@ -24,13 +24,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
         public void RotateRight()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendDeviceCommandMessage(_stepperMotor,"Right");
+            //busController.SendDeviceCommandMessage(_stepperMotor,"Right");
         }
 
         public void RotateLeft()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendDeviceCommandMessage(_stepperMotor, "Left");
+            //busController.SendDeviceCommandMessage(_stepperMotor, "Left");
         }
     }
 }

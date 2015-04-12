@@ -101,7 +101,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
         /// <param name="message"></param>
         public void Handle(DeviceChange message)
         {
-           
+           // TODO: Need to search through tree at this point to find the changed device...
         }
 
         public void ConfigureDevice() 

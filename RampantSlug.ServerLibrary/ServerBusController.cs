@@ -21,9 +21,9 @@ namespace RampantSlug.ServerLibrary
             {
                 x.Subscribe(subs =>
                 {
-                    subs.Consumer<DeviceConfigMessageConsumer>().Permanent();
-                    subs.Consumer<RequestConfigMessageConsumer>().Permanent();
-                    subs.Consumer<DeviceCommandMessageConsumer>().Permanent();
+                    subs.Consumer<DeviceConfigMessageConsumer>().Transient();
+                    subs.Consumer<RequestConfigMessageConsumer>().Transient();
+                    subs.Consumer<DeviceCommandMessageConsumer>().Transient();
                 });
             });
           

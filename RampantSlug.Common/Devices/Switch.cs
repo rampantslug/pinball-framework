@@ -18,19 +18,20 @@ namespace RampantSlug.Common.Devices
         public Switch()
         {
             State = "Open";
+            SwitchType = "NO";
         }
 
 
-        public override void UpdateNumberFromAddress()
-        {
-            Number = (ushort)parse_matrix_num(Address);
-        }
+       // public override void UpdateNumberFromAddress()
+       // {
+       //     Number = (ushort)parse_matrix_num(Address);
+       // }
 
         public override bool IsDeviceActive
         {
             get
             {
-                return string.Equals(State, "Open");
+                return string.Equals(State, "Closed");
             }
         }
 

@@ -198,6 +198,7 @@ namespace RampantSlug.ServerLibrary
                     {
                         commandSwitch.State = "Open";
                     }
+                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent(){UpdatedSwitch = commandSwitch});
                 }
                 
             }

@@ -16,8 +16,18 @@ namespace RampantSlug.Common.Devices
                 {
                     try
                     {
+                        ushort number = 0;
+                        ushort.TryParse(iDevice.Address, out number);
+                        
                         // Create a unique Id / Number for the device
-                        iDevice.UpdateNumberFromAddress();
+                        if (iDevice.Address.Contains("/"))
+                        {
+                            number = (ushort) parse_matrix_num(iDevice.Address);
+                        }
+
+                        iDevice.Number = number;
+
+
 
                         collection.Add(iDevice.Number, iDevice.Name, device);
                     }
@@ -34,6 +44,13 @@ namespace RampantSlug.Common.Devices
             }
 
             return collection;
+        }
+
+
+        private static int parse_matrix_num(string num)
+        {
+            string[] cr_list = num.Split('/');
+            return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
         }
     }
 }

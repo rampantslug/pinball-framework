@@ -8,10 +8,10 @@ namespace RampantSlug.Common.Devices
 {
     public class Led : Device, IDevice
     {
-        public override void UpdateNumberFromAddress()
-        {
+        //public override void UpdateNumberFromAddress()
+        //{
         
-        }
+        //}
 
         public override bool IsDeviceActive
         {

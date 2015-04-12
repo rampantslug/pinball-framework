@@ -10,14 +10,14 @@ using RampantSlug.ServerLibrary.Events;
 
 namespace RampantSlug.ServerLibrary.ContractImplementations
 {
-    class DeviceCommandMessageConsumer : Consumes<IDeviceCommandMessage>.Context
+    class DeviceCommandMessageConsumer : Consumes<ISwitchCommandMessage>.Context, 
+        Consumes<ICoilCommandMessage>.Context,
+        Consumes<IStepperMotorCommandMessage>.Context,
+        Consumes<IServoCommandMessage>.Context
+
     {
-        public void Consume(IConsumeContext<IDeviceCommandMessage> message)
+        public void Consume(IConsumeContext<ISwitchCommandMessage> message)
         {
-           
-            // Determine what type of Device it is and raise appropriate Update event for GameController to receive
-            
-            
             var eventAggregator = IoC.Get<IEventAggregator>();
 
             eventAggregator.PublishOnUIThread(new DeviceCommandResult
@@ -25,9 +25,43 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
                 Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device,
                 TempControllerMessage = message.Message.TempControllerMessage
-
             });
+        }
 
+        public void Consume(IConsumeContext<ICoilCommandMessage> message)
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            {
+                Timestamp = message.Message.Timestamp,
+                Device = message.Message.Device,
+                TempControllerMessage = message.Message.TempControllerMessage
+            });
+        }
+
+        public void Consume(IConsumeContext<IStepperMotorCommandMessage> message)
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            {
+                Timestamp = message.Message.Timestamp,
+                Device = message.Message.Device,
+                TempControllerMessage = message.Message.TempControllerMessage
+            });
+        }
+
+        public void Consume(IConsumeContext<IServoCommandMessage> message)
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            {
+                Timestamp = message.Message.Timestamp,
+                Device = message.Message.Device,
+                TempControllerMessage = message.Message.TempControllerMessage
+            });
         }
 
     }

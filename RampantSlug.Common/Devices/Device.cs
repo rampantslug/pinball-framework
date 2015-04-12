@@ -14,7 +14,7 @@ namespace RampantSlug.Common.Devices
     {
         #region Properties
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public ushort Number { get; set; }
 
         public string Address { get; set; }
@@ -22,7 +22,7 @@ namespace RampantSlug.Common.Devices
         public string Name { get; set; }
        
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public DateTime LastChangeTimeStamp { get; set; }
 
         // TODO: Should this be an enum of available colours based on what is set for the project
@@ -35,7 +35,7 @@ namespace RampantSlug.Common.Devices
 
         }
 
-        public abstract void UpdateNumberFromAddress();
+        //public abstract void UpdateNumberFromAddress();
         public abstract bool IsDeviceActive { get; }
     }
 }

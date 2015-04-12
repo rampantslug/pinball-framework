@@ -21,10 +21,10 @@ namespace RampantSlug.PinballClient
             { 
             x.Subscribe(subs =>
                 {
-                    subs.Consumer<SimpleMessageConsumer>().Permanent();
-                    subs.Consumer<EventMessageConsumer>().Permanent();
-                    subs.Consumer<ConfigMessageConsumer>().Permanent();
-                    subs.Consumer<DeviceMessageConsumer>().Permanent();
+                    subs.Consumer<SimpleMessageConsumer>().Transient();
+                    subs.Consumer<EventMessageConsumer>().Transient();
+                    subs.Consumer<ConfigMessageConsumer>().Transient();
+                    subs.Consumer<DeviceMessageConsumer>().Transient();
                 });
             
             
@@ -38,10 +38,28 @@ namespace RampantSlug.PinballClient
             _bus.Publish<DeviceConfigMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendDeviceCommandMessage(IDevice device, string tempControllerMessage)
+        public void SendDeviceCommandMessage(Switch device, string tempControllerMessage)
         {
-            var message = new DeviceCommandMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage};
-            _bus.Publish<DeviceCommandMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+            var message = new SwitchCommandMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage};
+            _bus.Publish<SwitchCommandMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
+        public void SendDeviceCommandMessage(Coil device, string tempControllerMessage)
+        {
+            var message = new CoilCommandMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            _bus.Publish<CoilCommandMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
+        public void SendDeviceCommandMessage(StepperMotor device, string tempControllerMessage)
+        {
+            var message = new StepperMotorCommandMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            _bus.Publish<StepperMotorCommandMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
+        public void SendDeviceCommandMessage(Servo device, string tempControllerMessage)
+        {
+            var message = new ServoCommandMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            _bus.Publish<ServoCommandMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
         public void RequestSettings() 

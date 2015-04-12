@@ -76,6 +76,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ObjectModel" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.1.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -110,6 +112,10 @@
     <Compile Include="ClientDisplays\Playfield\IPlayfield.cs" />
     <Compile Include="ClientDisplays\Playfield\PlayfieldViewModel.cs" />
     <Compile Include="ContractImplementations\ConfigMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\StepperMotorCommandMessage.cs" />
+    <Compile Include="ContractImplementations\ServoCommandMessage.cs" />
+    <Compile Include="ContractImplementations\CoilCommandMessage.cs" />
+    <Compile Include="ContractImplementations\SwitchCommandMessage.cs" />
     <Compile Include="ContractImplementations\DeviceCommandMessage.cs" />
     <Compile Include="ContractImplementations\DeviceMessageConsumer.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessage.cs" />
