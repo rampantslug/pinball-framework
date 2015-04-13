@@ -11,70 +11,51 @@ using System.Threading.Tasks;
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
 
-    public class SwitchConfigurationViewModel : Screen, IDeviceConfigurationScreen
+    public class StepperMotorConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
 
-        private Switch _switch;
+        private StepperMotor _stepperMotor;
 
         #region Properties
 
         public ushort Number
         {
-            get { return _switch.Number; }
+            get { return _stepperMotor.Number; }
             set
             {
-                _switch.Number = value;
+                _stepperMotor.Number = value;
                 NotifyOfPropertyChange(() => Number);
             }
         }
 
         public string Address
         {
-            get { return _switch.Address; }
+            get { return _stepperMotor.Address; }
             set
             {
-                _switch.Address = value;
+                _stepperMotor.Address = value;
                 NotifyOfPropertyChange(() => Address);
             }
         }
 
         public string Name
         {
-            get { return _switch.Name; }
+            get { return _stepperMotor.Name; }
             set
             {
-                _switch.Name = value;
+                _stepperMotor.Name = value;
                 NotifyOfPropertyChange(() => Name);
             }
         }
 
-        // TODO: This needs to be changed to enum of switch types
-        public string SwitchType
-        {
-            get { return _switch.SwitchType; }
-            set
-            {
-                _switch.SwitchType = value;
-                NotifyOfPropertyChange(() => SwitchType);
-            }
-        }
-
-        public string State
-        {
-            get { return _switch.State; }
-            set
-            {
-                _switch.State = value;
-                NotifyOfPropertyChange(() => State);
-            }
-        }
+    
 
         public DateTime LastChangeTimeStamp
         {
-            get { return _switch.LastChangeTimeStamp; }
+            get { return _stepperMotor.LastChangeTimeStamp; }
             set
             {
-                _switch.LastChangeTimeStamp = value;
+                _stepperMotor.LastChangeTimeStamp = value;
                 NotifyOfPropertyChange(() => LastChangeTimeStamp);
             }
         }
@@ -82,22 +63,22 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         // TODO: Should this be an enum of available colours based on what is set for the project        
         public string WiringColors
         {
-            get { return _switch.WiringColors; }
+            get { return _stepperMotor.WiringColors; }
             set
             {
-                _switch.WiringColors = value;
+                _stepperMotor.WiringColors = value;
                 NotifyOfPropertyChange(() => WiringColors);
             }
         }
 
         #endregion
 
-        public SwitchConfigurationViewModel(Switch switchDevice) 
+        public StepperMotorConfigurationViewModel(StepperMotor stepperMotor) 
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
 
-            _switch = switchDevice;
+            _stepperMotor = stepperMotor;
 
         }
 
@@ -106,14 +87,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public void SaveDevice()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendConfigureDeviceMessage(_switch); 
+            busController.SendConfigureDeviceMessage(_stepperMotor); 
         }
  
-    }
-
-    public interface IDeviceConfigurationScreen : IScreen
-    {
-
-        void SaveDevice();
     }
 }

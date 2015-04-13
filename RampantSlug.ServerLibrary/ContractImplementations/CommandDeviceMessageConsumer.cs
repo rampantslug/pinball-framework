@@ -10,13 +10,14 @@ using RampantSlug.ServerLibrary.Events;
 
 namespace RampantSlug.ServerLibrary.ContractImplementations
 {
-    class DeviceCommandMessageConsumer : Consumes<ISwitchCommandMessage>.Context, 
-        Consumes<ICoilCommandMessage>.Context,
-        Consumes<IStepperMotorCommandMessage>.Context,
-        Consumes<IServoCommandMessage>.Context
+    class CommandDeviceMessageConsumer :
+        Consumes<ICommandSwitchMessage>.Context,
+        Consumes<ICommandCoilMessage>.Context,
+        Consumes<ICommandStepperMotorMessage>.Context,
+        Consumes<ICommandServoMessage>.Context
 
     {
-        public void Consume(IConsumeContext<ISwitchCommandMessage> message)
+        public void Consume(IConsumeContext<ICommandSwitchMessage> message)
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
@@ -28,7 +29,7 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             });
         }
 
-        public void Consume(IConsumeContext<ICoilCommandMessage> message)
+        public void Consume(IConsumeContext<ICommandCoilMessage> message)
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
@@ -40,7 +41,7 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             });
         }
 
-        public void Consume(IConsumeContext<IStepperMotorCommandMessage> message)
+        public void Consume(IConsumeContext<ICommandStepperMotorMessage> message)
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
@@ -52,7 +53,7 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             });
         }
 
-        public void Consume(IConsumeContext<IServoCommandMessage> message)
+        public void Consume(IConsumeContext<ICommandServoMessage> message)
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 

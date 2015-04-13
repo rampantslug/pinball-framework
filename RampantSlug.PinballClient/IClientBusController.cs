@@ -11,15 +11,21 @@ namespace RampantSlug.PinballClient
     {
         void Start();
 
-        void SendDeviceConfigMessage(IDevice device);
+        void SendConfigureDeviceMessage(Switch device);
 
-        void SendDeviceCommandMessage(Switch device, string tempControllerMessage);
+        void SendConfigureDeviceMessage(Coil device);
 
-        void SendDeviceCommandMessage(Coil device, string tempControllerMessage);
+        void SendConfigureDeviceMessage(StepperMotor device);
 
-        void SendDeviceCommandMessage(StepperMotor device, string tempControllerMessage);
+        void SendConfigureDeviceMessage(Servo device);
 
-        void SendDeviceCommandMessage(Servo device, string tempControllerMessage);
+        void SendCommandDeviceMessage(Switch device, string tempControllerMessage);
+
+        void SendCommandDeviceMessage(Coil device, string tempControllerMessage);
+
+        void SendCommandDeviceMessage(StepperMotor device, string tempControllerMessage);
+
+        void SendCommandDeviceMessage(Servo device, string tempControllerMessage);
 
 
         void RequestSettings();

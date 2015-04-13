@@ -100,6 +100,8 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\LedViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\CoilViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\ServoViewModel.cs" />
@@ -111,14 +113,10 @@
     <Compile Include="ClientDisplays\Playfield\IPlayfield.cs" />
     <Compile Include="ClientDisplays\Playfield\PlayfieldViewModel.cs" />
     <Compile Include="ContractImplementations\ConfigMessageConsumer.cs" />
-    <Compile Include="ContractImplementations\StepperMotorCommandMessage.cs" />
-    <Compile Include="ContractImplementations\ServoCommandMessage.cs" />
-    <Compile Include="ContractImplementations\CoilCommandMessage.cs" />
-    <Compile Include="ContractImplementations\SwitchCommandMessage.cs" />
-    <Compile Include="ContractImplementations\DeviceCommandMessage.cs" />
-    <Compile Include="ContractImplementations\DeviceMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\CommandDeviceMessage.cs" />
+    <Compile Include="ContractImplementations\UpdateDeviceMessageConsumer.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessage.cs" />
-    <Compile Include="ContractImplementations\DeviceConfigMessage.cs" />
+    <Compile Include="ContractImplementations\ConfigureDeviceMessage.cs" />
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
     <Compile Include="Events\DeviceChange.cs" />
     <Compile Include="Events\ShowDeviceConfig.cs" />
@@ -150,6 +148,14 @@
     <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\SwitchViewModel.cs" />
     <Page Include="ClientDisplays\DeviceInformation\CoilConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceInformation\ServoConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

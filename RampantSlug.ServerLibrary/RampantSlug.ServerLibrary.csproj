@@ -82,11 +82,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContractImplementations\DeviceMessage.cs" />
+    <Compile Include="ContractImplementations\UpdateDeviceMessage.cs" />
     <Compile Include="Events\UpdateDisplayEvent.cs" />
     <Compile Include="Events\SwitchUpdateEvent.cs" />
     <Compile Include="GameLibraryBootstrapper.cs" />
-    <Compile Include="ContractImplementations\DeviceCommandMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\CommandDeviceMessageConsumer.cs" />
     <Compile Include="Events\DeviceCommandResult.cs" />
     <Compile Include="Hardware\ArduinoController.cs" />
     <Compile Include="Hardware\Arduino\ArduinoDevice.cs" />

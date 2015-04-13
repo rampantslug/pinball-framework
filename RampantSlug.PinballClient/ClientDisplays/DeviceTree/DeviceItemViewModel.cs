@@ -52,6 +52,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             {
                 _device = value;
                 NotifyOfPropertyChange(() => Device);
+                NotifyOfPropertyChange(() => IsDeviceActive);
             }
         }
 
@@ -122,6 +123,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
         {
             get { return _parent; }
         }
+
+        public ushort Number { get { return _device.Number; } }
 
         #endregion // Parent
 

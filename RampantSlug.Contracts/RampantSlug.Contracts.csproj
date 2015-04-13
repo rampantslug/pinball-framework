@@ -57,18 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IStepperMotorUpdateMessage.cs" />
-    <Compile Include="IServoUpdateMessage.cs" />
-    <Compile Include="ICoilUpdateMessage.cs" />
-    <Compile Include="ISwitchUpdateMessage.cs" />
-    <Compile Include="IStepperMotorCommandMessage.cs" />
-    <Compile Include="IServoCommandMessage.cs" />
-    <Compile Include="ICoilCommandMessage.cs" />
-    <Compile Include="ISwitchCommandMessage.cs" />
-    <Compile Include="IDeviceCommandMessage.cs" />
+    <Compile Include="ICommandDeviceMessage.cs" />
     <Compile Include="IRequestConfigMessage.cs" />
     <Compile Include="IConfigMessage.cs" />
-    <Compile Include="IDeviceMessage.cs" />
+    <Compile Include="IConfigureDeviceMessage.cs" />
+    <Compile Include="IUpdateDeviceMessage.cs" />
     <Compile Include="IEventMessage.cs" />
     <Compile Include="ISimpleMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

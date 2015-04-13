@@ -30,7 +30,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
         {
             var busController = IoC.Get<IClientBusController>();
             var sw = Device as Switch;
-            busController.SendDeviceCommandMessage(sw, "ToggleOpenClosed");
+            busController.SendCommandDeviceMessage(sw, "ToggleOpenClosed");
         }
 
       

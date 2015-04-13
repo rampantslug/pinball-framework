@@ -230,7 +230,7 @@ namespace RampantSlug.ServerLibrary
                 //_eventAggregator.PublishOnUIThread(new UpdateDisplayEvent{PlayerScore = 10});
                 MainScore.PlayerScore += 10;
 
-                ServerBusController.SendDeviceMessage(sw);
+                ServerBusController.SendUpdateDeviceMessage(sw);
             }
         }
 

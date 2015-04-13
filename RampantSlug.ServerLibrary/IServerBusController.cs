@@ -20,6 +20,12 @@ namespace RampantSlug.ServerLibrary
 
         void Stop() ;
 
-        void SendDeviceMessage(IDevice device);
+        void SendUpdateDeviceMessage(Switch device);
+
+        void SendUpdateDeviceMessage(Coil device);
+
+        void SendUpdateDeviceMessage(StepperMotor device);
+
+        void SendUpdateDeviceMessage(Servo device);
     }
 }

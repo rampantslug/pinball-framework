@@ -64,14 +64,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             eventAggregator.Subscribe(this);
         }
 
-        public void SaveDevice()
-        {
-            // TODO: Change this to retrieve updated info from viewmodel before sending to server
-
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendDeviceConfigMessage(SelectedDevice); 
-        }
-
         public void Handle(ShowDeviceConfig deviceMessage)
         {
             SelectedDevice = deviceMessage.Device;

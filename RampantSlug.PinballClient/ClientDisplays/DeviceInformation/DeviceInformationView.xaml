@@ -4,7 +4,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         >
     <Grid>
-        <Grid.ColumnDefinitions>
+  <!--      <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -12,22 +12,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
         
         <!-- Display the device Config page -->
         <ContentControl 
-            Grid.Column="1"
-            Grid.Row="0"
+
             x:Name="ActiveItem"           
             />
-        <Button
-            Grid.Column="1"
-            Grid.Row="2"
-            x:Name="SaveDevice"
-            Content="Save Device"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Height="28"
-            />
+
     </Grid>
 </UserControl>
