@@ -1,13 +1,12 @@
 ﻿using Caliburn.Micro;
 using RampantSlug.Common.Devices;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
+namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class SwitchViewModel : DeviceItemViewModel
+    public class SwitchViewModel : DeviceViewModel
     {
 
-        public SwitchViewModel(Switch switchDevice, DeviceTypeViewModel parentDeviceType)
-            : base(parentDeviceType)
+        public SwitchViewModel(Switch switchDevice)
         {
             _device = switchDevice;            
         }

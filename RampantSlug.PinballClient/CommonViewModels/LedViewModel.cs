@@ -1,13 +1,12 @@
 ﻿using RampantSlug.Common.Devices;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
+namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class LedViewModel : DeviceItemViewModel
+    public class LedViewModel : DeviceViewModel
     {
         readonly Led _led;
 
-        public LedViewModel(Led ledDevice, DeviceTypeViewModel parentDeviceType)
-            : base(parentDeviceType)
+        public LedViewModel(Led ledDevice)
         {
             _led = ledDevice;
             _device = ledDevice;

@@ -1,13 +1,12 @@
 ﻿using RampantSlug.Common.Devices;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
+namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class DCMotorViewModel : DeviceItemViewModel
+    public class DCMotorViewModel : DeviceViewModel
     {
         readonly DCMotor _dcMotor;
 
-        public DCMotorViewModel(DCMotor dcMotorDevice, DeviceTypeViewModel parentDeviceType)
-            : base(parentDeviceType)
+        public DCMotorViewModel(DCMotor dcMotorDevice)
         {
             _dcMotor = dcMotorDevice;
             _device = dcMotorDevice;

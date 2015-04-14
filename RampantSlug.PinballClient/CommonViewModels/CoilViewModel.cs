@@ -1,13 +1,12 @@
 ﻿using RampantSlug.Common.Devices;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
+namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class CoilViewModel : DeviceItemViewModel
+    public class CoilViewModel : DeviceViewModel
     {
         readonly Coil _coil;
 
-        public CoilViewModel(Coil coilDevice, DeviceTypeViewModel parentDeviceType)
-            : base(parentDeviceType)
+        public CoilViewModel(Coil coilDevice)
         {
             _coil = coilDevice;
             _device = coilDevice;

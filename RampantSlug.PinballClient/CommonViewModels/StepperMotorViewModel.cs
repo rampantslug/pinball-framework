@@ -1,15 +1,13 @@
 ﻿using Caliburn.Micro;
 using RampantSlug.Common.Devices;
-using RampantSlug.PinballClient.Events;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
+namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class StepperMotorViewModel : DeviceItemViewModel
+    public class StepperMotorViewModel : DeviceViewModel
     {
         readonly StepperMotor _stepperMotor;
 
-        public StepperMotorViewModel(StepperMotor stepperMotorDevice, DeviceTypeViewModel parentDeviceType)
-            : base(parentDeviceType)
+        public StepperMotorViewModel(StepperMotor stepperMotorDevice)
         {
             _stepperMotor = stepperMotorDevice;
             _device = stepperMotorDevice;

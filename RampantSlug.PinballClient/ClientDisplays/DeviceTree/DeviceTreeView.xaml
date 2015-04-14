@@ -4,8 +4,8 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:DeviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:DeviceTypes="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes"
-        xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common">
+             xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common"
+        xmlns:commonViewModels="clr-namespace:RampantSlug.PinballClient.CommonViewModels">
     <UserControl.Resources>
         <converters:BooleanConditionConverter x:Key="BooleanConditionConverter" />
         <converters:ConditionalValue x:Key="StateActiveConditionalValue" ConditionTrueValue="Green" ConditionFalseValue="Transparent" />
@@ -80,7 +80,7 @@
                 </StackPanel>
                 </HierarchicalDataTemplate>
            <!-- Switches -->
-            <DataTemplate DataType="{x:Type DeviceTypes:SwitchViewModel}">
+            <DataTemplate DataType="{x:Type commonViewModels:SwitchViewModel}">
                 <Grid 
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
@@ -137,21 +137,21 @@
                 </DataTemplate>
 
             <!-- Coils -->
-            <DataTemplate DataType="{x:Type DeviceTypes:CoilViewModel}">
+            <DataTemplate DataType="{x:Type commonViewModels:CoilViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding CoilName}" />
                 </StackPanel>
             </DataTemplate>
 
             <!-- Servos -->
-            <DataTemplate DataType="{x:Type DeviceTypes:ServoViewModel}">
+            <DataTemplate DataType="{x:Type commonViewModels:ServoViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding ServoName}" />
                 </StackPanel>
             </DataTemplate>
 
             <!-- Stepper Motors -->
-            <DataTemplate DataType="{x:Type DeviceTypes:StepperMotorViewModel}">
+            <DataTemplate DataType="{x:Type commonViewModels:StepperMotorViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding StepperMotorName}" />
                     <StackPanel.ContextMenu >
@@ -170,14 +170,14 @@
             </DataTemplate>
 
             <!-- DC Motors -->
-            <DataTemplate DataType="{x:Type DeviceTypes:DCMotorViewModel}">
+            <DataTemplate DataType="{x:Type commonViewModels:DCMotorViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding DCMotorName}" />
                 </StackPanel>
             </DataTemplate>
 
             <!-- Leds -->
-            <DataTemplate DataType="{x:Type DeviceTypes:LedViewModel}">
+            <DataTemplate DataType="{x:Type commonViewModels:LedViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding LedName}" />
                 </StackPanel>

@@ -1,13 +1,12 @@
 ﻿using RampantSlug.Common.Devices;
 
-namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree.DeviceTypes
+namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class ServoViewModel : DeviceItemViewModel
+    public class ServoViewModel : DeviceViewModel
     {
         readonly Servo _servo;
 
-        public ServoViewModel(Servo servoDevice, DeviceTypeViewModel parentDeviceType)
-            : base(parentDeviceType)
+        public ServoViewModel(Servo servoDevice)
         {
             _servo = servoDevice;
             _device = servoDevice;

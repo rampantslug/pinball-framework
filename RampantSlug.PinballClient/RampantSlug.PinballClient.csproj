@@ -102,12 +102,12 @@
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\LedViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\CoilViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\ServoViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\StepperMotorViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\DCMotorViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\IDeviceItemViewModel.cs" />
+    <Compile Include="CommonViewModels\DeviceViewModel.cs" />
+    <Compile Include="CommonViewModels\LedViewModel.cs" />
+    <Compile Include="CommonViewModels\CoilViewModel.cs" />
+    <Compile Include="CommonViewModels\ServoViewModel.cs" />
+    <Compile Include="CommonViewModels\StepperMotorViewModel.cs" />
+    <Compile Include="CommonViewModels\DCMotorViewModel.cs" />
     <Compile Include="ClientDisplays\GameStatus\IGameStatus.cs" />
     <Compile Include="ClientDisplays\GameStatus\GameStatusViewModel.cs" />
     <Compile Include="ClientDisplays\Playfield\IPlayfield.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="ContractImplementations\ConfigureDeviceMessage.cs" />
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
     <Compile Include="Events\DeviceChange.cs" />
+    <Compile Include="Events\CommonViewModelsLoaded.cs" />
     <Compile Include="Events\ShowDeviceConfig.cs" />
     <Compile Include="Events\HighlightDevice.cs" />
     <Compile Include="Events\SettingsResults.cs" />
@@ -126,13 +127,12 @@
     <Compile Include="IClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceType.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypeViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\DriverViewModel.cs" />
+    <Compile Include="CommonViewModels\DriverViewModel.cs" />
     <Compile Include="ClientDisplays\LogMessages\ILogMessages.cs" />
     <Compile Include="ClientDisplays\DeviceTree\IDeviceTree.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\ISwitchMatrix.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\IDeviceInformation.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\SwitchConfigurationViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceItemViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTreeViewModel.cs" />
     <Compile Include="ClientDisplays\IClientDisplay.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\DeviceInformationViewModel.cs" />
@@ -146,7 +146,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
-    <Compile Include="ClientDisplays\DeviceTree\DeviceTypes\SwitchViewModel.cs" />
+    <Compile Include="CommonViewModels\SwitchViewModel.cs" />
     <Page Include="ClientDisplays\DeviceInformation\CoilConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -242,7 +242,6 @@
   <ItemGroup>
     <Folder Include="DeviceResources\" />
     <Folder Include="Model\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
