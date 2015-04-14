@@ -27,8 +27,8 @@ namespace RampantSlug.ServerLibrary
         private IEventAggregator _eventAggregator;
         public IServerBusController ServerBusController { get; private set; }
 
-        
 
+        protected ModeQueue _modes;
 
         // Hardware Controllers
         private IProcController _procController;
@@ -65,10 +65,18 @@ namespace RampantSlug.ServerLibrary
             set { _stepperMotors = value; }
         }
 
+        /// <summary>
+        /// The current list of modes that are active in the game
+        /// </summary>
+        public ModeQueue Modes
+        {
+            get { return _modes; }
+            set { _modes = value; }
+        }
 
         public GameController() 
         {
-
+            _modes = new ModeQueue(this);
         }
 
 

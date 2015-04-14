@@ -48,14 +48,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        // TODO: This needs to be changed to enum of switch types
-        public string SwitchType
+        public string Type
         {
-            get { return _switch.SwitchType; }
+            get { return _switch.Type.ToString(); }
             set
             {
-                _switch.SwitchType = value;
-                NotifyOfPropertyChange(() => SwitchType);
+                _switch.Type = (SwitchType) Enum.Parse(typeof (SwitchType),value, true);
+                NotifyOfPropertyChange(() => Type);
             }
         }
 

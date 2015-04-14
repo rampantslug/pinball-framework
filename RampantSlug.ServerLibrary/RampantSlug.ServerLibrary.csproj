@@ -99,6 +99,10 @@
     <Compile Include="Hardware\Proc\Pinproc.cs" />
     <Compile Include="IGameController.cs" />
     <Compile Include="Logging\RsLogManager.cs" />
+    <Compile Include="Mode.cs" />
+    <Compile Include="ModeQueue.cs" />
+    <Compile Include="Modes\Attract.cs" />
+    <Compile Include="Modes\BaseGame.cs" />
     <Compile Include="ServerBusController.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessageConsumer.cs" />
     <Compile Include="ContractImplementations\DeviceConfigMessageConsumer.cs" />
@@ -150,6 +154,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(ProjectDir)\Hardware\Proc\pinproc.dll" "$(TargetDir)pinproc.dll"</PostBuildEvent>

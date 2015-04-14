@@ -56,11 +56,11 @@ namespace RampantSlug.ServerLibrary.Hardware.Proc
         PDB = 7
     };
 
-    public enum SwitchType
+  /*  public enum SwitchType
     {
         NO = 0,
         NC = 1
-    };
+    };*/
 
     public enum Result { Success = 1, Failure = 0 };
 

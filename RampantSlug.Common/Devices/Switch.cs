@@ -9,8 +9,7 @@ namespace RampantSlug.Common.Devices
     public class Switch: Device, IDevice
     {
 
-        // TODO: This needs to be changed to enum of switch types
-        public string SwitchType { get; set; }
+        public SwitchType Type{ get; set; }
 
         public string State { get; set; }
 
@@ -18,7 +17,7 @@ namespace RampantSlug.Common.Devices
         public Switch()
         {
             State = "Open";
-            SwitchType = "NO";
+            Type = SwitchType.NO;
         }
 
 
@@ -41,4 +40,10 @@ namespace RampantSlug.Common.Devices
             return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
         }
     }
+
+    public enum SwitchType
+    {
+        NO = 0,
+        NC = 1
+    };
 }
