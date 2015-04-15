@@ -66,9 +66,34 @@
                     DataType="{x:Type DeviceTree:DeviceTypeViewModel}" 
                     ItemsSource="{Binding Children}"
                     >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding DeviceTypeName}" />
-                        <StackPanel.ContextMenu >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="169" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.Column="0"
+                        Text="{Binding DeviceTypeName}" />
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="16"
+                        cal:Message.Attach="ChangeVisibility()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+
+                        </Rectangle>
+                    </Button>
+
+
+                    <Grid.ContextMenu >
                             <ContextMenu>
                                 <MenuItem 
                                     FontWeight="Bold" 
@@ -76,18 +101,19 @@
                                     cal:Message.Attach="AddDevice()"                                   
                                     />
                         </ContextMenu>
-                    </StackPanel.ContextMenu>
-                </StackPanel>
+                    </Grid.ContextMenu>
+                </Grid>
                 </HierarchicalDataTemplate>
            <!-- Switches -->
-            <DataTemplate DataType="{x:Type commonViewModels:SwitchViewModel}">
+            <DataTemplate 
+                DataType="{x:Type commonViewModels:SwitchViewModel}">
                 <Grid 
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <TextBlock 
                         Grid.Column="0"
@@ -102,7 +128,7 @@
                             cal:Message.Attach="ActivateDeviceState()"
                             VerticalContentAlignment="Center"
                             FontSize="10"
-                            Margin="20,0,20,0"
+                            Margin="10,0,10,0"
                             Padding="-2"
                             Background="{Binding IsDeviceActive, Converter={StaticResource BooleanConditionConverter}, ConverterParameter={StaticResource StateActiveConditionalValue}}"
                             ></Button>
@@ -137,25 +163,88 @@
                 </DataTemplate>
 
             <!-- Coils -->
-            <DataTemplate DataType="{x:Type commonViewModels:CoilViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding CoilName}" />
-                </StackPanel>
-            </DataTemplate>
+            <DataTemplate 
+                DataType="{x:Type commonViewModels:CoilViewModel}">
+                <Grid 
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                        >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.Column="0"
+                            Text="{Binding CoilName}" />
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="16"
+                        cal:Message.Attach="ChangeVisibility()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
 
-            <!-- Servos -->
-            <DataTemplate DataType="{x:Type commonViewModels:ServoViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding ServoName}" />
-                </StackPanel>
+                        </Rectangle>
+                    </Button>
+
+                    <Grid.ContextMenu >
+                        <ContextMenu>
+                            <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Configure Coil" 
+                                    cal:Message.Attach="ConfigureDevice()"
+                                    
+                                    />
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+                </Grid>
             </DataTemplate>
 
             <!-- Stepper Motors -->
-            <DataTemplate DataType="{x:Type commonViewModels:StepperMotorViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding StepperMotorName}" />
-                    <StackPanel.ContextMenu >
+            <DataTemplate 
+                DataType="{x:Type commonViewModels:StepperMotorViewModel}">
+                <Grid 
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                        >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.Column="0"
+                            Text="{Binding StepperMotorName}" />
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="16"
+                        cal:Message.Attach="ChangeVisibility()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+
+                        </Rectangle>
+                    </Button>
+
+                    <Grid.ContextMenu >
                         <ContextMenu>
+                            <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Configure Stepper Motor" 
+                                    cal:Message.Attach="ConfigureDevice()"
+                                    
+                                    />
                             <MenuItem 
                                     Header="Rotate Right" 
                                     cal:Message.Attach="RotateRight()"                                 
@@ -165,10 +254,54 @@
                                     cal:Message.Attach="RotateLeft()"                                 
                                     />
                         </ContextMenu>
-                    </StackPanel.ContextMenu>
-                </StackPanel>
+                    </Grid.ContextMenu>
+                </Grid>
             </DataTemplate>
 
+            <!-- Servos -->
+            <DataTemplate 
+                DataType="{x:Type commonViewModels:ServoViewModel}">
+                <Grid 
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                        >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.Column="0"
+                            Text="{Binding ServoName}" />
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="16"
+                        cal:Message.Attach="ChangeVisibility()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+
+                        </Rectangle>
+                    </Button>
+
+                    <Grid.ContextMenu >
+                        <ContextMenu>
+                            <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Configure Servo" 
+                                    cal:Message.Attach="ConfigureDevice()"
+                                    
+                                    />
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+                </Grid>
+            </DataTemplate>
+           
             <!-- DC Motors -->
             <DataTemplate DataType="{x:Type commonViewModels:DCMotorViewModel}">
                 <StackPanel Orientation="Horizontal">
@@ -177,10 +310,47 @@
             </DataTemplate>
 
             <!-- Leds -->
-            <DataTemplate DataType="{x:Type commonViewModels:LedViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding LedName}" />
-                </StackPanel>
+            <DataTemplate 
+                DataType="{x:Type commonViewModels:LedViewModel}">
+                <Grid 
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                        >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.Column="0"
+                            Text="{Binding LedName}" />
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="16"
+                        cal:Message.Attach="ChangeVisibility()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+
+                        </Rectangle>
+                    </Button>
+
+                    <Grid.ContextMenu >
+                        <ContextMenu>
+                            <MenuItem 
+                                    FontWeight="Bold" 
+                                    Header="Configure Coil" 
+                                    cal:Message.Attach="ConfigureDevice()"
+                                    
+                                    />
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+                </Grid>
             </DataTemplate>
 
         </TreeView.Resources>

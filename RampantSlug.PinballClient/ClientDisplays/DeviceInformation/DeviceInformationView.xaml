@@ -12,34 +12,42 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="600"/>
+            <RowDefinition Height="400"/>
         </Grid.RowDefinitions>
 
         <TextBlock 
             Grid.Column="0"
             Grid.Row="0"
             x:Name="DeviceId"
-            FontSize="12"
+            FontSize="16"
             HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
             />
         <TextBlock 
             Grid.Column="1"
             Grid.Row="0"
             x:Name="DeviceType"
-            FontSize="12"
+            FontSize="16"
+            HorizontalAlignment="Center"      
+            VerticalAlignment="Bottom"
             />
         <TextBlock 
             Grid.Column="2"
             Grid.Row="0"
             x:Name="DeviceName"
-            FontSize="16"
+            FontSize="24"
             Foreground="{StaticResource AccentColorBrush}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
             />
         <TextBlock 
             Grid.Column="3"
             Grid.Row="0"
             x:Name="DeviceAddress"
-            FontSize="12"
+            FontSize="16"
+            Foreground="{StaticResource AccentColorBrush}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
             />
         <Image
             Grid.Column="0"
@@ -48,6 +56,8 @@
             Width="200"
             Height="400"
             Source="{Binding PlayfieldImage}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             
             />
         
@@ -56,7 +66,8 @@
             Grid.Column="2"
             Grid.ColumnSpan="2"
             Grid.Row="1"
-            x:Name="ActiveItem"           
+            x:Name="ActiveItem" 
+            HorizontalAlignment="Center"
             />
 
     </Grid>

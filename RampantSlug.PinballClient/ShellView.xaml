@@ -7,13 +7,13 @@
         xmlns:logMessages="clr-namespace:RampantSlug.PinballClient.ClientDisplays.LogMessages"
         xmlns:deviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
         xmlns:local="clr-namespace:RampantSlug.PinballClient"
-        Width="1280"
-        Height="600"
+        Width="1600"
+        Height="800"
                       >
 
     <Grid Background="#FFC1C0C0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="305" />
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>

@@ -4,26 +4,22 @@
         xmlns:cal="http://www.caliburnproject.org"
         >
     <Grid
-        Background="Bisque"
+        Margin="5"
         >
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="100"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
         
-        <TextBlock
-            Grid.Column="1"
-            Grid.Row="2"
-            x:Name="LastChangeTimeStamp"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
+
         
         <!-- Status Image -->
         
@@ -38,8 +34,9 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock
@@ -59,7 +56,7 @@
                 x:Name="State"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                FontSize="16" />
+                FontSize="24" />
             <Button 
                 Grid.Column="0"
                 Grid.Row="2"
@@ -77,29 +74,70 @@
         
         
         <!-- History -->
+        <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12" 
+                Text="HISTORY"
+                Foreground="{StaticResource AccentColorBrush}"
+                />
+        <ListView
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="2"
+            >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Header="Timestamp"
+                        Width="100"
+                        />
+                    <GridViewColumn
+                        Header="State"
+                        Width="100"
+                        />
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
         
+        
+        <TextBlock
+            Grid.Column="1"
+            Grid.Row="2"
+            x:Name="LastChangeTimeStamp"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="12" />
 
         <!-- Settings Section -->
         <Grid
-            Grid.Column="2"
+            Grid.Column="3"
             Grid.Row="0"
-            Grid.RowSpan="2"
-            Background="BlueViolet"
-            >
+            Grid.RowSpan="3" 
+            Background="WhiteSmoke"
+            
+         >
+         <Grid
+             Margin="5,0,5,0"
+             >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition MinWidth="100"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <TextBlock
                 Grid.Column="0"
@@ -118,13 +156,15 @@
                 Text="Name"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
+                
                 />
             <TextBox
                 Grid.Column="1"
                 Grid.Row="1"
                 x:Name="Name"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Stretch"                
+                HorizontalAlignment="Stretch"    
+                Height="24"
                 />
             <TextBlock
                 Grid.Column="0"
@@ -132,13 +172,30 @@
                 Text="Address"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
+                
                 />
+             <ComboBox
+                  Grid.Column="1"
+                Grid.Row="2"
+                 
+                HorizontalAlignment="Left"
+                Height="24"
+                 Width="80"
+                 >
+                 <ComboBoxItem 
+                     Content="Proc Direct"                     
+                     />
+                    <ComboBoxItem 
+                     Content="Proc Matrix"                     
+                     />
+                </ComboBox>
             <TextBox
                 Grid.Column="1"
                 Grid.Row="2"
                 x:Name="Address"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+
+                HorizontalAlignment="Right"
+                Height="24"
                 />
             <TextBlock
                 Grid.Column="0"
@@ -179,18 +236,28 @@
             HorizontalAlignment="Center"
             FontSize="12" />-->
 
+                <Button
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="7"
+            x:Name="RemoveDevice"
+            Content="Remove Device"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+                Height="24"
+            />
 
-            <Button
+                <Button
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Grid.Row="7"
             x:Name="SaveDevice"
             Content="Save Device"
             VerticalAlignment="Center"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
                 Height="24"
             />
-
+            </Grid>
         </Grid>
         
      
