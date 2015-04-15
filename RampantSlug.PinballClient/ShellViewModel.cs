@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Media;
 using RampantSlug.PinballClient.ClientDisplays.LogMessages;
 using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
@@ -26,7 +27,7 @@ namespace RampantSlug.PinballClient {
     {
         private IClientBusController _busController;
         private IEventAggregator _eventAggregator;
-
+        private ImageSource _playfieldImage;
 
         private BindableCollection<IScreen> _midTabs;
         private BindableCollection<IScreen> _rightTabs;
@@ -126,6 +127,19 @@ namespace RampantSlug.PinballClient {
                 NotifyOfPropertyChange(() => Servos);
             }
         }
+
+        public ImageSource PlayfieldImage
+        {
+            get
+            {
+                return _playfieldImage;
+            }
+            set
+            {
+                _playfieldImage = value;
+                NotifyOfPropertyChange(() => PlayfieldImage);
+            }
+        }
             
             
         [ImportingConstructor]
@@ -215,6 +229,8 @@ namespace RampantSlug.PinballClient {
         /// <param name="message"></param>
         public void Handle(ConfigResults message)
         {
+            PlayfieldImage = ImageConversion.ConvertStringToImage(message.MachineConfiguration.PlayfieldImage);
+
             // Create Switch View Models
             Switches.Clear();
             foreach (var sw in message.MachineConfiguration.Switches)

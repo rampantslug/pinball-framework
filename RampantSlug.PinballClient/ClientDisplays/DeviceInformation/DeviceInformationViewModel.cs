@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using RampantSlug.Common;
 using RampantSlug.Common.Devices;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
+using Magnum.Extensions;
 using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.Events;
 
@@ -18,6 +20,51 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         IHandle<ShowDeviceConfig>,
         IHandle<HighlightDevice>
     {
+
+        private IEventAggregator _eventAggregator;
+        private IShell _shell;
+
+        public ushort DeviceId
+        {
+            get
+            {
+                return SelectedDevice != null ? SelectedDevice.Number : (ushort) 0;
+            }
+        }
+
+        public string DeviceType
+        {
+            get
+            {
+                return SelectedDevice != null ? SelectedDevice.GetType().ToShortTypeName() : string.Empty;
+            }
+        }
+
+        public string DeviceName
+        {
+            get
+            {
+                return SelectedDevice != null ? SelectedDevice.Name : "Device name";
+            }
+        }
+
+        public string DeviceAddress
+        {
+            get
+            {
+                return SelectedDevice != null ? SelectedDevice.Address : string.Empty;
+            }
+        }
+
+
+        public ImageSource PlayfieldImage
+        {
+            get
+            {
+                return _shell != null ? _shell.PlayfieldImage : null;
+            }
+        }
+        
         private IDevice _selectedDevice;
 
         public IDevice SelectedDevice
@@ -28,6 +75,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
             set
             {
+                
+
+                
                 _selectedDevice = value;
                 NotifyOfPropertyChange(() => SelectedDevice);
 
@@ -46,6 +96,15 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                         ActivateItem(new CoilConfigurationViewModel(coil));
                     }
                 }
+                NotifyOfPropertyChange(() => DeviceId);
+                NotifyOfPropertyChange(() => DeviceType);
+                NotifyOfPropertyChange(() => DeviceName);
+                NotifyOfPropertyChange(() => DeviceAddress);
+
+                if (PlayfieldImage == null)
+                {
+                    NotifyOfPropertyChange(() => PlayfieldImage);
+                }
             }
         }
 
@@ -60,8 +119,10 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             base.OnViewLoaded(view);
 
-            var eventAggregator = IoC.Get<IEventAggregator>();
-            eventAggregator.Subscribe(this);
+            _eventAggregator = IoC.Get<IEventAggregator>();
+            _eventAggregator.Subscribe(this);
+
+            _shell = IoC.Get<IShell>();
         }
 
         public void Handle(ShowDeviceConfig deviceMessage)
@@ -73,5 +134,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             SelectedDevice = deviceMessage.Device;
         }
+
     }
 }

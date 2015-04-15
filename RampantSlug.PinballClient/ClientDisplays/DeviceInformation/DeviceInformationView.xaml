@@ -4,19 +4,58 @@
         xmlns:cal="http://www.caliburnproject.org"
         >
     <Grid>
-  <!--      <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+       <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>-->
-        
-        <!-- Display the device Config page -->
-        <ContentControl 
+            <RowDefinition Height="30" />
+            <RowDefinition Height="600"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock 
+            Grid.Column="0"
+            Grid.Row="0"
+            x:Name="DeviceId"
+            FontSize="12"
+            HorizontalAlignment="Right"
+            />
+        <TextBlock 
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="DeviceType"
+            FontSize="12"
+            />
+        <TextBlock 
+            Grid.Column="2"
+            Grid.Row="0"
+            x:Name="DeviceName"
+            FontSize="16"
+            Foreground="{StaticResource AccentColorBrush}"
+            />
+        <TextBlock 
+            Grid.Column="3"
+            Grid.Row="0"
+            x:Name="DeviceAddress"
+            FontSize="12"
+            />
+        <Image
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Width="200"
+            Height="400"
+            Source="{Binding PlayfieldImage}"
+            
+            />
+        
+        <!-- Display the device specific content -->
+        <ContentControl 
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
             x:Name="ActiveItem"           
             />
 

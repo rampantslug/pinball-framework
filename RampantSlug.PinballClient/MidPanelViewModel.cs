@@ -45,6 +45,7 @@ namespace RampantSlug.PinballClient {
 
             base.OnViewLoaded(view);
 
+            
             ActivateItem(DeviceInformation);
             ActivateItem(Playfield);
 

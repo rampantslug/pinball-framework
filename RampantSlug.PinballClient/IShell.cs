@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient {
@@ -11,5 +12,6 @@ namespace RampantSlug.PinballClient {
         ObservableCollection<StepperMotorViewModel> StepperMotors { get; set; }
 
         ObservableCollection<ServoViewModel> Servos { get; set; }
+        ImageSource PlayfieldImage { get; set; }
     }
 }

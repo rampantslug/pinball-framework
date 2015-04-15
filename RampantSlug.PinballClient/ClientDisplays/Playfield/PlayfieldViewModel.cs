@@ -16,22 +16,17 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
 {
     [Export(typeof(PlayfieldViewModel))]
     public sealed class PlayfieldViewModel : Screen, IPlayfield, 
-        IHandle<ConfigResults>,
+        IHandle<CommonViewModelsLoaded>,
         IHandle<HighlightDevice>
     {
-        private ImageSource _playfieldImage;
         private IEventAggregator _eventAggregator;
+        private IShell _shell;
 
         public ImageSource PlayfieldImage
         {
-            get
+            get 
             {
-                return _playfieldImage;
-            }
-            set
-            {
-                _playfieldImage = value;
-                NotifyOfPropertyChange(() => PlayfieldImage);
+                return _shell != null ? _shell.PlayfieldImage : null;
             }
         }
 
@@ -46,13 +41,15 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
 
             _eventAggregator = IoC.Get<IEventAggregator>();
             _eventAggregator.Subscribe(this);
+
+            _shell = IoC.Get<IShell>();
         }
 
         public void Handle(ConfigResults message)
         {
             //DeserializeImage(message.MachineConfiguration.PlayfieldImage);
             //TestImage();
-            PlayfieldImage = ImageConversion.ConvertStringToImage(message.MachineConfiguration.PlayfieldImage);
+        //    PlayfieldImage = ImageConversion.ConvertStringToImage(message.MachineConfiguration.PlayfieldImage);
         }
 
         public void Handle(HighlightDevice message)
@@ -61,8 +58,17 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             // message.Device...
         }
 
+        /// <summary>
+        /// Update playfield image based on received settings
+        /// </summary>
+        /// <param name="message"></param>
+        public void Handle(CommonViewModelsLoaded message)
+        {
+            NotifyOfPropertyChange(()=> PlayfieldImage);
+        }
 
-        public void DeserializeImage(byte[] encodedImage)
+
+     /*   public void DeserializeImage(byte[] encodedImage)
         {
             MemoryStream stream = new MemoryStream(encodedImage);
             PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
@@ -88,6 +94,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             var blobData = ImageConversion.ConvertImageFileToString("playfield.png");
 
             PlayfieldImage = ImageConversion.ConvertStringToImage(blobData);
-        }
+        }*/
     }
 }
