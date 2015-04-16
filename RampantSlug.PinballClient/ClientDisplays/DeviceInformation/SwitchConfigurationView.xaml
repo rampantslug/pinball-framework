@@ -53,10 +53,11 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Grid.Row="1"
-                x:Name="State"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                FontSize="24" />
+                FontSize="24" 
+                Text="{Binding Switch.SwitchState}"
+                />
             <Button 
                 Grid.Column="0"
                 Grid.Row="2"
@@ -88,16 +89,19 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Grid.Row="2"
+            x:Name="PreviousStates"
             >
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Header="Timestamp"
                         Width="100"
+                        DisplayMemberBinding="{Binding Timestamp}"
                         />
                     <GridViewColumn
                         Header="State"
                         Width="100"
+                        DisplayMemberBinding="{Binding State}"
                         />
                 </GridView>
             </ListView.View>

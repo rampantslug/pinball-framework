@@ -66,7 +66,7 @@
             Grid.Column="2"
             Grid.ColumnSpan="2"
             Grid.Row="1"
-            x:Name="ActiveItem" 
+            cal:View.Model="{Binding ActiveItem}" 
             HorizontalAlignment="Center"
             />
 

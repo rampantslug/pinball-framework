@@ -12,17 +12,23 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using Magnum.Extensions;
 using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
+using RampantSlug.PinballClient.CommonViewModels;
 using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
     public sealed class DeviceInformationViewModel : Conductor<IScreen>.Collection.OneActive, IDeviceInformation, 
-        IHandle<ShowDeviceConfig>,
-        IHandle<HighlightDevice>
+        IHandle<ShowSwitchConfig>,
+        IHandle<UpdatePlayfieldImage>,
+        IHandle<HighlightSwitch>,
+        IHandle<HighlightCoil>,
+        IHandle<HighlightStepperMotor>,
+        IHandle<HighlightServo>
     {
 
         private IEventAggregator _eventAggregator;
-        private IShell _shell;
+        private DeviceViewModel _selectedDevice;
+        private ImageSource _playfieldImage;
 
         public ushort DeviceId
         {
@@ -61,52 +67,42 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             get
             {
-                return _shell != null ? _shell.PlayfieldImage : null;
+                if (_playfieldImage == null)
+                {
+                    var shell = IoC.Get<IShell>();
+                    if(shell != null && shell.PlayfieldImage != null)
+                        _playfieldImage = ImageConversion.ConvertStringToImage(shell.PlayfieldImage);
+                }
+
+                return _playfieldImage;
+            }
+            set
+            {
+                _playfieldImage = value;
+                NotifyOfPropertyChange(() => PlayfieldImage);
             }
         }
         
-        private IDevice _selectedDevice;
 
-        public IDevice SelectedDevice
+
+        public DeviceViewModel SelectedDevice
         {
             get
             {
                 return _selectedDevice;
             }
             set
-            {
-                
-
-                
+            {    
                 _selectedDevice = value;
                 NotifyOfPropertyChange(() => SelectedDevice);
-
-                var switchDevice = _selectedDevice as Switch;
-                if (switchDevice != null)
-                {
-                    // Update displayed switch 
-                    ActivateItem(new SwitchConfigurationViewModel(switchDevice));
-                }
-                else
-                {
-                    var coil = _selectedDevice as Coil;
-                    if (coil != null)
-                    {
-                        // Update displayed switch 
-                        ActivateItem(new CoilConfigurationViewModel(coil));
-                    }
-                }
                 NotifyOfPropertyChange(() => DeviceId);
                 NotifyOfPropertyChange(() => DeviceType);
                 NotifyOfPropertyChange(() => DeviceName);
                 NotifyOfPropertyChange(() => DeviceAddress);
-
-                if (PlayfieldImage == null)
-                {
-                    NotifyOfPropertyChange(() => PlayfieldImage);
-                }
             }
         }
+
+        
 
 
         public DeviceInformationViewModel() 
@@ -121,18 +117,60 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
             _eventAggregator = IoC.Get<IEventAggregator>();
             _eventAggregator.Subscribe(this);
-
-            _shell = IoC.Get<IShell>();
+           
         }
 
-        public void Handle(ShowDeviceConfig deviceMessage)
+        /*
+        *  Handle show config event
+        */
+
+        public void Handle(ShowSwitchConfig deviceMessage)
         {
-            SelectedDevice = deviceMessage.Device;
+            SelectedDevice = deviceMessage.SwitchVm;   
         }
 
-        public void Handle(HighlightDevice deviceMessage)
+        /*
+         *  Handle various highlight events
+         */
+
+        public void Handle(HighlightSwitch deviceMessage)
         {
-            SelectedDevice = deviceMessage.Device;
+            // Get correct viewmodel from shell
+           // var shell = IoC.Get<IShell>();
+           // var realVM = shell.Switches.FirstOrDefault(sw => sw.Number == deviceMessage.SwitchVm.Number);
+          //  if (realVM != null)
+          //  {
+            ActivateItem(new SwitchConfigurationViewModel(deviceMessage.SwitchVm));
+            SelectedDevice = deviceMessage.SwitchVm;
+           // }
+        }
+
+        public void Handle(HighlightCoil deviceMessage)
+        {
+            ActivateItem(new CoilConfigurationViewModel(deviceMessage.CoilVm));
+            SelectedDevice = deviceMessage.CoilVm;
+        }
+
+        public void Handle(HighlightStepperMotor deviceMessage)
+        {
+            ActivateItem(new StepperMotorConfigurationViewModel(deviceMessage.StepperMotorVm));
+            SelectedDevice = deviceMessage.StepperMotorVm;
+        }
+
+        public void Handle(HighlightServo deviceMessage)
+        {
+            ActivateItem(new ServoConfigurationViewModel(deviceMessage.ServoVm));
+            SelectedDevice = deviceMessage.ServoVm;
+        }
+
+        /// <summary>
+        /// Update playfield image based on received settings
+        /// </summary>
+        /// <param name="message"></param>
+        public void Handle(UpdatePlayfieldImage message)
+        {
+            PlayfieldImage = ImageConversion.ConvertStringToImage(message.PlayfieldImage);
+
         }
 
     }

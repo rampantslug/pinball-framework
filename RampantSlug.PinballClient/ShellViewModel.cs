@@ -1,3 +1,4 @@
+using System;
 using RampantSlug.Common;
 using RampantSlug.PinballClient.ContractImplementations;
 using MassTransit;
@@ -22,12 +23,13 @@ using RampantSlug.PinballClient.Events;
 namespace RampantSlug.PinballClient {
     [Export(typeof(IShell))]
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell,
-        IHandle<ShowDeviceConfig>, IHandle<ConfigResults>, IHandle<DeviceChange>
+        IHandle<ShowSwitchConfig>,
+        IHandle<UpdateSwitch>
 
     {
         private IClientBusController _busController;
         private IEventAggregator _eventAggregator;
-        private ImageSource _playfieldImage;
+        private string _playfieldImage;
 
         private BindableCollection<IScreen> _midTabs;
         private BindableCollection<IScreen> _rightTabs;
@@ -128,7 +130,7 @@ namespace RampantSlug.PinballClient {
             }
         }
 
-        public ImageSource PlayfieldImage
+        public string PlayfieldImage
         {
             get
             {
@@ -217,7 +219,7 @@ namespace RampantSlug.PinballClient {
         /// Request to update config of a device. Make DeviceInformation active if not already
         /// </summary>
         /// <param name="deviceMessage"></param>
-        public void Handle(ShowDeviceConfig deviceMessage)
+        public void Handle(ShowSwitchConfig deviceMessage)
         {
             Playfield.Deactivate(false);
             DeviceInformation.Activate();
@@ -226,74 +228,79 @@ namespace RampantSlug.PinballClient {
         /// <summary>
         /// Update ViewModels based on config results
         /// </summary>
-        /// <param name="message"></param>
-        public void Handle(ConfigResults message)
+        /// <param name="config"></param>
+        public void UpdateViewModels(Configuration config)
         {
-            PlayfieldImage = ImageConversion.ConvertStringToImage(message.MachineConfiguration.PlayfieldImage);
+            PlayfieldImage = config.PlayfieldImage;
 
             // Create Switch View Models
             Switches.Clear();
-            foreach (var sw in message.MachineConfiguration.Switches)
+            foreach (var sw in config.Switches)
             {
                 Switches.Add(new SwitchViewModel(sw));
             }
 
             Coils.Clear();
-            foreach (var coil in message.MachineConfiguration.Coils)
+            foreach (var coil in config.Coils)
             {
                 Coils.Add(new CoilViewModel(coil));
             }
 
             StepperMotors.Clear();
-            foreach (var stepperMotor in message.MachineConfiguration.StepperMotors)
+            foreach (var stepperMotor in config.StepperMotors)
             {
                 StepperMotors.Add(new StepperMotorViewModel(stepperMotor));
             }
 
             Servos.Clear();
-            foreach (var servo in message.MachineConfiguration.Servos)
+            foreach (var servo in config.Servos)
             {
                 Servos.Add(new ServoViewModel(servo));
-            }  
-    
+            }
+
+            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            {
+                Timestamp = DateTime.Now,
+                EventType = "System",
+                Name = "Received Settings",
+                State = "OK",
+                Information = "Updated system information from config."
+
+            });
+
             // Notify Client Displays that Common View Models are updated
             _eventAggregator.PublishOnUIThread(new CommonViewModelsLoaded());
-        }
 
-        /// <summary>
-        /// Update single device based on notification
-        /// </summary>
-        /// <param name="message"></param>
-        public void Handle(DeviceChange message)
-        {
-            var deviceViewModel = FindDeviceViewModelById(message.Device.Number);
-            if (deviceViewModel != null)
+            if (Switches.Count > 0)
             {
-                deviceViewModel.Device = message.Device;
-                deviceViewModel.Refresh();                
-            }
-        }
-
-        private DeviceViewModel FindDeviceViewModelById(ushort deviceId)
-        {
-            foreach (var swVM in Switches.Where(swVM => swVM.Number == deviceId))
-            {
-                return swVM;
-            }
-            foreach (var coilVM in Coils.Where(coilVM => coilVM.Number == deviceId))
-            {
-                return coilVM;
-            }
-            foreach (var stepperMotorVM in StepperMotors.Where(stepperMotorVM => stepperMotorVM.Number == deviceId))
-            {
-                return stepperMotorVM;
-            }
-            foreach (var servoVM in Servos.Where(servoVM => servoVM.Number == deviceId))
-            {
-                return servoVM;
+                _eventAggregator.PublishOnUIThread(new ShowSwitchConfig() {SwitchVm = Switches[0]});
             }
 
-            return null;
+            // Notify Client Displays that Playfield Image is update
+            _eventAggregator.PublishOnUIThread(new UpdatePlayfieldImage() { PlayfieldImage = config.PlayfieldImage});
         }
+
+
+
+
+        public void Handle(UpdateSwitch deviceMessage)
+        {          
+            foreach (var swVM in Switches.Where(swVM => swVM.Number == deviceMessage.Device.Number))
+            {
+                swVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);             
+            }
+
+            // Now create log message...
+            // TODO: This needs to be cleaned up to have better information            
+            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            {
+                Timestamp = deviceMessage.Timestamp,
+                EventType = "System",
+                Name = "Event Message",
+                State = "OK",
+                Information = "Switch Event for: " + deviceMessage.Device.Name
+            });
+        }
+
     }
 }

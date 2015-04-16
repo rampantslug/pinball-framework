@@ -15,7 +15,7 @@ using RampantSlug.PinballClient.ClientDisplays.Playfield;
 using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient {
-    public class MidPanelViewModel : Conductor<IScreen>.Collection.OneActive, IHandle<ShowDeviceConfig>
+    public class MidPanelViewModel : Conductor<IScreen>.Collection.AllActive, IHandle<ShowSwitchConfig>
 
     {
         private IClientBusController _busController;
@@ -45,9 +45,9 @@ namespace RampantSlug.PinballClient {
 
             base.OnViewLoaded(view);
 
-            
-            ActivateItem(DeviceInformation);
             ActivateItem(Playfield);
+            ActivateItem(DeviceInformation);
+            
 
             _eventAggregator.Subscribe(this);
         }
@@ -57,7 +57,7 @@ namespace RampantSlug.PinballClient {
         /// Request to update config of a device. Make DeviceInformation active if not already
         /// </summary>
         /// <param name="deviceMessage"></param>
-        public void Handle(ShowDeviceConfig deviceMessage)
+        public void Handle(ShowSwitchConfig deviceMessage)
         {
             ActivateItem(DeviceInformation);
         }

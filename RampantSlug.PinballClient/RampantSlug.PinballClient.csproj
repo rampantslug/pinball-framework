@@ -100,9 +100,11 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
+    <Compile Include="CommonViewModels\HistoryRowViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
     <Compile Include="CommonViewModels\DeviceViewModel.cs" />
+    <Compile Include="CommonViewModels\IDeviceViewModel.cs" />
     <Compile Include="CommonViewModels\LedViewModel.cs" />
     <Compile Include="CommonViewModels\CoilViewModel.cs" />
     <Compile Include="CommonViewModels\ServoViewModel.cs" />
@@ -120,9 +122,10 @@
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
     <Compile Include="Events\DeviceChange.cs" />
     <Compile Include="Events\CommonViewModelsLoaded.cs" />
+    <Compile Include="Events\UpdateDevice.cs" />
+    <Compile Include="Events\UpdatePlayfieldImage.cs" />
     <Compile Include="Events\ShowDeviceConfig.cs" />
     <Compile Include="Events\HighlightDevice.cs" />
-    <Compile Include="Events\SettingsResults.cs" />
     <Compile Include="Events\DisplayMessageResults.cs" />
     <Compile Include="IClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceType.cs" />

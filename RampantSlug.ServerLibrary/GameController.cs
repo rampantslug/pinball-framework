@@ -231,7 +231,6 @@ namespace RampantSlug.ServerLibrary
             if (sw != null)
             {
                 _switches.Update(sw.Number, sw);
-                RsLogManager.GetCurrent.LogTestMessage("Switch Event for: " + sw.Name);
 
                 // Update score
                 // TODO: Clean this up and come up with a better solution

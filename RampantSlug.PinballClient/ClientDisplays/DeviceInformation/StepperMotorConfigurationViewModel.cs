@@ -7,6 +7,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
@@ -14,18 +15,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     public class StepperMotorConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
 
-        private StepperMotor _stepperMotor;
+        private StepperMotorViewModel _stepperMotor;
 
         #region Properties
 
         public ushort Number
         {
             get { return _stepperMotor.Number; }
-            set
-            {
-                _stepperMotor.Number = value;
-                NotifyOfPropertyChange(() => Number);
-            }
         }
 
         public string Address
@@ -50,7 +46,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
     
 
-        public DateTime LastChangeTimeStamp
+     /*   public DateTime LastChangeTimeStamp
         {
             get { return _stepperMotor.LastChangeTimeStamp; }
             set
@@ -69,11 +65,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _stepperMotor.WiringColors = value;
                 NotifyOfPropertyChange(() => WiringColors);
             }
-        }
+        }*/
 
         #endregion
 
-        public StepperMotorConfigurationViewModel(StepperMotor stepperMotor) 
+        public StepperMotorConfigurationViewModel(StepperMotorViewModel stepperMotor) 
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
@@ -87,7 +83,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public void SaveDevice()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendConfigureDeviceMessage(_stepperMotor); 
+            busController.SendConfigureDeviceMessage(_stepperMotor.Device as StepperMotor); 
         }
  
     }

@@ -21,5 +21,6 @@ namespace RampantSlug.Common.Devices
 
         [JsonIgnore]
         bool IsDeviceActive { get; }
+
     }
 }

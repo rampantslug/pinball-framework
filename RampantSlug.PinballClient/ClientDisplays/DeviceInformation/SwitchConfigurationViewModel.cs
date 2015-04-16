@@ -3,10 +3,12 @@ using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.ContractImplementations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
@@ -14,18 +16,24 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     public class SwitchConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
 
-        private Switch _switch;
+        private SwitchViewModel _switch;
 
         #region Properties
+
+
+        public SwitchViewModel Switch
+        {
+            get { return _switch; }
+            set
+            {
+                _switch = value;
+                NotifyOfPropertyChange(() => Switch);
+            }
+        }
 
         public ushort Number
         {
             get { return _switch.Number; }
-            set
-            {
-                _switch.Number = value;
-                NotifyOfPropertyChange(() => Number);
-            }
         }
 
         public string Address
@@ -40,15 +48,15 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         public string Name
         {
-            get { return _switch.Name; }
+            get { return _switch.SwitchName; }
             set
             {
-                _switch.Name = value;
+                _switch.SwitchName = value;
                 NotifyOfPropertyChange(() => Name);
             }
         }
 
-        public string Type
+   /*     public string Type
         {
             get { return _switch.Type.ToString(); }
             set
@@ -56,19 +64,23 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _switch.Type = (SwitchType) Enum.Parse(typeof (SwitchType),value, true);
                 NotifyOfPropertyChange(() => Type);
             }
-        }
+        }*/
 
         public string State
         {
-            get { return _switch.State; }
+            get
+            {
+                return _switch.SwitchState;
+            }
             set
             {
-                _switch.State = value;
+                _switch.SwitchName = value;
                 NotifyOfPropertyChange(() => State);
             }
+
         }
 
-        public DateTime LastChangeTimeStamp
+    /*    public DateTime LastChangeTimeStamp
         {
             get { return _switch.LastChangeTimeStamp; }
             set
@@ -87,25 +99,35 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _switch.WiringColors = value;
                 NotifyOfPropertyChange(() => WiringColors);
             }
+        }*/
+
+        public ObservableCollection<HistoryRowViewModel> PreviousStates
+        {
+            get
+            {
+                return _switch.PreviousStates;
+            }
+
         }
+        
 
         #endregion
 
-        public SwitchConfigurationViewModel(Switch switchDevice) 
+        public SwitchConfigurationViewModel(SwitchViewModel switchvm) 
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
 
-            _switch = switchDevice;
-
+            _switch = switchvm;
+            
         }
 
 
 
         public void SaveDevice()
         {
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendConfigureDeviceMessage(_switch); 
+           var busController = IoC.Get<IClientBusController>();
+           busController.SendConfigureDeviceMessage(_switch.Device as Switch); 
         }
  
     }

@@ -7,6 +7,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
@@ -14,18 +15,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     public class ServoConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
 
-        private Servo _servo;
+        private ServoViewModel _servo;
 
         #region Properties
 
         public ushort Number
         {
             get { return _servo.Number; }
-            set
-            {
-                _servo.Number = value;
-                NotifyOfPropertyChange(() => Number);
-            }
         }
 
         public string Address
@@ -49,7 +45,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         }
 
 
-        public DateTime LastChangeTimeStamp
+   /*     public DateTime LastChangeTimeStamp
         {
             get { return _servo.LastChangeTimeStamp; }
             set
@@ -68,11 +64,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _servo.WiringColors = value;
                 NotifyOfPropertyChange(() => WiringColors);
             }
-        }
+        }*/
 
         #endregion
 
-        public ServoConfigurationViewModel(Servo servo) 
+        public ServoConfigurationViewModel(ServoViewModel servo) 
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
@@ -86,7 +82,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public void SaveDevice()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendConfigureDeviceMessage(_servo); 
+            busController.SendConfigureDeviceMessage(_servo.Device as Servo); 
         }
  
     }

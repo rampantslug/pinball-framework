@@ -5,11 +5,11 @@ using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.CommonViewModels
 {
-    public class DeviceViewModel : Screen
+    public class DeviceViewModel : Screen, IDeviceViewModel
     {
 
         protected IDevice _device;
-        private bool _isSelected;
+        protected bool _isSelected;
         private bool _isVisible;
         private ObservableCollection<DeviceViewModel> _children;
 
@@ -48,19 +48,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-            set
-            {
-                HighlightSelected();
-                _isSelected = value;
-                NotifyOfPropertyChange(() => IsSelected);
-            }
-        }
+        
 
         public ObservableCollection<DeviceViewModel> Children
         {
@@ -87,11 +75,16 @@ namespace RampantSlug.PinballClient.CommonViewModels
             } 
         }
 
-
-        public void ConfigureDevice()
+        public string Name
         {
-            var eventAggregator = IoC.Get<IEventAggregator>();
-            eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = _device });
+            get { return Device.Name; }
+            set { Device.Name = value; }
+        }
+
+        public string Address
+        {
+            get { return Device.Address; }
+            set { Device.Address = value; }
         }
 
         public void ChangeVisibility()
@@ -99,10 +92,15 @@ namespace RampantSlug.PinballClient.CommonViewModels
             IsVisible = !_isVisible;
         }
 
-        private void HighlightSelected()
+
+        public virtual void ConfigureDevice()
         {
-            var eventAggregator = IoC.Get<IEventAggregator>();
-            eventAggregator.PublishOnUIThread(new HighlightDevice() { Device = _device });
+        }
+
+
+        public virtual void HighlightSelected()
+        {
+            
         }
 
     }

@@ -15,7 +15,8 @@ using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 {
-    public class DeviceTreeViewModel: Screen, IDeviceTree, IHandle<CommonViewModelsLoaded>//, IHandle<DeviceChange>
+    public class DeviceTreeViewModel: Screen, IDeviceTree, 
+        IHandle<CommonViewModelsLoaded>
     {
         public string ClientDisplayName { get { return "Device Tree"; } }
 
@@ -70,11 +71,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 
             NotifyOfPropertyChange(() => FirstGeneration);
 
-        }
-
-        public void ConfigureDevice() 
-        {
-           // _eventAggregator.PublishOnUIThread(new ConfigureDevice{Device = })
         }
 
     }

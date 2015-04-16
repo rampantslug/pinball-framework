@@ -7,6 +7,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
@@ -14,18 +15,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     public class CoilConfigurationViewModel : Screen
     {
 
-        private Coil _coil;
+        private CoilViewModel _coil;
 
         #region Properties
 
         public ushort Number
         {
             get { return _coil.Number; }
-            set
-            {
-                _coil.Number = value;
-                NotifyOfPropertyChange(() => Number);
-            }
         }
 
         public string Address
@@ -52,7 +48,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
  
 
-        public DateTime LastChangeTimeStamp
+  /*      public DateTime LastChangeTimeStamp
         {
             get { return _coil.LastChangeTimeStamp; }
             set
@@ -71,11 +67,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _coil.WiringColors = value;
                 NotifyOfPropertyChange(() => WiringColors);
             }
-        }
+        }*/
 
         #endregion
 
-        public CoilConfigurationViewModel(Coil coilDevice) 
+        public CoilConfigurationViewModel(CoilViewModel coilDevice) 
         {
             //var eventAggregator = IoC.Get<IEventAggregator>();
            // eventAggregator.Subscribe(this);
@@ -84,7 +80,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         }
 
-
+        public void SaveDevice()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendConfigureDeviceMessage(_coil.Device as Coil);
+        }
  
     }
 }

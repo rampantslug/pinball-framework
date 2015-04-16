@@ -40,7 +40,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 
             if (_deviceType is SwitchType)
             {
-                eventAggregator.PublishOnUIThread(new ShowDeviceConfig() { Device = new Switch() });
+                eventAggregator.PublishOnUIThread(new ShowSwitchConfig() { SwitchVm = new SwitchViewModel(new Switch()) });
             }
 
         }
