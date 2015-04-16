@@ -21,6 +21,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
     {
         private IEventAggregator _eventAggregator;
         private ImageSource _playfieldImage;
+        private double _playfieldWidth;
+        private double _playfieldHeight;
 
         public ImageSource PlayfieldImage
         {
@@ -35,9 +37,37 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             }
         }
 
+        public double PlayfieldWidth
+        {
+            get
+            {
+                return _playfieldWidth;
+            }
+            set
+            {
+                _playfieldWidth = value;
+                NotifyOfPropertyChange(() => PlayfieldWidth);
+            }
+        }
+
+        public double PlayfieldHeight
+        {
+            get
+            {
+                return _playfieldHeight;
+            }
+            set
+            {
+                _playfieldHeight = value;
+                NotifyOfPropertyChange(() => PlayfieldHeight);
+            }
+        }
+
         public PlayfieldViewModel()
         {
             DisplayName = "Playfield";
+            PlayfieldWidth = 400;
+            PlayfieldHeight = 800;
         }
 
         protected override void OnViewLoaded(object view)

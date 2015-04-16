@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using RampantSlug.Common;
+using RampantSlug.Common.Commands;
 using RampantSlug.Common.Logging;
 using RampantSlug.ServerLibrary.Events;
 using RampantSlug.ServerLibrary.Hardware;
@@ -21,7 +22,11 @@ using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class GameController : IGameController, IHandle<DeviceConfigMessageResult>, IHandle<RequestConfigResult>, IHandle<DeviceCommandResult>, IHandle<SwitchUpdateEvent>
+    public class GameController : IGameController, 
+        IHandle<DeviceConfigMessageResult>, 
+        IHandle<RequestConfigResult>, 
+        IHandle<SwitchCommandResult>, 
+        IHandle<SwitchUpdateEvent>
     {
         // Services used by GameController  
         private IEventAggregator _eventAggregator;
@@ -39,6 +44,7 @@ namespace RampantSlug.ServerLibrary
         private AttrCollection<ushort, string, Switch> _switches;
         private AttrCollection<ushort, string, Coil> _coils;
         private AttrCollection<ushort, string, StepperMotor> _stepperMotors;
+        private AttrCollection<ushort, string, Servo> _servos;
 
 
         // Display Elements
@@ -63,6 +69,12 @@ namespace RampantSlug.ServerLibrary
         {
             get { return _stepperMotors; }
             set { _stepperMotors = value; }
+        }
+
+        public AttrCollection<ushort, string, Servo> Servos
+        {
+            get { return _servos; }
+            set { _servos = value; }
         }
 
         /// <summary>
@@ -111,6 +123,7 @@ namespace RampantSlug.ServerLibrary
                 _switches = DeviceCollection<Switch>.CreateCollection(gameConfiguration.Switches, RsLogManager.GetCurrent);
                 _coils = DeviceCollection<Coil>.CreateCollection(gameConfiguration.Coils, RsLogManager.GetCurrent);
                 _stepperMotors = DeviceCollection<StepperMotor>.CreateCollection(gameConfiguration.StepperMotors, RsLogManager.GetCurrent);
+                _servos = DeviceCollection<Servo>.CreateCollection(gameConfiguration.Servos, RsLogManager.GetCurrent);
 
                 return true;
             }
@@ -174,42 +187,45 @@ namespace RampantSlug.ServerLibrary
 
         
 
-        public void Handle(DeviceCommandResult message)
+        public void Handle(SwitchCommandResult message)
+        {
+            var updatedSwitch = message.Device;
+
+            if (message.Command == SwitchCommand.PulseActive)
+                {
+                    updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
+                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent() { UpdatedSwitch = updatedSwitch });
+
+                    updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
+                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent()
+                    {
+                        UpdatedSwitch = updatedSwitch
+                    });
+                }
+                else if (message.Command == SwitchCommand.HoldActive)
+                {
+                    updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
+                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent() { UpdatedSwitch = updatedSwitch });
+
+                }
+        }
+
+        public void Handle(StepperMotorCommandResult message)
         {
             // Set the device into the desired state
-           // message.Device
+            // message.Device
 
 
             // If appropriate hardware is connected then also drive the hardware to that state
 
-           // if (_tempArduino == null)
-          //  {
-           //     _tempArduino = new ArduinoDevice();
-          //  }
-           // RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
-           // _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
+            // if (_tempArduino == null)
+            //  {
+            //     _tempArduino = new ArduinoDevice();
+            //  }
+            // RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
+            // _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
 
             //MainScore.PlayerScore += 10;
-
-            var device = message.Device;
-
-            var commandSwitch = device as Switch;
-            if (commandSwitch != null)
-            {
-                if (string.Equals(message.TempControllerMessage, "ToggleOpenClosed"))
-                {
-                    if (string.Equals(commandSwitch.State, "Open"))
-                    {
-                        commandSwitch.State = "Closed";
-                    }
-                    else
-                    {
-                        commandSwitch.State = "Open";
-                    }
-                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent(){UpdatedSwitch = commandSwitch});
-                }
-                
-            }
         }
 
 
@@ -220,6 +236,7 @@ namespace RampantSlug.ServerLibrary
             gameConfiguration.Switches = _switches.Values;
             gameConfiguration.Coils = _coils.Values;
             gameConfiguration.StepperMotors = _stepperMotors.Values;
+            gameConfiguration.Servos = _servos.Values;
 
             ServerBusController.SendConfigurationMessage(gameConfiguration);
         }

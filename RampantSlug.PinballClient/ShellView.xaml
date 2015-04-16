@@ -7,6 +7,7 @@
         xmlns:logMessages="clr-namespace:RampantSlug.PinballClient.ClientDisplays.LogMessages"
         xmlns:deviceTree="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceTree"
         xmlns:local="clr-namespace:RampantSlug.PinballClient"
+        xmlns:playfield="clr-namespace:RampantSlug.PinballClient.ClientDisplays.Playfield"
         Width="1600"
         Height="800"
                       >
@@ -47,15 +48,15 @@
             cal:View.Model="{Binding DeviceTree}" />
 
         <!-- Middle (Main) Column Area -->
-        <local:MidPanelView 
+    <!--    <local:MidPanelView 
             Grid.Column="1"
             Grid.Row="0"
             Grid.RowSpan="2"
             Margin="2"
             Background="#FFECECEC"
-            cal:View.Model="{Binding MidPanel}" />
+            cal:View.Model="{Binding MidPanel}" />-->
 
-        <!--<Grid
+        <Grid
             Grid.Column="1"
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -73,13 +74,22 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
-        </Grid>-->
+        </Grid>
  
         <!-- Right Hand Column Area -->
-        <Grid
+        <playfield:PlayfieldView 
+            Grid.Column="2"
+            Grid.ColumnSpan="1"
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Margin="2"
+            Background="#FFECECEC"
+            cal:View.Model="{Binding Playfield}"          
+            />
+      <!--  <Grid
             Grid.Column="2"
             Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Margin="2"
             Background="#FFECECEC"
             >
@@ -93,12 +103,12 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
-        </Grid>
+        </Grid>-->
 
         <!-- Bottom Row Area -->
         <logMessages:LogMessagesView 
             Grid.Column="1"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="1"
             Grid.Row="2"
             Margin="2"
             Background="#FFECECEC"

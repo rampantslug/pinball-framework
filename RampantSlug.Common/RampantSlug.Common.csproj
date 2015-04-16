@@ -86,6 +86,10 @@
   <ItemGroup>
     <Compile Include="AttrCollection.cs" />
     <Compile Include="BusInitializer.cs" />
+    <Compile Include="Commands\StepperMotorCommand.cs" />
+    <Compile Include="Commands\ServoCommand.cs" />
+    <Compile Include="Commands\CoilCommand.cs" />
+    <Compile Include="Commands\SwitchCommand.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\BooleanConditionConverter.cs" />
     <Compile Include="Devices\Coil.cs" />

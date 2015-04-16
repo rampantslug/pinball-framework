@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 
 namespace RampantSlug.PinballClient
 {
@@ -19,13 +20,13 @@ namespace RampantSlug.PinballClient
 
         void SendConfigureDeviceMessage(Servo device);
 
-        void SendCommandDeviceMessage(Switch device, string tempControllerMessage);
+        void SendCommandDeviceMessage(Switch device, SwitchCommand command);
 
-        void SendCommandDeviceMessage(Coil device, string tempControllerMessage);
+        void SendCommandDeviceMessage(Coil device, CoilCommand command);
 
-        void SendCommandDeviceMessage(StepperMotor device, string tempControllerMessage);
+        void SendCommandDeviceMessage(StepperMotor device, StepperMotorCommand command);
 
-        void SendCommandDeviceMessage(Servo device, string tempControllerMessage);
+        void SendCommandDeviceMessage(Servo device, ServoCommand command);
 
 
         void RequestSettings();

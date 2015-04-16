@@ -8,6 +8,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
@@ -128,6 +129,18 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
            var busController = IoC.Get<IClientBusController>();
            busController.SendConfigureDeviceMessage(_switch.Device as Switch); 
+        }
+
+        public void PulseState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendCommandDeviceMessage(_switch.Device as Switch, SwitchCommand.PulseActive);
+        }
+
+        public void HoldState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendCommandDeviceMessage(_switch.Device as Switch, SwitchCommand.HoldActive);
         }
  
     }

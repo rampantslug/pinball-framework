@@ -171,7 +171,7 @@ namespace RampantSlug.PinballClient {
             
             DisplayName = "Client";
 
-            MidPanel = new MidPanelViewModel(eventAggregator, deviceInformation, playfield);
+            MidPanel = new MidPanelViewModel(eventAggregator, deviceInformation, switchMatrix, gameStatus);
 
             Switches = new ObservableCollection<SwitchViewModel>();
             Coils = new ObservableCollection<CoilViewModel>();
@@ -190,11 +190,12 @@ namespace RampantSlug.PinballClient {
 
             base.OnViewLoaded(view);
 
-            //MidTabs.Add(Playfield);
-            //MidTabs.Add(DeviceInformation);
-
-            RightTabs.Add(SwitchMatrix);
-            RightTabs.Add(GameStatus);
+            MidTabs.Add(DeviceInformation);
+            MidTabs.Add(SwitchMatrix);
+            MidTabs.Add(GameStatus);
+            
+            //RightTabs.Add(Playfield);
+            //RightTabs.Add(GameStatus);
 
             _eventAggregator.Subscribe(this);
 

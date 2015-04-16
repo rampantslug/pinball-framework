@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 
 namespace RampantSlug.PinballClient.ContractImplementations
 {
@@ -16,7 +17,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
         public Switch Device { get; set; }
 
-        public string TempControllerMessage { get; set; }
+        public SwitchCommand Command { get; set; }
 
     }
 
@@ -26,7 +27,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
         public Coil Device { get; set; }
 
-        public string TempControllerMessage { get; set; }
+        public CoilCommand Command { get; set; }
 
     }
 
@@ -36,7 +37,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
         public StepperMotor Device { get; set; }
 
-        public string TempControllerMessage { get; set; }
+        public StepperMotorCommand Command { get; set; }
 
     }
 
@@ -46,7 +47,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
         public Servo Device { get; set; }
 
-        public string TempControllerMessage { get; set; }
+        public ServoCommand Command { get; set; }
 
     }
 }

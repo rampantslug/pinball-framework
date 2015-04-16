@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 
 namespace RampantSlug.PinballClient
 {
@@ -56,27 +57,27 @@ namespace RampantSlug.PinballClient
             _bus.Publish<ConfigureServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendCommandDeviceMessage(Switch device, string tempControllerMessage)
+        public void SendCommandDeviceMessage(Switch device, SwitchCommand command)
         {
-            var message = new CommandSwitchMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            var message = new CommandSwitchMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
             _bus.Publish<CommandSwitchMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendCommandDeviceMessage(Coil device, string tempControllerMessage)
+        public void SendCommandDeviceMessage(Coil device, CoilCommand command)
         {
-            var message = new CommandCoilMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            var message = new CommandCoilMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
             _bus.Publish<CommandCoilMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendCommandDeviceMessage(StepperMotor device, string tempControllerMessage)
+        public void SendCommandDeviceMessage(StepperMotor device, StepperMotorCommand command)
         {
-            var message = new CommandStepperMotorMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            var message = new CommandStepperMotorMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
             _bus.Publish<CommandStepperMotorMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendCommandDeviceMessage(Servo device, string tempControllerMessage)
+        public void SendCommandDeviceMessage(Servo device, ServoCommand command)
         {
-            var message = new CommandServoMessage() { Device = device, Timestamp = DateTime.Now, TempControllerMessage = tempControllerMessage };
+            var message = new CommandServoMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
             _bus.Publish<CommandServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 

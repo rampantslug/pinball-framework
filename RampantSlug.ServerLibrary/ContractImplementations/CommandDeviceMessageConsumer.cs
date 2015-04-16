@@ -21,11 +21,11 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            eventAggregator.PublishOnUIThread(new SwitchCommandResult
             {
                 Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device,
-                TempControllerMessage = message.Message.TempControllerMessage
+                Command = message.Message.Command
             });
         }
 
@@ -33,11 +33,11 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            eventAggregator.PublishOnUIThread(new CoilCommandResult
             {
                 Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device,
-                TempControllerMessage = message.Message.TempControllerMessage
+                Command = message.Message.Command
             });
         }
 
@@ -45,11 +45,11 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            eventAggregator.PublishOnUIThread(new StepperMotorCommandResult
             {
                 Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device,
-                TempControllerMessage = message.Message.TempControllerMessage
+                Command = message.Message.Command
             });
         }
 
@@ -57,11 +57,11 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceCommandResult
+            eventAggregator.PublishOnUIThread(new ServoCommandResult
             {
                 Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device,
-                TempControllerMessage = message.Message.TempControllerMessage
+                Command = message.Message.Command
             });
         }
 

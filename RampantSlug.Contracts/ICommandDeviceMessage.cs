@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 
 namespace RampantSlug.Contracts
 {
@@ -13,7 +14,7 @@ namespace RampantSlug.Contracts
 
         Switch Device { get; }
 
-        string TempControllerMessage { get; }
+        SwitchCommand Command { get; }
     }
 
     public interface ICommandCoilMessage
@@ -22,7 +23,7 @@ namespace RampantSlug.Contracts
 
         Coil Device { get; }
 
-        string TempControllerMessage { get; }
+        CoilCommand Command { get; }
     }
 
     public interface ICommandStepperMotorMessage
@@ -31,7 +32,7 @@ namespace RampantSlug.Contracts
 
         StepperMotor Device { get; }
 
-        string TempControllerMessage { get; }
+        StepperMotorCommand Command { get; }
     }
 
     public interface ICommandServoMessage
@@ -40,6 +41,6 @@ namespace RampantSlug.Contracts
 
         Servo Device { get; }
 
-        string TempControllerMessage { get; }
+        ServoCommand Command { get; }
     }
 }

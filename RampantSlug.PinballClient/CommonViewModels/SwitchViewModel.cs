@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
+using RampantSlug.Common.Commands;
 using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.Events;
 
@@ -73,7 +74,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         {
             var busController = IoC.Get<IClientBusController>();
             var sw = Device as Switch;
-            busController.SendCommandDeviceMessage(sw, "ToggleOpenClosed");
+            busController.SendCommandDeviceMessage(sw, SwitchCommand.PulseActive);
         }
 
         public override void ConfigureDevice()
@@ -104,10 +105,10 @@ namespace RampantSlug.PinballClient.CommonViewModels
             _device = switchDevice;
 
             SwitchState = switchDevice.State;
-            // TEst name change
-            SwitchName = "Test name change";
+            SwitchName = switchDevice.Name;
 
-            //this.Refresh();
+            NotifyOfPropertyChange(()=> IsDeviceActive);
+
         }
     }
 }

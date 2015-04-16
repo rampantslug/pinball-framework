@@ -23,19 +23,22 @@ namespace RampantSlug.PinballClient {
 
         // Client Displays
         public IDeviceInformation DeviceInformation { get; private set; }
-        public IPlayfield Playfield { get; private set; }
+        public ISwitchMatrix SwitchMatrix { get; private set; }
+        public IGameStatus GameStatus { get; private set; }
 
 
         [ImportingConstructor]
         public MidPanelViewModel(
             IEventAggregator eventAggregator,
             IDeviceInformation deviceInformation, 
-             IPlayfield playfield       
+            ISwitchMatrix switchMatrix,
+            IGameStatus gameStatus
             ) 
         {
             _eventAggregator = eventAggregator;
             DeviceInformation = deviceInformation;
-            Playfield = playfield;
+            SwitchMatrix = switchMatrix;
+            GameStatus = gameStatus;
         }
 
 
@@ -45,7 +48,8 @@ namespace RampantSlug.PinballClient {
 
             base.OnViewLoaded(view);
 
-            ActivateItem(Playfield);
+            ActivateItem(GameStatus);
+            ActivateItem(SwitchMatrix);
             ActivateItem(DeviceInformation);
             
 
