@@ -44,6 +44,30 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             }
 
         }
+
+        public new void ChangeVisibility()
+        {
+            IsVisible = !_isVisible;
+
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            if (_deviceType is SwitchType)
+            {
+                eventAggregator.PublishOnUIThread(new AllSwitchesVisibility() { IsVisible = IsVisible});
+            }
+            else if (_deviceType is CoilType)
+            {
+                eventAggregator.PublishOnUIThread(new AllCoilsVisibility() { IsVisible = IsVisible });
+            }
+            else if (_deviceType is StepperMotorType)
+            {
+                eventAggregator.PublishOnUIThread(new AllStepperMotorsVisibility() { IsVisible = IsVisible });
+            }
+            else if (_deviceType is ServoType)
+            {
+                eventAggregator.PublishOnUIThread(new AllServosVisibility() { IsVisible = IsVisible });
+            }
+        }
     }
 }
 

@@ -3,24 +3,32 @@
         {
             "Address": "0/0",
             "Name": "Ball Trough 1",
+            "VirtualLocationX": "10",
+            "VirtualLocationY": "10",
             "WiringColors": "Grey/Green"
         },
         {
             "SwitchType": "Optical NC",
             "Address": "0/1",
             "Name": "Ball Trough 2",
+            "VirtualLocationX": "30",
+            "VirtualLocationY": "10",
             "WiringColors": "Grey/Green"
         },
         {
             "SwitchType": "Optical NC",
             "Address": "0/2",
             "Name": "Ball Trough 3",
+            "VirtualLocationX": "60",
+            "VirtualLocationY": "30",
             "WiringColors": "Grey/Green"
         },
         {
             "SwitchType": "Optical NC",
             "Address": "0/3",
             "Name": "Left Flipper",
+            "VirtualLocationX": "100",
+            "VirtualLocationY": "60",
             "WiringColors": "Grey/Green"
         }
     ],
@@ -28,16 +36,22 @@
         {
             "Address": "01",
             "Name": "Pop Bumper 1",
+            "VirtualLocationX": "100",
+            "VirtualLocationY": "200",
             "WiringColors": "Blue/White"
         },
         {
             "Address": "02",
             "Name": "Pop Bumper 2",
+            "VirtualLocationX": "30",
+            "VirtualLocationY": "250",
             "WiringColors": "Blue/Red"
         },
         {
             "Address": "03",
             "Name": "Pop Bumper 3",
+            "VirtualLocationX": "70",
+            "VirtualLocationY": "50",
             "WiringColors": "Blue/Black"
         }
     ],
@@ -45,11 +59,15 @@
         {
             "Address": "4",
             "Name": "Wall Gate",
+            "VirtualLocationX": "30",
+            "VirtualLocationY": "10",
             "WiringColors": "Blue/White"
         },
         {
             "Address": "5",
             "Name": "Diverter 1",
+            "VirtualLocationX": "30",
+            "VirtualLocationY": "10",
             "WiringColors": "Blue/Red"
         }
     ],

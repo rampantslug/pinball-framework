@@ -122,6 +122,7 @@
     <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
     <Compile Include="Events\DeviceChange.cs" />
     <Compile Include="Events\CommonViewModelsLoaded.cs" />
+    <Compile Include="Events\AllDevicesVisibility.cs" />
     <Compile Include="Events\UpdateDevice.cs" />
     <Compile Include="Events\UpdatePlayfieldImage.cs" />
     <Compile Include="Events\ShowDeviceConfig.cs" />

@@ -92,6 +92,8 @@
     <Compile Include="Commands\SwitchCommand.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\BooleanConditionConverter.cs" />
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Devices\Coil.cs" />
     <Compile Include="Devices\Device.cs" />
     <Compile Include="Devices\DeviceCollection.cs" />

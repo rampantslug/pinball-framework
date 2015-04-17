@@ -10,7 +10,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         protected IDevice _device;
         protected bool _isSelected;
-        private bool _isVisible;
+        protected bool _isVisible;
         private ObservableCollection<DeviceViewModel> _children;
 
         public bool IsVisible
@@ -48,6 +48,31 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public int VirtualLocationX
+        {
+            get
+            {
+                return Device.VirtualLocationX;
+            }
+            set
+            {
+                Device.VirtualLocationX = value;
+                NotifyOfPropertyChange(() => VirtualLocationX);
+            }
+        }
+
+        public int VirtualLocationY
+        {
+            get
+            {
+                return Device.VirtualLocationY;
+            }
+            set
+            {
+                Device.VirtualLocationY = value;
+                NotifyOfPropertyChange(() => VirtualLocationY);
+            }
+        }
         
 
         public ObservableCollection<DeviceViewModel> Children

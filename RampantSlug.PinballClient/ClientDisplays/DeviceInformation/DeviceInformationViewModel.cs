@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using RampantSlug.Common;
 using RampantSlug.Common.Devices;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Magnum.Extensions;
 using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
@@ -29,6 +32,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private IEventAggregator _eventAggregator;
         private DeviceViewModel _selectedDevice;
         private ImageSource _playfieldImage;
+        private double _scalingFactor = 2;
 
         public ushort DeviceId
         {
@@ -108,6 +112,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public DeviceInformationViewModel() 
         {
             DisplayName = "Device Info";
+            IsMouseDown = false;
 
         }
 
@@ -172,6 +177,54 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             PlayfieldImage = ImageConversion.ConvertStringToImage(message.PlayfieldImage);
 
         }
+
+        #region Handle Mouse movement / Dragging of Device
+
+        public void MouseEnter(object source)
+        {
+            // change mouse cursor
+            Mouse.OverrideCursor = Cursors.Hand;
+        }
+
+        public void MouseLeave(object source)
+        {
+            // change mouse cursor
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        public Point StartingPoint { get; set; }
+
+        public void MouseDown(object source)
+        {
+            
+
+            var myGrid = source as Grid;
+            if (myGrid != null)
+            {
+                var parent = myGrid.Parent;
+                //if (parent != null)
+                //{                 
+                StartingPoint = Mouse.GetPosition(myGrid);
+
+            }
+        }
+
+        public void MouseMove(object source)
+        {
+            var myGrid = source as Grid;
+            if (Mouse.LeftButton == MouseButtonState.Pressed && myGrid != null && SelectedDevice != null)
+            {
+
+                    var currentPoint = Mouse.GetPosition(myGrid);
+                    var xDelta = currentPoint.X - StartingPoint.X;
+                    var yDelta = currentPoint.Y - StartingPoint.Y;
+
+                    SelectedDevice.VirtualLocationX = SelectedDevice.VirtualLocationX + (int)(xDelta * _scalingFactor);
+                    SelectedDevice.VirtualLocationY = SelectedDevice.VirtualLocationY + (int)(yDelta * _scalingFactor);
+            }
+        }
+
+        #endregion
 
     }
 }

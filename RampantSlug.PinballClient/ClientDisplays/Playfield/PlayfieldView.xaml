@@ -3,16 +3,158 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="Control.Background" Value="{x:Null}" />
+            <Setter Property="Control.BorderBrush" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}"
+                            >
+                            <ContentPresenter 
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                RecognizesAccessKey="True" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Control.FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Background" Value="{DynamicResource AccentColorBrush}" />
+                    <Setter Property="Control.BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid
         Margin="10,20,10,20"
+        Width="{Binding PlayfieldWidth, Mode=TwoWay}"
+        Height="{Binding PlayfieldHeight, Mode=TwoWay}"
         >
         <Image
-            Width="{Binding PlayfieldWidth, Mode=TwoWay}"
-            Height="{Binding PlayfieldHeight, Mode=TwoWay}"
+            
             Source="{Binding PlayfieldImage}" 
             Stretch="Uniform"
             
             ></Image>
         
+        <!-- Container for the Switches -->
+        <ItemsControl 
+            x:Name="Switches"
+            Visibility="{Binding AllSwitchesVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter
+                Property="Canvas.Left"
+                Value="{Binding VirtualLocationX}"
+                />
+                    <Setter
+                Property="Canvas.Top"
+                Value="{Binding VirtualLocationY}"
+                />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="IndianRed"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="DarkRed"
+                            BorderThickness="2"
+                            />
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the Coils -->
+        <ItemsControl 
+            x:Name="Coils"
+            Visibility="{Binding AllCoilsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter
+                Property="Canvas.Left"
+                Value="{Binding VirtualLocationX}"
+                />
+                    <Setter
+                Property="Canvas.Top"
+                Value="{Binding VirtualLocationY}"
+                />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="SkyBlue"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="Blue"
+                            BorderThickness="2"
+                            />
+                        <TextBlock 
+                            Text="{Binding Number}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>
