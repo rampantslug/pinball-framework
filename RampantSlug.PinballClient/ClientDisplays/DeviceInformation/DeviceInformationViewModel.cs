@@ -112,8 +112,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public DeviceInformationViewModel() 
         {
             DisplayName = "Device Info";
-            IsMouseDown = false;
-
         }
 
         protected override void OnViewLoaded(object view)

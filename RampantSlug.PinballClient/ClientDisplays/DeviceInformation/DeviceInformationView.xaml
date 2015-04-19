@@ -74,7 +74,6 @@
                     Canvas.Left="{Binding SelectedDevice.VirtualLocationX, Converter={StaticResource MathConverter}, ConverterParameter=x/2}"
                     Canvas.Top="{Binding SelectedDevice.VirtualLocationY, Converter={StaticResource MathConverter}, ConverterParameter=x/2}"
                     cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
-                        [Event MouseUp] = [Action MouseUp($source)];
                         [Event MouseMove] = [Action MouseMove($source)];
                         [Event MouseEnter] = [Action MouseEnter($source)];
                         [Event MouseLeave] = [Action MouseLeave($source)]"

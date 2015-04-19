@@ -197,10 +197,15 @@ namespace RampantSlug.ServerLibrary
                     _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent() { UpdatedSwitch = updatedSwitch });
 
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
-                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent()
+
+                    TimedAction.ExecuteWithDelay(new System.Action(delegate
                     {
-                        UpdatedSwitch = updatedSwitch
-                    });
+                        _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent()
+                        {
+                            UpdatedSwitch = updatedSwitch
+                        });
+                    }), TimeSpan.FromSeconds(0.5));
+                    
                 }
                 else if (message.Command == SwitchCommand.HoldActive)
                 {
