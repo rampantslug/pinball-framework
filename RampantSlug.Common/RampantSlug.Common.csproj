@@ -89,6 +89,7 @@
     <Compile Include="Commands\StepperMotorCommand.cs" />
     <Compile Include="Commands\ServoCommand.cs" />
     <Compile Include="Commands\CoilCommand.cs" />
+    <Compile Include="Commands\LedCommand.cs" />
     <Compile Include="Commands\SwitchCommand.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\BooleanConditionConverter.cs" />

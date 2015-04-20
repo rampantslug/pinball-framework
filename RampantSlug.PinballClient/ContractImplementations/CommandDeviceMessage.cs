@@ -50,4 +50,14 @@ namespace RampantSlug.PinballClient.ContractImplementations
         public ServoCommand Command { get; set; }
 
     }
+
+    class CommandLedMessage : ICommandLedMessage
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Led Device { get; set; }
+
+        public LedCommand Command { get; set; }
+
+    }
 }

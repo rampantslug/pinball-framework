@@ -21,7 +21,7 @@
         <TextBlock 
             Grid.Column="0"
             Grid.Row="0"
-            x:Name="DeviceId"
+            Text="{Binding SelectedDevice.Number}"
             FontSize="16"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
@@ -37,7 +37,7 @@
         <TextBlock 
             Grid.Column="2"
             Grid.Row="0"
-            x:Name="DeviceName"
+            Text="{Binding SelectedDevice.Name}"
             FontSize="24"
             Foreground="{StaticResource AccentColorBrush}"
             HorizontalAlignment="Center"
@@ -46,7 +46,7 @@
         <TextBlock 
             Grid.Column="3"
             Grid.Row="0"
-            x:Name="DeviceAddress"
+            Text="{Binding SelectedDevice.Address}"
             FontSize="16"
             Foreground="{StaticResource AccentColorBrush}"
             HorizontalAlignment="Right"

@@ -34,35 +34,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private ImageSource _playfieldImage;
         private double _scalingFactor = 2;
 
-        public ushort DeviceId
-        {
-            get
-            {
-                return SelectedDevice != null ? SelectedDevice.Number : (ushort) 0;
-            }
-        }
 
         public string DeviceType
         {
             get
             {
                 return SelectedDevice != null ? SelectedDevice.GetType().ToShortTypeName() : string.Empty;
-            }
-        }
-
-        public string DeviceName
-        {
-            get
-            {
-                return SelectedDevice != null ? SelectedDevice.Name : "Device name";
-            }
-        }
-
-        public string DeviceAddress
-        {
-            get
-            {
-                return SelectedDevice != null ? SelectedDevice.Address : string.Empty;
             }
         }
 
@@ -99,10 +76,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {    
                 _selectedDevice = value;
                 NotifyOfPropertyChange(() => SelectedDevice);
-                NotifyOfPropertyChange(() => DeviceId);
                 NotifyOfPropertyChange(() => DeviceType);
-                NotifyOfPropertyChange(() => DeviceName);
-                NotifyOfPropertyChange(() => DeviceAddress);
             }
         }
 

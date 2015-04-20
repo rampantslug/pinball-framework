@@ -39,4 +39,13 @@ namespace RampantSlug.ServerLibrary.Events
 
         public ServoCommand Command { get; set; }
     }
+
+    public class LedCommandResult
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Led Device { get; set; }
+
+        public LedCommand Command { get; set; }
+    }
 }

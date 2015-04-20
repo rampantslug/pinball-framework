@@ -43,4 +43,13 @@ namespace RampantSlug.Contracts
 
         ServoCommand Command { get; }
     }
+
+    public interface ICommandLedMessage
+    {
+        DateTime Timestamp { get; }
+
+        Led Device { get; }
+
+        LedCommand Command { get; }
+    }
 }

@@ -113,15 +113,6 @@
             
         </ListView>
         
-        
-        <TextBlock
-            Grid.Column="1"
-            Grid.Row="2"
-            x:Name="LastChangeTimeStamp"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-
         <!-- Settings Section -->
         <Grid
             Grid.Column="3"
@@ -170,7 +161,7 @@
             <TextBox
                 Grid.Column="1"
                 Grid.Row="1"
-                x:Name="Name"
+                Text="{Binding Switch.Name}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Stretch"    
                 Height="24"
@@ -201,7 +192,7 @@
             <TextBox
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="Address"
+                Text="{Binding Switch.Address}"
 
                 HorizontalAlignment="Right"
                 Height="24"

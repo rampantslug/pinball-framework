@@ -35,4 +35,11 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
 
         public Servo Device { get; set; }
     }
+
+    class UpdateLedMessage : IUpdateLedMessage
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Led Device { get; set; }
+    }
 }

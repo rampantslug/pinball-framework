@@ -3,10 +3,12 @@ using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.ContractImplementations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
@@ -14,14 +16,22 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
     public class StepperMotorConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
+        #region Fields
 
         private StepperMotorViewModel _stepperMotor;
 
+        #endregion
+
         #region Properties
 
-        public ushort Number
+        public StepperMotorViewModel StepperMotor
         {
-            get { return _stepperMotor.Number; }
+            get { return _stepperMotor; }
+            set
+            {
+                _stepperMotor = value;
+                NotifyOfPropertyChange(() => StepperMotor);
+            }
         }
 
         public string Address
@@ -34,56 +44,48 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public string Name
+
+        public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
-            get { return _stepperMotor.Name; }
-            set
+            get
             {
-                _stepperMotor.Name = value;
-                NotifyOfPropertyChange(() => Name);
+                return _stepperMotor.PreviousStates;
             }
+
         }
-
-    
-
-     /*   public DateTime LastChangeTimeStamp
-        {
-            get { return _stepperMotor.LastChangeTimeStamp; }
-            set
-            {
-                _stepperMotor.LastChangeTimeStamp = value;
-                NotifyOfPropertyChange(() => LastChangeTimeStamp);
-            }
-        }
-
-        // TODO: Should this be an enum of available colours based on what is set for the project        
-        public string WiringColors
-        {
-            get { return _stepperMotor.WiringColors; }
-            set
-            {
-                _stepperMotor.WiringColors = value;
-                NotifyOfPropertyChange(() => WiringColors);
-            }
-        }*/
+        
 
         #endregion
 
+        #region Constructor
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stepperMotor"></param>
         public StepperMotorConfigurationViewModel(StepperMotorViewModel stepperMotor) 
         {
-            //var eventAggregator = IoC.Get<IEventAggregator>();
-           // eventAggregator.Subscribe(this);
-
             _stepperMotor = stepperMotor;
-
         }
 
-
+        #endregion
 
         public void SaveDevice()
         {
             var busController = IoC.Get<IClientBusController>();
             busController.SendConfigureDeviceMessage(_stepperMotor.Device as StepperMotor); 
+        }
+
+        public void PulseState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendCommandDeviceMessage(_stepperMotor.Device as StepperMotor, StepperMotorCommand.PulseActive);
+        }
+
+        public void HoldState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendCommandDeviceMessage(_stepperMotor.Device as StepperMotor, StepperMotorCommand.HoldActive);
         }
  
     }

@@ -32,11 +32,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public ushort Number
-        {
-            get { return _switch.Number; }
-        }
-
         public string Address
         {
             get { return _switch.Address; }
@@ -47,15 +42,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public string Name
-        {
-            get { return _switch.SwitchName; }
-            set
-            {
-                _switch.SwitchName = value;
-                NotifyOfPropertyChange(() => Name);
-            }
-        }
 
    /*     public string Type
         {
@@ -67,19 +53,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }*/
 
-        public string State
-        {
-            get
-            {
-                return _switch.SwitchState;
-            }
-            set
-            {
-                _switch.SwitchName = value;
-                NotifyOfPropertyChange(() => State);
-            }
 
-        }
 
     /*    public DateTime LastChangeTimeStamp
         {
@@ -114,11 +88,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="switchvm"></param>
         public SwitchConfigurationViewModel(SwitchViewModel switchvm) 
         {
-            //var eventAggregator = IoC.Get<IEventAggregator>();
-           // eventAggregator.Subscribe(this);
-
             _switch = switchvm;
             
         }
@@ -143,11 +118,5 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             busController.SendCommandDeviceMessage(_switch.Device as Switch, SwitchCommand.HoldActive);
         }
  
-    }
-
-    public interface IDeviceConfigurationScreen : IScreen
-    {
-
-        void SaveDevice();
     }
 }

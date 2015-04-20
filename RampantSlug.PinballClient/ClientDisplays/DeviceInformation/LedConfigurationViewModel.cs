@@ -14,79 +14,75 @@ using RampantSlug.PinballClient.CommonViewModels;
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
 
-    public class ServoConfigurationViewModel : Screen, IDeviceConfigurationScreen
+    public class LedConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
-        #region Fields
 
-        private ServoViewModel _servo;
-
-        #endregion
+        private LedViewModel _led;
 
         #region Properties
 
-        public ServoViewModel Coil
+
+        public LedViewModel Led
         {
-            get { return _servo; }
+            get { return _led; }
             set
             {
-                _servo = value;
-                NotifyOfPropertyChange(() => Coil);
+                _led = value;
+                NotifyOfPropertyChange(() => Led);
             }
         }
 
         public string Address
         {
-            get { return _servo.Address; }
+            get { return _led.Address; }
             set
             {
-                _servo.Address = value;
+                _led.Address = value;
                 NotifyOfPropertyChange(() => Address);
             }
         }
-
 
         public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
             get
             {
-                return _servo.PreviousStates;
+                return _led.PreviousStates;
             }
 
         }
+        
 
         #endregion
-
-        #region Constructor
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="servo"></param>
-        public ServoConfigurationViewModel(ServoViewModel servo) 
+        /// <param name="ledvm"></param>
+        public LedConfigurationViewModel(LedViewModel ledvm) 
         {
-            _servo = servo;
+            _led = ledvm;
+            
         }
 
-        #endregion
+
+
+        public void SaveDevice()
+        {
+           var busController = IoC.Get<IClientBusController>();
+           busController.SendConfigureDeviceMessage(_led.Device as Switch); 
+        }
 
         public void PulseState()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendCommandDeviceMessage(_servo.Device as Servo, ServoCommand.PulseActive);
+            busController.SendCommandDeviceMessage(_led.Device as Switch, SwitchCommand.PulseActive);
         }
 
         public void HoldState()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendCommandDeviceMessage(_servo.Device as Servo, ServoCommand.HoldActive);
-        }
-
-        public void SaveDevice()
-        {
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendConfigureDeviceMessage(_servo.Device as Servo); 
+            busController.SendCommandDeviceMessage(_led.Device as Switch, SwitchCommand.HoldActive);
         }
  
     }
-
 }

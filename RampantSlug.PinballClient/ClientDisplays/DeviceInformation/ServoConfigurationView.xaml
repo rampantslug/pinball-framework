@@ -3,96 +3,264 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         >
-    <Grid>
+    <Grid
+        Margin="5"
+        >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" MinWidth="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <TextBlock
-            Grid.Column="0"
-            Grid.Row="0"
-            x:Name="Number"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-        <TextBox
+
+
+
+
+        <!-- Status Image -->
+
+
+        <!-- Control Section -->
+        <Grid
             Grid.Column="1"
             Grid.Row="0"
-            x:Name="Address"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-        <TextBox
+        >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12" 
+                Text="CONTROL"
+                Foreground="{StaticResource AccentColorBrush}"
+                />
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="24" 
+                Text="{Binding Switch.SwitchState}"
+                />
+            <Button 
+                Grid.Column="0"
+                Grid.Row="2"
+                x:Name="PulseState"
+                Content="Pulse"
+                />
+            <Button 
+                Grid.Column="1"
+                Grid.Row="2"
+                x:Name="HoldState"
+                Content="Hold"
+                />
+        </Grid>
+
+
+
+        <!-- History -->
+        <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12" 
+                Text="HISTORY"
+                Foreground="{StaticResource AccentColorBrush}"
+                />
+        <ListView
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="1"
-            x:Name="Name"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="20" />
-        <TextBlock
-            Grid.Column="0"
             Grid.Row="2"
-            x:Name="State"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-        <TextBlock
-            Grid.Column="1"
-            Grid.Row="2"
-            x:Name="LastChangeTimeStamp"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-        <TextBlock
+            x:Name="PreviousStates"
+            >
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Header="Timestamp"
+                        Width="150"
+                        DisplayMemberBinding="{Binding Timestamp}"
+                        />
+                    <GridViewColumn
+                        Header="State"
+                        Width="100"
+                        DisplayMemberBinding="{Binding State}"
+                        />
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+
+        <!-- Settings Section -->
+        <Grid
+            Grid.Column="3"
+            Grid.Row="0"
+            Grid.RowSpan="3" 
+            Background="WhiteSmoke"
+            
+         >
+            <Grid
+             Margin="5,0,5,0"
+             >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12" 
+                Text="SETTINGS"
+                Foreground="{StaticResource AccentColorBrush}"
+                />
+
+                <TextBlock
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="Name"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                
+                />
+                <TextBox
+                Grid.Column="1"
+                Grid.Row="1"
+                Text="{Binding Switch.Name}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Stretch"    
+                Height="24"
+                />
+                <TextBlock
+                Grid.Column="0"
+                Grid.Row="2"
+                Text="Address"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                
+                />
+                <ComboBox
+                  Grid.Column="1"
+                Grid.Row="2"
+                 
+                HorizontalAlignment="Left"
+                Height="24"
+                 Width="80"
+                 >
+                    <ComboBoxItem 
+                     Content="Proc Direct"                     
+                     />
+                    <ComboBoxItem 
+                     Content="Proc Matrix"                     
+                     />
+                </ComboBox>
+                <TextBox
+                Grid.Column="1"
+                Grid.Row="2"
+                Text="{Binding Switch.Address}"
+
+                HorizontalAlignment="Right"
+                Height="24"
+                />
+                <TextBlock
+                Grid.Column="0"
+                Grid.Row="3"
+                Text="Type"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                />
+                <TextBox
+                Grid.Column="1"
+                Grid.Row="3"
+                x:Name="SwitchType"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                />
+
+
+                <!--     <TextBlock
             Grid.Column="0"
             Grid.Row="3"
             x:Name="WiringColors"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             FontSize="12" />
-        <TextBlock
-            Grid.Column="2"
-            Grid.Row="3"
-            x:Name="SwitchType"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-        <TextBlock
+
+            <TextBlock
             Grid.Column="0"
             Grid.Row="4"
             Text="Physical Location: "
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             FontSize="12" />
-        <TextBlock
+            <TextBlock
             Grid.Column="0"
             Grid.Row="5"
             Text="Virtual Location:"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            FontSize="12" />
+            FontSize="12" />-->
 
+                <Button
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="7"
+            x:Name="RemoveDevice"
+            Content="Remove Device"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+                Height="24"
+            />
 
-        <Button
+                <Button
             Grid.Column="1"
-            Grid.Row="11"
+            Grid.ColumnSpan="2"
+            Grid.Row="7"
             x:Name="SaveDevice"
             Content="Save Device"
             VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Height="28"
+            HorizontalAlignment="Right"
+                Height="24"
             />
+            </Grid>
+        </Grid>
+
+
 
     </Grid>
 </UserControl>

@@ -37,4 +37,11 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
         public Servo Device { get; set; }
     }
+
+    class ConfigureLedMessage : IConfigureLedMessage
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Led Device { get; set; }
+    }
 }

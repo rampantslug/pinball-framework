@@ -3,25 +3,35 @@ using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.ContractImplementations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
 
-    public class CoilConfigurationViewModel : Screen
+    public class CoilConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
+        #region Fields
 
         private CoilViewModel _coil;
 
+        #endregion
+
         #region Properties
 
-        public ushort Number
+        public CoilViewModel Coil
         {
-            get { return _coil.Number; }
+            get { return _coil; }
+            set
+            {
+                _coil = value;
+                NotifyOfPropertyChange(() => Coil);
+            }
         }
 
         public string Address
@@ -34,50 +44,42 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public string Name
+
+        public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
-            get { return _coil.Name; }
-            set
+            get
             {
-                _coil.Name = value;
-                NotifyOfPropertyChange(() => Name);
+                return _coil.PreviousStates;
             }
+
         }
-
-
-
- 
-
-  /*      public DateTime LastChangeTimeStamp
-        {
-            get { return _coil.LastChangeTimeStamp; }
-            set
-            {
-                _coil.LastChangeTimeStamp = value;
-                NotifyOfPropertyChange(() => LastChangeTimeStamp);
-            }
-        }
-
-        // TODO: Should this be an enum of available colours based on what is set for the project        
-        public string WiringColors
-        {
-            get { return _coil.WiringColors; }
-            set
-            {
-                _coil.WiringColors = value;
-                NotifyOfPropertyChange(() => WiringColors);
-            }
-        }*/
+        
 
         #endregion
 
-        public CoilConfigurationViewModel(CoilViewModel coilDevice) 
+        #region Constructor
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coilDevice"></param>
+        public CoilConfigurationViewModel(CoilViewModel coilDevice)
         {
-            //var eventAggregator = IoC.Get<IEventAggregator>();
-           // eventAggregator.Subscribe(this);
-
             _coil = coilDevice;
+        }
 
+        #endregion
+
+        public void PulseState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendCommandDeviceMessage(_coil.Device as Coil, CoilCommand.PulseActive);
+        }
+
+        public void HoldState()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendCommandDeviceMessage(_coil.Device as Coil, CoilCommand.HoldActive);
         }
 
         public void SaveDevice()

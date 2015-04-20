@@ -10,9 +10,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
 {
     public class SwitchViewModel : DeviceViewModel, IDeviceViewModel
     {
-        private ObservableCollection<HistoryRowViewModel> _previousStates;
+       
         private string _switchState;
-        private string _switchName;
 
         public bool IsSelected
         {
@@ -32,20 +31,10 @@ namespace RampantSlug.PinballClient.CommonViewModels
         {
             _device = switchDevice;
             SwitchState = switchDevice.State;
-            SwitchName = switchDevice.Name;
-
-            _previousStates = new ObservableCollection<HistoryRowViewModel>();
+ 
         }
 
-        public string SwitchName
-        {
-            get { return _switchName; }
-            set
-            {
-                _switchName = value;
-                NotifyOfPropertyChange(() => SwitchName);
-            }
-        }
+
 
         public string SwitchState
         {
@@ -57,18 +46,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-        public ObservableCollection<HistoryRowViewModel> PreviousStates
-        {
-            get
-            {
-                return _previousStates;
-            }
-            private set
-            {
-                _previousStates = value;
-                NotifyOfPropertyChange(() => PreviousStates);
-            }
-        }
+       
 
         public void ActivateDeviceState()
         {
@@ -91,6 +69,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         public void UpdateDeviceInfo(Switch switchDevice, DateTime timestamp)
         {
+            // TODO: Move this into DeviceViewModel section
             if (PreviousStates.Count > 10)
             {
                 PreviousStates.Remove(PreviousStates.Last());
@@ -105,7 +84,6 @@ namespace RampantSlug.PinballClient.CommonViewModels
             _device = switchDevice;
 
             SwitchState = switchDevice.State;
-            SwitchName = switchDevice.Name;
 
             NotifyOfPropertyChange(()=> IsDeviceActive);
 

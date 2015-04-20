@@ -100,6 +100,8 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\IDeviceConfigurationScreen.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\LedConfigurationViewModel.cs" />
     <Compile Include="CommonViewModels\HistoryRowViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
@@ -160,6 +162,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceInformation\LedConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -34,4 +34,11 @@ namespace RampantSlug.Contracts
 
         Servo Device { get; }
     }
+
+    public interface IConfigureLedMessage
+    {
+        DateTime Timestamp { get; }
+
+        Led Device { get; }
+    }
 }

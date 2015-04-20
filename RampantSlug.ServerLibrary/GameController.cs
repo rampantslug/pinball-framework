@@ -45,6 +45,7 @@ namespace RampantSlug.ServerLibrary
         private AttrCollection<ushort, string, Coil> _coils;
         private AttrCollection<ushort, string, StepperMotor> _stepperMotors;
         private AttrCollection<ushort, string, Servo> _servos;
+        private AttrCollection<ushort, string, Led> _leds;
 
 
         // Display Elements
@@ -77,6 +78,12 @@ namespace RampantSlug.ServerLibrary
             set { _servos = value; }
         }
 
+        public AttrCollection<ushort, string, Led> Leds
+        {
+            get { return _leds; }
+            set { _leds = value; }
+        }
+
         /// <summary>
         /// The current list of modes that are active in the game
         /// </summary>
@@ -86,19 +93,27 @@ namespace RampantSlug.ServerLibrary
             set { _modes = value; }
         }
 
+        #region Constructor
+
+        /// <summary>
+        /// 
+        /// </summary>
         public GameController() 
         {
             _modes = new ModeQueue(this);
         }
 
-
-  
-
+        #endregion
 
 
 
-      
 
+        #region Setup / Teardown
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool Configure()
         {
             ServerBusController = IoC.Get<IServerBusController>();
@@ -124,6 +139,7 @@ namespace RampantSlug.ServerLibrary
                 _coils = DeviceCollection<Coil>.CreateCollection(gameConfiguration.Coils, RsLogManager.GetCurrent);
                 _stepperMotors = DeviceCollection<StepperMotor>.CreateCollection(gameConfiguration.StepperMotors, RsLogManager.GetCurrent);
                 _servos = DeviceCollection<Servo>.CreateCollection(gameConfiguration.Servos, RsLogManager.GetCurrent);
+                _leds = DeviceCollection<Led>.CreateCollection(gameConfiguration.Leds, RsLogManager.GetCurrent);
 
                 return true;
             }
@@ -150,42 +166,13 @@ namespace RampantSlug.ServerLibrary
                 _arduinoController.Close();
         }
 
+        #endregion
+
 
 
        
 
-        #region Respond to EventAggregator Events
-
-        public void Handle(DeviceConfigMessageResult message)
-        {
-            var device = message.Device;
-
-            var updatedSwitch = device as Switch;
-            if (updatedSwitch != null)
-            {
-               UpdateConfig(updatedSwitch);
-               return;
-            }
-
-                var updatedCoil = device as Coil;
-                if (updatedCoil != null)
-                {
-                    UpdateConfig(updatedCoil);
-                    return;
-                }
-
-                var updatedStepperMotor = device as StepperMotor;
-                if (updatedStepperMotor != null)
-                {
-                    UpdateConfig(updatedStepperMotor);
-                    return;
-                }
-            
-
-            
-        }
-
-        
+        #region Respond to Commands sent from Client to control/fake hardware
 
         public void Handle(SwitchCommandResult message)
         {
@@ -215,6 +202,11 @@ namespace RampantSlug.ServerLibrary
                 }
         }
 
+        public void Handle(CoilCommandResult message)
+        {
+
+        }
+
         public void Handle(StepperMotorCommandResult message)
         {
             // Set the device into the desired state
@@ -233,18 +225,19 @@ namespace RampantSlug.ServerLibrary
             //MainScore.PlayerScore += 10;
         }
 
-
-        public void Handle(RequestConfigResult message)
+        public void Handle(ServoCommandResult message)
         {
-            var gameConfiguration = new Configuration();
-            gameConfiguration.ImageSerialize();
-            gameConfiguration.Switches = _switches.Values;
-            gameConfiguration.Coils = _coils.Values;
-            gameConfiguration.StepperMotors = _stepperMotors.Values;
-            gameConfiguration.Servos = _servos.Values;
-
-            ServerBusController.SendConfigurationMessage(gameConfiguration);
+            
         }
+
+        public void Handle(LedCommandResult message)
+        {
+           
+        }
+
+        #endregion
+
+        #region Respond to Events from Hardware Devices
 
         public void Handle(SwitchUpdateEvent message)
         {
@@ -269,6 +262,48 @@ namespace RampantSlug.ServerLibrary
 
 
         #region Configuration Related Methods
+
+        public void Handle(RequestConfigResult message)
+        {
+            var gameConfiguration = new Configuration();
+            gameConfiguration.ImageSerialize();
+            gameConfiguration.Switches = _switches.Values;
+            gameConfiguration.Coils = _coils.Values;
+            gameConfiguration.StepperMotors = _stepperMotors.Values;
+            gameConfiguration.Servos = _servos.Values;
+            gameConfiguration.Leds = _leds.Values;
+
+            ServerBusController.SendConfigurationMessage(gameConfiguration);
+        }
+
+        public void Handle(DeviceConfigMessageResult message)
+        {
+            var device = message.Device;
+
+            var updatedSwitch = device as Switch;
+            if (updatedSwitch != null)
+            {
+                UpdateConfig(updatedSwitch);
+                return;
+            }
+
+            var updatedCoil = device as Coil;
+            if (updatedCoil != null)
+            {
+                UpdateConfig(updatedCoil);
+                return;
+            }
+
+            var updatedStepperMotor = device as StepperMotor;
+            if (updatedStepperMotor != null)
+            {
+                UpdateConfig(updatedStepperMotor);
+                return;
+            }
+
+
+
+        }
 
         private void UpdateConfig(Switch updatedSwitch)
         {

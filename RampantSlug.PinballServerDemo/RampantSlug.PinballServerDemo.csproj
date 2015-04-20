@@ -137,6 +137,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Configuration\playfield-detailed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Configuration\playfield.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

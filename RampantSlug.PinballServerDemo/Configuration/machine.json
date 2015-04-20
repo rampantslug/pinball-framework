@@ -76,11 +76,15 @@
         {
             "Address": "6",
             "Name": "Map Tilt",
+            "VirtualLocationX": "70",
+            "VirtualLocationY": "40",
             "WiringColors": "Blue/White"
         },
         {
             "Address": "7",
             "Name": "Tree",
+            "VirtualLocationX": "50",
+            "VirtualLocationY": "20",
             "WiringColors": "Blue/Red"
         }
     ],
@@ -92,6 +96,26 @@
         }
     ],
     "Leds": [ 
-
+        {
+            "Address": "101",
+            "Name": "Led 1",
+            "VirtualLocationX": "100",
+            "VirtualLocationY": "200",
+            "WiringColors": "Blue/White"
+        },
+        {
+            "Address": "102",
+            "Name": "Led 2",
+            "VirtualLocationX": "30",
+            "VirtualLocationY": "250",
+            "WiringColors": "Blue/Red"
+        },
+        {
+            "Address": "103",
+            "Name": "Led 4",
+            "VirtualLocationX": "70",
+            "VirtualLocationY": "50",
+            "WiringColors": "Blue/Black"
+        }
     ]
 }

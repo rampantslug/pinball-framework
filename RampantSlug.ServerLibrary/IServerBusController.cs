@@ -27,5 +27,7 @@ namespace RampantSlug.ServerLibrary
         void SendUpdateDeviceMessage(StepperMotor device);
 
         void SendUpdateDeviceMessage(Servo device);
+
+        void SendUpdateDeviceMessage(Led device);
     }
 }
