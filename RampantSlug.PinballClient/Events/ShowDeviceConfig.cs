@@ -18,8 +18,13 @@ namespace RampantSlug.PinballClient.Events
         public StepperMotorViewModel StepperMotorVm { get; set; }
     }
 
-    public class ShowSservoConfig
+    public class ShowServoConfig
     {
         public ServoViewModel ServoVm { get; set; }
+    }
+
+    public class ShowLedConfig
+    {
+        public LedViewModel LedVm { get; set; }
     }
 }

@@ -67,7 +67,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 
             _firstGeneration.Add(new DeviceTypeViewModel(new StepperMotorType("Stepper Motors"), new ObservableCollection<DeviceViewModel>(shellViewModel.StepperMotors)));
 
-            _firstGeneration.Add(new DeviceTypeViewModel(new ServoType("Servos"), new ObservableCollection<DeviceViewModel>(shellViewModel.Servos)));    
+            _firstGeneration.Add(new DeviceTypeViewModel(new ServoType("Servos"), new ObservableCollection<DeviceViewModel>(shellViewModel.Servos)));
+
+            _firstGeneration.Add(new DeviceTypeViewModel(new LedType("Leds"), new ObservableCollection<DeviceViewModel>(shellViewModel.Leds)));
 
             NotifyOfPropertyChange(() => FirstGeneration);
 

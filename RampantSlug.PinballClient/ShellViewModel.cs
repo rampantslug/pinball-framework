@@ -39,6 +39,7 @@ namespace RampantSlug.PinballClient {
         private ObservableCollection<CoilViewModel> _coils;
         private ObservableCollection<StepperMotorViewModel> _stepperMotors;
         private ObservableCollection<ServoViewModel> _servos;
+        private ObservableCollection<LedViewModel> _leds;
 
 
         // Client Displays
@@ -130,6 +131,19 @@ namespace RampantSlug.PinballClient {
             }
         }
 
+        public ObservableCollection<LedViewModel> Leds
+        {
+            get
+            {
+                return _leds;
+            }
+            set
+            {
+                _leds = value;
+                NotifyOfPropertyChange(() => Leds);
+            }
+        }
+
         public string PlayfieldImage
         {
             get
@@ -177,6 +191,7 @@ namespace RampantSlug.PinballClient {
             Coils = new ObservableCollection<CoilViewModel>();
             StepperMotors = new ObservableCollection<StepperMotorViewModel>();
             Servos = new ObservableCollection<ServoViewModel>();
+            Leds = new ObservableCollection<LedViewModel>();
         }
 
 
@@ -257,6 +272,12 @@ namespace RampantSlug.PinballClient {
             foreach (var servo in config.Servos)
             {
                 Servos.Add(new ServoViewModel(servo));
+            }
+
+            Leds.Clear();
+            foreach (var led in config.Leds)
+            {
+                Leds.Add(new LedViewModel(led));
             }
 
             _eventAggregator.PublishOnUIThread(new DisplayMessageResults

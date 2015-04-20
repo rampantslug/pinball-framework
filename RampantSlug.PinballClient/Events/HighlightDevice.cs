@@ -22,4 +22,9 @@ namespace RampantSlug.PinballClient.Events
     {
         public ServoViewModel ServoVm { get; set; }
     }
+
+    public class HighlightLed
+    {
+        public LedViewModel LedVm { get; set; }
+    }
 }

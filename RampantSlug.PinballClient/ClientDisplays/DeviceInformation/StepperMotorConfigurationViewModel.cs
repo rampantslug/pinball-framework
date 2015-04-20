@@ -73,20 +73,19 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public void SaveDevice()
         {
             var busController = IoC.Get<IClientBusController>();
-            busController.SendConfigureDeviceMessage(_stepperMotor.Device as StepperMotor); 
+            busController.SendConfigureDeviceMessage(_stepperMotor.Device as StepperMotor);
         }
 
-        public void PulseState()
+        public void RotateClockwise()
         {
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendCommandDeviceMessage(_stepperMotor.Device as StepperMotor, StepperMotorCommand.PulseActive);
+            _stepperMotor.RotateClockwise();
         }
 
-        public void HoldState()
+        public void RotateCounterClockwise()
         {
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendCommandDeviceMessage(_stepperMotor.Device as StepperMotor, StepperMotorCommand.HoldActive);
+            _stepperMotor.RotateCounterClockwise();
         }
+
  
     }
 }

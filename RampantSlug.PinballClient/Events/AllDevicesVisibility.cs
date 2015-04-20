@@ -24,4 +24,9 @@ namespace RampantSlug.PinballClient.Events
     {
         public bool IsVisible { get; set; }
     }
+
+    public class AllLedsVisibility
+    {
+        public bool IsVisible { get; set; }
+    }
 }

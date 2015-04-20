@@ -161,7 +161,7 @@
             <TextBox
                 Grid.Column="1"
                 Grid.Row="1"
-                Text="{Binding Switch.Name}"
+                Text="{Binding Led.Name}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Stretch"    
                 Height="24"
@@ -192,7 +192,7 @@
             <TextBox
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="Address"
+                Text="{Binding Led.Address}"
 
                 HorizontalAlignment="Right"
                 Height="24"

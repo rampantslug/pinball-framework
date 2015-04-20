@@ -2,7 +2,7 @@
 {
     public enum LedCommand
     {
-        PulseActive,
-        HoldActive
+        MidIntesityOn,
+        FullOff
     }
 }

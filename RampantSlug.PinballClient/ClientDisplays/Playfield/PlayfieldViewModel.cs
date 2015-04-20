@@ -25,6 +25,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
         IHandle<AllCoilsVisibility>,
         IHandle<AllStepperMotorsVisibility>,
         IHandle<AllServosVisibility>,
+        IHandle<AllLedsVisibility>,
         IHandle<HighlightSwitch>
     {
         private IEventAggregator _eventAggregator;
@@ -33,8 +34,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
         private double _playfieldHeight;
         private bool _allSwitchesVis;
         private bool _allCoilsVis;
-        private Visibility _allStepperMotorsVis;
-        private Visibility _allServosVis;
+        private bool _allStepperMotorsVis;
+        private bool _allServosVis;
+        private bool _allLedsVis;
 
         public ImageSource PlayfieldImage
         {
@@ -101,7 +103,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             }
         }
 
-        public Visibility AllStepperMotorsVis
+        public bool AllStepperMotorsVis
         {
             get
             {
@@ -114,7 +116,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             }
         }
 
-        public Visibility AllServosVis
+        public bool AllServosVis
         {
             get
             {
@@ -124,6 +126,19 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             {
                 _allServosVis = value;
                 NotifyOfPropertyChange(() => AllServosVis);
+            }
+        }
+
+        public bool AllLedsVis
+        {
+            get
+            {
+                return _allLedsVis;
+            }
+            private set
+            {
+                _allLedsVis = value;
+                NotifyOfPropertyChange(() => AllLedsVis);
             }
         }
 
@@ -155,6 +170,48 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             }
         }
 
+        private ObservableCollection<StepperMotorViewModel> _stepperMotors;
+        public ObservableCollection<StepperMotorViewModel> StepperMotors
+        {
+            get
+            {
+                return _stepperMotors;
+            }
+            set
+            {
+                _stepperMotors = value;
+                NotifyOfPropertyChange(() => StepperMotors);
+            }
+        }
+
+        private ObservableCollection<ServoViewModel> _servos;
+        public ObservableCollection<ServoViewModel> Servos
+        {
+            get
+            {
+                return _servos;
+            }
+            set
+            {
+                _servos = value;
+                NotifyOfPropertyChange(() => Servos);
+            }
+        }
+
+        private ObservableCollection<LedViewModel> _leds;
+        public ObservableCollection<LedViewModel> Leds
+        {
+            get
+            {
+                return _leds;
+            }
+            set
+            {
+                _leds = value;
+                NotifyOfPropertyChange(() => Leds);
+            }
+        }
+
 
         #region Constructor
 
@@ -168,11 +225,15 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             PlayfieldHeight = 800;
             AllSwitchesVis = true;
             AllCoilsVis = true;
-            AllStepperMotorsVis = Visibility.Visible;
-            AllServosVis = Visibility.Visible;
+            AllStepperMotorsVis = true;
+            AllServosVis = true;
+            AllLedsVis = true;
 
             _switches = new ObservableCollection<SwitchViewModel>();
             _coils = new ObservableCollection<CoilViewModel>();
+            _stepperMotors = new ObservableCollection<StepperMotorViewModel>();
+            _servos = new ObservableCollection<ServoViewModel>();
+            _leds = new ObservableCollection<LedViewModel>();
         }
 
         #endregion
@@ -212,6 +273,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
 
             Switches = shellViewModel.Switches;
             Coils = shellViewModel.Coils;
+            StepperMotors = shellViewModel.StepperMotors;
+            Servos = shellViewModel.Servos;
+            Leds = shellViewModel.Leds;
 
         }
 
@@ -227,12 +291,17 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
 
         public void Handle(AllStepperMotorsVisibility message)
         {
-            AllStepperMotorsVis = message.IsVisible ? Visibility.Visible : Visibility.Hidden;
+            AllStepperMotorsVis = message.IsVisible;
         }
 
         public void Handle(AllServosVisibility message)
         {
-            AllServosVis = message.IsVisible ? Visibility.Visible : Visibility.Hidden;
+            AllServosVis = message.IsVisible;
+        }
+
+        public void Handle(AllLedsVisibility message)
+        {
+            AllLedsVis = message.IsVisible;
         }
     }
 }

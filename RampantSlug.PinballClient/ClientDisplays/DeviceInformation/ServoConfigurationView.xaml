@@ -56,19 +56,20 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="24" 
-                Text="{Binding Switch.SwitchState}"
+                Text="{Binding Servo.State}"
                 />
             <Button 
                 Grid.Column="0"
                 Grid.Row="2"
-                x:Name="PulseState"
-                Content="Pulse"
+                x:Name="RotateClockwise"
+                Content="Rotate Clockwise"
+                
                 />
             <Button 
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="HoldState"
-                Content="Hold"
+                x:Name="RotateCounterClockwise"
+                Content="Rotate CounterClockwise"
                 />
         </Grid>
 
@@ -161,7 +162,7 @@
                 <TextBox
                 Grid.Column="1"
                 Grid.Row="1"
-                Text="{Binding Switch.Name}"
+                Text="{Binding Servo.Name}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Stretch"    
                 Height="24"
@@ -192,7 +193,7 @@
                 <TextBox
                 Grid.Column="1"
                 Grid.Row="2"
-                Text="{Binding Switch.Address}"
+                Text="{Binding Servo.Address}"
 
                 HorizontalAlignment="Right"
                 Height="24"

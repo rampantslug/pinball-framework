@@ -57,6 +57,12 @@ namespace RampantSlug.PinballClient
             _bus.Publish<ConfigureServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
+        public void SendConfigureDeviceMessage(Led device)
+        {
+            var message = new ConfigureLedMessage() { Device = device, Timestamp = DateTime.Now };
+            _bus.Publish<ConfigureServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
         public void SendCommandDeviceMessage(Switch device, SwitchCommand command)
         {
             var message = new CommandSwitchMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
@@ -80,6 +86,13 @@ namespace RampantSlug.PinballClient
             var message = new CommandServoMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
             _bus.Publish<CommandServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
+
+        public void SendCommandDeviceMessage(Led device, LedCommand command)
+        {
+            var message = new CommandLedMessage() { Device = device, Timestamp = DateTime.Now, Command = command };
+            _bus.Publish<CommandLedMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
 
         public void RequestSettings() 
         {

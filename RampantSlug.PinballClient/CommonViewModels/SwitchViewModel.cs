@@ -27,15 +27,6 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-        public SwitchViewModel(Switch switchDevice)
-        {
-            _device = switchDevice;
-            SwitchState = switchDevice.State;
- 
-        }
-
-
-
         public string SwitchState
         {
             get { return _switchState; }
@@ -46,7 +37,27 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-       
+
+        #region Constructor
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="switchDevice"></param>
+        public SwitchViewModel(Switch switchDevice)
+        {
+            _device = switchDevice;
+            SwitchState = switchDevice.State;
+ 
+        }
+
+        #endregion
+
+
+
+
+
+        #region Device Command Methods
 
         public void ActivateDeviceState()
         {
@@ -54,6 +65,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             var sw = Device as Switch;
             busController.SendCommandDeviceMessage(sw, SwitchCommand.PulseActive);
         }
+
+        #endregion
 
         public override void ConfigureDevice()
         {

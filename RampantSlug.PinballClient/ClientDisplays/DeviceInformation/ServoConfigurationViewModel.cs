@@ -69,16 +69,14 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         #endregion
 
-        public void PulseState()
+        public void RotateClockwise()
         {
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendCommandDeviceMessage(_servo.Device as Servo, ServoCommand.PulseActive);
+            _servo.RotateClockwise();
         }
 
-        public void HoldState()
+        public void RotateCounterClockwise()
         {
-            var busController = IoC.Get<IClientBusController>();
-            busController.SendCommandDeviceMessage(_servo.Device as Servo, ServoCommand.HoldActive);
+            _servo.RotateCounterClockwise();
         }
 
         public void SaveDevice()

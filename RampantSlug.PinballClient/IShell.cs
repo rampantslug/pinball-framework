@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using RampantSlug.Common;
@@ -13,7 +14,10 @@ namespace RampantSlug.PinballClient {
         ObservableCollection<StepperMotorViewModel> StepperMotors { get; set; }
 
         ObservableCollection<ServoViewModel> Servos { get; set; }
-        string PlayfieldImage { get; set; }
+
+        ObservableCollection<LedViewModel> Leds { get; set; }
+        
+        string PlayfieldImage { get; set; }   
 
         void UpdateViewModels(Configuration configuration);
     }

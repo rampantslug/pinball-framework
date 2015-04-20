@@ -1,34 +1,90 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Linq;
+using Caliburn.Micro;
+using RampantSlug.Common.Commands;
 using RampantSlug.Common.Devices;
+using RampantSlug.PinballClient.Events;
 
 namespace RampantSlug.PinballClient.CommonViewModels
 {
     public class StepperMotorViewModel : DeviceViewModel
     {
-        readonly StepperMotor _stepperMotor;
 
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                HighlightSelected();
+                _isSelected = value;
+                NotifyOfPropertyChange(() => IsSelected);
+            }
+        }
+
+
+        #region Constructor
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stepperMotorDevice"></param>
         public StepperMotorViewModel(StepperMotor stepperMotorDevice)
         {
-            _stepperMotor = stepperMotorDevice;
             _device = stepperMotorDevice;
         }
 
-        public string StepperMotorName
-        {
-            get { return _stepperMotor.Name; }
-        }
+        #endregion
 
+        #region Device Command Methods
 
-        public void RotateRight()
+        public void RotateClockwise()
         {
             var busController = IoC.Get<IClientBusController>();
-            //busController.SendDeviceCommandMessage(_stepperMotor,"Right");
+            var stepperMotor = Device as StepperMotor;
+            busController.SendCommandDeviceMessage(stepperMotor, StepperMotorCommand.ToClockwiseLimit);
         }
 
-        public void RotateLeft()
+        public void RotateCounterClockwise()
         {
             var busController = IoC.Get<IClientBusController>();
-            //busController.SendDeviceCommandMessage(_stepperMotor, "Left");
+            var stepperMotor = Device as StepperMotor;
+            busController.SendCommandDeviceMessage(stepperMotor, StepperMotorCommand.ToCounterClockwiseLimit);
+        }
+
+        #endregion
+
+        public override void ConfigureDevice()
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.PublishOnUIThread(new ShowStepperMotorConfig() { StepperMotorVm = this });
+        }
+
+        public override void HighlightSelected()
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.PublishOnUIThread(new HighlightStepperMotor() { StepperMotorVm = this });
+        }
+
+        public void UpdateDeviceInfo(StepperMotor stepperMotor, DateTime timestamp)
+        {
+            // TODO: Move this into DeviceViewModel section
+            if (PreviousStates.Count > 10)
+            {
+                PreviousStates.Remove(PreviousStates.Last());
+            }
+            PreviousStates.Insert(0, new HistoryRowViewModel()
+            {
+                Timestamp = timestamp.ToString(),
+                State = "No stepper motor states exist yet."
+            });
+
+            // Update stuff.
+            _device = stepperMotor;
+            NotifyOfPropertyChange(() => IsDeviceActive);
+
         }
     }
 }

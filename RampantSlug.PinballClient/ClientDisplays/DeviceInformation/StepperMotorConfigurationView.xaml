@@ -161,7 +161,7 @@
                 <TextBox
                 Grid.Column="1"
                 Grid.Row="1"
-                Text="{Binding Switch.Name}"
+                Text="{Binding StepperMotor.Name}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Stretch"    
                 Height="24"
@@ -192,7 +192,7 @@
                 <TextBox
                 Grid.Column="1"
                 Grid.Row="2"
-                Text="{Binding Switch.Address}"
+                Text="{Binding StepperMotor.Address}"
 
                 HorizontalAlignment="Right"
                 Height="24"

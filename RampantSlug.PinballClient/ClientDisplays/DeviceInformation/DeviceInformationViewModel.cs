@@ -22,11 +22,16 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
     public sealed class DeviceInformationViewModel : Conductor<IScreen>.Collection.OneActive, IDeviceInformation, 
         IHandle<ShowSwitchConfig>,
+        IHandle<ShowCoilConfig>,
+        IHandle<ShowStepperMotorConfig>,
+        IHandle<ShowServoConfig>,
+        IHandle<ShowLedConfig>,
         IHandle<UpdatePlayfieldImage>,
         IHandle<HighlightSwitch>,
         IHandle<HighlightCoil>,
         IHandle<HighlightStepperMotor>,
-        IHandle<HighlightServo>
+        IHandle<HighlightServo>,
+        IHandle<HighlightLed>
     {
 
         private IEventAggregator _eventAggregator;
@@ -106,20 +111,34 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             SelectedDevice = deviceMessage.SwitchVm;   
         }
 
+        public void Handle(ShowCoilConfig deviceMessage)
+        {
+            SelectedDevice = deviceMessage.CoilVm;
+        }
+
+        public void Handle(ShowStepperMotorConfig deviceMessage)
+        {
+            SelectedDevice = deviceMessage.StepperMotorVm;
+        }
+
+        public void Handle(ShowServoConfig deviceMessage)
+        {
+            SelectedDevice = deviceMessage.ServoVm;
+        }
+
+        public void Handle(ShowLedConfig deviceMessage)
+        {
+            SelectedDevice = deviceMessage.LedVm;
+        }
+
         /*
          *  Handle various highlight events
          */
 
         public void Handle(HighlightSwitch deviceMessage)
         {
-            // Get correct viewmodel from shell
-           // var shell = IoC.Get<IShell>();
-           // var realVM = shell.Switches.FirstOrDefault(sw => sw.Number == deviceMessage.SwitchVm.Number);
-          //  if (realVM != null)
-          //  {
             ActivateItem(new SwitchConfigurationViewModel(deviceMessage.SwitchVm));
             SelectedDevice = deviceMessage.SwitchVm;
-           // }
         }
 
         public void Handle(HighlightCoil deviceMessage)
@@ -138,6 +157,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             ActivateItem(new ServoConfigurationViewModel(deviceMessage.ServoVm));
             SelectedDevice = deviceMessage.ServoVm;
+        }
+
+        public void Handle(HighlightLed deviceMessage)
+        {
+            ActivateItem(new LedConfigurationViewModel(deviceMessage.LedVm));
+            SelectedDevice = deviceMessage.LedVm;
         }
 
         /// <summary>

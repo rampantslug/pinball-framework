@@ -96,6 +96,28 @@
                             BorderBrush="DarkRed"
                             BorderThickness="2"
                             />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
                         <Button 
                             Content="{Binding Number}"
                             Style="{StaticResource FlatButton}"
@@ -104,6 +126,8 @@
                             HorizontalAlignment="Center"
                             FontSize="14"
                             />
+                        
+                        
                     </Grid>
 
                 </DataTemplate>
@@ -145,12 +169,253 @@
                             BorderBrush="Blue"
                             BorderThickness="2"
                             />
-                        <TextBlock 
-                            Text="{Binding Number}"
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="ActivateDeviceState()"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             FontSize="14"
                             />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the StepperMotors -->
+        <ItemsControl 
+            x:Name="StepperMotors"
+            Visibility="{Binding AllStepperMotorsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter
+                Property="Canvas.Left"
+                Value="{Binding VirtualLocationX}"
+                />
+                    <Setter
+                Property="Canvas.Top"
+                Value="{Binding VirtualLocationY}"
+                />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="DimGray"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="Gainsboro"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the Servos -->
+        <ItemsControl 
+            x:Name="Servos"
+            Visibility="{Binding AllServosVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter
+                Property="Canvas.Left"
+                Value="{Binding VirtualLocationX}"
+                />
+                    <Setter
+                Property="Canvas.Top"
+                Value="{Binding VirtualLocationY}"
+                />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="BlueViolet"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="DarkBlue"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the Leds -->
+        <ItemsControl 
+            x:Name="Leds"
+            Visibility="{Binding AllLedsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter
+                Property="Canvas.Left"
+                Value="{Binding VirtualLocationX}"
+                />
+                    <Setter
+                Property="Canvas.Top"
+                Value="{Binding VirtualLocationY}"
+                />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="Chartreuse"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="CadetBlue"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+
                     </Grid>
 
                 </DataTemplate>

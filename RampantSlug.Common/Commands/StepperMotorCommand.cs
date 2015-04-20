@@ -2,7 +2,7 @@
 {
     public enum StepperMotorCommand
     {
-        PulseActive,
-        HoldActive
+        ToClockwiseLimit,
+        ToCounterClockwiseLimit
     }
 }

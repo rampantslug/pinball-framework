@@ -20,6 +20,8 @@ namespace RampantSlug.PinballClient
 
         void SendConfigureDeviceMessage(Servo device);
 
+        void SendConfigureDeviceMessage(Led device);
+
         void SendCommandDeviceMessage(Switch device, SwitchCommand command);
 
         void SendCommandDeviceMessage(Coil device, CoilCommand command);
@@ -28,6 +30,7 @@ namespace RampantSlug.PinballClient
 
         void SendCommandDeviceMessage(Servo device, ServoCommand command);
 
+        void SendCommandDeviceMessage(Led device, LedCommand command);
 
         void RequestSettings();
 
