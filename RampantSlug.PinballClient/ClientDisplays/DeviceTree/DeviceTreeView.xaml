@@ -222,7 +222,7 @@
                             Height="20"
                             BorderThickness="1"
                             Style="{StaticResource FlatButton}"
-                            Content="Pulse Coil"
+                            Content="Pulse"
                             cal:Message.Attach="ActivateDeviceState()"
                             VerticalContentAlignment="Top"
                             FontSize="14"
@@ -276,7 +276,7 @@
                         Grid.Column="1"
                         Width="20"
                         Height="20"
-                        Margin="10,0,0,0"
+                        Margin="12,0,0,0"
                         cal:Message.Attach="RotateClockwise()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -294,7 +294,7 @@
                         Grid.Column="2"
                         Width="20"
                         Height="20"
-                        Margin="0,0,10,0"
+                        Margin="0,0,12,0"
                         cal:Message.Attach="RotateCounterClockwise()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -309,7 +309,7 @@
                         </Rectangle>
                     </Button>
                     <Button 
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Width="20"
                         Height="20"
                         cal:Message.Attach="ChangeVisibility()"
@@ -363,7 +363,7 @@
                         Grid.Column="1"
                         Width="20"
                         Height="20"
-                        Margin="10,0,0,0"
+                        Margin="12,0,0,0"
                         cal:Message.Attach="RotateClockwise()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -381,7 +381,7 @@
                         Grid.Column="2"
                         Width="20"
                         Height="20"
-                        Margin="0,0,10,0"
+                        Margin="0,0,12,0"
                         cal:Message.Attach="RotateCounterClockwise()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -438,7 +438,8 @@
                         >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="35" />
+                        <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <TextBlock 
@@ -448,14 +449,16 @@
                         Grid.Column="1"
                         Width="20"
                         Height="20"
-                        Margin="10,0,0,0"
+                        Margin="12,0,0,0"
                         cal:Message.Attach="DeactivateLed()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                         >
                         <Rectangle 
-                            Width="12"
-                            Height="12"
+                            Margin="0,2,0,0"
+                            
+                            Width="8"
+                            Height="10"
                             >
                             <Rectangle.Fill>
                                 <VisualBrush Visual="{StaticResource appbar_lightbulb_hue}" />
@@ -466,7 +469,7 @@
                         Grid.Column="2"
                         Width="20"
                         Height="20"
-                        Margin="0,0,10,0"
+                        Margin="0,0,12,0"
                         cal:Message.Attach="ActivateLed()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -481,7 +484,7 @@
                         </Rectangle>
                     </Button>
                     <Button 
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Width="20"
                         Height="20"
                         cal:Message.Attach="ChangeVisibility()"
