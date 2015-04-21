@@ -25,7 +25,11 @@ namespace RampantSlug.ServerLibrary
     public class GameController : IGameController, 
         IHandle<DeviceConfigMessageResult>, 
         IHandle<RequestConfigResult>, 
-        IHandle<SwitchCommandResult>, 
+        IHandle<SwitchCommandResult>,
+        IHandle<CoilCommandResult>,
+        IHandle<StepperMotorCommandResult>,
+        IHandle<ServoCommandResult>,
+        IHandle<LedCommandResult>,
         IHandle<SwitchUpdateEvent>
     {
         // Services used by GameController  
@@ -204,11 +208,14 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(CoilCommandResult message)
         {
-
+            RsLogManager.GetCurrent.LogTestMessage("Command on Coil: " + message.Device.Name + " to " + message.Command.ToString());
         }
 
         public void Handle(StepperMotorCommandResult message)
         {
+
+            RsLogManager.GetCurrent.LogTestMessage("Command on Stepper Motor: " + message.Device.Name + " to " + message.Command.ToString());
+
             // Set the device into the desired state
             // message.Device
 
@@ -227,12 +234,12 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(ServoCommandResult message)
         {
-            
+            RsLogManager.GetCurrent.LogTestMessage("Command on Servo: " + message.Device.Name + " to " + message.Command.ToString());
         }
 
         public void Handle(LedCommandResult message)
         {
-           
+            RsLogManager.GetCurrent.LogTestMessage("Command on Led : " + message.Device.Name + " is changing to " + message.Command.ToString());
         }
 
         #endregion

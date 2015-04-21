@@ -56,7 +56,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="24" 
-                Text="{Binding Switch.SwitchState}"
+                Text="{Binding Coil.State}"
                 />
             <Button 
                 Grid.Column="0"
@@ -161,7 +161,7 @@
                 <TextBox
                 Grid.Column="1"
                 Grid.Row="1"
-                Text="{Binding Switch.Name}"
+                Text="{Binding Coil.Name}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Stretch"    
                 Height="24"
@@ -192,7 +192,7 @@
                 <TextBox
                 Grid.Column="1"
                 Grid.Row="2"
-                Text="{Binding Switch.Address}"
+                Text="{Binding Coil.Address}"
 
                 HorizontalAlignment="Right"
                 Height="24"
@@ -213,29 +213,7 @@
                 />
 
 
-                <!--     <TextBlock
-            Grid.Column="0"
-            Grid.Row="3"
-            x:Name="WiringColors"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-
-            <TextBlock
-            Grid.Column="0"
-            Grid.Row="4"
-            Text="Physical Location: "
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />
-            <TextBlock
-            Grid.Column="0"
-            Grid.Row="5"
-            Text="Virtual Location:"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontSize="12" />-->
-
+  
                 <Button
             Grid.Column="0"
             Grid.ColumnSpan="2"

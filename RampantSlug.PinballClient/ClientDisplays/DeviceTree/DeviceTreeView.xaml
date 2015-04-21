@@ -222,7 +222,7 @@
                             Height="20"
                             BorderThickness="1"
                             Style="{StaticResource FlatButton}"
-                            Content="{Binding State}"
+                            Content="Pulse Coil"
                             cal:Message.Attach="ActivateDeviceState()"
                             VerticalContentAlignment="Top"
                             FontSize="14"
@@ -265,24 +265,49 @@
                         >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="35" />
+                        <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <TextBlock 
                         Grid.Column="0"
                             Text="{Binding Name}" />
-                    <Button
-                            Grid.Column="1"
-                            Height="20"
-                            BorderThickness="1"
-                            Style="{StaticResource FlatButton}"
-                            Content="{Binding State}"
-                            cal:Message.Attach="ActivateDeviceState()"
-                            VerticalContentAlignment="Top"
-                            FontSize="14"
-                            Margin="10,0,10,0"
-                            Background="{Binding IsDeviceActive, Converter={StaticResource BooleanConditionConverter}, ConverterParameter={StaticResource StateActiveConditionalValue}}"
-                            />
+                    <Button 
+                        Grid.Column="1"
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,0"
+                        cal:Message.Attach="RotateClockwise()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_transform_rotate_clockwise}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Button>
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,10,0"
+                        cal:Message.Attach="RotateCounterClockwise()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_transform_rotate_counterclockwise}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Button>
                     <Button 
                         Grid.Column="2"
                         Width="20"
@@ -338,6 +363,7 @@
                         Grid.Column="1"
                         Width="20"
                         Height="20"
+                        Margin="10,0,0,0"
                         cal:Message.Attach="RotateClockwise()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -355,6 +381,7 @@
                         Grid.Column="2"
                         Width="20"
                         Height="20"
+                        Margin="0,0,10,0"
                         cal:Message.Attach="RotateCounterClockwise()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -417,18 +444,42 @@
                     <TextBlock 
                         Grid.Column="0"
                             Text="{Binding Name}" />
-                    <Button
-                            Grid.Column="1"
-                            Height="20"
-                            BorderThickness="1"
-                            Style="{StaticResource FlatButton}"
-                            Content="{Binding State}"
-                            cal:Message.Attach="ActivateDeviceState()"
-                            VerticalContentAlignment="Top"
-                            FontSize="14"
-                            Margin="10,0,10,0"
-                            Background="{Binding IsDeviceActive, Converter={StaticResource BooleanConditionConverter}, ConverterParameter={StaticResource StateActiveConditionalValue}}"
-                            />
+                    <Button 
+                        Grid.Column="1"
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,0"
+                        cal:Message.Attach="DeactivateLed()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_lightbulb_hue}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Button>
+                    <Button 
+                        Grid.Column="2"
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,10,0"
+                        cal:Message.Attach="ActivateLed()"
+                        BorderThickness="0"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        >
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_lightbulb_hue_on}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Button>
                     <Button 
                         Grid.Column="2"
                         Width="20"
@@ -461,115 +512,3 @@
 
         </TreeView>
 </UserControl>
-
-
-<!-- Equipment Tree -->
-<!--<TreeView 
-    
-    
-    cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}"
-    
-            Grid.Row="1"
-             BorderThickness="0"
-            ItemsSource="{Binding FirstGeneration}">
-    <TreeView.ItemContainerStyle>
-        <Style TargetType="{x:Type TreeViewItem}">
-            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-            <Setter Property="FontWeight" Value="Normal" />
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="FontWeight" Value="Bold" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </TreeView.ItemContainerStyle>
-
-    <TreeView.ItemTemplate>
-        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-            <StackPanel 
-                        Orientation="Horizontal"
-                        >
-                <Grid 
-                        Width="16"
-                        Height="16">
-                    <Grid.Background
-                                >
-                        <VisualBrush 
-                                    Visual="{Binding EquipmentTypeVisual}"
-                                    Stretch="Uniform"
-                                    AlignmentX="Left"   
-                                >
-                        </VisualBrush>
-                    </Grid.Background>
-                </Grid>
-                <TextBlock
-                        Margin="2"
-                        Text="{Binding UniqueId}" 
-                            Foreground="{Binding LastEventTypeBrush}"
-                            />
-                <TextBlock 
-                        Margin="2"
-                        Text="{Binding Description}" 
-                            Foreground="{Binding LastEventTypeBrush}"/>
-                <StackPanel.ContextMenu>
-                    <ContextMenu 
-                                ItemsSource="{Binding AvailableCommands}"
-                                cal:Action.TargetWithoutContext="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.DataContext}"
-                                         >
-                        <ContextMenu.ItemTemplate>
-                            <HierarchicalDataTemplate>
-                                <MenuItem>
-                                    <MenuItem.Header>
-                                        <TextBlock 
-                                                    Text="{Binding DisplayName}"
-                                                    FontWeight="{Binding FontWeight}"
-                                                    />
-                                    </MenuItem.Header>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Click">
-                                            <cal:ActionMessage 
-                                                        MethodName="{Binding MethodName}" >
-                                                <cal:Parameter Value="{Binding RequiredAction}" />
-                                            </cal:ActionMessage>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </MenuItem>
-                            </HierarchicalDataTemplate>
-                        </ContextMenu.ItemTemplate>
-                    </ContextMenu>
-                </StackPanel.ContextMenu>
-            </StackPanel>
-        </HierarchicalDataTemplate>
-    </TreeView.ItemTemplate>
-</TreeView>-->
-
-<!-- Search -->
-<!--<StackPanel 
-        HorizontalAlignment="Center" 
-        Margin="5" 
-        Orientation="Horizontal"
-            Grid.Row="2"
-            Height="28"
-        >
-    <TextBlock 
-            Text="Search for:"
-            FontSize="12"
-                VerticalAlignment="Center"
-                Foreground="#FFE7E7E7"
-                />
-    <TextBox 
-          x:Name="SearchText"
-          Margin="6,0"
-          Width="150"
-          
-          />
-    <Button 
-          x:Name="PerformSearch"
-          cal:Message.Attach="PerformSearch" 
-          Content="Find" 
-          Padding="8,0" 
-          />
-</StackPanel>
-</Grid>
-</UserControl> -->

@@ -39,11 +39,18 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         #region Device Command Methods
 
-        public void ActivateDeviceState()
+        public void ActivateLed()
         {
             var busController = IoC.Get<IClientBusController>();
             var led = Device as Led;
             busController.SendCommandDeviceMessage(led, LedCommand.MidIntesityOn);
+        }
+
+        public void DeactivateLed()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            var led = Device as Led;
+            busController.SendCommandDeviceMessage(led, LedCommand.FullOff);
         }
 
         #endregion

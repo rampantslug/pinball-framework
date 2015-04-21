@@ -24,13 +24,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         #region Properties
 
-        public ServoViewModel Coil
+        public ServoViewModel Servo
         {
             get { return _servo; }
             set
             {
                 _servo = value;
-                NotifyOfPropertyChange(() => Coil);
+                NotifyOfPropertyChange(() => Servo);
             }
         }
 
