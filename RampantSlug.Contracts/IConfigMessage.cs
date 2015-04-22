@@ -8,6 +8,9 @@ using RampantSlug.Common;
 
 namespace RampantSlug.Contracts
 {
+    /// <summary>
+    /// Message containing configuration data of a machine.
+    /// </summary>
     public interface IConfigMessage
     {
         DateTime Timestamp { get; }

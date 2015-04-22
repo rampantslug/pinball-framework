@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.Contracts
 {
+    /// <summary>
+    /// Message containing configuration data of a single switch.
+    /// </summary>
     public interface IConfigureSwitchMessage
     {       
         DateTime Timestamp { get; }
@@ -14,6 +17,9 @@ namespace RampantSlug.Contracts
         Switch Device { get; } 
     }
 
+    /// <summary>
+    /// Message containing configuration data of a single coil.
+    /// </summary>
     public interface IConfigureCoilMessage
     {
         DateTime Timestamp { get; }
@@ -21,6 +27,9 @@ namespace RampantSlug.Contracts
         Coil Device { get; }
     }
 
+    /// <summary>
+    /// Message containing configuration data of a single stepper motor.
+    /// </summary>
     public interface IConfigureStepperMotorMessage
     {
         DateTime Timestamp { get; }
@@ -28,6 +37,9 @@ namespace RampantSlug.Contracts
         StepperMotor Device { get; }
     }
 
+    /// <summary>
+    /// Message containing configuration data of a single servo.
+    /// </summary>
     public interface IConfigureServoMessage
     {
         DateTime Timestamp { get; }
@@ -35,6 +47,9 @@ namespace RampantSlug.Contracts
         Servo Device { get; }
     }
 
+    /// <summary>
+    /// Message containing configuration data of a single led.
+    /// </summary>
     public interface IConfigureLedMessage
     {
         DateTime Timestamp { get; }

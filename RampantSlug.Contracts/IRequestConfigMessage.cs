@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.Contracts
 {
-    public interface IRequestConfigMessage
-    {
-
-    }
+    /// <summary>
+    /// Message requesting server to send the machine configuration data.
+    /// </summary>
+    public interface IRequestConfigMessage { }
 }

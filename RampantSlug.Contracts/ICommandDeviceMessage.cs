@@ -8,6 +8,9 @@ using RampantSlug.Common.Commands;
 
 namespace RampantSlug.Contracts
 {
+    /// <summary>
+    /// Message to initiate a remote switch command.
+    /// </summary>
     public interface ICommandSwitchMessage
     {        
         DateTime Timestamp { get; }
@@ -17,6 +20,9 @@ namespace RampantSlug.Contracts
         SwitchCommand Command { get; }
     }
 
+    /// <summary>
+    /// Message to initiate a remote coil command.
+    /// </summary>
     public interface ICommandCoilMessage
     {
         DateTime Timestamp { get; }
@@ -26,6 +32,9 @@ namespace RampantSlug.Contracts
         CoilCommand Command { get; }
     }
 
+    /// <summary>
+    /// Message to initiate a remote stepper motor command.
+    /// </summary>
     public interface ICommandStepperMotorMessage
     {
         DateTime Timestamp { get; }
@@ -35,6 +44,9 @@ namespace RampantSlug.Contracts
         StepperMotorCommand Command { get; }
     }
 
+    /// <summary>
+    /// Message to initiate a remote servo command.
+    /// </summary>
     public interface ICommandServoMessage
     {
         DateTime Timestamp { get; }
@@ -44,6 +56,9 @@ namespace RampantSlug.Contracts
         ServoCommand Command { get; }
     }
 
+    /// <summary>
+    /// Message to initiate a remote led command.
+    /// </summary>
     public interface ICommandLedMessage
     {
         DateTime Timestamp { get; }
