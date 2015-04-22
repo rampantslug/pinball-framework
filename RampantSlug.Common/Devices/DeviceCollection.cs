@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RampantSlug.Common.Logging;
 
 namespace RampantSlug.Common.Devices
@@ -16,20 +17,17 @@ namespace RampantSlug.Common.Devices
                 {
                     try
                     {
-                        ushort number = 0;
-                        ushort.TryParse(iDevice.Address, out number);
-                        
-                        // Create a unique Id / Number for the device
-                        if (iDevice.Address.Contains("/"))
+                        var address = ParseAddressString(iDevice.Address);
+                        if (address == -1)
                         {
-                            number = (ushort) parse_matrix_num(iDevice.Address);
+                            throw new Exception("Invalid device Address: " + iDevice.Address);
+                        }
+                        else
+                        {
+                            iDevice.Number = (ushort) address;
+                            collection.Add(iDevice.Number, iDevice.Name, device);
                         }
 
-                        iDevice.Number = number;
-
-
-
-                        collection.Add(iDevice.Number, iDevice.Name, device);
                     }
 
                     catch
@@ -51,6 +49,63 @@ namespace RampantSlug.Common.Devices
         {
             string[] cr_list = num.Split('/');
             return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
+        }
+
+        private static int ParseAddressString(string address)
+        {
+            // Split out address into Controller and port
+            var controllerPlusPort = address.Split('-');
+
+            if (controllerPlusPort.Count() != 2)
+            {
+                // Invalid Address
+                // Throw exception, error message and dont process the rest of this Device
+                return -1;
+            }
+
+            switch (controllerPlusPort[0])
+            {
+                // Proc Switch Matrix Address
+                case "PSM":
+                {
+                    return parse_matrix_num(controllerPlusPort[1]);
+                }
+
+                // Proc Direct Switch Address
+                case "PDS":
+                {
+                    return Int32.Parse(controllerPlusPort[1]);
+                }
+
+                // Proc Driver Board (Coil?) Address
+                case "PDB":
+                {
+                    return Int32.Parse(controllerPlusPort[1]);
+                }
+
+                // Proc Led Board Address
+                case "PLB":
+                {
+                    return Int32.Parse(controllerPlusPort[1]);
+                }
+
+                // Arduino Servo Shield Address
+                case "ASS":
+                {
+                    return Int32.Parse(controllerPlusPort[1]);
+                }
+
+                // Arduino Motor Shield Address
+                case "AMS":
+                {
+                    return Int32.Parse(controllerPlusPort[1]);
+                }
+                default:
+                {
+                    return -1;
+                }
+            }
+
         }
     }
 }

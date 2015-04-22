@@ -1,7 +1,7 @@
 ﻿{
     "Switches": [
         {
-            "Address": "0/0",
+            "Address": "PSM-0/0",
             "Name": "startButton",
             "VirtualLocationX": "10",
             "VirtualLocationY": "10",
@@ -9,7 +9,7 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "0/1",
+            "Address": "PSM-0/1",
             "Name": "shooterLane",
             "VirtualLocationX": "30",
             "VirtualLocationY": "10",
@@ -17,7 +17,7 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "0/2",
+            "Address": "PSM-0/2",
             "Name": "leftFlipper",
             "VirtualLocationX": "60",
             "VirtualLocationY": "30",
@@ -25,14 +25,14 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "0/3",
+            "Address": "PSM-0/3",
             "Name": "rightFlipper",
             "VirtualLocationX": "100",
             "VirtualLocationY": "60",
             "WiringColors": "Grey/Green"
         },
         {
-            "Address": "1/0",
+            "Address": "PSM-1/0",
             "Name": "trough1",
             "VirtualLocationX": "10",
             "VirtualLocationY": "10",
@@ -40,7 +40,7 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "1/1",
+            "Address": "PSM-1/1",
             "Name": "trough2",
             "VirtualLocationX": "30",
             "VirtualLocationY": "10",
@@ -48,7 +48,7 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "1/2",
+            "Address": "PSM-1/2",
             "Name": "trough3",
             "VirtualLocationX": "60",
             "VirtualLocationY": "30",
@@ -56,7 +56,7 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "1/3",
+            "Address": "PSM-1/3",
             "Name": "trough4",
             "VirtualLocationX": "100",
             "VirtualLocationY": "60",
@@ -64,7 +64,7 @@
         },
          {
             "SwitchType": "Optical NC",
-            "Address": "2/3",
+            "Address": "PSM-2/3",
             "Name": "lowerTarget",
             "VirtualLocationX": "60",
             "VirtualLocationY": "30",
@@ -72,7 +72,7 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "2/4",
+            "Address": "PSM-2/4",
             "Name": "middleTarget",
             "VirtualLocationX": "100",
             "VirtualLocationY": "60",
@@ -81,35 +81,35 @@
     ],
     "Coils": [
         {
-            "Address": "01",
+            "Address": "PDB-01",
             "Name": "Pop Bumper 1",
             "VirtualLocationX": "100",
             "VirtualLocationY": "200",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "02",
+            "Address": "PDB-02",
             "Name": "Pop Bumper 2",
             "VirtualLocationX": "30",
             "VirtualLocationY": "250",
             "WiringColors": "Blue/Red"
         },
         {
-            "Address": "03",
+            "Address": "PDB-03",
             "Name": "Pop Bumper 3",
             "VirtualLocationX": "70",
             "VirtualLocationY": "50",
             "WiringColors": "Blue/Black"
         },
          {
-            "Address": "04",
+            "Address": "PDB-04",
             "Name": "flipperLowerLeftPower",
             "VirtualLocationX": "30",
             "VirtualLocationY": "250",
             "WiringColors": "Blue/Red"
         },
         {
-            "Address": "05",
+            "Address": "PDB-05",
             "Name": "flipperLowerRightPower",
             "VirtualLocationX": "70",
             "VirtualLocationY": "50",
@@ -118,14 +118,14 @@
     ],
      "Servos": [
         {
-            "Address": "4",
+            "Address": "ASS-4",
             "Name": "Wall Gate",
             "VirtualLocationX": "30",
             "VirtualLocationY": "10",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "5",
+            "Address": "ASS-5",
             "Name": "Diverter 1",
             "VirtualLocationX": "30",
             "VirtualLocationY": "10",
@@ -135,14 +135,14 @@
     
     "StepperMotors": [
         {
-            "Address": "6",
+            "Address": "AMS-6",
             "Name": "Map Tilt",
             "VirtualLocationX": "70",
             "VirtualLocationY": "40",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "7",
+            "Address": "AMS-7",
             "Name": "Tree",
             "VirtualLocationX": "50",
             "VirtualLocationY": "20",
@@ -151,28 +151,28 @@
     ],
    "DCMotors": [
         {
-            "Address": "8",
+            "Address": "AMS-8",
             "Name": "Lift",
             "WiringColors": "Blue/White"
         }
     ],
     "Leds": [ 
         {
-            "Address": "101",
+            "Address": "PLB-101",
             "Name": "Led 1",
             "VirtualLocationX": "100",
             "VirtualLocationY": "200",
             "WiringColors": "Blue/White"
         },
         {
-            "Address": "102",
+            "Address": "PLB-102",
             "Name": "Led 2",
             "VirtualLocationX": "30",
             "VirtualLocationY": "250",
             "WiringColors": "Blue/Red"
         },
         {
-            "Address": "103",
+            "Address": "PLB-103",
             "Name": "Led 4",
             "VirtualLocationX": "70",
             "VirtualLocationY": "50",
