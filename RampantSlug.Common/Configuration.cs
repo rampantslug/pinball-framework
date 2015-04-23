@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using RampantSlug.Common.Devices;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json.Serialization;
 
 namespace RampantSlug.Common
 {
     public class Configuration
     {
-        //[JsonIgnore]
+
         public string PlayfieldImage { get; set; }
 
         public List<Switch> Switches { get; set; }
@@ -88,8 +90,9 @@ namespace RampantSlug.Common
             var serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
             serializer.Formatting = Formatting.Indented;
+            serializer.ContractResolver = new RsContractResolver();
  
-            using (var sw = new StreamWriter(PathToFile + @"\testmachine.json"))
+            using (var sw = new StreamWriter(PathToFile))
             using (var writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, this);
@@ -109,4 +112,26 @@ namespace RampantSlug.Common
             textWriter.Close();
         }
     }
+
+    public class RsContractResolver : DefaultContractResolver
+ {
+        public new static readonly RsContractResolver Instance = new RsContractResolver();
+ 
+     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+     {
+         JsonProperty property = base.CreateProperty(member, memberSerialization);
+
+         if (property.PropertyName == "Number"
+             || property.PropertyName == "LastChangeTimeStamp" 
+             || property.PropertyName == "PlayfieldImage"
+             || property.PropertyName == "State"
+             || property.PropertyName == "IsDeviceActive")
+        {
+            property.ShouldSerialize =
+                instance => false;
+        }
+
+        return property;
+    }
+}
 }

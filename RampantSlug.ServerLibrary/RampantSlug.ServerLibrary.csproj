@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractImplementations\UpdateDeviceMessage.cs" />
+    <Compile Include="Events\ConfigureDeviceEvent.cs" />
     <Compile Include="Events\UpdateDeviceEvent.cs" />
     <Compile Include="Events\UpdateDisplayEvent.cs" />
     <Compile Include="GameLibraryBootstrapper.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="ContractImplementations\ConfigMessage.cs" />
     <Compile Include="ContractImplementations\SimpleMessage.cs" />
     <Compile Include="Events\RequestConfigResult.cs" />
-    <Compile Include="Events\DeviceConfigMessageResult.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="IServerBusController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

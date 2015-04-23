@@ -21,7 +21,7 @@
         <Grid
             Grid.Row="0"
             Grid.ColumnSpan="2"
-            Background="{StaticResource HighlightColorBrush}"
+            Background="{StaticResource HighlightBrush}"
             >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />

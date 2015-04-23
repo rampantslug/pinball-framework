@@ -14,15 +14,16 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         Consumes<IConfigureSwitchMessage>.Context,
         Consumes<IConfigureCoilMessage>.Context,
         Consumes<IConfigureStepperMotorMessage>.Context,
-        Consumes<IConfigureServoMessage>.Context
+        Consumes<IConfigureServoMessage>.Context,
+        Consumes<IConfigureLedMessage>.Context
     {
         public void Consume(IConsumeContext<IConfigureSwitchMessage> message)
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceConfigMessageResult
+            eventAggregator.PublishOnUIThread(new ConfigureSwitchEvent()
             {
-                Timestamp = message.Message.Timestamp,
+                //Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device
             });
 
@@ -32,9 +33,9 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceConfigMessageResult
+            eventAggregator.PublishOnUIThread(new ConfigureCoilEvent()
             {
-                Timestamp = message.Message.Timestamp,
+                //Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device
             });
 
@@ -44,9 +45,9 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceConfigMessageResult
+            eventAggregator.PublishOnUIThread(new ConfigureStepperMotorEvent()
             {
-                Timestamp = message.Message.Timestamp,
+                //Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device
             });
 
@@ -56,9 +57,21 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         {
             var eventAggregator = IoC.Get<IEventAggregator>();
 
-            eventAggregator.PublishOnUIThread(new DeviceConfigMessageResult
+            eventAggregator.PublishOnUIThread(new ConfigureServoEvent()
             {
-                Timestamp = message.Message.Timestamp,
+                //Timestamp = message.Message.Timestamp,
+                Device = message.Message.Device
+            });
+
+        }
+
+        public void Consume(IConsumeContext<IConfigureLedMessage> message)
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            eventAggregator.PublishOnUIThread(new ConfigureLedEvent()
+            {
+                //Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device
             });
 

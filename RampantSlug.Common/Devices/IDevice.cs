@@ -17,10 +17,11 @@ namespace RampantSlug.Common.Devices
 
        // void UpdateNumberFromAddress();
 
+        //[JsonIgnore]
         string State { get; set; }
         
 
-        [JsonIgnore]
+        //[JsonIgnore]
         bool IsDeviceActive { get; }
 
         int VirtualLocationX { get; set; }

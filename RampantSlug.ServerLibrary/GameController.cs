@@ -22,14 +22,24 @@ using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class GameController : IGameController, 
-        IHandle<DeviceConfigMessageResult>, 
-        IHandle<RequestConfigResult>, 
+    public class GameController : IGameController,          
+        IHandle<RequestConfigResult>,
+ 
+        // Configure devices
+        IHandle<ConfigureSwitchEvent>,
+        IHandle<ConfigureCoilEvent>,
+        IHandle<ConfigureStepperMotorEvent>,
+        IHandle<ConfigureServoEvent>,
+        IHandle<ConfigureLedEvent>,
+
+        // Client command requests
         IHandle<SwitchCommandResult>,
         IHandle<CoilCommandResult>,
         IHandle<StepperMotorCommandResult>,
         IHandle<ServoCommandResult>,
         IHandle<LedCommandResult>,
+
+        // Device State Changes
         IHandle<UpdateSwitchEvent>,
         IHandle<UpdateCoilEvent>,
         IHandle<UpdateStepperMotorEvent>,
@@ -393,45 +403,41 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(RequestConfigResult message)
         {
-            var gameConfiguration = new Configuration();
-            gameConfiguration.ImageSerialize();
-            gameConfiguration.Switches = _switches.Values;
-            gameConfiguration.Coils = _coils.Values;
-            gameConfiguration.StepperMotors = _stepperMotors.Values;
-            gameConfiguration.Servos = _servos.Values;
-            gameConfiguration.Leds = _leds.Values;
-
-            ServerBusController.SendConfigurationMessage(gameConfiguration);
+            var config = PopulateConfiguration();
+            ServerBusController.SendConfigurationMessage(config);
         }
 
-        public void Handle(DeviceConfigMessageResult message)
+        public void Handle(ConfigureSwitchEvent message)
         {
-            var device = message.Device;
-
-            var updatedSwitch = device as Switch;
-            if (updatedSwitch != null)
-            {
-                UpdateConfig(updatedSwitch);
-                return;
-            }
-
-            var updatedCoil = device as Coil;
-            if (updatedCoil != null)
-            {
-                UpdateConfig(updatedCoil);
-                return;
-            }
-
-            var updatedStepperMotor = device as StepperMotor;
-            if (updatedStepperMotor != null)
-            {
-                UpdateConfig(updatedStepperMotor);
-                return;
-            }
-
-
-
+            UpdateConfig(message.Device);
+            SaveConfigurationToFile();
         }
+
+        public void Handle(ConfigureCoilEvent message)
+        {
+            UpdateConfig(message.Device);
+            SaveConfigurationToFile();
+        }
+
+        public void Handle(ConfigureStepperMotorEvent message)
+        {
+            UpdateConfig(message.Device);
+            SaveConfigurationToFile();
+        }
+
+        public void Handle(ConfigureServoEvent message)
+        {
+            UpdateConfig(message.Device);
+            SaveConfigurationToFile();
+        }
+
+        public void Handle(ConfigureLedEvent message)
+        {
+            UpdateConfig(message.Device);
+            SaveConfigurationToFile();
+        }
+
+      
 
         private void UpdateConfig(Switch updatedSwitch)
         {
@@ -442,14 +448,11 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            Switch sw = null;
-            Switches.TryGetValue(updatedSwitch.Number, out sw);
-
             // Update existing Switch
-            if (sw != null)
+            if (Switches.ContainsKey(updatedSwitch.Number))
             {
-                Switches.Update(sw.Number, sw);
-                RsLogManager.GetCurrent.LogTestMessage("Updated switch " + sw.Name + "in config.");
+                Switches.Update(updatedSwitch.Number, updatedSwitch);
+                RsLogManager.GetCurrent.LogTestMessage("Updated switch " + updatedSwitch.Name + "in config.");
             }
             else // Adding a new switch
             {
@@ -467,14 +470,11 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            Coil coil = null;
-            Coils.TryGetValue(updatedCoil.Number, out coil);
-
             // Update existing coil
-            if (coil != null)
+            if (Coils.ContainsKey(updatedCoil.Number))
             {
-                Coils.Update(coil.Number, coil);
-                RsLogManager.GetCurrent.LogTestMessage("Updated coil " + coil.Name + "in config.");
+                Coils.Update(updatedCoil.Number, updatedCoil);
+                RsLogManager.GetCurrent.LogTestMessage("Updated coil " + updatedCoil.Name + "in config.");
             }
             else // Adding a new coil
             {
@@ -492,14 +492,11 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            StepperMotor stepperMotor = null;
-            StepperMotors.TryGetValue(updatedStepperMotor.Number, out stepperMotor);
-
             // Update existing stepperMotor
-            if (stepperMotor != null)
+            if (StepperMotors.ContainsKey(updatedStepperMotor.Number))
             {
-                StepperMotors.Update(stepperMotor.Number, stepperMotor);
-                RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + stepperMotor.Name + "in config.");
+                StepperMotors.Update(updatedStepperMotor.Number, updatedStepperMotor);
+                RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + updatedStepperMotor.Name + "in config.");
             }
             else // Adding a new stepperMotor
             {
@@ -508,11 +505,70 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
+        private void UpdateConfig(Servo updatedServo)
+        {
+            if (updatedServo.Number == 0)
+            {
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid servo settings. Not saving to config.");
+                return;
+            }
+
+            // Update existing servo
+            if (Servos.ContainsKey(updatedServo.Number))
+            {
+                Servos.Update(updatedServo.Number, updatedServo);
+                RsLogManager.GetCurrent.LogTestMessage("Updated servo " + updatedServo.Name + " in config.");
+            }
+            else // Adding a new servo
+            {
+                Servos.Add(updatedServo.Number, updatedServo.Name, updatedServo);
+                RsLogManager.GetCurrent.LogTestMessage("Added servo " + updatedServo.Name + " to config.");
+            }
+        }
+
+        private void UpdateConfig(Led updatedLed)
+        {
+            if (updatedLed.Number == 0)
+            {
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid led settings. Not saving to config.");
+                return;
+            }
+
+            // Update existing led
+            if (Leds.ContainsKey(updatedLed.Number))
+            {
+                Leds.Update(updatedLed.Number, updatedLed);
+                RsLogManager.GetCurrent.LogTestMessage("Updated led " + updatedLed.Name + "in config.");
+            }
+            else // Adding a new led
+            {
+                Leds.Add(updatedLed.Number, updatedLed.Name, updatedLed);
+                RsLogManager.GetCurrent.LogTestMessage("Added led " + updatedLed.Name + "to config.");
+            }
+        }
+
 
         public void SaveConfigurationToFile()
         {
             var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
-            // _gameConfiguration.ToFile(filePath);
+            var config = PopulateConfiguration();
+            config.ToFile(filePath + @"\testoutput.json");
+        }
+
+
+        private Configuration PopulateConfiguration()
+        {
+            var gameConfiguration = new Configuration();
+            gameConfiguration.ImageSerialize();
+            gameConfiguration.Switches = Switches.Values;
+            gameConfiguration.Coils = Coils.Values;
+            gameConfiguration.StepperMotors = StepperMotors.Values;
+            gameConfiguration.Servos = Servos.Values;
+            gameConfiguration.Leds = Leds.Values;
+
+            return gameConfiguration;
         }
 
         #endregion
