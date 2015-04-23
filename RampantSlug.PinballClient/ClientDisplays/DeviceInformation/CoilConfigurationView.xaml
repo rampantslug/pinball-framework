@@ -7,10 +7,9 @@
         Margin="5"
         >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="100"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="313"/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="313" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -21,7 +20,6 @@
         <!-- Control Section -->
         <Grid
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             Grid.Row="0"
         >
             <Grid.ColumnDefinitions>
@@ -73,7 +71,6 @@
         <!-- History -->
         <TextBlock
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
                 Grid.Row="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -83,7 +80,6 @@
                 />
         <ListView
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             Grid.Row="2"
             x:Name="PreviousStates"
             >
@@ -111,7 +107,7 @@
 
         <!-- Settings Section -->
         <Grid
-            Grid.Column="3"
+            Grid.Column="2"
             Grid.Row="0"
             Grid.RowSpan="3" 
             Background="WhiteSmoke"
@@ -127,6 +123,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
@@ -148,7 +145,7 @@
 
                 <TextBlock
                 Grid.Column="0"
-                Grid.Row="1"
+                Grid.Row="2"
                 Text="Name"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
@@ -156,7 +153,7 @@
                 />
                 <TextBox
                 Grid.Column="1"
-                Grid.Row="1"
+                Grid.Row="2"
                 Text="{Binding Coil.Name}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Stretch"    
@@ -164,7 +161,7 @@
                 />
                 <TextBlock
                 Grid.Column="0"
-                Grid.Row="2"
+                Grid.Row="3"
                 Text="Address"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
@@ -172,7 +169,7 @@
                 />
                 <ComboBox
                   Grid.Column="1"
-                Grid.Row="2"
+                Grid.Row="3"
                  
                 HorizontalAlignment="Left"
                 Height="24"
@@ -187,7 +184,7 @@
                 </ComboBox>
                 <TextBox
                 Grid.Column="1"
-                Grid.Row="2"
+                Grid.Row="3"
                 Text="{Binding Coil.Address}"
 
                 HorizontalAlignment="Right"
@@ -195,14 +192,14 @@
                 />
                 <TextBlock
                 Grid.Column="0"
-                Grid.Row="3"
+                Grid.Row="4"
                 Text="Type"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
                 />
                 <TextBox
                 Grid.Column="1"
-                Grid.Row="3"
+                Grid.Row="4"
                 x:Name="SwitchType"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -213,7 +210,7 @@
                 <Button
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="7"
+            Grid.Row="8"
             x:Name="RemoveDevice"
             Content="Remove Device"
             VerticalAlignment="Center"
@@ -224,11 +221,11 @@
                 <Button
             Grid.Column="1"
             Grid.ColumnSpan="2"
-            Grid.Row="7"
+            Grid.Row="8"
             x:Name="SaveDevice"
             Content="Save Device"
             VerticalAlignment="Center"
-            HorizontalAlignment="Right"
+            HorizontalAlignment="Center"
                 Height="24"
             />
             </Grid>

@@ -8,63 +8,79 @@
     </UserControl.Resources>
     <Grid>
        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="400"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock 
-            Grid.Column="0"
+        
+        <!-- Header Info -->
+        <Grid
             Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Background="{StaticResource HighlightColorBrush}"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+            Grid.Column="0"
             Text="{Binding SelectedDevice.Number}"
             FontSize="16"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             />
-        <TextBlock 
+            <TextBlock 
             Grid.Column="1"
-            Grid.Row="0"
             x:Name="DeviceType"
             FontSize="16"
             HorizontalAlignment="Center"      
             VerticalAlignment="Bottom"
             />
-        <TextBlock 
+            <TextBlock 
             Grid.Column="2"
-            Grid.Row="0"
             Text="{Binding SelectedDevice.Name}"
             FontSize="24"
             Foreground="{StaticResource AccentColorBrush}"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
             />
-        <TextBlock 
+            <TextBlock 
             Grid.Column="3"
-            Grid.Row="0"
+            Margin="0,0,20,0"
             Text="{Binding SelectedDevice.Address}"
             FontSize="16"
             Foreground="{StaticResource AccentColorBrush}"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             />
+        </Grid>
+        
+        
+        
         
         <!-- Device Location Image -->
         <Grid
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             Grid.Row="1"   
-            Background="WhiteSmoke"
             Margin="5"
+            
             >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <Border 
+                Grid.Row="0"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
             <TextBlock
                 Grid.Row="0"
                 VerticalAlignment="Center"
@@ -116,8 +132,7 @@
         
         <!-- Display the device specific content -->
         <ContentControl 
-            Grid.Column="2"
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
             Grid.Row="1"
             cal:View.Model="{Binding ActiveItem}" 
             HorizontalAlignment="Center"
