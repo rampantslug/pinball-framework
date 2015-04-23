@@ -52,20 +52,41 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             />
+        
+        <!-- Device Location Image -->
         <Grid
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="1"
-            Width="200"
-            Height="400"
+            Grid.Row="1"   
+            Background="WhiteSmoke"
+            Margin="5"
             >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12" 
+                Text="LOCATION"
+                Foreground="{StaticResource AccentColorBrush}"
+                />
             <Image
+                Margin="5"
+                Grid.Row="1"
+                Width="200"
+                Height="400"
                 Source="{Binding PlayfieldImage}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"         
             />
             <!-- Container for the Selected Device -->
-            <Canvas>
+            <Canvas
+                Grid.Row="1"
+                Margin="5"
+                >
                 <Grid
                     Background="IndianRed"
                     Width="15" 

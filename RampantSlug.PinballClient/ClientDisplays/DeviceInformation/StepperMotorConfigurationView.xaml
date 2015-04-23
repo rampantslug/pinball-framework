@@ -15,21 +15,18 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="30"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
-
-
-
-
-        <!-- Status Image -->
 
 
         <!-- Control Section -->
         <Grid
-            Grid.Column="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             Grid.Row="0"
         >
             <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="100"/>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -41,7 +38,7 @@
             </Grid.RowDefinitions>
             <TextBlock
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Grid.Row="0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -50,7 +47,7 @@
                 Foreground="{StaticResource AccentColorBrush}"
                 />
             <TextBlock
-                Grid.Column="0"
+                Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Grid.Row="1"
                 VerticalAlignment="Center"
@@ -59,13 +56,13 @@
                 Text="{Binding Switch.SwitchState}"
                 />
             <Button 
-                Grid.Column="0"
+                Grid.Column="1"
                 Grid.Row="2"
                 x:Name="PulseState"
                 Content="Pulse"
                 />
             <Button 
-                Grid.Column="1"
+                Grid.Column="2"
                 Grid.Row="2"
                 x:Name="HoldState"
                 Content="Hold"
