@@ -14,7 +14,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
         Consumes<ICommandSwitchMessage>.Context,
         Consumes<ICommandCoilMessage>.Context,
         Consumes<ICommandStepperMotorMessage>.Context,
-        Consumes<ICommandServoMessage>.Context
+        Consumes<ICommandServoMessage>.Context,
+        Consumes<ICommandLedMessage>.Context
 
     {
         public void Consume(IConsumeContext<ICommandSwitchMessage> message)
@@ -58,6 +59,18 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             var eventAggregator = IoC.Get<IEventAggregator>();
 
             eventAggregator.PublishOnUIThread(new ServoCommandResult
+            {
+                Timestamp = message.Message.Timestamp,
+                Device = message.Message.Device,
+                Command = message.Message.Command
+            });
+        }
+
+        public void Consume(IConsumeContext<ICommandLedMessage> message)
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            eventAggregator.PublishOnUIThread(new LedCommandResult
             {
                 Timestamp = message.Message.Timestamp,
                 Device = message.Message.Device,

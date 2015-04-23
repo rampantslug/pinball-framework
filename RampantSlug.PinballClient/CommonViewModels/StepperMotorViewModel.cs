@@ -70,16 +70,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         public void UpdateDeviceInfo(StepperMotor stepperMotor, DateTime timestamp)
         {
-            // TODO: Move this into DeviceViewModel section
-            if (PreviousStates.Count > 10)
-            {
-                PreviousStates.Remove(PreviousStates.Last());
-            }
-            PreviousStates.Insert(0, new HistoryRowViewModel()
-            {
-                Timestamp = timestamp.ToString(),
-                State = "No stepper motor states exist yet."
-            });
+            base.UpdateDeviceInfo(stepperMotor, timestamp);
 
             // Update stuff.
             _device = stepperMotor;

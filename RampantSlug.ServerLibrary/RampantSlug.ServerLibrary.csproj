@@ -83,8 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractImplementations\UpdateDeviceMessage.cs" />
+    <Compile Include="Events\UpdateDeviceEvent.cs" />
     <Compile Include="Events\UpdateDisplayEvent.cs" />
-    <Compile Include="Events\SwitchUpdateEvent.cs" />
     <Compile Include="GameLibraryBootstrapper.cs" />
     <Compile Include="ContractImplementations\CommandDeviceMessageConsumer.cs" />
     <Compile Include="Events\DeviceCommandResult.cs" />

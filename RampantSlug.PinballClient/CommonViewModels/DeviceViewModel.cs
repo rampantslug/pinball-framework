@@ -39,6 +39,19 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public string State
+        {
+            get
+            {
+                return Device.State;
+            }
+            set
+            {
+                Device.State = value;
+                NotifyOfPropertyChange(() => State);
+            }
+        }
+
         public string Address
         {
             get
@@ -180,7 +193,15 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         public void UpdateDeviceInfo(IDevice device, DateTime timestamp)
         {
-            
+            if (PreviousStates.Count > 10)
+            {
+                PreviousStates.Remove(PreviousStates.Last());
+            }
+            PreviousStates.Insert(0, new HistoryRowViewModel()
+            {
+                Timestamp = timestamp.ToString(),
+                State = device.State
+            });
          
 
         }

@@ -11,4 +11,32 @@ namespace RampantSlug.PinballClient.Events
 
         public Switch Device { get; set; } 
     }
+
+    public class UpdateCoil
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Coil Device { get; set; }
+    }
+
+    public class UpdateStepperMotor
+    {
+        public DateTime Timestamp { get; set; }
+
+        public StepperMotor Device { get; set; }
+    }
+
+    public class UpdateServo
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Servo Device { get; set; }
+    }
+
+    public class UpdateLed
+    {
+        public DateTime Timestamp { get; set; }
+
+        public Led Device { get; set; }
+    }
 }

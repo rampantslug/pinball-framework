@@ -82,16 +82,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         public void UpdateDeviceInfo(Switch switchDevice, DateTime timestamp)
         {
-            // TODO: Move this into DeviceViewModel section
-            if (PreviousStates.Count > 10)
-            {
-                PreviousStates.Remove(PreviousStates.Last());
-            }
-            PreviousStates.Insert(0, new HistoryRowViewModel()
-            {
-                Timestamp = timestamp.ToString(),
-                State = switchDevice.State
-            });
+            base.UpdateDeviceInfo(switchDevice, timestamp);
 
             // Update stuff.
             _device = switchDevice;

@@ -11,7 +11,7 @@ namespace RampantSlug.Common.Devices
 
         public SwitchType Type{ get; set; }
 
-        public string State { get; set; }
+        
 
 
         public Switch()

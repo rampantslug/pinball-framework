@@ -24,7 +24,11 @@ namespace RampantSlug.PinballClient {
     [Export(typeof(IShell))]
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell,
         IHandle<ShowSwitchConfig>,
-        IHandle<UpdateSwitch>
+        IHandle<UpdateSwitch>,
+        IHandle<UpdateCoil>,
+        IHandle<UpdateStepperMotor>,
+        IHandle<UpdateServo>,
+        IHandle<UpdateLed>
 
     {
         private IClientBusController _busController;
@@ -303,6 +307,7 @@ namespace RampantSlug.PinballClient {
         }
 
 
+        #region Update Device View Models based on state changes
 
 
         public void Handle(UpdateSwitch deviceMessage)
@@ -323,6 +328,84 @@ namespace RampantSlug.PinballClient {
                 Information = "Switch Event for: " + deviceMessage.Device.Name
             });
         }
+
+        public void Handle(UpdateCoil deviceMessage)
+        {
+            foreach (var coilVM in Coils.Where(coilVM => coilVM.Number == deviceMessage.Device.Number))
+            {
+                coilVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+            }
+
+            // Now create log message...
+            // TODO: This needs to be cleaned up to have better information            
+            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            {
+                Timestamp = deviceMessage.Timestamp,
+                EventType = "System",
+                Name = "Event Message",
+                State = "OK",
+                Information = "Coil Event for: " + deviceMessage.Device.Name
+            });
+        }
+
+        public void Handle(UpdateStepperMotor deviceMessage)
+        {
+            foreach (var stepperMotorVM in StepperMotors.Where(stepperMotorVM => stepperMotorVM.Number == deviceMessage.Device.Number))
+            {
+                stepperMotorVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+            }
+
+            // Now create log message...
+            // TODO: This needs to be cleaned up to have better information            
+            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            {
+                Timestamp = deviceMessage.Timestamp,
+                EventType = "System",
+                Name = "Event Message",
+                State = "OK",
+                Information = "Stepper Motor Event for: " + deviceMessage.Device.Name
+            });
+        }
+
+        public void Handle(UpdateServo deviceMessage)
+        {
+            foreach (var servoVM in Servos.Where(servoVM => servoVM.Number == deviceMessage.Device.Number))
+            {
+                servoVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+            }
+
+            // Now create log message...
+            // TODO: This needs to be cleaned up to have better information            
+            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            {
+                Timestamp = deviceMessage.Timestamp,
+                EventType = "System",
+                Name = "Event Message",
+                State = "OK",
+                Information = "Servo Event for: " + deviceMessage.Device.Name
+            });
+        }
+
+        public void Handle(UpdateLed deviceMessage)
+        {
+            foreach (var ledVM in Leds.Where(ledVM => ledVM.Number == deviceMessage.Device.Number))
+            {
+                ledVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+            }
+
+            // Now create log message...
+            // TODO: This needs to be cleaned up to have better information            
+            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            {
+                Timestamp = deviceMessage.Timestamp,
+                EventType = "System",
+                Name = "Event Message",
+                State = "OK",
+                Information = "Led Event for: " + deviceMessage.Device.Name
+            });
+        }
+
+        #endregion
 
     }
 }

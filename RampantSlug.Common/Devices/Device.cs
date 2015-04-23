@@ -20,7 +20,9 @@ namespace RampantSlug.Common.Devices
         public string Address { get; set; }
 
         public string Name { get; set; }
-       
+
+        public string State { get; set; }
+
 
         //[JsonIgnore]
         public DateTime LastChangeTimeStamp { get; set; }

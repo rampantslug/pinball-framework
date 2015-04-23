@@ -17,6 +17,7 @@ namespace RampantSlug.Common.Devices
 
        // void UpdateNumberFromAddress();
 
+        string State { get; set; }
         
 
         [JsonIgnore]

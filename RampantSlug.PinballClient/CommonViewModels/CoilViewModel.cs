@@ -64,16 +64,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         public void UpdateDeviceInfo(Coil coilDevice, DateTime timestamp)
         {
-            // TODO: Move this into DeviceViewModel section
-            if (PreviousStates.Count > 10)
-            {
-                PreviousStates.Remove(PreviousStates.Last());
-            }
-            PreviousStates.Insert(0, new HistoryRowViewModel()
-            {
-                Timestamp = timestamp.ToString(),
-                State = "No servo states exist yet."
-            });
+            base.UpdateDeviceInfo(coilDevice, timestamp);
 
             // Update stuff.
             _device = coilDevice;

@@ -30,7 +30,11 @@ namespace RampantSlug.ServerLibrary
         IHandle<StepperMotorCommandResult>,
         IHandle<ServoCommandResult>,
         IHandle<LedCommandResult>,
-        IHandle<SwitchUpdateEvent>
+        IHandle<UpdateSwitchEvent>,
+        IHandle<UpdateCoilEvent>,
+        IHandle<UpdateStepperMotorEvent>,
+        IHandle<UpdateServoEvent>,
+        IHandle<UpdateLedEvent>
     {
         // Services used by GameController  
         private IEventAggregator _eventAggregator;
@@ -185,15 +189,15 @@ namespace RampantSlug.ServerLibrary
             if (message.Command == SwitchCommand.PulseActive)
                 {
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
-                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent() { UpdatedSwitch = updatedSwitch });
+                    _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent() { Device = updatedSwitch });
 
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
 
                     TimedAction.ExecuteWithDelay(new System.Action(delegate
                     {
-                        _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent()
+                        _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent()
                         {
-                            UpdatedSwitch = updatedSwitch
+                            Device = updatedSwitch
                         });
                     }), TimeSpan.FromSeconds(0.5));
                     
@@ -201,20 +205,55 @@ namespace RampantSlug.ServerLibrary
                 else if (message.Command == SwitchCommand.HoldActive)
                 {
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
-                    _eventAggregator.PublishOnUIThread(new SwitchUpdateEvent() { UpdatedSwitch = updatedSwitch });
+                    _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent() { Device = updatedSwitch });
 
                 }
         }
 
         public void Handle(CoilCommandResult message)
         {
-            RsLogManager.GetCurrent.LogTestMessage("Command on Coil: " + message.Device.Name + " to " + message.Command.ToString());
+            var updatedCoil = message.Device;
+
+            if (message.Command == CoilCommand.PulseActive)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Command to pulse Coil: " + message.Device.Name + " to " + message.Command.ToString());
+                
+                updatedCoil.State = "Pulsing";
+
+                _eventAggregator.PublishOnUIThread(new UpdateCoilEvent() { Device = updatedCoil });
+
+                updatedCoil.State = "Inactive";
+
+                TimedAction.ExecuteWithDelay(new System.Action(delegate
+                {
+                    _eventAggregator.PublishOnUIThread(new UpdateCoilEvent()
+                    {
+                        Device = updatedCoil
+                    });
+                }), TimeSpan.FromSeconds(0.5));
+            }  
         }
 
         public void Handle(StepperMotorCommandResult message)
         {
+            var updatedStepperMotor = message.Device;
 
-            RsLogManager.GetCurrent.LogTestMessage("Command on Stepper Motor: " + message.Device.Name + " to " + message.Command.ToString());
+            if (message.Command == StepperMotorCommand.ToClockwiseLimit)
+            {
+                // TODO: Look up name of position for clockwise limit for this device
+                updatedStepperMotor.State = "ClockwiseLimit";
+
+                _eventAggregator.PublishOnUIThread(new UpdateStepperMotorEvent() { Device = updatedStepperMotor });
+            }
+            else if (message.Command == StepperMotorCommand.ToCounterClockwiseLimit)
+            {
+                updatedStepperMotor.State = "CounterClockwiseLimit";
+                _eventAggregator.PublishOnUIThread(new UpdateStepperMotorEvent() { Device = updatedStepperMotor });
+            }
+
+            RsLogManager.GetCurrent.LogTestMessage("Command to rotate Stepper Motor: " + message.Device.Name + " to " + message.Command.ToString());
+
+           
 
             // Set the device into the desired state
             // message.Device
@@ -234,11 +273,41 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(ServoCommandResult message)
         {
-            RsLogManager.GetCurrent.LogTestMessage("Command on Servo: " + message.Device.Name + " to " + message.Command.ToString());
+            var updatedServo = message.Device;
+
+            if (message.Command == ServoCommand.ToClockwiseLimit)
+            {
+                // TODO: Look up name of position for clockwise limit for this device
+                updatedServo.State = "ClockwiseLimit";
+
+                _eventAggregator.PublishOnUIThread(new UpdateServoEvent() { Device = updatedServo });
+            }
+            else if (message.Command == ServoCommand.ToCounterClockwiseLimit)
+            {
+                updatedServo.State = "CounterClockwiseLimit";
+                _eventAggregator.PublishOnUIThread(new UpdateServoEvent() { Device = updatedServo });
+            }
+
+            RsLogManager.GetCurrent.LogTestMessage("Command to rotate Servo: " + message.Device.Name + " to " + message.Command.ToString());
+
         }
 
         public void Handle(LedCommandResult message)
         {
+            var updatedLed = message.Device;
+
+            if (message.Command == LedCommand.MidIntesityOn)
+            {
+                updatedLed.State = "MidIntesityOn";
+
+                _eventAggregator.PublishOnUIThread(new UpdateLedEvent() { Device = updatedLed });
+            }
+            else if (message.Command == LedCommand.FullOff)
+            {
+                updatedLed.State = "Off";
+                _eventAggregator.PublishOnUIThread(new UpdateLedEvent() { Device = updatedLed });
+            }
+
             RsLogManager.GetCurrent.LogTestMessage("Command on Led : " + message.Device.Name + " is changing to " + message.Command.ToString());
         }
 
@@ -246,10 +315,10 @@ namespace RampantSlug.ServerLibrary
 
         #region Respond to Events from Hardware Devices
 
-        public void Handle(SwitchUpdateEvent message)
+        public void Handle(UpdateSwitchEvent message)
         {
             // Update local state of switch...
-            var sw = message.UpdatedSwitch;
+            var sw = message.Device;
             if (sw != null)
             {
                 _switches.Update(sw.Number, sw);
@@ -260,6 +329,58 @@ namespace RampantSlug.ServerLibrary
                 MainScore.PlayerScore += 10;
 
                 ServerBusController.SendUpdateDeviceMessage(sw);
+            }
+        }
+
+        public void Handle(UpdateCoilEvent message)
+        {
+            // Update local state of coil...
+            var coil = message.Device;
+            if (coil != null)
+            {
+                _coils.Update(coil.Number, coil);
+
+                // Notify Client if listening
+                ServerBusController.SendUpdateDeviceMessage(coil);
+            }
+        }
+
+        public void Handle(UpdateStepperMotorEvent message)
+        {
+            // Update local state of stepper motor...
+            var stepperMotor = message.Device;
+            if (stepperMotor != null)
+            {
+                _stepperMotors.Update(stepperMotor.Number, stepperMotor);
+
+                // Notify Client if listening
+                ServerBusController.SendUpdateDeviceMessage(stepperMotor);
+            }
+        }
+
+        public void Handle(UpdateServoEvent message)
+        {
+            // Update local state of servo...
+            var servo = message.Device;
+            if (servo != null)
+            {
+                _servos.Update(servo.Number, servo);
+
+                // Notify Client if listening
+                ServerBusController.SendUpdateDeviceMessage(servo);
+            }
+        }
+
+        public void Handle(UpdateLedEvent message)
+        {
+            // Update local state of led...
+            var led = message.Device;
+            if (led != null)
+            {
+                _leds.Update(led.Number, led);
+
+                // Notify Client if listening
+                ServerBusController.SendUpdateDeviceMessage(led);
             }
         }
 
