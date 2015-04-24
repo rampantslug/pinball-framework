@@ -12,6 +12,9 @@ namespace RampantSlug.Common
 {
     public class Configuration
     {
+        public string ServerName { get; set; }
+        public string ServerIcon { get; set; }
+        public bool UseHardware { get; set; }
 
         public string PlayfieldImage { get; set; }
 
@@ -35,7 +38,6 @@ namespace RampantSlug.Common
             StepperMotors = new List<StepperMotor>();
             Servos = new List<Servo>();
             Leds = new List<Led>();
-
         }
 
         public void ImageSerialize()

@@ -10,8 +10,127 @@
         xmlns:playfield="clr-namespace:RampantSlug.PinballClient.ClientDisplays.Playfield"
         Width="1600"
         Height="800"
-                      >
+        >
 
+    <controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Margin="4"
+                  Background="{DynamicResource IdealForegroundColorBrush}"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Grid.OpacityMask>
+                    <VisualBrush Stretch="Uniform"
+                                 Visual="{DynamicResource appbar_box}" />
+                </Grid.OpacityMask>
+            </Grid>
+        </DataTemplate>
+    </controls:MetroWindow.IconTemplate>
+
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Grid Width="20"
+                  Height="20"
+                  Margin="4"
+                  Background="{DynamicResource IdealForegroundColorBrush}"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Grid.OpacityMask>
+                    <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_marvel_avengers}" />
+                </Grid.OpacityMask>
+            </Grid>
+            <TextBlock 
+                Text="{Binding ServerName}"
+                VerticalAlignment="Center"
+                />
+            <Grid Width="20"
+                  Height="20"
+                  Margin="4"
+                  Background="{DynamicResource IdealForegroundColorBrush}"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Grid.OpacityMask>
+                    <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_network_server_disconnect}" />
+                </Grid.OpacityMask>
+            </Grid>
+            <Button 
+                cal:Message.Attach="ConnectionSettings()"
+                ToolTip="connection settings"
+                Content="settings" 
+                />
+
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout                            
+                Position="Top"
+                Theme="Accent"
+                IsModal="True"
+                IsOpen="{Binding SettingsFlyoutIsOpen}"
+                >
+                <Grid
+                    Margin="50"
+                    Width="300"
+                    Height="100"
+                    HorizontalAlignment="Right"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBox 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Text="{Binding ServerIpAddress}"
+                        />
+                    <Button 
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Style="{DynamicResource MetroCircleButtonStyle}"
+                        >
+                        <Rectangle Width="20" Height="20"
+                            Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                                    Visual="{StaticResource appbar_heart}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <CheckBox 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1"
+                        Content="Use Hardware"
+                        IsChecked="{Binding ServerIsUsingHardware}"
+                        />
+                    <Button 
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Content="Restart Server"
+                        />
+                    <Button 
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="2"
+                        Content="Connect to Server"
+                        />
+                </Grid>
+            </controls:Flyout>
+        </controls:FlyoutsControl>   
+    </controls:MetroWindow.Flyouts>
+    
     <Grid Background="#FFC1C0C0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305" />

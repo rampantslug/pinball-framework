@@ -1,5 +1,4 @@
 using System;
-using RampantSlug.Common;
 using RampantSlug.PinballClient.ContractImplementations;
 using MassTransit;
 using RampantSlug.Contracts;
@@ -8,9 +7,11 @@ using System.ComponentModel.Composition;
 using RampantSlug.PinballClient;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MahApps.Metro.Controls;
 using RampantSlug.PinballClient.ClientDisplays.LogMessages;
 using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
@@ -19,6 +20,7 @@ using RampantSlug.PinballClient.ClientDisplays.GameStatus;
 using RampantSlug.PinballClient.ClientDisplays.Playfield;
 using RampantSlug.PinballClient.CommonViewModels;
 using RampantSlug.PinballClient.Events;
+using Configuration = RampantSlug.Common.Configuration;
 
 namespace RampantSlug.PinballClient {
     [Export(typeof(IShell))]
@@ -49,6 +51,11 @@ namespace RampantSlug.PinballClient {
         private ObservableCollection<StepperMotorViewModel> _stepperMotors;
         private ObservableCollection<ServoViewModel> _servos;
         private ObservableCollection<LedViewModel> _leds;
+        private bool _settingsFlyoutIsOpen;
+        private bool _connectedToServer;
+        private string _serverName;
+        private bool _serverIsUsingHardware;
+        private string _serverIpAddress;
 
 
         // Client Displays
@@ -165,7 +172,76 @@ namespace RampantSlug.PinballClient {
                 NotifyOfPropertyChange(() => PlayfieldImage);
             }
         }
-            
+
+
+        public bool SettingsFlyoutIsOpen
+        {
+            get
+            {
+                return _settingsFlyoutIsOpen;
+            }
+            set
+            {
+                _settingsFlyoutIsOpen = value;
+                NotifyOfPropertyChange(() => SettingsFlyoutIsOpen);
+            }
+        }
+
+        public string ServerName
+        {
+            get
+            {
+                return _serverName;
+            }
+            set
+            {
+                _serverName = value;
+                NotifyOfPropertyChange(() => ServerName);
+            }
+        }
+
+        public string ServerIpAddress
+        {
+            get
+            {
+                return _serverIpAddress;
+            }
+            set
+            {
+                _serverIpAddress = value;
+                NotifyOfPropertyChange(() => ServerIpAddress);
+            }
+        }
+
+        public bool ConnectedToServer
+        {
+            get
+            {
+                return _connectedToServer;
+            }
+            set
+            {
+                _connectedToServer = value;
+                NotifyOfPropertyChange(() => ConnectedToServer);
+            }
+        }
+
+        public bool ServerIsUsingHardware
+        {
+            get
+            {
+                return _serverIsUsingHardware;
+            }
+            set
+            {
+                _serverIsUsingHardware = value;
+                NotifyOfPropertyChange(() => ServerIsUsingHardware);
+            }
+        }
+
+
+        
+
             
         [ImportingConstructor]
         public ShellViewModel(
@@ -201,6 +277,12 @@ namespace RampantSlug.PinballClient {
             StepperMotors = new ObservableCollection<StepperMotorViewModel>();
             Servos = new ObservableCollection<ServoViewModel>();
             Leds = new ObservableCollection<LedViewModel>();
+
+            ServerName = "Insert Server Name Here";
+            ConnectedToServer = false;
+
+            ServerIpAddress = ConfigurationManager.AppSettings.Get("ServerIpAddress");
+
         }
 
 
@@ -239,6 +321,12 @@ namespace RampantSlug.PinballClient {
             base.OnDeactivate(close);
         }
 
+        public void ConnectionSettings()
+        {
+            SettingsFlyoutIsOpen = !SettingsFlyoutIsOpen;
+        }
+
+       
 
         /// <summary>
         /// Request to update config of a device. Make DeviceInformation active if not already
@@ -263,6 +351,9 @@ namespace RampantSlug.PinballClient {
         public void UpdateViewModels(Configuration config)
         {
             PlayfieldImage = config.PlayfieldImage;
+            ServerName = config.ServerName;
+            ServerIsUsingHardware = config.UseHardware;
+            ConnectedToServer = true;
 
             // Create Switch View Models
             Switches.Clear();

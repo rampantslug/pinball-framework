@@ -111,6 +111,13 @@ namespace RampantSlug.ServerLibrary
             set { _modes = value; }
         }
 
+        public string ServerName { get; set; }
+
+        public string ServerIcon { get; set; }
+
+        public bool UseHardware { get; set; }
+
+
         #region Constructor
 
         /// <summary>
@@ -159,6 +166,10 @@ namespace RampantSlug.ServerLibrary
                 _servos = DeviceCollection<Servo>.CreateCollection(gameConfiguration.Servos, RsLogManager.GetCurrent);
                 _leds = DeviceCollection<Led>.CreateCollection(gameConfiguration.Leds, RsLogManager.GetCurrent);
 
+                ServerName = gameConfiguration.ServerName;
+                ServerIcon = gameConfiguration.ServerIcon;
+                UseHardware = gameConfiguration.UseHardware;
+
                 return true;
             }
             catch (Exception ex)
@@ -170,9 +181,15 @@ namespace RampantSlug.ServerLibrary
 
         public void ConnectToHardware()
         {
-            _procController.Setup();
-            _arduinoController.Setup();
-
+            if (UseHardware)
+            {
+                _procController.Setup();
+                _arduinoController.Setup();
+            }
+            else
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Server not using hardware. Simulation only.");
+            }
         }
 
         public void DisconnectFromHardware()
@@ -623,6 +640,12 @@ namespace RampantSlug.ServerLibrary
         {
             var gameConfiguration = new Configuration();
             gameConfiguration.ImageSerialize();
+
+            gameConfiguration.ServerName = ServerName;
+            gameConfiguration.ServerIcon = ServerIcon;
+            gameConfiguration.UseHardware = UseHardware;
+            
+            
             gameConfiguration.Switches = Switches.Values;
             gameConfiguration.Coils = Coils.Values;
             gameConfiguration.StepperMotors = StepperMotors.Values;

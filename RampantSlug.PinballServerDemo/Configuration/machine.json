@@ -1,4 +1,7 @@
 ﻿{
+    "ServerName": "Pinball Server Demo",
+    "ServerIcon": "appbar_marvel_avengers",
+    "UseHardware": false,
     "Switches": [
         {
             "Address": "PSM-0/0",
@@ -62,7 +65,7 @@
             "VirtualLocationY": "60",
             "WiringColors": "Grey/Green"
         },
-         {
+        {
             "SwitchType": "Optical NC",
             "Address": "PSM-2/3",
             "Name": "lowerTarget",
@@ -101,7 +104,7 @@
             "VirtualLocationY": "50",
             "WiringColors": "Blue/Black"
         },
-         {
+        {
             "Address": "PDB-04",
             "Name": "flipperLowerLeftPower",
             "VirtualLocationX": "30",
@@ -116,7 +119,7 @@
             "WiringColors": "Blue/Black"
         }
     ],
-     "Servos": [
+    "Servos": [
         {
             "Address": "ASS-4",
             "Name": "Wall Gate",
@@ -132,7 +135,7 @@
             "WiringColors": "Blue/Red"
         }
     ],
-    
+
     "StepperMotors": [
         {
             "Address": "AMS-6",
@@ -149,14 +152,14 @@
             "WiringColors": "Blue/Red"
         }
     ],
-   "DCMotors": [
+    "DCMotors": [
         {
             "Address": "AMS-8",
             "Name": "Lift",
             "WiringColors": "Blue/White"
         }
     ],
-    "Leds": [ 
+    "Leds": [
         {
             "Address": "PLB-101",
             "Name": "Led 1",
