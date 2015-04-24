@@ -24,7 +24,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             eventAggregator.PublishOnUIThread(new ConfigureSwitchEvent()
             {
                 //Timestamp = message.Message.Timestamp,
-                Device = message.Message.Device
+                Device = message.Message.Device,
+                RemoveDevice = message.Message.RemoveDevice
             });
 
         }
@@ -36,7 +37,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             eventAggregator.PublishOnUIThread(new ConfigureCoilEvent()
             {
                 //Timestamp = message.Message.Timestamp,
-                Device = message.Message.Device
+                Device = message.Message.Device,
+                RemoveDevice = message.Message.RemoveDevice
             });
 
         }
@@ -48,7 +50,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             eventAggregator.PublishOnUIThread(new ConfigureStepperMotorEvent()
             {
                 //Timestamp = message.Message.Timestamp,
-                Device = message.Message.Device
+                Device = message.Message.Device,
+                RemoveDevice = message.Message.RemoveDevice
             });
 
         }
@@ -60,7 +63,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             eventAggregator.PublishOnUIThread(new ConfigureServoEvent()
             {
                 //Timestamp = message.Message.Timestamp,
-                Device = message.Message.Device
+                Device = message.Message.Device,
+                RemoveDevice = message.Message.RemoveDevice
             });
 
         }
@@ -72,7 +76,8 @@ namespace RampantSlug.ServerLibrary.ContractImplementations
             eventAggregator.PublishOnUIThread(new ConfigureLedEvent()
             {
                 //Timestamp = message.Message.Timestamp,
-                Device = message.Message.Device
+                Device = message.Message.Device,
+                RemoveDevice = message.Message.RemoveDevice
             });
 
         }

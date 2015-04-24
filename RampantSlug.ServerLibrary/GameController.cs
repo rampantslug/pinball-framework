@@ -409,37 +409,57 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(ConfigureSwitchEvent message)
         {
-            UpdateConfig(message.Device);
+            UpdateConfig(message.Device, message.RemoveDevice);
             SaveConfigurationToFile();
+
+            // Update Client with changes
+            var config = PopulateConfiguration();
+            ServerBusController.SendConfigurationMessage(config);
         }
 
         public void Handle(ConfigureCoilEvent message)
         {
-            UpdateConfig(message.Device);
+            UpdateConfig(message.Device, message.RemoveDevice);
             SaveConfigurationToFile();
+
+            // Update Client with changes
+            var config = PopulateConfiguration();
+            ServerBusController.SendConfigurationMessage(config);
         }
 
         public void Handle(ConfigureStepperMotorEvent message)
         {
-            UpdateConfig(message.Device);
+            UpdateConfig(message.Device, message.RemoveDevice);
             SaveConfigurationToFile();
+
+            // Update Client with changes
+            var config = PopulateConfiguration();
+            ServerBusController.SendConfigurationMessage(config);
         }
 
         public void Handle(ConfigureServoEvent message)
         {
-            UpdateConfig(message.Device);
+            UpdateConfig(message.Device, message.RemoveDevice);
             SaveConfigurationToFile();
+
+            // Update Client with changes
+            var config = PopulateConfiguration();
+            ServerBusController.SendConfigurationMessage(config);
         }
 
         public void Handle(ConfigureLedEvent message)
         {
-            UpdateConfig(message.Device);
+            UpdateConfig(message.Device, message.RemoveDevice);
             SaveConfigurationToFile();
+
+            // Update Client with changes
+            var config = PopulateConfiguration();
+            ServerBusController.SendConfigurationMessage(config);
         }
 
       
 
-        private void UpdateConfig(Switch updatedSwitch)
+        private void UpdateConfig(Switch updatedSwitch, bool removeDevice)
         {
             if (updatedSwitch.Number == 0)
             {
@@ -448,11 +468,19 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            // Update existing Switch
+            // Update or remove existing Switch
             if (Switches.ContainsKey(updatedSwitch.Number))
             {
-                Switches.Update(updatedSwitch.Number, updatedSwitch);
-                RsLogManager.GetCurrent.LogTestMessage("Updated switch " + updatedSwitch.Name + "in config.");
+                if (removeDevice)
+                {
+                    Switches.Remove(updatedSwitch.Number);
+                    RsLogManager.GetCurrent.LogTestMessage("Removed switch " + updatedSwitch.Name + " from config.");
+                }
+                else
+                {
+                    Switches.Update(updatedSwitch.Number, updatedSwitch);
+                    RsLogManager.GetCurrent.LogTestMessage("Updated switch " + updatedSwitch.Name + "in config.");
+                }
             }
             else // Adding a new switch
             {
@@ -461,7 +489,7 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        private void UpdateConfig(Coil updatedCoil)
+        private void UpdateConfig(Coil updatedCoil, bool removeDevice)
         {
             if (updatedCoil.Number == 0)
             {
@@ -470,11 +498,19 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            // Update existing coil
+            // Update or remove existing coil
             if (Coils.ContainsKey(updatedCoil.Number))
             {
-                Coils.Update(updatedCoil.Number, updatedCoil);
-                RsLogManager.GetCurrent.LogTestMessage("Updated coil " + updatedCoil.Name + "in config.");
+                if (removeDevice)
+                {
+                    Coils.Remove(updatedCoil.Number);
+                    RsLogManager.GetCurrent.LogTestMessage("Removed coil " + updatedCoil.Name + " from config.");
+                }
+                else
+                {
+                    Coils.Update(updatedCoil.Number, updatedCoil);
+                    RsLogManager.GetCurrent.LogTestMessage("Updated coil " + updatedCoil.Name + "in config.");
+                }
             }
             else // Adding a new coil
             {
@@ -483,7 +519,7 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        private void UpdateConfig(StepperMotor updatedStepperMotor)
+        private void UpdateConfig(StepperMotor updatedStepperMotor, bool removeDevice)
         {
             if (updatedStepperMotor.Number == 0)
             {
@@ -492,11 +528,20 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            // Update existing stepperMotor
+            // Update or remove existing stepperMotor
             if (StepperMotors.ContainsKey(updatedStepperMotor.Number))
             {
-                StepperMotors.Update(updatedStepperMotor.Number, updatedStepperMotor);
-                RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + updatedStepperMotor.Name + "in config.");
+                if (removeDevice)
+                {
+                    StepperMotors.Remove(updatedStepperMotor.Number);
+                    RsLogManager.GetCurrent.LogTestMessage("Removed stepper motor " + updatedStepperMotor.Name + " from config.");
+                }
+                else
+                {
+                    StepperMotors.Update(updatedStepperMotor.Number, updatedStepperMotor);
+                    RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + updatedStepperMotor.Name +
+                                                           "in config.");
+                }
             }
             else // Adding a new stepperMotor
             {
@@ -505,7 +550,7 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        private void UpdateConfig(Servo updatedServo)
+        private void UpdateConfig(Servo updatedServo, bool removeDevice)
         {
             if (updatedServo.Number == 0)
             {
@@ -514,11 +559,19 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            // Update existing servo
+            // Update or remove existing servo
             if (Servos.ContainsKey(updatedServo.Number))
             {
-                Servos.Update(updatedServo.Number, updatedServo);
-                RsLogManager.GetCurrent.LogTestMessage("Updated servo " + updatedServo.Name + " in config.");
+                if (removeDevice)
+                {
+                    Servos.Remove(updatedServo.Number);
+                    RsLogManager.GetCurrent.LogTestMessage("Removed servo " + updatedServo.Name + " from config.");
+                }
+                else
+                {
+                    Servos.Update(updatedServo.Number, updatedServo);
+                    RsLogManager.GetCurrent.LogTestMessage("Updated servo " + updatedServo.Name + " in config.");
+                }
             }
             else // Adding a new servo
             {
@@ -527,7 +580,7 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        private void UpdateConfig(Led updatedLed)
+        private void UpdateConfig(Led updatedLed, bool removeDevice)
         {
             if (updatedLed.Number == 0)
             {
@@ -536,11 +589,19 @@ namespace RampantSlug.ServerLibrary
                 return;
             }
 
-            // Update existing led
+            // Update or remove existing led
             if (Leds.ContainsKey(updatedLed.Number))
             {
-                Leds.Update(updatedLed.Number, updatedLed);
-                RsLogManager.GetCurrent.LogTestMessage("Updated led " + updatedLed.Name + "in config.");
+                if (removeDevice)
+                {
+                    Leds.Remove(updatedLed.Number);
+                    RsLogManager.GetCurrent.LogTestMessage("Removed led " + updatedLed.Name + " from config.");
+                }
+                else
+                {
+                    Leds.Update(updatedLed.Number, updatedLed);
+                    RsLogManager.GetCurrent.LogTestMessage("Updated led " + updatedLed.Name + "in config.");
+                }
             }
             else // Adding a new led
             {

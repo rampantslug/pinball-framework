@@ -14,7 +14,9 @@ namespace RampantSlug.Contracts
     {       
         DateTime Timestamp { get; }
 
-        Switch Device { get; } 
+        Switch Device { get; }
+
+        bool RemoveDevice { get; }
     }
 
     /// <summary>
@@ -25,6 +27,8 @@ namespace RampantSlug.Contracts
         DateTime Timestamp { get; }
 
         Coil Device { get; }
+
+        bool RemoveDevice { get; }
     }
 
     /// <summary>
@@ -35,6 +39,8 @@ namespace RampantSlug.Contracts
         DateTime Timestamp { get; }
 
         StepperMotor Device { get; }
+
+        bool RemoveDevice { get; }
     }
 
     /// <summary>
@@ -45,6 +51,8 @@ namespace RampantSlug.Contracts
         DateTime Timestamp { get; }
 
         Servo Device { get; }
+
+        bool RemoveDevice { get; }
     }
 
     /// <summary>
@@ -55,5 +63,7 @@ namespace RampantSlug.Contracts
         DateTime Timestamp { get; }
 
         Led Device { get; }
+
+        bool RemoveDevice { get; }
     }
 }

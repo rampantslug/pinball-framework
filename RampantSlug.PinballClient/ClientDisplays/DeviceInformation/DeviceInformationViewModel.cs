@@ -108,27 +108,27 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         public void Handle(ShowSwitchConfig deviceMessage)
         {
-            SelectedDevice = deviceMessage.SwitchVm;   
+            ShowSwitchConfiguration(deviceMessage.SwitchVm);  
         }
 
         public void Handle(ShowCoilConfig deviceMessage)
         {
-            SelectedDevice = deviceMessage.CoilVm;
+            ShowCoilConfiguration(deviceMessage.CoilVm);
         }
 
         public void Handle(ShowStepperMotorConfig deviceMessage)
         {
-            SelectedDevice = deviceMessage.StepperMotorVm;
+            ShowStepperMotorConfiguration(deviceMessage.StepperMotorVm);
         }
 
         public void Handle(ShowServoConfig deviceMessage)
         {
-            SelectedDevice = deviceMessage.ServoVm;
+            ShowServoConfiguration(deviceMessage.ServoVm);
         }
 
         public void Handle(ShowLedConfig deviceMessage)
         {
-            SelectedDevice = deviceMessage.LedVm;
+            ShowLedConfiguration(deviceMessage.LedVm);
         }
 
         /*
@@ -137,33 +137,59 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         public void Handle(HighlightSwitch deviceMessage)
         {
-            ActivateItem(new SwitchConfigurationViewModel(deviceMessage.SwitchVm));
-            SelectedDevice = deviceMessage.SwitchVm;
+            ShowSwitchConfiguration(deviceMessage.SwitchVm);
         }
 
         public void Handle(HighlightCoil deviceMessage)
         {
-            ActivateItem(new CoilConfigurationViewModel(deviceMessage.CoilVm));
-            SelectedDevice = deviceMessage.CoilVm;
+            ShowCoilConfiguration(deviceMessage.CoilVm);
         }
 
         public void Handle(HighlightStepperMotor deviceMessage)
         {
-            ActivateItem(new StepperMotorConfigurationViewModel(deviceMessage.StepperMotorVm));
-            SelectedDevice = deviceMessage.StepperMotorVm;
+            ShowStepperMotorConfiguration(deviceMessage.StepperMotorVm);
         }
 
         public void Handle(HighlightServo deviceMessage)
         {
-            ActivateItem(new ServoConfigurationViewModel(deviceMessage.ServoVm));
-            SelectedDevice = deviceMessage.ServoVm;
+            ShowServoConfiguration(deviceMessage.ServoVm);
         }
 
         public void Handle(HighlightLed deviceMessage)
         {
-            ActivateItem(new LedConfigurationViewModel(deviceMessage.LedVm));
-            SelectedDevice = deviceMessage.LedVm;
+            ShowLedConfiguration(deviceMessage.LedVm);
         }
+
+        private void ShowSwitchConfiguration(SwitchViewModel switchVM)
+        {
+            ActivateItem(new SwitchConfigurationViewModel(switchVM));
+            SelectedDevice = switchVM;
+        }
+
+        private void ShowCoilConfiguration(CoilViewModel coilVM)
+        {
+            ActivateItem(new CoilConfigurationViewModel(coilVM));
+            SelectedDevice = coilVM;
+        }
+
+        private void ShowStepperMotorConfiguration(StepperMotorViewModel stepperMotorVM)
+        {
+            ActivateItem(new StepperMotorConfigurationViewModel(stepperMotorVM));
+            SelectedDevice = stepperMotorVM;
+        }
+
+        private void ShowServoConfiguration(ServoViewModel servoVM)
+        {
+            ActivateItem(new ServoConfigurationViewModel(servoVM));
+            SelectedDevice = servoVM;
+        }
+
+        private void ShowLedConfiguration(LedViewModel ledVM)
+        {
+            ActivateItem(new LedConfigurationViewModel(ledVM));
+            SelectedDevice = ledVM;
+        }
+
 
         /// <summary>
         /// Update playfield image based on received settings

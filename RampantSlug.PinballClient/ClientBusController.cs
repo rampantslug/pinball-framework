@@ -33,34 +33,34 @@ namespace RampantSlug.PinballClient
           
         }
 
-        public void SendConfigureDeviceMessage(Switch device) 
+        public void SendConfigureDeviceMessage(Switch device, bool removeDevice = false) 
         {
-            var message = new ConfigureSwitchMessage() { Device = device , Timestamp = DateTime.Now };
+            var message = new ConfigureSwitchMessage() { Device = device , Timestamp = DateTime.Now, RemoveDevice = removeDevice};
             _bus.Publish<ConfigureSwitchMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendConfigureDeviceMessage(Coil device)
+        public void SendConfigureDeviceMessage(Coil device, bool removeDevice = false)
         {
-            var message = new ConfigureCoilMessage() { Device = device, Timestamp = DateTime.Now };
+            var message = new ConfigureCoilMessage() { Device = device, Timestamp = DateTime.Now, RemoveDevice = removeDevice };
             _bus.Publish<ConfigureCoilMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendConfigureDeviceMessage(StepperMotor device)
+        public void SendConfigureDeviceMessage(StepperMotor device, bool removeDevice = false)
         {
-            var message = new ConfigureStepperMotorMessage() { Device = device, Timestamp = DateTime.Now };
+            var message = new ConfigureStepperMotorMessage() { Device = device, Timestamp = DateTime.Now, RemoveDevice = removeDevice };
             _bus.Publish<ConfigureStepperMotorMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendConfigureDeviceMessage(Servo device)
+        public void SendConfigureDeviceMessage(Servo device, bool removeDevice = false)
         {
-            var message = new ConfigureServoMessage() { Device = device, Timestamp = DateTime.Now };
+            var message = new ConfigureServoMessage() { Device = device, Timestamp = DateTime.Now, RemoveDevice = removeDevice };
             _bus.Publish<ConfigureServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void SendConfigureDeviceMessage(Led device)
+        public void SendConfigureDeviceMessage(Led device, bool removeDevice = false)
         {
-            var message = new ConfigureLedMessage() { Device = device, Timestamp = DateTime.Now };
-            _bus.Publish<ConfigureServoMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+            var message = new ConfigureLedMessage() { Device = device, Timestamp = DateTime.Now, RemoveDevice = removeDevice };
+            _bus.Publish<ConfigureLedMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
         public void SendCommandDeviceMessage(Switch device, SwitchCommand command)

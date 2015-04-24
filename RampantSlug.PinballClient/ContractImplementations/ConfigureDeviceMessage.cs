@@ -15,6 +15,8 @@ namespace RampantSlug.PinballClient.ContractImplementations
         public DateTime Timestamp { get; set; }
 
         public Switch Device { get; set; }
+
+        public bool RemoveDevice { get; set; }
     }
 
     class ConfigureCoilMessage : IConfigureCoilMessage
@@ -22,6 +24,8 @@ namespace RampantSlug.PinballClient.ContractImplementations
         public DateTime Timestamp { get; set; }
 
         public Coil Device { get; set; }
+
+        public bool RemoveDevice { get; set; }
     }
 
     class ConfigureStepperMotorMessage : IConfigureStepperMotorMessage
@@ -29,6 +33,8 @@ namespace RampantSlug.PinballClient.ContractImplementations
         public DateTime Timestamp { get; set; }
 
         public StepperMotor Device { get; set; }
+
+        public bool RemoveDevice { get; set; }
     }
 
     class ConfigureServoMessage : IConfigureServoMessage
@@ -36,6 +42,8 @@ namespace RampantSlug.PinballClient.ContractImplementations
         public DateTime Timestamp { get; set; }
 
         public Servo Device { get; set; }
+
+        public bool RemoveDevice { get; set; }
     }
 
     class ConfigureLedMessage : IConfigureLedMessage
@@ -43,5 +51,7 @@ namespace RampantSlug.PinballClient.ContractImplementations
         public DateTime Timestamp { get; set; }
 
         public Led Device { get; set; }
+
+        public bool RemoveDevice { get; set; }
     }
 }

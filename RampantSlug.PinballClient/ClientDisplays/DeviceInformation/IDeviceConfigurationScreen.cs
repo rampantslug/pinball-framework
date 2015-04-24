@@ -6,5 +6,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     {
 
         void SaveDevice();
+
+        void RemoveDevice();
     }
 }

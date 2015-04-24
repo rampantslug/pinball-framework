@@ -14,8 +14,11 @@ namespace RampantSlug.PinballClient.ContractImplementations
     {
         public void Consume(IConsumeContext<IConfigMessage> message)
         {    
-            var shell = IoC.Get<IShell>();
-            shell.UpdateViewModels(message.Message.MachineConfiguration);
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.PublishOnUIThread(new UpdateConfigEvent()
+            {
+                MachineConfiguration = message.Message.MachineConfiguration
+            });
         }
 
     }

@@ -23,7 +23,12 @@ using RampantSlug.PinballClient.Events;
 namespace RampantSlug.PinballClient {
     [Export(typeof(IShell))]
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell,
+
+        IHandle<UpdateConfigEvent>,
+
         IHandle<ShowSwitchConfig>,
+
+        // Device State Changes
         IHandle<UpdateSwitch>,
         IHandle<UpdateCoil>,
         IHandle<UpdateStepperMotor>,
@@ -245,8 +250,14 @@ namespace RampantSlug.PinballClient {
             DeviceInformation.Activate();
         }
 
+        public void Handle(UpdateConfigEvent updateConfigEvent)
+        {
+            UpdateViewModels(updateConfigEvent.MachineConfiguration);
+        }
+
+
         /// <summary>
-        /// Update ViewModels based on config results
+        /// Update ALL ViewModels based on config results
         /// </summary>
         /// <param name="config"></param>
         public void UpdateViewModels(Configuration config)
@@ -302,12 +313,12 @@ namespace RampantSlug.PinballClient {
                 _eventAggregator.PublishOnUIThread(new ShowSwitchConfig() {SwitchVm = Switches[0]});
             }
 
-            // Notify Client Displays that Playfield Image is update
+            // Notify Client Displays that Playfield Image is updated
             _eventAggregator.PublishOnUIThread(new UpdatePlayfieldImage() { PlayfieldImage = config.PlayfieldImage});
         }
 
 
-        #region Update Device View Models based on state changes
+        #region Update Individual Device View Models based on state changes
 
 
         public void Handle(UpdateSwitch deviceMessage)

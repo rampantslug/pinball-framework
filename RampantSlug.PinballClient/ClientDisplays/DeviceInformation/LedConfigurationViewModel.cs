@@ -69,7 +69,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public void SaveDevice()
         {
            var busController = IoC.Get<IClientBusController>();
-           busController.SendConfigureDeviceMessage(_led.Device as Switch); 
+           busController.SendConfigureDeviceMessage(_led.Device as Led); 
+        }
+
+        public void RemoveDevice()
+        {
+            var busController = IoC.Get<IClientBusController>();
+            busController.SendConfigureDeviceMessage(_led.Device as Led, true);
         }
 
         public void ActivateLed()
