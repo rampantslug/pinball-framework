@@ -21,7 +21,7 @@
         <Grid
             Grid.Row="0"
             Grid.ColumnSpan="2"
-            Background="{StaticResource HighlightBrush}"
+            Background="{DynamicResource FlatButtonBackgroundBrush}"
             >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />

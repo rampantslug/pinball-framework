@@ -119,6 +119,8 @@
     <Compile Include="ClientDisplays\Playfield\PlayfieldViewModel.cs" />
     <Compile Include="ContractImplementations\ConfigMessageConsumer.cs" />
     <Compile Include="ContractImplementations\CommandDeviceMessage.cs" />
+    <Compile Include="ContractImplementations\ConfigureMachineMessage.cs" />
+    <Compile Include="ContractImplementations\RestartServerMessage.cs" />
     <Compile Include="ContractImplementations\UpdateDeviceMessageConsumer.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessage.cs" />
     <Compile Include="ContractImplementations\ConfigureDeviceMessage.cs" />

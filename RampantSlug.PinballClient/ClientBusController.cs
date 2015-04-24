@@ -33,6 +33,12 @@ namespace RampantSlug.PinballClient
           
         }
 
+        public void SendConfigureMachineMessage(bool useHardware)
+        {
+            var message = new ConfigureMachineMessage() { Timestamp = DateTime.Now, UseHardware = useHardware };
+            _bus.Publish<ConfigureMachineMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
+
         public void SendConfigureDeviceMessage(Switch device, bool removeDevice = false) 
         {
             var message = new ConfigureSwitchMessage() { Device = device , Timestamp = DateTime.Now, RemoveDevice = removeDevice};
@@ -93,6 +99,10 @@ namespace RampantSlug.PinballClient
             _bus.Publish<CommandLedMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
+        public void RestartServer()
+        {
+            _bus.Publish<RestartServerMessage>(new RestartServerMessage(), x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+        }
 
         public void RequestSettings() 
         {

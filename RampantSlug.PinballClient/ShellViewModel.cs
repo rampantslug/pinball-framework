@@ -281,7 +281,7 @@ namespace RampantSlug.PinballClient {
             ServerName = "Insert Server Name Here";
             ConnectedToServer = false;
 
-            ServerIpAddress = ConfigurationManager.AppSettings.Get("ServerIpAddress");
+            ServerIpAddress = ConfigurationManager.AppSettings.Get("DefaultServer");
 
         }
 
@@ -324,6 +324,24 @@ namespace RampantSlug.PinballClient {
         public void ConnectionSettings()
         {
             SettingsFlyoutIsOpen = !SettingsFlyoutIsOpen;
+        }
+
+        public void SaveAsDefault()
+        {
+            // TODO: Parse ServerIpAddress to make sure it is in the correct format...
+            ConfigurationManager.AppSettings.Set("DefaultServer", ServerIpAddress);
+        }
+
+        public void RestartServer()
+        {
+            _busController.RestartServer();
+            SettingsFlyoutIsOpen = false;
+        }
+
+        public void ConnectToServer()
+        {
+            _busController.RequestSettings();
+            SettingsFlyoutIsOpen = false;
         }
 
        

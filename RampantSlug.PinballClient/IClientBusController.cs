@@ -12,6 +12,8 @@ namespace RampantSlug.PinballClient
     {
         void Start();
 
+        void SendConfigureMachineMessage(bool useHardware);
+
         void SendConfigureDeviceMessage(Switch device, bool removeDevice = false);
 
         void SendConfigureDeviceMessage(Coil device, bool removeDevice = false);
@@ -33,6 +35,8 @@ namespace RampantSlug.PinballClient
         void SendCommandDeviceMessage(Led device, LedCommand command);
 
         void RequestSettings();
+
+        void RestartServer();
 
         void Stop() ;
     }

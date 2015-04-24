@@ -1,6 +1,6 @@
 ﻿namespace RampantSlug.ServerLibrary.Events
 {
-    public class RequestConfigResult
+    public class RequestConfigEvent
     {
 
     }

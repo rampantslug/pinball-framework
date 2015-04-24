@@ -82,8 +82,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractImplementations\ConfigureMachineMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\RestartServerMessageConsumer.cs" />
     <Compile Include="ContractImplementations\UpdateDeviceMessage.cs" />
+    <Compile Include="Events\ConfigureMachineEvent.cs" />
     <Compile Include="Events\ConfigureDeviceEvent.cs" />
+    <Compile Include="Events\RestartServerEvent.cs" />
     <Compile Include="Events\UpdateDeviceEvent.cs" />
     <Compile Include="Events\UpdateDisplayEvent.cs" />
     <Compile Include="GameLibraryBootstrapper.cs" />
@@ -110,7 +114,7 @@
     <Compile Include="ContractImplementations\EventMessage.cs" />
     <Compile Include="ContractImplementations\ConfigMessage.cs" />
     <Compile Include="ContractImplementations\SimpleMessage.cs" />
-    <Compile Include="Events\RequestConfigResult.cs" />
+    <Compile Include="Events\RequestConfigEvent.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="IServerBusController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

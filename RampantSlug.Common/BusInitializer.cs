@@ -18,6 +18,7 @@ namespace RampantSlug.Common
             {
                 x.UseRabbitMq();
                 x.ReceiveFrom("rabbitmq://localhost/RampantSlug.PinballFramework_" + queueName);
+                x.SetPurgeOnStartup(true);
                 moreInitialization(x);
             });
 

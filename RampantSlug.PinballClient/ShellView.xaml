@@ -17,7 +17,7 @@
             <Grid Width="{TemplateBinding Width}"
                   Height="{TemplateBinding Height}"
                   Margin="4"
-                  Background="{DynamicResource IdealForegroundColorBrush}"
+                  Background="{DynamicResource HighlightBrush}"
                   RenderOptions.EdgeMode="Aliased"
                   RenderOptions.BitmapScalingMode="HighQuality">
                 <Grid.OpacityMask>
@@ -44,10 +44,12 @@
             <TextBlock 
                 Text="{Binding ServerName}"
                 VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                Foreground="{DynamicResource BlackColorBrush}"
                 />
-            <Grid Width="20"
-                  Height="20"
-                  Margin="4"
+            <Grid Width="16"
+                  Height="16"
+                  Margin="10,4,10,4"
                   Background="{DynamicResource IdealForegroundColorBrush}"
                   RenderOptions.EdgeMode="Aliased"
                   RenderOptions.BitmapScalingMode="HighQuality">
@@ -60,6 +62,7 @@
                 cal:Message.Attach="ConnectionSettings()"
                 ToolTip="connection settings"
                 Content="settings" 
+                Margin="10,0,10,0"
                 />
 
         </controls:WindowCommands>
@@ -85,7 +88,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
+                        <RowDefinition Height="40"/>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
@@ -94,13 +97,19 @@
                         Grid.ColumnSpan="2"
                         Grid.Row="0"
                         Text="{Binding ServerIpAddress}"
+                        Height="30"
+                        VerticalContentAlignment="Center"
                         />
                     <Button 
                         Grid.Column="2"
                         Grid.Row="0"
                         Style="{DynamicResource MetroCircleButtonStyle}"
+                        cal:Message.Attach="SaveAsDefault()"
+                        ToolTip="Save as default"
+                        Width="40"
+                        Height="40"
                         >
-                        <Rectangle Width="20" Height="20"
+                        <Rectangle Width="14" Height="14"
                             Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill"
@@ -113,18 +122,22 @@
                         Grid.ColumnSpan="2"
                         Grid.Row="1"
                         Content="Use Hardware"
-                        IsChecked="{Binding ServerIsUsingHardware}"
+                        IsChecked="{Binding ServerIsUsingHardware}"                        
                         />
                     <Button 
                         Grid.Column="0"
                         Grid.Row="2"
                         Content="Restart Server"
+                        cal:Message.Attach="RestartServer()"
+                        Margin="0,0,10,0"
                         />
                     <Button 
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
                         Grid.Row="2"
                         Content="Connect to Server"
+                        cal:Message.Attach="ConnectToServer()"
+                        Margin="10,0,0,0"
                         />
                 </Grid>
             </controls:Flyout>

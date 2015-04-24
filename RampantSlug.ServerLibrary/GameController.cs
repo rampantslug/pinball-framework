@@ -23,7 +23,9 @@ using RampantSlug.ServerLibrary.ServerDisplays;
 namespace RampantSlug.ServerLibrary
 {
     public class GameController : IGameController,          
-        IHandle<RequestConfigResult>,
+        IHandle<RequestConfigEvent>,
+        IHandle<RestartServerEvent>,
+        IHandle<ConfigureMachineEvent>,
  
         // Configure devices
         IHandle<ConfigureSwitchEvent>,
@@ -416,12 +418,27 @@ namespace RampantSlug.ServerLibrary
 
 
 
+        public void Handle(RestartServerEvent message)
+        {
+            DisconnectFromHardware();
+            ServerBusController.Stop();
+            if (Configure())
+            {
+                ConnectToHardware();
+            }
+        }
+
         #region Configuration Related Methods
 
-        public void Handle(RequestConfigResult message)
+        public void Handle(RequestConfigEvent message)
         {
             var config = PopulateConfiguration();
             ServerBusController.SendConfigurationMessage(config);
+        }
+
+        public void Handle(ConfigureMachineEvent message)
+        {
+            UseHardware = message.UseHardware;
         }
 
         public void Handle(ConfigureSwitchEvent message)

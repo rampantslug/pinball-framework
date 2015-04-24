@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICommandDeviceMessage.cs" />
+    <Compile Include="IConfigureMachineMessage.cs" />
+    <Compile Include="IRestartServerMessage.cs" />
     <Compile Include="IRequestConfigMessage.cs" />
     <Compile Include="IConfigMessage.cs" />
     <Compile Include="IConfigureDeviceMessage.cs" />

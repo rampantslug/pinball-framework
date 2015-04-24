@@ -24,6 +24,8 @@ namespace RampantSlug.ServerLibrary
                     subs.Consumer<ConfigureDeviceMessageConsumer>().Transient();
                     subs.Consumer<RequestConfigMessageConsumer>().Transient();
                     subs.Consumer<CommandDeviceMessageConsumer>().Transient();
+                    subs.Consumer<ConfigureMachineMessageConsumer>().Transient();
+                    subs.Consumer<RestartServerMessageConsumer>().Transient();
                 });
             });
           
