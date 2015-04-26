@@ -35,6 +35,13 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
+            <Border 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
             <TextBlock
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -71,6 +78,12 @@
         
         
         <!-- History -->
+        <Border 
+                Grid.Column="0"
+                Grid.Row="1"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
         <TextBlock
                 Grid.Column="0"
                 Grid.Row="1"
@@ -112,8 +125,6 @@
             Grid.Column="2"
             Grid.Row="0"
             Grid.RowSpan="3" 
-            Background="WhiteSmoke"
-            
          >
          <Grid
              Margin="5,0,5,0"
@@ -134,6 +145,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
+                <Border 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
             <TextBlock
                 Grid.Column="0"
                 Grid.ColumnSpan="3"

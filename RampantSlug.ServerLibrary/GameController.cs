@@ -215,7 +215,7 @@ namespace RampantSlug.ServerLibrary
         {
             var updatedSwitch = message.Device;
 
-            if (message.Command == SwitchCommand.PulseActive)
+            if (message.Command == SwitchCommand.PressActive)
                 {
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
                     _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent() { Device = updatedSwitch });

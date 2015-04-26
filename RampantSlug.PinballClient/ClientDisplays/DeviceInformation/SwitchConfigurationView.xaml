@@ -35,6 +35,13 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
+            <Border 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
             <TextBlock
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -57,8 +64,8 @@
             <Button 
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="PulseState"
-                Content="Pulse"
+                x:Name="PressState"
+                Content="Press"
                 />
             <Button 
                 Grid.Column="2"
@@ -71,6 +78,12 @@
         
         
         <!-- History -->
+        <Border 
+                Grid.Column="0"
+                Grid.Row="1"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
         <TextBlock
                 Grid.Column="0"
                 Grid.Row="1"
@@ -132,7 +145,14 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <TextBlock
+                <Border 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1"
+                />
+                <TextBlock
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Grid.Row="0"

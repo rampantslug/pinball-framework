@@ -5,9 +5,9 @@
         xmlns:serverDisplays="clr-namespace:RampantSlug.ServerLibrary.ServerDisplays;assembly=RampantSlug.ServerLibrary"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:rsIntro="clr-namespace:RampantSlug.ServerLibrary.ServerDisplays.RsIntro;assembly=RampantSlug.ServerLibrary"
-        Width="480"
-        Height="300"
-        Title="Server Demo"
+        Width="1280"
+        Height="720"
+        Title="Pinball Server Demo"
         Background="Black"
         >
     <Grid

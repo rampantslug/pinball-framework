@@ -2,7 +2,7 @@
 {
     public enum SwitchCommand
     {
-        PulseActive,
-        HoldActive
+        PressActive,
+        HoldActive,       
     }
 }

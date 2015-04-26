@@ -63,7 +63,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         {
             var busController = IoC.Get<IClientBusController>();
             var sw = Device as Switch;
-            busController.SendCommandDeviceMessage(sw, SwitchCommand.PulseActive);
+            busController.SendCommandDeviceMessage(sw, SwitchCommand.PressActive);
         }
 
         #endregion

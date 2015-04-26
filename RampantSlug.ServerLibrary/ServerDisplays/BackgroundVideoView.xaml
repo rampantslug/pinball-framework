@@ -4,14 +4,14 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:serverDisplays="clr-namespace:RampantSlug.ServerLibrary.ServerDisplays"
         xmlns:rsIntro="clr-namespace:RampantSlug.ServerLibrary.ServerDisplays.RsIntro"
-             Width="480"
-            Height="300"
+             Width="1280"
+            Height="720"
              >
     <Grid>
         <rsIntro:RsIntroAnimation
-            Width="480"
-            Height="300"
-            ClipToBounds="True"
+            Width="1280"
+            Height="720"
+            ClipToBounds="False"
             />
         <MediaElement 
             x:Name="BackgroundVideoPlayer"
