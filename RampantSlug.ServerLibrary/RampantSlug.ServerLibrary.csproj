@@ -87,6 +87,8 @@
     <Compile Include="ContractImplementations\UpdateDeviceMessage.cs" />
     <Compile Include="Events\ConfigureMachineEvent.cs" />
     <Compile Include="Events\ConfigureDeviceEvent.cs" />
+    <Compile Include="Events\StartupCompleteEvent.cs" />
+    <Compile Include="Events\ServerRestartedEvent.cs" />
     <Compile Include="Events\RestartServerEvent.cs" />
     <Compile Include="Events\UpdateDeviceEvent.cs" />
     <Compile Include="Events\UpdateDisplayEvent.cs" />
@@ -124,7 +126,7 @@
     <Compile Include="ServerDisplays\MainScoreViewModel.cs" />
     <Compile Include="ServerDisplays\Media.cs" />
     <Compile Include="ServerDisplays\MediaPlayerState.cs" />
-    <Compile Include="ServerDisplays\RsIntro\RsIntroAnimation.xaml.cs" />
+    <Compile Include="ServerDisplays\RsIntro\RsIntroAnimationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hardware\Arduino\RampantSlugArduinoController\RampantSlugArduinoController.ino" />
@@ -153,7 +155,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ServerDisplays\RsIntro\RsIntroAnimation.xaml">
+    <Page Include="ServerDisplays\RsIntro\RsIntroAnimationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,15 +1,15 @@
 ﻿using System.Windows.Controls;
+using Caliburn.Micro;
 
 namespace RampantSlug.ServerLibrary.ServerDisplays.RsIntro
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class RsIntroAnimation : UserControl
+    public class RsIntroAnimationViewModel : Screen
     {
-        public RsIntroAnimation()
-        {
-            InitializeComponent();
-        }
+
+        public bool ReadyToStartIntro { get; set; }
+
     }
 }

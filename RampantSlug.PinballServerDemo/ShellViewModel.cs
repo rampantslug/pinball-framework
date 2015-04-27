@@ -9,7 +9,7 @@ using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.PinballServerDemo
 {
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IHandle<UpdateDisplayEvent>
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IHandle<UpdateDisplayEvent>, IHandle<ServerRestartedEvent>
     {
         private IGameController _gameController;
         private IEventAggregator _eventAggregator;
@@ -28,11 +28,6 @@ namespace RampantSlug.PinballServerDemo
             _gameController.ServerBusController.Stop(); 
         }
 
-
-        public void SaveConfig() 
-        {
-            _gameController.SaveConfigurationToFile();
-        }
 
         protected override void OnViewLoaded(object view)
         {
@@ -64,6 +59,12 @@ namespace RampantSlug.PinballServerDemo
         public void Handle(UpdateDisplayEvent message)
         {
           //  PlayerScore += message.PlayerScore;
+        }
+
+        public void Handle(ServerRestartedEvent message)
+        {
+            NotifyOfPropertyChange(()=>BackgroundVideo);
+            NotifyOfPropertyChange(() => MainScore);
         }
     }
 }

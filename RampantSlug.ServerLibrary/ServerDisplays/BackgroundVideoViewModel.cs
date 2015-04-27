@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using RampantSlug.Common;
+using RampantSlug.ServerLibrary.Events;
 
 namespace RampantSlug.ServerLibrary.ServerDisplays
 {
@@ -59,6 +61,18 @@ namespace RampantSlug.ServerLibrary.ServerDisplays
         public BackgroundVideoViewModel()
         {
             BackgroundVideoPlayer.UnloadedBehavior = MediaState.Manual;
+
+            TimedAction.ExecuteWithDelay(new System.Action(delegate
+            {
+               IntroFinished();
+            }), TimeSpan.FromSeconds(10));
+        }
+
+        public void IntroFinished()
+        {
+            var eventAggregator = IoC.Get<IEventAggregator>();
+
+            eventAggregator.PublishOnUIThread(new StartupCompleteEvent());
         }
     }
 }

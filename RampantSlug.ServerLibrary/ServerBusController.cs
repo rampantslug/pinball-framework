@@ -79,6 +79,9 @@ namespace RampantSlug.ServerLibrary
             _bus.Publish<UpdateLedMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
-        public void Stop() { _bus.Dispose(); }
+        public void Stop()
+        {
+            _bus.Dispose();
+        }
     }
 }

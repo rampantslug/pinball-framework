@@ -1,13 +1,17 @@
-﻿<UserControl x:Class="RampantSlug.ServerLibrary.ServerDisplays.RsIntro.RsIntroAnimation"
+﻿<UserControl x:Class="RampantSlug.ServerLibrary.ServerDisplays.RsIntro.RsIntroAnimationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
+             xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+  xmlns:core="using:Microsoft.Xaml.Interactions.Core"
              Width="1280"
              Height="720"
              ClipToBounds="False"
              >
     <UserControl.Resources>
+
         <Storyboard x:Key="RampantFlyIn">
+
             <DoubleAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" 
                 Storyboard.TargetName="RampantText"
@@ -61,11 +65,11 @@
         </Storyboard>
     </UserControl.Resources>
     <UserControl.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard 
-                Storyboard="{StaticResource RampantFlyIn}"
-                />
-        </EventTrigger>
+        <DataTrigger Binding="{Binding Path=ReadyToStartIntro}" Value="True">
+            <DataTrigger.EnterActions>
+                <BeginStoryboard Storyboard="{StaticResource RampantFlyIn}"/>
+            </DataTrigger.EnterActions>
+        </DataTrigger>
     </UserControl.Triggers>
     <Canvas 
         Background="Black"

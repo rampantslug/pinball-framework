@@ -18,6 +18,7 @@ using RampantSlug.ServerLibrary.Hardware;
 using RampantSlug.ServerLibrary.Hardware.Arduino;
 using RampantSlug.ServerLibrary.Hardware.Proc;
 using RampantSlug.ServerLibrary.Logging;
+using RampantSlug.ServerLibrary.Modes;
 using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
@@ -141,11 +142,13 @@ namespace RampantSlug.ServerLibrary
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool Configure()
+        public bool Configure(bool isRestart = false)
         {
-            ServerBusController = IoC.Get<IServerBusController>();
-            ServerBusController.Start();
-
+            if (!isRestart)
+            {
+                ServerBusController = IoC.Get<IServerBusController>();
+                ServerBusController.Start();
+            }
             _eventAggregator = IoC.Get<IEventAggregator>();
             _eventAggregator.Subscribe(this);
 
@@ -203,9 +206,15 @@ namespace RampantSlug.ServerLibrary
                 _arduinoController.Close();
         }
 
+        public void Handle(StartupCompleteEvent message)
+        {
+            attract = new Attract(this);
+        }
+
         #endregion
 
-
+        public Attract attract;
+        public BaseGame _base_game_mode;
 
        
 
@@ -421,10 +430,16 @@ namespace RampantSlug.ServerLibrary
         public void Handle(RestartServerEvent message)
         {
             DisconnectFromHardware();
-            ServerBusController.Stop();
-            if (Configure())
+            _eventAggregator = null;
+            _procController = null;
+            _arduinoController = null;
+            BackgroundVideo = null;
+            MainScore = null;
+
+            if (Configure(true))
             {
                 ConnectToHardware();
+                _eventAggregator.PublishOnUIThread(new ServerRestartedEvent());
             }
         }
 

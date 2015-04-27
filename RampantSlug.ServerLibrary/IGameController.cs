@@ -20,6 +20,6 @@ namespace RampantSlug.ServerLibrary
 
         void ConnectToHardware();
         void DisconnectFromHardware();
-        bool Configure();
+        bool Configure(bool isRestart = false);
     }
 }

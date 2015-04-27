@@ -8,7 +8,7 @@
             Height="720"
              >
     <Grid>
-        <rsIntro:RsIntroAnimation
+        <rsIntro:RsIntroAnimationView
             Width="1280"
             Height="720"
             ClipToBounds="False"
