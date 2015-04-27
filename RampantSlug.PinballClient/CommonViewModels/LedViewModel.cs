@@ -24,6 +24,11 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public override string DeviceType
+        {
+            get { return "Led"; }
+        }
+
         #region Constructor
 
         /// <summary>
@@ -32,7 +37,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         /// <param name="ledDevice"></param>
         public LedViewModel(Led ledDevice)
         {
-            _device = ledDevice;
+            Device = ledDevice;
         }
 
         #endregion
@@ -72,8 +77,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             base.UpdateDeviceInfo(ledDevice, timestamp);
 
             // Update stuff.
-            _device = ledDevice;
-            NotifyOfPropertyChange(() => IsDeviceActive);
+            //_device = ledDevice;
+            //NotifyOfPropertyChange(() => IsDeviceActive);
 
         }
     }

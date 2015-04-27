@@ -27,6 +27,11 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public override string DeviceType
+        {
+            get { return "Switch"; }
+        }
+
         public string SwitchState
         {
             get { return _switchState; }
@@ -47,7 +52,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         public SwitchViewModel(Switch switchDevice)
         {
             _device = switchDevice;
-            SwitchState = switchDevice.State;
+            //SwitchState = switchDevice.State;
  
         }
 
@@ -85,11 +90,11 @@ namespace RampantSlug.PinballClient.CommonViewModels
             base.UpdateDeviceInfo(switchDevice, timestamp);
 
             // Update stuff.
-            _device = switchDevice;
+            //_device = switchDevice;
 
-            SwitchState = switchDevice.State;
+            //SwitchState = switchDevice.State;
 
-            NotifyOfPropertyChange(()=> IsDeviceActive);
+            //NotifyOfPropertyChange(()=> IsDeviceActive);
 
         }
     }

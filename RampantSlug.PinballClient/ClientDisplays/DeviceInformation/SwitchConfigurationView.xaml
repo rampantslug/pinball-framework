@@ -59,7 +59,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="24" 
-                Text="{Binding Switch.SwitchState}"
+                Text="{Binding Switch.State}"
                 />
             <Button 
                 Grid.Column="1"

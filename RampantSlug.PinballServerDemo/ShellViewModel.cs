@@ -12,57 +12,14 @@ namespace RampantSlug.PinballServerDemo
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShell, IHandle<UpdateDisplayEvent>
     {
         private IGameController _gameController;
-        //private BindableCollection<Switch> _switches;
-        //private int _playerScore;
-        // private GameLibraryBootstrapper _gameLibrary;
         private IEventAggregator _eventAggregator;
-
-        public string TextToTransmit { get; set; }
-
-        /*public BindableCollection<Switch> Switches
-        {
-            get
-            {
-                return _switches;
-            }
-            set
-            {
-                _switches = value;
-                NotifyOfPropertyChange(() => Switches);
-            }
-        }
-
-
-        public int PlayerScore
-        {
-            get
-            {
-                return _playerScore;
-            }
-            set
-            {
-                _playerScore = value;
-                NotifyOfPropertyChange(() => PlayerScore);
-            }
-        }
-        */
-
+     
         public IDisplayBackgroundVideo BackgroundVideo { get; private set; }
         public IDisplayMainScore MainScore { get; private set; }
 
-        public void SimpleMessage() 
-        {
-            _gameController.ServerBusController.SendSimpleMessage(TextToTransmit);
-        }
-
-        public void EventMessage()
-        {
-            _gameController.ServerBusController.SendEventMessage(TextToTransmit);
-        }
-
         public ShellViewModel() 
         {
-            //_switches = new BindableCollection<Switch>();
+
             
         }
 
@@ -71,11 +28,6 @@ namespace RampantSlug.PinballServerDemo
             _gameController.ServerBusController.Stop(); 
         }
 
-        public void UpdateUI()   // TODO: Manual update of the UI for initial testing only
-        {
-           // Switches.Clear();
-           // _gameController._switches.ForEach(device => Switches.Add(device));
-        }
 
         public void SaveConfig() 
         {

@@ -8,5 +8,9 @@ namespace RampantSlug.Common.Devices
 {
     public class Servo : Motor, IDevice
     {
+        public Servo()
+        {
+            State = "Inactive";
+        }
     }
 }

@@ -58,7 +58,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="24" 
-                Text="{Binding Switch.SwitchState}"
+                Text="{Binding StepperMotor.State}"
                 />
             <Button 
                 Grid.Column="1"

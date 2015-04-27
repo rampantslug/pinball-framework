@@ -168,7 +168,7 @@
                             Height="20"
                             BorderThickness="1"
                             Style="{StaticResource FlatButton}"
-                            Content="{Binding SwitchState}"
+                            Content="{Binding State}"
                             cal:Message.Attach="ActivateDeviceState()"
                             VerticalContentAlignment="Top"
                             FontSize="14"

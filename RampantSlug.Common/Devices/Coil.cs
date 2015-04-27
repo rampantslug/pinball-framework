@@ -11,6 +11,7 @@ namespace RampantSlug.Common.Devices
 
         public Coil()
         {
+            State = "Inactive";      
         }
 
    //     public override void UpdateNumberFromAddress()

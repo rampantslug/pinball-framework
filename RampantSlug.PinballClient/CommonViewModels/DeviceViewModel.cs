@@ -91,6 +91,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        
+
         #endregion
 
         #region View support properties
@@ -135,11 +137,22 @@ namespace RampantSlug.PinballClient.CommonViewModels
             {
                 _device = value;
                 NotifyOfPropertyChange(() => Device);
+
+                // If this has been updated then need to refresh all child properties               
+                NotifyOfPropertyChange(() => Name);
+                NotifyOfPropertyChange(() => State);
                 NotifyOfPropertyChange(() => IsDeviceActive);
+                NotifyOfPropertyChange(() => Address);
+                NotifyOfPropertyChange(() => VirtualLocationX);
+                NotifyOfPropertyChange(() => VirtualLocationY);
+
             }
         }
 
-       
+        public virtual string DeviceType {
+            get { return "Generic Device"; }
+        }
+
 
         public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
@@ -193,6 +206,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         public void UpdateDeviceInfo(IDevice device, DateTime timestamp)
         {
+            Device = device;
+            
             if (PreviousStates.Count > 10)
             {
                 PreviousStates.Remove(PreviousStates.Last());
@@ -202,7 +217,6 @@ namespace RampantSlug.PinballClient.CommonViewModels
                 Timestamp = timestamp.ToString(),
                 State = device.State
             });
-         
 
         }
 

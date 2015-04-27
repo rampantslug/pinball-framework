@@ -8,5 +8,9 @@ namespace RampantSlug.Common.Devices
 {
     public class StepperMotor : Motor, IDevice
     {
+        public StepperMotor()
+        {
+            State = "Inactive";
+        }
     }
 }

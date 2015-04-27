@@ -24,6 +24,11 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public override string DeviceType
+        {
+            get { return "Servo"; }
+        }
+
         #region Constructor
 
         /// <summary>
@@ -32,7 +37,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         /// <param name="servoDevice"></param>
         public ServoViewModel(Servo servoDevice)
         {
-            _device = servoDevice;
+            Device = servoDevice;
         }
 
         #endregion
@@ -72,8 +77,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             base.UpdateDeviceInfo(servo, timestamp);
 
             // Update stuff.
-            _device = servo;
-            NotifyOfPropertyChange(() => IsDeviceActive);
+            //_device = servo;
+            //NotifyOfPropertyChange(() => IsDeviceActive);
 
         }
     }

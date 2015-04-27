@@ -14,7 +14,8 @@ namespace RampantSlug.PinballClient.ContractImplementations
         Consumes<IUpdateSwitchMessage>.Context,
         Consumes<IUpdateCoilMessage>.Context,
         Consumes<IUpdateStepperMotorMessage>.Context,
-        Consumes<IUpdateServoMessage>.Context
+        Consumes<IUpdateServoMessage>.Context,
+        Consumes<IUpdateLedMessage>.Context
     {
         public void Consume(IConsumeContext<IUpdateSwitchMessage> message)
         {
@@ -70,7 +71,5 @@ namespace RampantSlug.PinballClient.ContractImplementations
 
             });
         }
-
-
     }
 }

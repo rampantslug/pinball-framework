@@ -59,19 +59,19 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="24" 
-                Text="{Binding Switch.SwitchState}"
+                Text="{Binding Led.State}"
                 />
             <Button 
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="PulseState"
-                Content="Pulse"
+                x:Name="ActivateLed"
+                Content="Activate"
                 />
             <Button 
                 Grid.Column="2"
                 Grid.Row="2"
-                x:Name="HoldState"
-                Content="Hold"
+                x:Name="DeactivateLed"
+                Content="Deactivate"
                 />
             </Grid>
 

@@ -42,7 +42,7 @@
             />
             <TextBlock 
             Grid.Column="1"
-            x:Name="DeviceType"
+            Text="{Binding SelectedDevice.DeviceType}"
             FontSize="16"
             HorizontalAlignment="Center"      
             VerticalAlignment="Bottom"

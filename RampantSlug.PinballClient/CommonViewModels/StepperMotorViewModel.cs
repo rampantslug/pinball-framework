@@ -24,6 +24,10 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public override string DeviceType
+        {
+            get { return "Stepper Motor"; }
+        }
 
         #region Constructor
 
@@ -33,7 +37,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         /// <param name="stepperMotorDevice"></param>
         public StepperMotorViewModel(StepperMotor stepperMotorDevice)
         {
-            _device = stepperMotorDevice;
+            Device = stepperMotorDevice;
         }
 
         #endregion
@@ -73,8 +77,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             base.UpdateDeviceInfo(stepperMotor, timestamp);
 
             // Update stuff.
-            _device = stepperMotor;
-            NotifyOfPropertyChange(() => IsDeviceActive);
+            //_device = stepperMotor;
+            //NotifyOfPropertyChange(() => IsDeviceActive);
 
         }
     }

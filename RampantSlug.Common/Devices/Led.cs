@@ -13,6 +13,11 @@ namespace RampantSlug.Common.Devices
         
         //}
 
+        public Led()
+        {
+            State = "Inactive";
+        }
+
         public override bool IsDeviceActive
         {
             get

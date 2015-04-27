@@ -24,6 +24,11 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public override string DeviceType
+        {
+            get { return "Coil"; }
+        }
+
 
         #region Constructor
 
@@ -33,7 +38,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         /// <param name="coilDevice"></param>
         public CoilViewModel(Coil coilDevice)
         {
-            _device = coilDevice;
+            Device = coilDevice;
         }
 
         #endregion
@@ -67,8 +72,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             base.UpdateDeviceInfo(coilDevice, timestamp);
 
             // Update stuff.
-            _device = coilDevice;
-            NotifyOfPropertyChange(() => IsDeviceActive);
+            //_device = coilDevice;
+            //NotifyOfPropertyChange(() => IsDeviceActive);
 
         }
 
