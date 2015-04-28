@@ -109,6 +109,7 @@
     <Compile Include="Mode.cs" />
     <Compile Include="ModeQueue.cs" />
     <Compile Include="Modes\Attract.cs" />
+    <Compile Include="Modes\BallTrough.cs" />
     <Compile Include="Modes\BaseGame.cs" />
     <Compile Include="ServerBusController.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessageConsumer.cs" />

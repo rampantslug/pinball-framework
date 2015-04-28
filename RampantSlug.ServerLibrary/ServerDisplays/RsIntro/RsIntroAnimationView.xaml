@@ -10,7 +10,10 @@
              >
     <UserControl.Resources>
 
-        <Storyboard x:Key="RampantFlyIn">
+        <Storyboard 
+            x:Key="RampantFlyIn"
+            
+            >
 
             <DoubleAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" 
@@ -58,18 +61,28 @@
             	<DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{x:Static Visibility.Visible}"/>
             	<DiscreteObjectKeyFrame KeyTime="0:0:6.6" Value="{x:Static Visibility.Hidden}"/>
             </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PresentsText" >
+            <ObjectAnimationUsingKeyFrames 
+                Storyboard.TargetProperty="(UIElement.Visibility)" 
+                Storyboard.TargetName="PresentsText" 
+                
+                >
             	<DiscreteObjectKeyFrame KeyTime="0:0:7.4" Value="{x:Static Visibility.Visible}"/>
             	<DiscreteObjectKeyFrame KeyTime="0:0:8" Value="{x:Static Visibility.Hidden}"/>
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
     <UserControl.Triggers>
-        <DataTrigger Binding="{Binding Path=ReadyToStartIntro}" Value="True">
+      <!--  <DataTrigger Binding="{Binding Path=ReadyToStartIntro}" Value="True">
             <DataTrigger.EnterActions>
                 <BeginStoryboard Storyboard="{StaticResource RampantFlyIn}"/>
             </DataTrigger.EnterActions>
-        </DataTrigger>
+        </DataTrigger>-->
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard 
+                Storyboard="{StaticResource RampantFlyIn}"
+                cal:Message.Attach="[Event Storyboard.Completed] = [Action AnimationCompleted()]"
+                />
+        </EventTrigger>
     </UserControl.Triggers>
     <Canvas 
         Background="Black"

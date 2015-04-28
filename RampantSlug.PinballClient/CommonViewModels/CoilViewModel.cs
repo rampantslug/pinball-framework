@@ -73,7 +73,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
             // Update stuff.
             //_device = coilDevice;
-            //NotifyOfPropertyChange(() => IsDeviceActive);
+            //NotifyOfPropertyChange(() => IsActive);
 
         }
 

@@ -12,14 +12,6 @@
         },
         {
             "SwitchType": "Optical NC",
-            "Address": "PSM-0/1",
-            "Name": "shooterLane",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "10",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
             "Address": "PSM-0/2",
             "Name": "leftFlipper",
             "VirtualLocationX": "60",
@@ -63,6 +55,38 @@
             "Name": "trough4",
             "VirtualLocationX": "100",
             "VirtualLocationY": "60",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "SwitchType": "Optical NC",
+            "Address": "PSM-1/4",
+            "Name": "trough5",
+            "VirtualLocationX": "100",
+            "VirtualLocationY": "60",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "SwitchType": "Optical NC",
+            "Address": "PSM-2/0",
+            "Name": "leftOutlane",
+            "VirtualLocationX": "60",
+            "VirtualLocationY": "30",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "SwitchType": "Optical NC",
+            "Address": "PSM-2/1",
+            "Name": "rightOutlane",
+            "VirtualLocationX": "100",
+            "VirtualLocationY": "60",
+            "WiringColors": "Grey/Green"
+        },
+        {
+            "SwitchType": "Optical NC",
+            "Address": "PSM-2/2",
+            "Name": "shooterLane",
+            "VirtualLocationX": "60",
+            "VirtualLocationY": "30",
             "WiringColors": "Grey/Green"
         },
         {

@@ -12,6 +12,7 @@
             Width="1280"
             Height="720"
             ClipToBounds="False"
+            cal:View.Model="{Binding IntroAnimation}"
             />
         <MediaElement 
             x:Name="BackgroundVideoPlayer"

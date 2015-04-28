@@ -38,7 +38,7 @@ namespace RampantSlug.Common.Devices
         }
 
         //public abstract void UpdateNumberFromAddress();
-        public abstract bool IsDeviceActive { get; }
+        public abstract bool IsActive { get; }
 
         public int VirtualLocationX { get; set; }
 

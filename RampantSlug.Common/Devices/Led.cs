@@ -18,7 +18,7 @@ namespace RampantSlug.Common.Devices
             State = "Inactive";
         }
 
-        public override bool IsDeviceActive
+        public override bool IsActive
         {
             get
             {

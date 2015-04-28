@@ -78,7 +78,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
             // Update stuff.
             //_device = stepperMotor;
-            //NotifyOfPropertyChange(() => IsDeviceActive);
+            //NotifyOfPropertyChange(() => IsActive);
 
         }
     }

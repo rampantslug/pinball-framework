@@ -123,7 +123,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         {
             get
             {
-                return _device.IsDeviceActive;
+                return _device.IsActive;
             }
         }
 

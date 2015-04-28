@@ -26,7 +26,7 @@ namespace RampantSlug.Common.Devices
        //     Number = (ushort)parse_matrix_num(Address);
        // }
 
-        public override bool IsDeviceActive
+        public override bool IsActive
         {
             get
             {

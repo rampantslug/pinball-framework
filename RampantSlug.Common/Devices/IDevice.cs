@@ -22,7 +22,7 @@ namespace RampantSlug.Common.Devices
         
 
         //[JsonIgnore]
-        bool IsDeviceActive { get; }
+        bool IsActive { get; }
 
         int VirtualLocationX { get; set; }
         int VirtualLocationY { get; set; }

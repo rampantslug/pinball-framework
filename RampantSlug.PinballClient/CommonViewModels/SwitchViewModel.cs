@@ -94,7 +94,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
             //SwitchState = switchDevice.State;
 
-            //NotifyOfPropertyChange(()=> IsDeviceActive);
+            //NotifyOfPropertyChange(()=> IsActive);
 
         }
     }

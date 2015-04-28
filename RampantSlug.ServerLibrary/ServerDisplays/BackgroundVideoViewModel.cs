@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using RampantSlug.Common;
 using RampantSlug.ServerLibrary.Events;
+using RampantSlug.ServerLibrary.ServerDisplays.RsIntro;
 
 namespace RampantSlug.ServerLibrary.ServerDisplays
 {
@@ -18,6 +19,8 @@ namespace RampantSlug.ServerLibrary.ServerDisplays
 
         private Uri _backgroundVideoSource;
         private MediaPlayerState _backgroundVideoState;
+
+        public RsIntroAnimationViewModel IntroAnimation { get; set; }
 
         public MediaElement BackgroundVideoPlayer
         {
@@ -61,6 +64,13 @@ namespace RampantSlug.ServerLibrary.ServerDisplays
         public BackgroundVideoViewModel()
         {
             BackgroundVideoPlayer.UnloadedBehavior = MediaState.Manual;
+
+            IntroAnimation = new RsIntroAnimationViewModel();
+
+            TimedAction.ExecuteWithDelay(new System.Action(delegate
+            {
+                IntroAnimation.ReadyToStartIntro = true;
+            }), TimeSpan.FromSeconds(5));
 
             TimedAction.ExecuteWithDelay(new System.Action(delegate
             {

@@ -127,7 +127,7 @@ namespace RampantSlug.Common
              || property.PropertyName == "LastChangeTimeStamp" 
              || property.PropertyName == "PlayfieldImage"
              || property.PropertyName == "State"
-             || property.PropertyName == "IsDeviceActive")
+             || property.PropertyName == "IsActive")
         {
             property.ShouldSerialize =
                 instance => false;

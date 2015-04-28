@@ -19,7 +19,7 @@ namespace RampantSlug.Common.Devices
    //         Number = ushort.Parse(Address);
    //     }
 
-        public override bool IsDeviceActive
+        public override bool IsActive
         {
             get
             {
