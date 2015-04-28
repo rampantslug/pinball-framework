@@ -80,7 +80,7 @@
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard 
                 Storyboard="{StaticResource RampantFlyIn}"
-                cal:Message.Attach="[Event Storyboard.Completed] = [Action AnimationCompleted()]"
+                
                 />
         </EventTrigger>
     </UserControl.Triggers>
