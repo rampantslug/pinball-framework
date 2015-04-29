@@ -95,8 +95,9 @@ namespace RampantSlug.ServerLibrary.Hardware
 
         public void ProcessConfig()
         {
+
             // Add switches to PROC
-            foreach (var gameSwitch in GameController.Switches.Values)
+            foreach (var gameSwitch in GameController.Devices.AllSwitches())
             {
                 _proc.switch_update_rule(gameSwitch.Number,
                     EventType.SwitchClosedDebounced,
@@ -226,7 +227,7 @@ namespace RampantSlug.ServerLibrary.Hardware
             else
             {
                // Generate Switch event or update switch state
-                var sw = GameController.Switches[(ushort)evt.Value];
+                var sw = GameController.Devices.Switches[(ushort)evt.Value];
                
                 // Need to update the state of the switch before publishing...
 

@@ -85,6 +85,8 @@
     <Compile Include="ContractImplementations\ConfigureMachineMessageConsumer.cs" />
     <Compile Include="ContractImplementations\RestartServerMessageConsumer.cs" />
     <Compile Include="ContractImplementations\UpdateDeviceMessage.cs" />
+    <Compile Include="Devices.cs" />
+    <Compile Include="Display.cs" />
     <Compile Include="Events\ConfigureMachineEvent.cs" />
     <Compile Include="Events\ConfigureDeviceEvent.cs" />
     <Compile Include="Events\StartupCompleteEvent.cs" />
@@ -92,9 +94,14 @@
     <Compile Include="Events\RestartServerEvent.cs" />
     <Compile Include="Events\UpdateDeviceEvent.cs" />
     <Compile Include="Events\UpdateDisplayEvent.cs" />
-    <Compile Include="GameLibraryBootstrapper.cs" />
+    <Compile Include="Hardware\DeviceControl\StepperMotorControl.cs" />
+    <Compile Include="Hardware\DeviceControl\LedControl.cs" />
+    <Compile Include="Hardware\DeviceControl\CoilControl.cs" />
+    <Compile Include="Hardware\DeviceControl\ServoControl.cs" />
+    <Compile Include="ServerLibraryBootstrapper.cs" />
     <Compile Include="ContractImplementations\CommandDeviceMessageConsumer.cs" />
     <Compile Include="Events\DeviceCommandResult.cs" />
+    <Compile Include="GamePlay.cs" />
     <Compile Include="Hardware\ArduinoController.cs" />
     <Compile Include="Hardware\Arduino\ArduinoDevice.cs" />
     <Compile Include="Hardware\IArduinoController.cs" />

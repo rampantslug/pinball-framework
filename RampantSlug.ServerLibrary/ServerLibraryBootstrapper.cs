@@ -13,14 +13,14 @@
 
 namespace RampantSlug.ServerLibrary
     {
-        public class GameLibraryBootstrapper
+        public class ServerLibraryBootstrapper
         {
             /// <summary>
             /// Create an instance of the game library by adding available Controllers to 
             /// IoC container.
             /// </summary>
             /// <param name="container"></param>
-            public GameLibraryBootstrapper(SimpleContainer container)
+            public ServerLibraryBootstrapper(SimpleContainer container)
             {
                 container.Singleton<IServerBusController, ServerBusController>();
                 container.Singleton<IProcController, ProcController>();

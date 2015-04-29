@@ -63,20 +63,26 @@ namespace RampantSlug.ServerLibrary
 
 
         // Devices used by Pinball Hardware
-        private AttrCollection<ushort, string, Switch> _switches;
-        private AttrCollection<ushort, string, Coil> _coils;
-        private AttrCollection<ushort, string, StepperMotor> _stepperMotors;
-        private AttrCollection<ushort, string, Servo> _servos;
-        private AttrCollection<ushort, string, Led> _leds;
+        public Devices Devices { get; set; }
+        public Display Display { get; set; }
+        public GamePlay GamePlay { get; set; }
+
+
+        //private AttrCollection<ushort, string, Switch> _switches;
+        //private AttrCollection<ushort, string, Coil> _coils;
+        //private AttrCollection<ushort, string, StepperMotor> _stepperMotors;
+        //private AttrCollection<ushort, string, Servo> _servos;
+       // private AttrCollection<ushort, string, Led> _leds;
 
 
         // Display Elements
         public IDisplayBackgroundVideo BackgroundVideo { get; private set; }
-
         public IDisplayMainScore MainScore { get; private set; }
 
+        
 
-        public AttrCollection<ushort, string, Switch> Switches
+
+     /*   public AttrCollection<ushort, string, Switch> Switches
         {
             get { return _switches; }
             set { _switches = value; }
@@ -94,17 +100,18 @@ namespace RampantSlug.ServerLibrary
             set { _stepperMotors = value; }
         }
 
-        public AttrCollection<ushort, string, Servo> Servos
-        {
-            get { return _servos; }
-            set { _servos = value; }
-        }
+       // public AttrCollection<ushort, string, Servo> Servos
+       // {
+       //     get { return _servos; }
+       //     set { _servos = value; }
+       // }
 
         public AttrCollection<ushort, string, Led> Leds
         {
             get { return _leds; }
             set { _leds = value; }
         }
+        */
 
         /// <summary>
         /// The current list of modes that are active in the game
@@ -159,18 +166,29 @@ namespace RampantSlug.ServerLibrary
             BackgroundVideo = IoC.Get<IDisplayBackgroundVideo>();
             MainScore = IoC.Get<IDisplayMainScore>();
 
+            // Are we better off moving these to IOC??
+            Devices = new Devices();
+            Display = new Display();
+            GamePlay = new GamePlay();
+
             try
             {
                 // Retrieve saved configuration information
                 var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
                 var gameConfiguration = Configuration.FromFile(filePath + @"\Configuration\machine.json");
 
-                // Update local information
-                _switches = DeviceCollection<Switch>.CreateCollection(gameConfiguration.Switches, RsLogManager.GetCurrent);
-                _coils = DeviceCollection<Coil>.CreateCollection(gameConfiguration.Coils, RsLogManager.GetCurrent);
-                _stepperMotors = DeviceCollection<StepperMotor>.CreateCollection(gameConfiguration.StepperMotors, RsLogManager.GetCurrent);
-                _servos = DeviceCollection<Servo>.CreateCollection(gameConfiguration.Servos, RsLogManager.GetCurrent);
-                _leds = DeviceCollection<Led>.CreateCollection(gameConfiguration.Leds, RsLogManager.GetCurrent);
+                // Update local information from configuration
+                Devices.LoadSwitches(gameConfiguration.Switches);
+                Devices.LoadCoils(gameConfiguration.Coils);
+                Devices.LoadStepperMotors(gameConfiguration.StepperMotors);
+                Devices.LoadServos(gameConfiguration.Servos);
+                Devices.LoadLeds(gameConfiguration.Leds);
+
+                //_switches = DeviceCollection<Switch>.CreateCollection(gameConfiguration.Switches, RsLogManager.GetCurrent);
+                //_coils = DeviceCollection<Coil>.CreateCollection(gameConfiguration.Coils, RsLogManager.GetCurrent);
+                //_stepperMotors = DeviceCollection<StepperMotor>.CreateCollection(gameConfiguration.StepperMotors, RsLogManager.GetCurrent);
+                //_servos = DeviceCollection<Servo>.CreateCollection(gameConfiguration.Servos, RsLogManager.GetCurrent);
+                //_leds = DeviceCollection<Led>.CreateCollection(gameConfiguration.Leds, RsLogManager.GetCurrent);
 
                 ServerName = gameConfiguration.ServerName;
                 ServerIcon = gameConfiguration.ServerIcon;
@@ -367,7 +385,7 @@ namespace RampantSlug.ServerLibrary
             var sw = message.Device;
             if (sw != null)
             {
-                _switches.Update(sw.Number, sw);
+                Devices.UpdateSwitch(sw.Number, sw);
 
                 // Update score
                 // TODO: Clean this up and come up with a better solution
@@ -394,7 +412,7 @@ namespace RampantSlug.ServerLibrary
             var coil = message.Device;
             if (coil != null)
             {
-                _coils.Update(coil.Number, coil);
+                Devices.UpdateCoil(coil.Number, coil);
 
                 // Notify Client if listening
                 ServerBusController.SendUpdateDeviceMessage(coil);
@@ -407,7 +425,7 @@ namespace RampantSlug.ServerLibrary
             var stepperMotor = message.Device;
             if (stepperMotor != null)
             {
-                _stepperMotors.Update(stepperMotor.Number, stepperMotor);
+                Devices.UpdateStepperMotor(stepperMotor.Number, stepperMotor);
 
                 // Notify Client if listening
                 ServerBusController.SendUpdateDeviceMessage(stepperMotor);
@@ -420,7 +438,7 @@ namespace RampantSlug.ServerLibrary
             var servo = message.Device;
             if (servo != null)
             {
-                _servos.Update(servo.Number, servo);
+                Devices.UpdateServo(servo.Number, servo);
 
                 // Notify Client if listening
                 ServerBusController.SendUpdateDeviceMessage(servo);
@@ -433,7 +451,7 @@ namespace RampantSlug.ServerLibrary
             var led = message.Device;
             if (led != null)
             {
-                _leds.Update(led.Number, led);
+                Devices.UpdateLed(led.Number, led);
 
                 // Notify Client if listening
                 ServerBusController.SendUpdateDeviceMessage(led);
@@ -536,22 +554,22 @@ namespace RampantSlug.ServerLibrary
             }
 
             // Update or remove existing Switch
-            if (Switches.ContainsKey(updatedSwitch.Number))
+            if (Devices.Switches.ContainsKey(updatedSwitch.Number))
             {
                 if (removeDevice)
                 {
-                    Switches.Remove(updatedSwitch.Number);
+                    Devices.RemoveSwitch(updatedSwitch.Number);
                     RsLogManager.GetCurrent.LogTestMessage("Removed switch " + updatedSwitch.Name + " from config.");
                 }
                 else
                 {
-                    Switches.Update(updatedSwitch.Number, updatedSwitch);
+                    Devices.UpdateSwitch(updatedSwitch.Number, updatedSwitch);
                     RsLogManager.GetCurrent.LogTestMessage("Updated switch " + updatedSwitch.Name + "in config.");
                 }
             }
             else // Adding a new switch
             {
-                Switches.Add(updatedSwitch.Number, updatedSwitch.Name, updatedSwitch);
+                Devices.AddSwitch(updatedSwitch);
                 RsLogManager.GetCurrent.LogTestMessage("Added switch " + updatedSwitch.Name + "to config.");
             }
         }
@@ -566,22 +584,22 @@ namespace RampantSlug.ServerLibrary
             }
 
             // Update or remove existing coil
-            if (Coils.ContainsKey(updatedCoil.Number))
+            if (Devices.Coils.ContainsKey(updatedCoil.Number))
             {
                 if (removeDevice)
                 {
-                    Coils.Remove(updatedCoil.Number);
+                    Devices.RemoveCoil(updatedCoil.Number);
                     RsLogManager.GetCurrent.LogTestMessage("Removed coil " + updatedCoil.Name + " from config.");
                 }
                 else
                 {
-                    Coils.Update(updatedCoil.Number, updatedCoil);
+                    Devices.UpdateCoil(updatedCoil.Number, updatedCoil);
                     RsLogManager.GetCurrent.LogTestMessage("Updated coil " + updatedCoil.Name + "in config.");
                 }
             }
             else // Adding a new coil
             {
-                Coils.Add(updatedCoil.Number, updatedCoil.Name, updatedCoil);
+                Devices.AddCoil(updatedCoil);
                 RsLogManager.GetCurrent.LogTestMessage("Added coil " + updatedCoil.Name + "to config.");
             }
         }
@@ -596,23 +614,23 @@ namespace RampantSlug.ServerLibrary
             }
 
             // Update or remove existing stepperMotor
-            if (StepperMotors.ContainsKey(updatedStepperMotor.Number))
+            if (Devices.StepperMotors.ContainsKey(updatedStepperMotor.Number))
             {
                 if (removeDevice)
                 {
-                    StepperMotors.Remove(updatedStepperMotor.Number);
+                    Devices.RemoveStepperMotor(updatedStepperMotor.Number);
                     RsLogManager.GetCurrent.LogTestMessage("Removed stepper motor " + updatedStepperMotor.Name + " from config.");
                 }
                 else
                 {
-                    StepperMotors.Update(updatedStepperMotor.Number, updatedStepperMotor);
+                    Devices.UpdateStepperMotor(updatedStepperMotor.Number, updatedStepperMotor);
                     RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + updatedStepperMotor.Name +
                                                            "in config.");
                 }
             }
             else // Adding a new stepperMotor
             {
-                StepperMotors.Add(updatedStepperMotor.Number, updatedStepperMotor.Name, updatedStepperMotor);
+                Devices.AddStepperMotor(updatedStepperMotor);
                 RsLogManager.GetCurrent.LogTestMessage("Added stepper motor " + updatedStepperMotor.Name + "to config.");
             }
         }
@@ -627,22 +645,22 @@ namespace RampantSlug.ServerLibrary
             }
 
             // Update or remove existing servo
-            if (Servos.ContainsKey(updatedServo.Number))
+            if (Devices.Servos.ContainsKey(updatedServo.Number))
             {
                 if (removeDevice)
                 {
-                    Servos.Remove(updatedServo.Number);
+                    Devices.RemoveServo(updatedServo.Number);
                     RsLogManager.GetCurrent.LogTestMessage("Removed servo " + updatedServo.Name + " from config.");
                 }
                 else
                 {
-                    Servos.Update(updatedServo.Number, updatedServo);
+                    Devices.UpdateServo(updatedServo.Number, updatedServo);
                     RsLogManager.GetCurrent.LogTestMessage("Updated servo " + updatedServo.Name + " in config.");
                 }
             }
             else // Adding a new servo
             {
-                Servos.Add(updatedServo.Number, updatedServo.Name, updatedServo);
+                Devices.AddServo(updatedServo);
                 RsLogManager.GetCurrent.LogTestMessage("Added servo " + updatedServo.Name + " to config.");
             }
         }
@@ -657,22 +675,22 @@ namespace RampantSlug.ServerLibrary
             }
 
             // Update or remove existing led
-            if (Leds.ContainsKey(updatedLed.Number))
+            if (Devices.Leds.ContainsKey(updatedLed.Number))
             {
                 if (removeDevice)
                 {
-                    Leds.Remove(updatedLed.Number);
+                    Devices.RemoveLed(updatedLed.Number);
                     RsLogManager.GetCurrent.LogTestMessage("Removed led " + updatedLed.Name + " from config.");
                 }
                 else
                 {
-                    Leds.Update(updatedLed.Number, updatedLed);
+                    Devices.UpdateLed(updatedLed.Number, updatedLed);
                     RsLogManager.GetCurrent.LogTestMessage("Updated led " + updatedLed.Name + "in config.");
                 }
             }
             else // Adding a new led
             {
-                Leds.Add(updatedLed.Number, updatedLed.Name, updatedLed);
+                Devices.AddLed(updatedLed);
                 RsLogManager.GetCurrent.LogTestMessage("Added led " + updatedLed.Name + "to config.");
             }
         }
@@ -694,13 +712,12 @@ namespace RampantSlug.ServerLibrary
             gameConfiguration.ServerName = ServerName;
             gameConfiguration.ServerIcon = ServerIcon;
             gameConfiguration.UseHardware = UseHardware;
-            
-            
-            gameConfiguration.Switches = Switches.Values;
-            gameConfiguration.Coils = Coils.Values;
-            gameConfiguration.StepperMotors = StepperMotors.Values;
-            gameConfiguration.Servos = Servos.Values;
-            gameConfiguration.Leds = Leds.Values;
+
+            gameConfiguration.Switches = Devices.AllSwitches();
+            gameConfiguration.Coils = Devices.AllCoils();
+            gameConfiguration.StepperMotors = Devices.AllStepperMotors();
+            gameConfiguration.Servos = Devices.AllServos();
+            gameConfiguration.Leds = Devices.AllLeds();
 
             return gameConfiguration;
         }

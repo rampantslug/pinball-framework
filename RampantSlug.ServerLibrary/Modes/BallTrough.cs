@@ -189,7 +189,7 @@ namespace RampantSlug.ServerLibrary.Modes
             int ball_count = 0;
             foreach (string sw in position_switchnames)
             {
-                if (Game.Switches[sw].IsActive)
+                if (Game.Devices.Switches[sw].IsActive)
                     ball_count++;
             }
             return ball_count;
@@ -237,7 +237,7 @@ namespace RampantSlug.ServerLibrary.Modes
         private void common_launch_code()
         {
             // Only kick out another ball if the last ball is gone from the shooter lane
-            if (!Game.Switches[shooter_lane_switchname].IsActive)
+            if (!Game.Devices.Switches[shooter_lane_switchname].IsActive)
             {
                 num_balls_to_launch -= 1;
 

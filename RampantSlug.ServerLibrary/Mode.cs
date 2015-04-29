@@ -130,14 +130,14 @@ namespace RampantSlug.ServerLibrary
             EventType adjusted_event_type;
             if (Event_Type == "active")
             {
-                if (Game.Switches[Name].Type == SwitchType.NO)
+                if (Game.Devices.Switches[Name].Type == SwitchType.NO)
                     adjusted_event_type = EventType.SwitchClosedDebounced;
                 else
                     adjusted_event_type = EventType.SwitchOpenDebounced;
             }
             else if (Event_Type == "inactive")
             {
-                if (Game.Switches[Name].Type == SwitchType.NO)
+                if (Game.Devices.Switches[Name].Type == SwitchType.NO)
                     adjusted_event_type = EventType.SwitchOpenDebounced;
                 else
                     adjusted_event_type = EventType.SwitchClosedDebounced;
@@ -147,7 +147,7 @@ namespace RampantSlug.ServerLibrary
             else
                 adjusted_event_type = EventType.SwitchOpenDebounced;
 
-            Switch sw = Game.Switches[Name];
+            Switch sw = Game.Devices.Switches[Name];
             AcceptedSwitch asw = new AcceptedSwitch(Name, adjusted_event_type, Delay, Handler, sw);
             if (!_accepted_switches.Contains(asw))
                 _accepted_switches.Add(asw);
@@ -190,7 +190,7 @@ namespace RampantSlug.ServerLibrary
         /// <returns>true if the event was handled and should not be propagated, false to propagate to other modes</returns>
         public bool handle_event(Event evt)
         {
-            string sw_name = Game.Switches[(ushort)evt.Value].Name;
+            string sw_name = Game.Devices.Switches[(ushort)evt.Value].Name;
             bool handled = false;
             /// Filter out all of the delayed events that have been disqualified by this state change.
             /// Remove all items that are for this switch (sw_name) but for a different state (type).
@@ -214,7 +214,7 @@ namespace RampantSlug.ServerLibrary
             {
                 if (asw.Delay == 0)
                 {
-                    bool result = asw.Handler(Game.Switches[asw.Name]);
+                    bool result = asw.Handler(Game.Devices.Switches[asw.Name]);
 
                     if (result == SWITCH_STOP)
                         handled = true;
