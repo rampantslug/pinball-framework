@@ -74,6 +74,23 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             {
                 _playfieldHeight = value;
                 NotifyOfPropertyChange(() => PlayfieldHeight);
+
+                // Update ScaleFactor
+                ScaleFactor = 100/PlayfieldHeight;
+
+            }
+        }
+
+        public double ScaleFactor
+        {
+            get
+            {
+                return _scaleFactor;
+            }
+            set
+            {
+                _scaleFactor = value;
+                NotifyOfPropertyChange(() => ScaleFactor);
             }
         }
 
@@ -199,6 +216,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
         }
 
         private ObservableCollection<LedViewModel> _leds;
+        private double _scaleFactor;
+
         public ObservableCollection<LedViewModel> Leds
         {
             get
@@ -223,6 +242,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             DisplayName = "Playfield";
             PlayfieldWidth = 400;
             PlayfieldHeight = 800;
+            ScaleFactor = 8;
             AllSwitchesVis = true;
             AllCoilsVis = true;
             AllStepperMotorsVis = true;

@@ -125,7 +125,16 @@ namespace RampantSlug.Common.Converters
                     throw new ArgumentException(String.Format("MathConverter: parameter index {0} is out of range. {1} parameter(s) supplied", _index, args.Length));
                 }
 
-                return System.Convert.ToDecimal(args[_index]);
+                var valueToConvert = args[_index];
+                
+                if (valueToConvert == DependencyProperty.UnsetValue)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return System.Convert.ToDecimal(args[_index]); 
+                }   
             }
         }
 
