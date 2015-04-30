@@ -246,6 +246,7 @@ namespace RampantSlug.ServerLibrary
 
         #region Respond to Commands sent from Client to control/fake hardware
 
+        // TODO: Clean this up a bit and implement a SwitchType to check against for NO / NC states
         public void Handle(SwitchCommandResult message)
         {
             var updatedSwitch = message.Device;
@@ -253,7 +254,16 @@ namespace RampantSlug.ServerLibrary
             if (message.Command == SwitchCommand.PressActive)
                 {
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
-                    _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent() { Device = updatedSwitch });
+                    _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent()
+                    {
+                        Device = updatedSwitch,
+                        SwitchEvent = new Event()
+                        {
+                            Time = 5,
+                            Type = EventType.SwitchClosedDebounced,
+                            Value = updatedSwitch.Number
+                        }
+                    });
 
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
 
@@ -261,7 +271,13 @@ namespace RampantSlug.ServerLibrary
                     {
                         _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent()
                         {
-                            Device = updatedSwitch
+                            Device = updatedSwitch,
+                            SwitchEvent = new Event()
+                            {
+                                Time = 5,
+                                Type = EventType.SwitchOpenDebounced,
+                                Value = updatedSwitch.Number
+                            }
                         });
                     }), TimeSpan.FromSeconds(0.5));
                     
@@ -269,7 +285,16 @@ namespace RampantSlug.ServerLibrary
                 else if (message.Command == SwitchCommand.HoldActive)
                 {
                     updatedSwitch.State = string.Equals(updatedSwitch.State, "Open") ? "Closed" : "Open";
-                    _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent() { Device = updatedSwitch });
+                    _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent()
+                    {
+                        Device = updatedSwitch,
+                        SwitchEvent = new Event()
+                        {
+                            Time = 5,
+                            Type = EventType.SwitchClosedDebounced,
+                            Value = updatedSwitch.Number
+                        }
+                    });
 
                 }
         }
@@ -332,7 +357,6 @@ namespace RampantSlug.ServerLibrary
             // RsLogManager.GetCurrent.LogTestMessage("Received device command request from client: " + message.TempControllerMessage);
             // _tempArduino.SendRequestToArduinoBoard(message.TempControllerMessage);
 
-            //MainScore.PlayerScore += 10;
         }
 
         public void Handle(ServoCommandResult message)
@@ -385,22 +409,20 @@ namespace RampantSlug.ServerLibrary
             var sw = message.Device;
             if (sw != null)
             {
+                // TODO: Check for normally closed / open etc...
+                if (message.SwitchEvent.Type == EventType.SwitchClosedDebounced)
+                {
+                    // Update the switch and push change to local cache before sending to client.
+                }
+
                 Devices.UpdateSwitch(sw.Number, sw);
 
                 // Update score
                 // TODO: Clean this up and come up with a better solution
                 //_eventAggregator.PublishOnUIThread(new UpdateDisplayEvent{PlayerScore = 10});
-                MainScore.PlayerScore += 10;
 
-                //TODO: ... Temp Event ..
-                var evt = new Event()
-                {
-                    Time = 5,
-                    Type = EventType.SwitchClosedDebounced,
-                    Value = sw.Number
-                };
 
-                _modes.handle_event(evt);
+                _modes.handle_event(message.SwitchEvent);
 
                 ServerBusController.SendUpdateDeviceMessage(sw);
             }
@@ -734,7 +756,8 @@ namespace RampantSlug.ServerLibrary
         private double _ballEndTime;
         private double _ballStartTime;
         private int _currentPlayerIndex;
-        private int _ball;
+
+        public int Ball { get; set; }
         private int _ballsPerGame;
         private List<Player> _oldPlayers;
 
@@ -818,7 +841,7 @@ namespace RampantSlug.ServerLibrary
 
             if (this._currentPlayerIndex + 1 == this._players.Count)
             {
-                this._ball += 1;
+                Ball += 1;
                 this._currentPlayerIndex = 0;
             }
             else
@@ -826,7 +849,7 @@ namespace RampantSlug.ServerLibrary
                 this._currentPlayerIndex += 1;
             }
 
-            if (this._ball > this._ballsPerGame)
+            if (Ball > this._ballsPerGame)
             {
                 this.EndGame();
             }
@@ -842,7 +865,7 @@ namespace RampantSlug.ServerLibrary
         /// </summary>
         public virtual void GameStarted()
         {
-            this._ball = 1;
+            Ball = 1;
             this._players = new List<Player>();
             this._currentPlayerIndex = 0;
         }
@@ -869,7 +892,7 @@ namespace RampantSlug.ServerLibrary
         public void EndGame()
         {
             this.GameEnded();
-            this._ball = 0;
+            Ball = 0;
         }
 
         /// <summary>
@@ -877,7 +900,7 @@ namespace RampantSlug.ServerLibrary
         /// </summary>
         public virtual void Reset()
         {
-            _ball = 0;
+            Ball = 0;
             _oldPlayers.Clear();
             _oldPlayers.AddRange(_players);
             _players.Clear();

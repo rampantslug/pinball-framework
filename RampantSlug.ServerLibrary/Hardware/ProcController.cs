@@ -231,7 +231,12 @@ namespace RampantSlug.ServerLibrary.Hardware
                
                 // Need to update the state of the switch before publishing...
 
-                _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent{Device = sw});
+                _eventAggregator.PublishOnUIThread(new UpdateSwitchEvent
+                {
+                    Device = sw,
+                    SwitchEvent = evt
+
+                });
 
                 // TODO: Trigger modes n stuff based on switch...
                 // NOTE: However that this will push up to a higher level where modes will be dealt with elsewhere

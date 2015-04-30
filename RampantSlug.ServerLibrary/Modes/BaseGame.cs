@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common;
+using RampantSlug.Common.Devices;
+using RampantSlug.ServerLibrary.Events;
 
 namespace RampantSlug.ServerLibrary.Modes
 {
@@ -44,7 +47,12 @@ namespace RampantSlug.ServerLibrary.Modes
             // Each time this mode is added, ball_starting should be set to true
             BallStarting = true;
 
-            //Game.trough.launch_balls(1, null, false);
+            Game.BallTrough.launch_balls(1, null, false);
+
+            Game.MainScore.HeaderText = "";
+            Game.MainScore.ModeText = "";
+            Game.MainScore.IsVisible = true;
+            Game.MainScore.PlayerScore = 0;
         }
 
         public override void mode_stopped()
@@ -60,6 +68,8 @@ namespace RampantSlug.ServerLibrary.Modes
             {
                 //((StarterGame)Game).ball_save.start_lamp();
                 // TODO: Start Ball save lamp animation...
+                Game.MainScore.BallText = "Ball " + Game.Ball;
+
             }
                 
         }
@@ -82,6 +92,58 @@ namespace RampantSlug.ServerLibrary.Modes
         {
             // Tell the game object it can process the end of ball (to end the players turn or shoot again)
             Game.EndBall();
+        }
+
+        public bool sw_lowerTarget_active(Switch sw)
+        {
+            Game.MainScore.IsVisible = false;
+            Game.MainScore.HeaderText = "Lower Target!!";
+            var currentScore = Game.MainScore.PlayerScore;
+
+            Game.MainScore.PlayerScore = 1000;
+            Game.MainScore.IsVisible = true;
+            
+            TimedAction.ExecuteWithDelay(new System.Action(delegate
+            {
+                Game.MainScore.IsVisible = false;
+            }), TimeSpan.FromSeconds(0.6));
+
+            TimedAction.ExecuteWithDelay(new System.Action(delegate
+            {
+                Game.MainScore.HeaderText = "";
+                Game.MainScore.IsVisible = true;
+                Game.MainScore.PlayerScore = currentScore + 1000;
+
+            }), TimeSpan.FromSeconds(0.8));
+
+            
+            return SWITCH_CONTINUE;
+        }
+
+        public bool sw_middleTarget_active(Switch sw)
+        {
+            Game.MainScore.IsVisible = false;
+            Game.MainScore.HeaderText = "Middle Target!!";
+            var currentScore = Game.MainScore.PlayerScore;
+
+            Game.MainScore.PlayerScore = 500;
+            Game.MainScore.IsVisible = true;
+
+            TimedAction.ExecuteWithDelay(new System.Action(delegate
+            {
+                Game.MainScore.IsVisible = false;
+
+            }), TimeSpan.FromSeconds(0.6));
+
+            TimedAction.ExecuteWithDelay(new System.Action(delegate
+            {
+                Game.MainScore.HeaderText = "";
+                Game.MainScore.IsVisible = true;
+                Game.MainScore.PlayerScore = currentScore + 500;
+
+            }), TimeSpan.FromSeconds(0.8));
+
+            return SWITCH_CONTINUE;
         }
     }
 }

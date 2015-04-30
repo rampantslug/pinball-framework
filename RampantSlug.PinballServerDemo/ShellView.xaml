@@ -28,8 +28,6 @@
             cal:View.Model="{Binding BackgroundVideo}" />
         <serverDisplays:MainScoreView
             cal:View.Model="{Binding MainScore}"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
             />
         
     </Grid>

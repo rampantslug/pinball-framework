@@ -20,6 +20,10 @@ namespace RampantSlug.ServerLibrary.Modes
 
             // Blinky start button
             // Game.Lamps["startButton"].Schedule(0x00ff00ff, 0, false);
+            Game.MainScore.IsVisible = false;
+            Game.MainScore.HeaderText = "Game of Thrones";
+
+            Game.MainScore.ModeText = "Press Start to Play";
         }
 
         public bool sw_startButton_active(Switch sw)

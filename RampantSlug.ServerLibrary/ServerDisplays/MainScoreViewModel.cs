@@ -13,6 +13,49 @@ namespace RampantSlug.ServerLibrary.ServerDisplays
 
     {
         private int _playerScore;
+        private bool _isVisible;
+        private string _modeText;
+        private string _headerText;
+        private string _ballText;
+
+        public string BallText
+        {
+            get
+            {
+                return _ballText;
+            }
+            set
+            {
+                _ballText = value;
+                NotifyOfPropertyChange(() => BallText);
+            }
+        }
+
+        public string HeaderText
+        {
+            get
+            {
+                return _headerText;
+            }
+            set
+            {
+                _headerText = value;
+                NotifyOfPropertyChange(() => HeaderText);
+            }
+        }
+
+        public string ModeText
+        {
+            get
+            {
+                return _modeText;
+            }
+            set
+            {
+                _modeText = value;
+                NotifyOfPropertyChange(() => ModeText);
+            }
+        }
 
         public int PlayerScore
         {
@@ -24,6 +67,19 @@ namespace RampantSlug.ServerLibrary.ServerDisplays
             {
                 _playerScore = value;
                 NotifyOfPropertyChange(() => PlayerScore);
+            }
+        }
+
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                _isVisible = value;
+                NotifyOfPropertyChange(() => IsVisible);
             }
         }
 

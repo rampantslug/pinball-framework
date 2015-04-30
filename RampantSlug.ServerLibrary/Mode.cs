@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using RampantSlug.Common;
 using RampantSlug.Common.Devices;
 using RampantSlug.ServerLibrary.Hardware.Proc;
 
@@ -166,10 +167,10 @@ namespace RampantSlug.ServerLibrary
             /*Game.Logger.Log(String.Format("Adding delay name={0} Event_Type={1} delay={2}",
                 Name,
                 Event_Type,
-                Delay));
-            Delayed d = new Delayed(Name, tools.Time.GetTime() + Delay, Handler, Event_Type, Param);
+                Delay));*/
+            Delayed d = new Delayed(Name, Time.GetTime() + Delay, Handler, Event_Type, Param);
             _delayed.Add(d);
-            _delayed.Sort();*/
+            _delayed.Sort();
         }
 
         /// <summary>
