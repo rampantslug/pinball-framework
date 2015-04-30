@@ -76,7 +76,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
                 NotifyOfPropertyChange(() => PlayfieldHeight);
 
                 // Update ScaleFactor
-                ScaleFactor = 100/PlayfieldHeight;
+                ScaleFactor = PlayfieldHeight/100;
 
             }
         }

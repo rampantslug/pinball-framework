@@ -126,7 +126,7 @@ namespace RampantSlug.ServerLibrary.Modes
             Game.MainScore.HeaderText = "Middle Target!!";
             var currentScore = Game.MainScore.PlayerScore;
 
-            Game.MainScore.PlayerScore = 500;
+            Game.MainScore.PlayerScore = 30;
             Game.MainScore.IsVisible = true;
 
             TimedAction.ExecuteWithDelay(new System.Action(delegate
@@ -139,7 +139,7 @@ namespace RampantSlug.ServerLibrary.Modes
             {
                 Game.MainScore.HeaderText = "";
                 Game.MainScore.IsVisible = true;
-                Game.MainScore.PlayerScore = currentScore + 500;
+                Game.MainScore.PlayerScore = currentScore + 30;
 
             }), TimeSpan.FromSeconds(0.8));
 

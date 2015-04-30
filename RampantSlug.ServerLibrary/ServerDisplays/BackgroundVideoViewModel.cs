@@ -75,7 +75,7 @@ namespace RampantSlug.ServerLibrary.ServerDisplays
             TimedAction.ExecuteWithDelay(new System.Action(delegate
             {
                IntroFinished();
-            }), TimeSpan.FromSeconds(10));
+            }), TimeSpan.FromSeconds(7));
         }
 
         public void IntroFinished()

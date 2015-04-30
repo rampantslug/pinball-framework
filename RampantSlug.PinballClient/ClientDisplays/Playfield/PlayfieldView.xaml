@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:common="clr-namespace:RampantSlug.Common;assembly=RampantSlug.Common"
-        xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common">
+        xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common"
+             x:Name="UserControl"
+             >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:MathConverter x:Key="MathConverter" />
@@ -53,7 +55,7 @@
     </UserControl.Resources>
     <Grid
         Margin="10,20,10,20"
-        
+        x:Name="DevicesContainer"
         >
         <Image
             
@@ -371,7 +373,7 @@
                                 Converter="{StaticResource MathConverter}" 
                                 ConverterParameter="x*y">
                                 <Binding Path="VirtualLocationX"/>
-                                <Binding Path="ScaleFactor" NotifyOnSourceUpdated="True"/>
+                                <Binding Path="ScaleFactor" ElementName="UserControl"/>
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
@@ -382,7 +384,7 @@
                                 Converter="{StaticResource MathConverter}" 
                                 ConverterParameter="x*y">
                                 <Binding Path="VirtualLocationY"/>
-                                <Binding Path="ScaleFactor"/>
+                                <Binding Path="ScaleFactor" ElementName="UserControl"/>
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
