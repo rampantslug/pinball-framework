@@ -11,6 +11,7 @@ using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree;
 using RampantSlug.PinballClient.ClientDisplays.GameStatus;
 using RampantSlug.PinballClient.ClientDisplays.LogMessages;
+using RampantSlug.PinballClient.ClientDisplays.ModeTree;
 using RampantSlug.PinballClient.ClientDisplays.Playfield;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
 
@@ -43,6 +44,7 @@ namespace RampantSlug.PinballClient {
             batch.AddExportedValue<IDeviceTree>(new DeviceTreeViewModel());
             batch.AddExportedValue<IGameStatus>(new GameStatusViewModel());
             batch.AddExportedValue<IPlayfield>(new PlayfieldViewModel());
+            batch.AddExportedValue<IModeTree>(new ModeTreeViewModel());
 
             batch.AddExportedValue(Container);
 

@@ -113,7 +113,7 @@
                 >               
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="169" />
+                        <ColumnDefinition Width="159" />
                         <ColumnDefinition Width="70" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
@@ -155,7 +155,7 @@
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="70" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
@@ -211,7 +211,7 @@
                     Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                     >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="70" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
@@ -266,7 +266,7 @@
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="40" />
@@ -355,7 +355,7 @@
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="40" />
@@ -443,7 +443,7 @@
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                         >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="35" />
                         <ColumnDefinition Width="40" />

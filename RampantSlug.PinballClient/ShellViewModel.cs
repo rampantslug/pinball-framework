@@ -17,6 +17,7 @@ using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
 using RampantSlug.PinballClient.ClientDisplays.DeviceTree;
 using RampantSlug.PinballClient.ClientDisplays.GameStatus;
+using RampantSlug.PinballClient.ClientDisplays.ModeTree;
 using RampantSlug.PinballClient.ClientDisplays.Playfield;
 using RampantSlug.PinballClient.CommonViewModels;
 using RampantSlug.PinballClient.Events;
@@ -42,6 +43,7 @@ namespace RampantSlug.PinballClient {
         private IEventAggregator _eventAggregator;
         private string _playfieldImage;
 
+        private BindableCollection<IScreen> _leftTabs;
         private BindableCollection<IScreen> _midTabs;
         private BindableCollection<IScreen> _rightTabs;
 
@@ -65,9 +67,23 @@ namespace RampantSlug.PinballClient {
         public IDeviceTree DeviceTree { get; private set; }
         public IGameStatus GameStatus { get; private set; }
         public IPlayfield Playfield { get; private set; }
+        public IModeTree ModeTree { get; private set; }
 
 
         public MidPanelViewModel MidPanel { get; private set; }
+
+        public BindableCollection<IScreen> LeftTabs
+        {
+            get
+            {
+                return _leftTabs;
+            }
+            set
+            {
+                _leftTabs = value;
+                NotifyOfPropertyChange(() => LeftTabs);
+            }
+        }
 
         public BindableCollection<IScreen> MidTabs
         {
@@ -251,7 +267,8 @@ namespace RampantSlug.PinballClient {
             ISwitchMatrix switchMatrix, 
             IDeviceTree deviceTree,
             IGameStatus gameStatus,
-            IPlayfield playfield       
+            IPlayfield playfield,
+            IModeTree modeTree
             ) 
         {
             _eventAggregator = eventAggregator;
@@ -261,16 +278,18 @@ namespace RampantSlug.PinballClient {
             DeviceTree = deviceTree;
             GameStatus = gameStatus;
             Playfield = playfield;
+            ModeTree = modeTree;
 
             _busController = IoC.Get<IClientBusController>();
             _busController.Start();
 
+            LeftTabs = new BindableCollection<IScreen>();
             MidTabs = new BindableCollection<IScreen>();
             RightTabs = new BindableCollection<IScreen>();
             
             DisplayName = "Client";
 
-            MidPanel = new MidPanelViewModel(eventAggregator, deviceInformation, switchMatrix, gameStatus);
+            //MidPanel = new MidPanelViewModel(eventAggregator, deviceInformation, switchMatrix, gameStatus);
 
             Switches = new ObservableCollection<SwitchViewModel>();
             Coils = new ObservableCollection<CoilViewModel>();
@@ -295,6 +314,9 @@ namespace RampantSlug.PinballClient {
         {
 
             base.OnViewLoaded(view);
+
+            LeftTabs.Add(DeviceTree);
+            LeftTabs.Add(ModeTree);
 
             MidTabs.Add(DeviceInformation);
             MidTabs.Add(SwitchMatrix);

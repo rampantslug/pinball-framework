@@ -8,6 +8,8 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
 
@@ -18,6 +20,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     {
 
         private SwitchViewModel _switch;
+        private ImageSource _deviceTypeImage;
 
         #region Properties
 
@@ -39,6 +42,19 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _switch.Address = value;
                 NotifyOfPropertyChange(() => Address);
+            }
+        }
+
+        public ImageSource DeviceTypeImage
+        {
+            get
+            {
+                return _deviceTypeImage;
+            }
+            set
+            {
+                _deviceTypeImage = value;
+                NotifyOfPropertyChange(() => DeviceTypeImage);
             }
         }
 
@@ -95,7 +111,12 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public SwitchConfigurationViewModel(SwitchViewModel switchvm) 
         {
             _switch = switchvm;
-            
+
+
+            var path = System.IO.Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\Switches\rollover.jpg";
+
+            DeviceTypeImage = new BitmapImage(new Uri(additionalpath));
         }
 
 

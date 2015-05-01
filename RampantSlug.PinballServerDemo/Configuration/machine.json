@@ -3,214 +3,209 @@
     "ServerIcon": "appbar_marvel_avengers",
     "UseHardware": false,
     "Switches": [
-        {
-            "Address": "PSM-0/0",
-            "Name": "startButton",
-            "VirtualLocationX": "10",
-            "VirtualLocationY": "10",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-0/2",
-            "Name": "leftFlipper",
-            "VirtualLocationX": "60",
-            "VirtualLocationY": "30",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-0/3",
-            "Name": "rightFlipper",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "60",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "Address": "PSM-1/0",
-            "Name": "trough1",
-            "VirtualLocationX": "10",
-            "VirtualLocationY": "10",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-1/1",
-            "Name": "trough2",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "10",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-1/2",
-            "Name": "trough3",
-            "VirtualLocationX": "60",
-            "VirtualLocationY": "30",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-1/3",
-            "Name": "trough4",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "60",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-1/4",
-            "Name": "trough5",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "60",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-2/0",
-            "Name": "leftOutlane",
-            "VirtualLocationX": "60",
-            "VirtualLocationY": "30",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-2/1",
-            "Name": "rightOutlane",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "60",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-2/2",
-            "Name": "shooterLane",
-            "VirtualLocationX": "60",
-            "VirtualLocationY": "30",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-2/3",
-            "Name": "lowerTarget",
-            "VirtualLocationX": "60",
-            "VirtualLocationY": "30",
-            "WiringColors": "Grey/Green"
-        },
-        {
-            "SwitchType": "Optical NC",
-            "Address": "PSM-2/4",
-            "Name": "middleTarget",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "60",
-            "WiringColors": "Grey/Green"
-        }
-    ],
-    "Coils": [
-        {
-            "Address": "PDB-01",
-            "Name": "Pop Bumper 1",
-            "VirtualLocationX": "10",
-            "VirtualLocationY": "50",
-            "WiringColors": "Blue/White"
-        },
-        {
-            "Address": "PDB-02",
-            "Name": "Pop Bumper 2",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "70",
-            "WiringColors": "Blue/Red"
-        },
-        {
-            "Address": "PDB-03",
-            "Name": "Pop Bumper 3",
-            "VirtualLocationX": "70",
-            "VirtualLocationY": "50",
-            "WiringColors": "Blue/Black"
-        },
-        {
-            "Address": "PDB-04",
-            "Name": "flipperLowerLeftPower",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "80",
-            "WiringColors": "Blue/Red"
-        },
-        {
-            "Address": "PDB-05",
-            "Name": "flipperLowerRightPower",
-            "VirtualLocationX": "70",
-            "VirtualLocationY": "50",
-            "WiringColors": "Blue/Black"
-        }
-    ],
-    "Servos": [
-        {
-            "Address": "ASS-4",
-            "Name": "Wall Gate",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "10",
-            "WiringColors": "Blue/White"
-        },
-        {
-            "Address": "ASS-5",
-            "Name": "Diverter 1",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "10",
-            "WiringColors": "Blue/Red"
-        }
-    ],
-
-    "StepperMotors": [
-        {
-            "Address": "AMS-6",
-            "Name": "Map Tilt",
-            "VirtualLocationX": "70",
-            "VirtualLocationY": "40",
-            "WiringColors": "Blue/White"
-        },
-        {
-            "Address": "AMS-7",
-            "Name": "Tree",
-            "VirtualLocationX": "50",
-            "VirtualLocationY": "20",
-            "WiringColors": "Blue/Red"
-        }
-    ],
-    "DCMotors": [
-        {
-            "Address": "AMS-8",
-            "Name": "Lift",
-            "WiringColors": "Blue/White"
-        }
-    ],
-    "Leds": [
-        {
-            "Address": "PLB-101",
-            "Name": "Led 1",
-            "VirtualLocationX": "10",
-            "VirtualLocationY": "10",
-            "WiringColors": "Blue/White"
-        },
-        {
-            "Address": "PLB-102",
-            "Name": "Led 2",
-            "VirtualLocationX": "10",
-            "VirtualLocationY": "20",
-            "WiringColors": "Blue/Red"
-        },
-        {
-            "Address": "PLB-103",
-            "Name": "Led 4",
-            "VirtualLocationX": "50",
-            "VirtualLocationY": "50",
-            "WiringColors": "Blue/Black"
-        },
-        {
-            "Address": "PLB-104",
-            "Name": "Led 5",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "100",
-            "WiringColors": "Blue/Black"
-        }
-    ]
+    {
+      "Type": 0,
+      "Address": "PSM-0/0",
+      "Name": "startButton",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 12,
+      "VirtualLocationY": 96
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-0/2",
+      "Name": "leftFlipper",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": -4,
+      "VirtualLocationY": 79
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-0/3",
+      "Name": "rightFlipper",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 96,
+      "VirtualLocationY": 79
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/0",
+      "Name": "trough1",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 57,
+      "VirtualLocationY": 96
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/1",
+      "Name": "trough2",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 65,
+      "VirtualLocationY": 95
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/2",
+      "Name": "trough3",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 73,
+      "VirtualLocationY": 94
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/3",
+      "Name": "trough4",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 81,
+      "VirtualLocationY": 93
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/4",
+      "Name": "trough5",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 89,
+      "VirtualLocationY": 92
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-2/0",
+      "Name": "leftOutlane",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 3,
+      "VirtualLocationY": 72
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-2/1",
+      "Name": "rightOutlane",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 81,
+      "VirtualLocationY": 73
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-2/2",
+      "Name": "shooterLane",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 91,
+      "VirtualLocationY": 86
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-2/3",
+      "Name": "lowerTarget",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 22,
+      "VirtualLocationY": 55
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-2/4",
+      "Name": "middleTarget",
+      "WiringColors": "Grey/Green",
+      "VirtualLocationX": 47,
+      "VirtualLocationY": 33
+    }
+  ],
+  "Coils": [
+    {
+      "Address": "PDB-01",
+      "Name": "Pop Bumper 1",
+      "WiringColors": "Blue/White",
+      "VirtualLocationX": 0,
+      "VirtualLocationY": 41
+    },
+    {
+      "Address": "PDB-02",
+      "Name": "Pop Bumper 2",
+      "WiringColors": "Blue/Red",
+      "VirtualLocationX": 9,
+      "VirtualLocationY": 35
+    },
+    {
+      "Address": "PDB-03",
+      "Name": "Pop Bumper 3",
+      "WiringColors": "Blue/Black",
+      "VirtualLocationX": 16,
+      "VirtualLocationY": 43
+    },
+    {
+      "Address": "PDB-04",
+      "Name": "flipperLowerLeftPower",
+      "WiringColors": "Blue/Red",
+      "VirtualLocationX": 23,
+      "VirtualLocationY": 84
+    },
+    {
+      "Address": "PDB-05",
+      "Name": "flipperLowerRightPower",
+      "WiringColors": "Blue/Black",
+      "VirtualLocationX": 65,
+      "VirtualLocationY": 84
+    }
+  ],
+  "Servos": [
+    {
+      "Address": "ASS-4",
+      "Name": "Wall Gate",
+      "WiringColors": "Blue/White",
+      "VirtualLocationX": 38,
+      "VirtualLocationY": 0
+    },
+    {
+      "Address": "ASS-5",
+      "Name": "Diverter 1",
+      "WiringColors": "Blue/Red",
+      "VirtualLocationX": 78,
+      "VirtualLocationY": 22
+    }
+  ],
+  "StepperMotors": [
+    {
+      "Address": "AMS-6",
+      "Name": "Map Tilt",
+      "WiringColors": "Blue/White",
+      "VirtualLocationX": 45,
+      "VirtualLocationY": 68
+    },
+    {
+      "Address": "AMS-7",
+      "Name": "Tree",
+      "WiringColors": "Blue/Red",
+      "VirtualLocationX": 16,
+      "VirtualLocationY": 8
+    }
+  ],
+  "DCMotors": [],
+  "Leds": [
+    {
+      "Address": "PLB-101",
+      "Name": "Led 1",
+      "WiringColors": "Blue/White",
+      "VirtualLocationX": 22,
+      "VirtualLocationY": 64
+    },
+    {
+      "Address": "PLB-102",
+      "Name": "Led 2",
+      "WiringColors": "Blue/Red",
+      "VirtualLocationX": 39,
+      "VirtualLocationY": 63
+    },
+    {
+      "Address": "PLB-103",
+      "Name": "Led 4",
+      "WiringColors": "Blue/Black",
+      "VirtualLocationX": 50,
+      "VirtualLocationY": 50
+    },
+    {
+      "Address": "PLB-104",
+      "Name": "Led 5",
+      "WiringColors": "Blue/Black",
+      "VirtualLocationX": 76,
+      "VirtualLocationY": 28
+    }
+  ]
 }

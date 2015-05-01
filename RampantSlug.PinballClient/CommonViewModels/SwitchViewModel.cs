@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using RampantSlug.Common.Commands;
 using RampantSlug.Common.Devices;
@@ -42,6 +44,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+       
+
 
         #region Constructor
 
@@ -53,14 +57,31 @@ namespace RampantSlug.PinballClient.CommonViewModels
         {
             _device = switchDevice;
             //SwitchState = switchDevice.State;
- 
+
+
         }
 
         #endregion
 
+        /*
+        internal int FindImages(string slugName, DirectoryInfo outputFolder)
+{
+    if (slugName != null)
+    {
+        List<string> filePathList = Directory.GetFiles(outputFolder.FullName).ToList();
+        List<string> filePathList_ToBeDeleted = new List<string>();
+        foreach (string filePath in filePathList)
+        {                  
+            if (Path.GetFileNameWithoutExtension(filePath).ToLower().Contains("_70x70"))
+            {                           
+                image1.Source = filePath;
+            }                   
+        }
+        int count = 0;
 
-
-
+        return count;
+    }
+*/
 
         #region Device Command Methods
 

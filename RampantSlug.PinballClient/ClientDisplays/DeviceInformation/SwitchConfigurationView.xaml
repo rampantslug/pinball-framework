@@ -7,9 +7,9 @@
         Margin="5"
         >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="313"/>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="313" />
+            <ColumnDefinition Width="305"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="305" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -127,12 +127,12 @@
             Grid.RowSpan="3"            
          >
          <Grid
-             Margin="5,0,5,0"
              >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="152"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -140,21 +140,21 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="24"/>
-                <RowDefinition Height="24"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
                 <Border 
                 Grid.Row="0"
                 Grid.Column="0"
-                Grid.ColumnSpan="3"
+                Grid.ColumnSpan="4"
                 BorderBrush="{StaticResource AccentColorBrush}"
                 BorderThickness="0,0,0,1"
                 />
                 <TextBlock
                 Grid.Column="0"
-                Grid.ColumnSpan="3"
+                Grid.ColumnSpan="4"
                 Grid.Row="0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -163,7 +163,20 @@
                 Foreground="{StaticResource AccentColorBrush}"
                 />
 
-            <TextBlock
+               <Image
+                Margin="2,2,0,2"
+                Grid.Column="3"
+                Grid.Row="2"
+                Grid.RowSpan="5"
+                Width="150"
+                Height="150"
+                Stretch="UniformToFill"
+                Source="{Binding DeviceTypeImage}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"         
+            />
+
+                <TextBlock
                 Grid.Column="0"
                 Grid.Row="2"
                 Text="Name"
@@ -173,6 +186,7 @@
                 />
             <TextBox
                 Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Grid.Row="2"
                 Text="{Binding Switch.Name}"
                 VerticalAlignment="Center"
@@ -203,7 +217,7 @@
                      />
                 </ComboBox>
             <TextBox
-                Grid.Column="1"
+                Grid.Column="2"
                 Grid.Row="3"
                 Text="{Binding Switch.Address}"
 
@@ -223,10 +237,44 @@
                 x:Name="SwitchType"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                Height="24"
+                />
+
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="5"
+                Text="Virtual Location X"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                />
+            <TextBox
+                Grid.Column="2"
+                Grid.Row="5"
+                Text="{Binding Switch.VirtualLocationX}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Height="24"
+                />
+                <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="6"
+                Text="Virtual Location Y"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                />
+                <TextBox
+                Grid.Column="2"
+                Grid.Row="6"
+                Text="{Binding Switch.VirtualLocationY}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Height="24"
                 />
 
 
-       <!--     <TextBlock
+                <!--     <TextBlock
             Grid.Column="0"
             Grid.Row="3"
             x:Name="WiringColors"

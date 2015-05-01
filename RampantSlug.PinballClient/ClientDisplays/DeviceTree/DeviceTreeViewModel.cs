@@ -18,7 +18,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
     public class DeviceTreeViewModel: Screen, IDeviceTree, 
         IHandle<CommonViewModelsLoaded>
     {
-        public string ClientDisplayName { get { return "Device Tree"; } }
+        //public string ClientDisplayName { get { return "Device Tree"; } }
 
         private ObservableCollection<DeviceTypeViewModel> _firstGeneration;
         private IEventAggregator _eventAggregator;
@@ -35,6 +35,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
         [ImportingConstructor]
         public DeviceTreeViewModel()
         {
+            DisplayName = "Devices";
         }
 
         protected override void OnViewLoaded(object view)

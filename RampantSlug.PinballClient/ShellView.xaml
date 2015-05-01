@@ -171,13 +171,33 @@
         
         
         <!-- Left Hand Column Area -->
-        <deviceTree:DeviceTreeView 
+        <Grid
             Grid.Column="0"
             Grid.Row="1"
             Grid.RowSpan="2"
             Margin="2"
             Background="#FFECECEC"
-            cal:View.Model="{Binding DeviceTree}" />
+            >
+            <TabControl 
+                x:Name="LeftTabs"
+                TabStripPlacement="Bottom"
+                >
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock 
+                        Text="{Binding DisplayName}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
+        </Grid>
+        
+     <!--   <deviceTree:DeviceTreeView 
+            Grid.Column="0"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Margin="2"
+            Background="#FFECECEC"
+            cal:View.Model="{Binding DeviceTree}" />-->
 
         <!-- Middle (Main) Column Area -->
     <!--    <local:MidPanelView 

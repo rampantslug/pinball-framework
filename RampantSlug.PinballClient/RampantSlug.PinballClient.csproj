@@ -103,6 +103,10 @@
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\IDeviceConfigurationScreen.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\LedConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\ModeTree\IModeTree.cs" />
+    <Compile Include="ClientDisplays\ModeTree\SwitchHandlerViewModel.cs" />
+    <Compile Include="ClientDisplays\ModeTree\ModeItemViewModel.cs" />
+    <Compile Include="ClientDisplays\ModeTree\ModeTreeViewModel.cs" />
     <Compile Include="CommonViewModels\HistoryRowViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
@@ -193,6 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ClientDisplays\ModeTree\ModeTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ClientDisplays\Playfield\PlayfieldView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -254,7 +262,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DeviceResources\" />
+    <Folder Include="ClientDisplays\LedShowEditor\" />
+    <Folder Include="DeviceResources\Coils\" />
     <Folder Include="Model\" />
     <Folder Include="Views\" />
   </ItemGroup>
@@ -263,6 +272,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DeviceResources\Switches\rollover.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
