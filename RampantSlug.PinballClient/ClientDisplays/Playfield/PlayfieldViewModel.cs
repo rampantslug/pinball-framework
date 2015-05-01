@@ -38,6 +38,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
         private bool _allServosVis;
         private bool _allLedsVis;
 
+        private double _scaleFactorX;
+        private double _scaleFactorY;
+
         public ImageSource PlayfieldImage
         {
             get
@@ -61,6 +64,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             {
                 _playfieldWidth = value;
                 NotifyOfPropertyChange(() => PlayfieldWidth);
+
+                // Update ScaleFactor
+                ScaleFactorX = PlayfieldWidth / 100;
             }
         }
 
@@ -76,21 +82,34 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
                 NotifyOfPropertyChange(() => PlayfieldHeight);
 
                 // Update ScaleFactor
-                ScaleFactor = PlayfieldHeight/100;
+                ScaleFactorY = PlayfieldHeight/100;
 
             }
         }
 
-        public double ScaleFactor
+        public double ScaleFactorX
         {
             get
             {
-                return _scaleFactor;
+                return _scaleFactorX;
             }
             set
             {
-                _scaleFactor = value;
-                NotifyOfPropertyChange(() => ScaleFactor);
+                _scaleFactorX = value;
+                NotifyOfPropertyChange(() => ScaleFactorX);
+            }
+        }
+
+        public double ScaleFactorY
+        {
+            get
+            {
+                return _scaleFactorY;
+            }
+            set
+            {
+                _scaleFactorY = value;
+                NotifyOfPropertyChange(() => ScaleFactorY);
             }
         }
 
@@ -216,7 +235,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
         }
 
         private ObservableCollection<LedViewModel> _leds;
-        private double _scaleFactor;
+
 
         public ObservableCollection<LedViewModel> Leds
         {
@@ -242,7 +261,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
             DisplayName = "Playfield";
             PlayfieldWidth = 400;
             PlayfieldHeight = 800;
-            ScaleFactor = 8;
             AllSwitchesVis = true;
             AllCoilsVis = true;
             AllStepperMotorsVis = true;

@@ -110,15 +110,15 @@
         {
             "Address": "PDB-01",
             "Name": "Pop Bumper 1",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "200",
+            "VirtualLocationX": "10",
+            "VirtualLocationY": "50",
             "WiringColors": "Blue/White"
         },
         {
             "Address": "PDB-02",
             "Name": "Pop Bumper 2",
             "VirtualLocationX": "30",
-            "VirtualLocationY": "250",
+            "VirtualLocationY": "70",
             "WiringColors": "Blue/Red"
         },
         {
@@ -132,7 +132,7 @@
             "Address": "PDB-04",
             "Name": "flipperLowerLeftPower",
             "VirtualLocationX": "30",
-            "VirtualLocationY": "250",
+            "VirtualLocationY": "80",
             "WiringColors": "Blue/Red"
         },
         {
@@ -187,22 +187,29 @@
         {
             "Address": "PLB-101",
             "Name": "Led 1",
-            "VirtualLocationX": "100",
-            "VirtualLocationY": "200",
+            "VirtualLocationX": "10",
+            "VirtualLocationY": "10",
             "WiringColors": "Blue/White"
         },
         {
             "Address": "PLB-102",
             "Name": "Led 2",
-            "VirtualLocationX": "30",
-            "VirtualLocationY": "250",
+            "VirtualLocationX": "10",
+            "VirtualLocationY": "20",
             "WiringColors": "Blue/Red"
         },
         {
             "Address": "PLB-103",
             "Name": "Led 4",
-            "VirtualLocationX": "70",
+            "VirtualLocationX": "50",
             "VirtualLocationY": "50",
+            "WiringColors": "Blue/Black"
+        },
+        {
+            "Address": "PLB-104",
+            "Name": "Led 5",
+            "VirtualLocationX": "100",
+            "VirtualLocationY": "100",
             "WiringColors": "Blue/Black"
         }
     ]

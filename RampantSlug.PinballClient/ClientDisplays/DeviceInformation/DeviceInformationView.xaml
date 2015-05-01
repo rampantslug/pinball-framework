@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
-        xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common">
+        xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common"
+        xmlns:deviceInformation="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceInformation">
     <UserControl.Resources>
         <converters:MathConverter x:Key="MathConverter" />
     </UserControl.Resources>
@@ -106,19 +107,38 @@
             <Canvas
                 Grid.Row="1"
                 Margin="5"
+                Width="200"
+                Height="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
                 >
                 <Grid
                     Background="IndianRed"
                     Width="15" 
                     Height="15" 
                     Opacity="0.5"
-                    Canvas.Left="{Binding SelectedDevice.VirtualLocationX, Converter={StaticResource MathConverter}, ConverterParameter=x/2}"
-                    Canvas.Top="{Binding SelectedDevice.VirtualLocationY, Converter={StaticResource MathConverter}, ConverterParameter=x/2}"
                     cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
                         [Event MouseMove] = [Action MouseMove($source)];
                         [Event MouseEnter] = [Action MouseEnter($source)];
                         [Event MouseLeave] = [Action MouseLeave($source)]"
                         >
+                    <Canvas.Left>
+                        <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                            <Binding Path="SelectedDevice.VirtualLocationX"/>
+                            <Binding Path="ScaleFactorX" />
+                        </MultiBinding>
+                    </Canvas.Left>
+                    <Canvas.Top>
+                        <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                            <Binding Path="SelectedDevice.VirtualLocationY"/>
+                            <Binding Path="ScaleFactorY"/>
+                        </MultiBinding>
+                    </Canvas.Top>
+
                     <Border
                             BorderBrush="DarkRed"
                             BorderThickness="2"

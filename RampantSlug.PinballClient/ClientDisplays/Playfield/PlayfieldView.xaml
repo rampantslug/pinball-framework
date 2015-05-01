@@ -4,7 +4,8 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:common="clr-namespace:RampantSlug.Common;assembly=RampantSlug.Common"
         xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common"
-             x:Name="UserControl"
+        xmlns:playfield="clr-namespace:RampantSlug.PinballClient.ClientDisplays.Playfield"
+        x:Name="UserControl"
              >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -73,19 +74,37 @@
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                     <Setter
-                Property="Canvas.Left"
-                Value="{Binding VirtualLocationX}"
-                />
-                    <Setter
-                Property="Canvas.Top"
-                Value="{Binding VirtualLocationY}"
-                />
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
@@ -146,19 +165,37 @@
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                     <Setter
-                Property="Canvas.Left"
-                Value="{Binding VirtualLocationX}"
-                />
-                    <Setter
-                Property="Canvas.Top"
-                Value="{Binding VirtualLocationY}"
-                />
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
@@ -218,19 +255,37 @@
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                     <Setter
-                Property="Canvas.Left"
-                Value="{Binding VirtualLocationX}"
-                />
-                    <Setter
-                Property="Canvas.Top"
-                Value="{Binding VirtualLocationY}"
-                />
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
@@ -290,19 +345,37 @@
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                     <Setter
-                Property="Canvas.Left"
-                Value="{Binding VirtualLocationX}"
-                />
-                    <Setter
-                Property="Canvas.Top"
-                Value="{Binding VirtualLocationY}"
-                />
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
@@ -362,7 +435,12 @@
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -373,7 +451,7 @@
                                 Converter="{StaticResource MathConverter}" 
                                 ConverterParameter="x*y">
                                 <Binding Path="VirtualLocationX"/>
-                                <Binding Path="ScaleFactor" ElementName="UserControl"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
@@ -384,7 +462,7 @@
                                 Converter="{StaticResource MathConverter}" 
                                 ConverterParameter="x*y">
                                 <Binding Path="VirtualLocationY"/>
-                                <Binding Path="ScaleFactor" ElementName="UserControl"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>

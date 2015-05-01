@@ -37,7 +37,10 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private IEventAggregator _eventAggregator;
         private DeviceViewModel _selectedDevice;
         private ImageSource _playfieldImage;
-        private double _scalingFactor = 2;
+        private double _playfieldWidth;
+        private double _playfieldHeight;
+        private double _scaleFactorX;
+        private double _scaleFactorY;
 
 
         public string DeviceType
@@ -68,7 +71,33 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 NotifyOfPropertyChange(() => PlayfieldImage);
             }
         }
-        
+
+        public double ScaleFactorX
+        {
+            get
+            {
+                return _scaleFactorX;
+            }
+            set
+            {
+                _scaleFactorX = value;
+                NotifyOfPropertyChange(() => ScaleFactorX);
+            }
+        }
+
+        public double ScaleFactorY
+        {
+            get
+            {
+                return _scaleFactorY;
+            }
+            set
+            {
+                _scaleFactorY = value;
+                NotifyOfPropertyChange(() => ScaleFactorY);
+            }
+        }
+
 
 
         public DeviceViewModel SelectedDevice
@@ -91,6 +120,10 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public DeviceInformationViewModel() 
         {
             DisplayName = "Device Info";
+
+            // These 2 values assume an image size of 200x400
+            ScaleFactorX = 2;
+            ScaleFactorY = 4;
         }
 
         protected override void OnViewLoaded(object view)
@@ -242,8 +275,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                     var xDelta = currentPoint.X - StartingPoint.X;
                     var yDelta = currentPoint.Y - StartingPoint.Y;
 
-                    SelectedDevice.VirtualLocationX = SelectedDevice.VirtualLocationX + (int)(xDelta * _scalingFactor);
-                    SelectedDevice.VirtualLocationY = SelectedDevice.VirtualLocationY + (int)(yDelta * _scalingFactor);
+                    SelectedDevice.VirtualLocationX = SelectedDevice.VirtualLocationX + (int)(xDelta/ScaleFactorX);
+                    SelectedDevice.VirtualLocationY = SelectedDevice.VirtualLocationY + (int)(yDelta/ScaleFactorY);
             }
         }
 
