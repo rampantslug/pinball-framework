@@ -17,8 +17,8 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-               
-        
+
+
         <!-- Control Section -->
         <Grid
             Grid.Column="0"
@@ -73,10 +73,10 @@
                 x:Name="HoldState"
                 Content="Hold"
                 />
-            </Grid>
+        </Grid>
 
-        
-        
+
+
         <!-- History -->
         <Border 
                 Grid.Column="0"
@@ -117,34 +117,36 @@
                         />
                 </GridView>
             </ListView.View>
-            
+
         </ListView>
-        
+
         <!-- Settings Section -->
         <Grid
             Grid.Column="2"
             Grid.Row="0"
             Grid.RowSpan="3"            
          >
-         <Grid
+            <Grid
              >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="152"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="152"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
                 <Border 
                 Grid.Row="0"
                 Grid.Column="0"
@@ -163,17 +165,16 @@
                 Foreground="{StaticResource AccentColorBrush}"
                 />
 
-               <Image
+                <Image
                 Margin="2,2,0,2"
                 Grid.Column="3"
                 Grid.Row="2"
                 Grid.RowSpan="5"
-                Width="150"
-                Height="150"
-                Stretch="UniformToFill"
-                Source="{Binding DeviceTypeImage}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"         
+                Width="130"
+                Height="130"
+                Stretch="Uniform"
+                Source="{Binding DeviceTypeImage}"     
+                    VerticalAlignment="Top"
             />
 
                 <TextBlock
@@ -184,7 +185,7 @@
                 HorizontalAlignment="Left" 
                 
                 />
-            <TextBox
+                <TextBox
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Grid.Row="2"
@@ -193,7 +194,7 @@
                 HorizontalAlignment="Stretch"    
                 Height="24"
                 />
-            <TextBlock
+                <TextBlock
                 Grid.Column="0"
                 Grid.Row="3"
                 Text="Address"
@@ -201,76 +202,82 @@
                 HorizontalAlignment="Left" 
                 
                 />
-             <ComboBox
+                <ComboBox
                   Grid.Column="1"
+                 Grid.ColumnSpan="2"
                 Grid.Row="3"
                  
                 HorizontalAlignment="Left"
-                Height="24"
-                 Width="80"
+                Height="24" Width="100"
+
                  >
-                 <ComboBoxItem 
+                    <ComboBoxItem 
                      Content="Proc Direct"                     
                      />
                     <ComboBoxItem 
                      Content="Proc Matrix"                     
                      />
                 </ComboBox>
-            <TextBox
+                <TextBox
                 Grid.Column="2"
-                Grid.Row="3"
+                Grid.Row="4"
                 Text="{Binding Switch.Address}"
 
                 HorizontalAlignment="Right"
                 Height="24"
                 />
-            <TextBlock
+                <TextBlock
                 Grid.Column="0"
-                Grid.Row="4"
+                Grid.Row="5"
                 Text="Type"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
                 />
-            <TextBox
-                Grid.Column="1"
-                Grid.Row="4"
+                <TextBox
+                Grid.Column="2"
+                Grid.Row="5"
                 x:Name="SwitchType"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Height="24"
+                Width="50"
                 />
 
-            <TextBlock
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Grid.Row="5"
-                Text="Virtual Location X"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left" 
-                />
-            <TextBox
-                Grid.Column="2"
-                Grid.Row="5"
-                Text="{Binding Switch.VirtualLocationX}"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Height="24"
-                />
                 <TextBlock
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Grid.Row="6"
-                Text="Virtual Location Y"
+                Text="Virtual Location X"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
                 />
                 <TextBox
                 Grid.Column="2"
                 Grid.Row="6"
-                Text="{Binding Switch.VirtualLocationY}"
+                Text="{Binding Switch.VirtualLocationX}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Height="24"
+                Width="50"
+                HorizontalContentAlignment="Center"
+                />
+                <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="7"
+                Text="Virtual Location Y"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                />
+                <TextBox
+                Grid.Column="2"
+                Grid.Row="7"
+                Text="{Binding Switch.VirtualLocationY}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                Height="24"
+                    Width="50"
                 />
 
 
@@ -300,7 +307,7 @@
                 <Button
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="8"
+            Grid.Row="10"
             x:Name="RemoveDevice"
             Content="Remove Device"
             VerticalAlignment="Center"
@@ -309,9 +316,8 @@
             />
 
                 <Button
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Grid.Row="8"
+            Grid.Column="3"
+            Grid.Row="10"
             x:Name="SaveDevice"
             Content="Save Device"
             VerticalAlignment="Center"
@@ -320,8 +326,8 @@
             />
             </Grid>
         </Grid>
-        
-     
+
+
 
     </Grid>
 </UserControl>
