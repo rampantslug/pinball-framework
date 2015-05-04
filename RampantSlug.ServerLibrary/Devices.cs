@@ -46,6 +46,11 @@ namespace RampantSlug.ServerLibrary
 
         private static int ParseAddressString(string address)
         {
+            if (string.IsNullOrEmpty(address))
+            {
+                return -1;
+            }
+            
             // Split out address into Controller and port
             var controllerPlusPort = address.Split('-');
 
@@ -118,14 +123,14 @@ namespace RampantSlug.ServerLibrary
                 {
                     try
                     {
-                        var address = ParseAddressString(sw.Address);
-                        if (address == -1)
+                        var deviceNumber = ParseAddressString(sw.Address);
+                        if (deviceNumber == -1)
                         {
                             throw new Exception("Invalid device Address: " + sw.Address);
                         }
                         else
                         {
-                            sw.Number = (ushort)address;
+                            sw.Number = (ushort)deviceNumber;
                             Switches.Add(sw.Number, sw.Name, sw);
                         }
 
@@ -142,9 +147,20 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        public void AddSwitch(Switch sw)
+        public bool AddSwitch(Switch sw)
         {
-            Switches.Add(sw.Number, sw.Name, sw);
+            // As it is a new device we need to generate a new number
+            var deviceNumber = ParseAddressString(sw.Address);
+            if (deviceNumber == -1)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + sw.Name + ". Address: "+ sw.Address);
+                return false;
+            }
+            else
+            {
+                Switches.Add((ushort)deviceNumber, sw.Name, sw);
+                return true;
+            }           
         }
 
         public void RemoveSwitch(ushort number)
@@ -206,9 +222,20 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        public void AddCoil(Coil coil)
+        public bool AddCoil(Coil coil)
         {
-            Coils.Add(coil.Number, coil.Name, new CoilControl(coil));
+            // As it is a new device we need to generate a new number
+            var deviceNumber = ParseAddressString(coil.Address);
+            if (deviceNumber == -1)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + coil.Name + ". Address: " + coil.Address);
+                return false;
+            }
+            else
+            {
+                Coils.Add((ushort) deviceNumber, coil.Name, new CoilControl(coil));
+                return true;
+            }
         }
 
         public void RemoveCoil(ushort number)
@@ -274,9 +301,20 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        public void AddStepperMotor(StepperMotor stepperMotor)
+        public bool AddStepperMotor(StepperMotor stepperMotor)
         {
-            StepperMotors.Add(stepperMotor.Number, stepperMotor.Name, new StepperMotorControl(stepperMotor));
+            // As it is a new device we need to generate a new number
+            var deviceNumber = ParseAddressString(stepperMotor.Address);
+            if (deviceNumber == -1)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + stepperMotor.Name + ". Address: " + stepperMotor.Address);
+                return false;
+            }
+            else
+            {
+                StepperMotors.Add((ushort) deviceNumber, stepperMotor.Name, new StepperMotorControl(stepperMotor));
+                return true;
+            }
         }
 
         public void RemoveStepperMotor(ushort number)
@@ -343,9 +381,20 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        public void AddServo(Servo servo)
+        public bool AddServo(Servo servo)
         {
-            Servos.Add(servo.Number, servo.Name, new ServoControl(servo));
+            // As it is a new device we need to generate a new number
+            var deviceNumber = ParseAddressString(servo.Address);
+            if (deviceNumber == -1)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + servo.Name + ". Address: " + servo.Address);
+                return false;
+            }
+            else
+            {
+                Servos.Add((ushort)deviceNumber, servo.Name, new ServoControl(servo));
+                return true;
+            }
         }
 
         public void RemoveServo(ushort number)
@@ -414,9 +463,20 @@ namespace RampantSlug.ServerLibrary
             }
         }
 
-        public void AddLed(Led led)
+        public bool AddLed(Led led)
         {
-            Leds.Add(led.Number, led.Name, new LedControl(led));
+            // As it is a new device we need to generate a new number
+            var deviceNumber = ParseAddressString(led.Address);
+            if (deviceNumber == -1)
+            {
+                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + led.Name + ". Address: " + led.Address);
+                return false;
+            }
+            else
+            {
+                Leds.Add((ushort)deviceNumber, led.Name, new LedControl(led));
+                return true;
+            }
         }
 
         public void RemoveLed(ushort number)

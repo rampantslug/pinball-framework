@@ -516,63 +516,78 @@ namespace RampantSlug.ServerLibrary
 
         public void Handle(ConfigureSwitchEvent message)
         {
-            UpdateConfig(message.Device, message.RemoveDevice);
-            SaveConfigurationToFile();
+            if (UpdateConfig(message.Device, message.RemoveDevice))
+            {
+                SaveConfigurationToFile();
 
-            // Update Client with changes
-            var config = PopulateConfiguration();
-            ServerBusController.SendConfigurationMessage(config);
+                // Update Client with changes
+                var config = PopulateConfiguration();
+                ServerBusController.SendConfigurationMessage(config);
+            }          
         }
 
         public void Handle(ConfigureCoilEvent message)
         {
-            UpdateConfig(message.Device, message.RemoveDevice);
-            SaveConfigurationToFile();
+            if (UpdateConfig(message.Device, message.RemoveDevice))
+            {
+                SaveConfigurationToFile();
 
-            // Update Client with changes
-            var config = PopulateConfiguration();
-            ServerBusController.SendConfigurationMessage(config);
+                // Update Client with changes
+                var config = PopulateConfiguration();
+                ServerBusController.SendConfigurationMessage(config);
+            }
         }
 
         public void Handle(ConfigureStepperMotorEvent message)
         {
-            UpdateConfig(message.Device, message.RemoveDevice);
-            SaveConfigurationToFile();
+            if (UpdateConfig(message.Device, message.RemoveDevice))
+            {
+                SaveConfigurationToFile();
 
-            // Update Client with changes
-            var config = PopulateConfiguration();
-            ServerBusController.SendConfigurationMessage(config);
+                // Update Client with changes
+                var config = PopulateConfiguration();
+                ServerBusController.SendConfigurationMessage(config);
+            }
         }
 
         public void Handle(ConfigureServoEvent message)
         {
-            UpdateConfig(message.Device, message.RemoveDevice);
-            SaveConfigurationToFile();
+            if (UpdateConfig(message.Device, message.RemoveDevice))
+            {
+                SaveConfigurationToFile();
 
-            // Update Client with changes
-            var config = PopulateConfiguration();
-            ServerBusController.SendConfigurationMessage(config);
+                // Update Client with changes
+                var config = PopulateConfiguration();
+                ServerBusController.SendConfigurationMessage(config);
+            }
         }
 
         public void Handle(ConfigureLedEvent message)
         {
-            UpdateConfig(message.Device, message.RemoveDevice);
-            SaveConfigurationToFile();
+            if (UpdateConfig(message.Device, message.RemoveDevice))
+            {
+                SaveConfigurationToFile();
 
-            // Update Client with changes
-            var config = PopulateConfiguration();
-            ServerBusController.SendConfigurationMessage(config);
+                // Update Client with changes
+                var config = PopulateConfiguration();
+                ServerBusController.SendConfigurationMessage(config);
+            }
         }
 
       
 
-        private void UpdateConfig(Switch updatedSwitch, bool removeDevice)
+        private bool UpdateConfig(Switch updatedSwitch, bool removeDevice)
         {
+            // Adding a new switch
             if (updatedSwitch.Number == 0)
             {
-                // Something has gone wrong. Should have generated a Number based on Address
+                if (Devices.AddSwitch(updatedSwitch))
+                {
+                    RsLogManager.GetCurrent.LogTestMessage("Added switch " + updatedSwitch.Name + " to config.");
+                    return true;
+                }
                 RsLogManager.GetCurrent.LogTestMessage("Invalid switch settings. Not saving to config.");
-                return;
+                return false;
             }
 
             // Update or remove existing Switch
@@ -588,21 +603,25 @@ namespace RampantSlug.ServerLibrary
                     Devices.UpdateSwitch(updatedSwitch.Number, updatedSwitch);
                     RsLogManager.GetCurrent.LogTestMessage("Updated switch " + updatedSwitch.Name + "in config.");
                 }
+                return true;
             }
-            else // Adding a new switch
-            {
-                Devices.AddSwitch(updatedSwitch);
-                RsLogManager.GetCurrent.LogTestMessage("Added switch " + updatedSwitch.Name + "to config.");
-            }
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid switch settings. Not saving to config.");
+                return false;
         }
 
-        private void UpdateConfig(Coil updatedCoil, bool removeDevice)
+        private bool UpdateConfig(Coil updatedCoil, bool removeDevice)
         {
+            // Adding a new coil
             if (updatedCoil.Number == 0)
             {
-                // Something has gone wrong. Should have generated a Number based on Address
+                if (Devices.AddCoil(updatedCoil))
+                {
+                    RsLogManager.GetCurrent.LogTestMessage("Added coil " + updatedCoil.Name + " to config.");
+                    return true;
+                }
                 RsLogManager.GetCurrent.LogTestMessage("Invalid coil settings. Not saving to config.");
-                return;
+                return false;
             }
 
             // Update or remove existing coil
@@ -618,21 +637,28 @@ namespace RampantSlug.ServerLibrary
                     Devices.UpdateCoil(updatedCoil.Number, updatedCoil);
                     RsLogManager.GetCurrent.LogTestMessage("Updated coil " + updatedCoil.Name + "in config.");
                 }
+                return true;
             }
-            else // Adding a new coil
+            else 
             {
-                Devices.AddCoil(updatedCoil);
-                RsLogManager.GetCurrent.LogTestMessage("Added coil " + updatedCoil.Name + "to config.");
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid coil settings. Not saving to config.");
+                return false;
             }
         }
 
-        private void UpdateConfig(StepperMotor updatedStepperMotor, bool removeDevice)
+        private bool UpdateConfig(StepperMotor updatedStepperMotor, bool removeDevice)
         {
+            // Adding a new stepperMotor
             if (updatedStepperMotor.Number == 0)
             {
-                // Something has gone wrong. Should have generated a Number based on Address
-                RsLogManager.GetCurrent.LogTestMessage("Invalid stepper motor settings. Not saving to config.");
-                return;
+                if (Devices.AddStepperMotor(updatedStepperMotor))
+                {
+                    RsLogManager.GetCurrent.LogTestMessage("Added stepperMotor " + updatedStepperMotor.Name + " to config.");
+                    return true;
+                }
+                RsLogManager.GetCurrent.LogTestMessage("Invalid stepperMotor settings. Not saving to config.");
+                return false;
             }
 
             // Update or remove existing stepperMotor
@@ -649,21 +675,28 @@ namespace RampantSlug.ServerLibrary
                     RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + updatedStepperMotor.Name +
                                                            "in config.");
                 }
+                return true;
             }
-            else // Adding a new stepperMotor
+            else 
             {
-                Devices.AddStepperMotor(updatedStepperMotor);
-                RsLogManager.GetCurrent.LogTestMessage("Added stepper motor " + updatedStepperMotor.Name + "to config.");
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid stepper motor settings. Not saving to config.");
+                return false;
             }
         }
 
-        private void UpdateConfig(Servo updatedServo, bool removeDevice)
+        private bool UpdateConfig(Servo updatedServo, bool removeDevice)
         {
+            // Adding a new servo
             if (updatedServo.Number == 0)
             {
-                // Something has gone wrong. Should have generated a Number based on Address
+                if (Devices.AddServo(updatedServo))
+                {
+                    RsLogManager.GetCurrent.LogTestMessage("Added servo " + updatedServo.Name + " to config.");
+                    return true;
+                }
                 RsLogManager.GetCurrent.LogTestMessage("Invalid servo settings. Not saving to config.");
-                return;
+                return false;
             }
 
             // Update or remove existing servo
@@ -679,21 +712,28 @@ namespace RampantSlug.ServerLibrary
                     Devices.UpdateServo(updatedServo.Number, updatedServo);
                     RsLogManager.GetCurrent.LogTestMessage("Updated servo " + updatedServo.Name + " in config.");
                 }
+                return true;
             }
-            else // Adding a new servo
+            else 
             {
-                Devices.AddServo(updatedServo);
-                RsLogManager.GetCurrent.LogTestMessage("Added servo " + updatedServo.Name + " to config.");
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid servo settings. Not saving to config.");
+                return false;
             }
         }
 
-        private void UpdateConfig(Led updatedLed, bool removeDevice)
+        private bool UpdateConfig(Led updatedLed, bool removeDevice)
         {
+            // Adding a new led
             if (updatedLed.Number == 0)
             {
-                // Something has gone wrong. Should have generated a Number based on Address
+                if (Devices.AddLed(updatedLed))
+                {
+                    RsLogManager.GetCurrent.LogTestMessage("Added led " + updatedLed.Name + " to config.");
+                    return true;
+                }
                 RsLogManager.GetCurrent.LogTestMessage("Invalid led settings. Not saving to config.");
-                return;
+                return false;
             }
 
             // Update or remove existing led
@@ -709,11 +749,13 @@ namespace RampantSlug.ServerLibrary
                     Devices.UpdateLed(updatedLed.Number, updatedLed);
                     RsLogManager.GetCurrent.LogTestMessage("Updated led " + updatedLed.Name + "in config.");
                 }
+                return true;
             }
-            else // Adding a new led
-            {
-                Devices.AddLed(updatedLed);
-                RsLogManager.GetCurrent.LogTestMessage("Added led " + updatedLed.Name + "to config.");
+            else 
+            {                
+                // Something has gone wrong. Should have generated a Number based on Address
+                RsLogManager.GetCurrent.LogTestMessage("Invalid led settings. Not saving to config.");
+                return false;
             }
         }
 

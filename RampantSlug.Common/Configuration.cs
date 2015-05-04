@@ -42,7 +42,7 @@ namespace RampantSlug.Common
 
         public void ImageSerialize()
         {
-            var blobData = ImageConversion.ConvertImageFileToString("Configuration/playfield.png");
+            var blobData = ImageConversion.ConvertImageFileToString("Configuration/playfield-geometric.png");
             PlayfieldImage = blobData;
         }
 
