@@ -8,6 +8,8 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
 
@@ -19,6 +21,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         #region Fields
 
         private StepperMotorViewModel _stepperMotor;
+        private ImageSource _deviceTypeImage;
 
         #endregion
 
@@ -44,6 +47,19 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
+        public ImageSource DeviceTypeImage
+        {
+            get
+            {
+                return _deviceTypeImage;
+            }
+            set
+            {
+                _deviceTypeImage = value;
+                NotifyOfPropertyChange(() => DeviceTypeImage);
+            }
+        }
+
 
         public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
@@ -66,6 +82,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public StepperMotorConfigurationViewModel(StepperMotorViewModel stepperMotor) 
         {
             _stepperMotor = stepperMotor;
+
+            var path = System.IO.Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\StepperMotors\bipolar.png";
+
+            DeviceTypeImage = new BitmapImage(new Uri(additionalpath));
         }
 
         #endregion

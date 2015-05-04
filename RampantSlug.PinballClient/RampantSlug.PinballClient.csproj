@@ -263,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientDisplays\LedShowEditor\" />
-    <Folder Include="DeviceResources\Coils\" />
     <Folder Include="Model\" />
     <Folder Include="Views\" />
   </ItemGroup>
@@ -275,6 +274,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DeviceResources\Switches\rollover.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DeviceResources\StepperMotors\bipolar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DeviceResources\Servos\Continuous_Rotation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DeviceResources\Servos\Micro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DeviceResources\Leds\RGB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DeviceResources\Coils\Standard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
