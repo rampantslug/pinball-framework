@@ -98,6 +98,9 @@
     <Compile Include="Hardware\DeviceControl\LedControl.cs" />
     <Compile Include="Hardware\DeviceControl\CoilControl.cs" />
     <Compile Include="Hardware\DeviceControl\ServoControl.cs" />
+    <Compile Include="IDevices.cs" />
+    <Compile Include="IDisplay.cs" />
+    <Compile Include="IGamePlay.cs" />
     <Compile Include="ServerLibraryBootstrapper.cs" />
     <Compile Include="ContractImplementations\CommandDeviceMessageConsumer.cs" />
     <Compile Include="Events\DeviceCommandResult.cs" />

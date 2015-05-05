@@ -36,8 +36,8 @@ namespace RampantSlug.PinballServerDemo
             _gameController = IoC.Get<IGameController>();
             if (_gameController.Configure())
             {
-                BackgroundVideo = _gameController.BackgroundVideo;
-                MainScore = _gameController.MainScore;
+                BackgroundVideo = _gameController.Display.BackgroundVideo;
+                MainScore = _gameController.Display.MainScore;
                 NotifyOfPropertyChange(()=>BackgroundVideo);
                 NotifyOfPropertyChange(() => MainScore);
 

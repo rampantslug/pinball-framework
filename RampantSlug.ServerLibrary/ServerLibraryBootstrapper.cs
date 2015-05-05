@@ -28,8 +28,8 @@ namespace RampantSlug.ServerLibrary
                 container.Singleton<IGameController, GameController>();
                 
                 // Add Display elements
-                container.Singleton<IDisplayBackgroundVideo, BackgroundVideoViewModel>();
-                container.Singleton<IDisplayMainScore, MainScoreViewModel>();
+               // container.Singleton<IDisplayBackgroundVideo, BackgroundVideoViewModel>();
+               // container.Singleton<IDisplayMainScore, MainScoreViewModel>();
             }   
         }
     }

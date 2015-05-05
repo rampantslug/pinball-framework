@@ -10,10 +10,8 @@ using RampantSlug.ServerLibrary.Logging;
 
 namespace RampantSlug.ServerLibrary
 {
-    
-    
-    
-    public class Devices
+
+    public class Devices : IDevices
     {
         // TODO: Probably pull these out into a file somewhere else...
         public const string ProcSwitchMatrix = "PSM";

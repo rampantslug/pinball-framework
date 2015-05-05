@@ -7,10 +7,17 @@ using RampantSlug.ServerLibrary.ServerDisplays;
 
 namespace RampantSlug.ServerLibrary
 {
-    public class Display
+    public class Display : IDisplay
     {
         public IDisplayBackgroundVideo BackgroundVideo { get; private set; }
         public IDisplayMainScore MainScore { get; private set; }
+
+
+        public Display()
+        {
+            BackgroundVideo = new BackgroundVideoViewModel();
+            MainScore = new MainScoreViewModel();
+        }
 
     }
 }

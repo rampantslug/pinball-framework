@@ -20,10 +20,10 @@ namespace RampantSlug.ServerLibrary.Modes
 
             // Blinky start button
             // Game.Lamps["startButton"].Schedule(0x00ff00ff, 0, false);
-            Game.MainScore.IsVisible = false;
-            Game.MainScore.HeaderText = "Server Demo";
+            Game.Display.MainScore.IsVisible = false;
+            Game.Display.MainScore.HeaderText = "Server Demo";
 
-            Game.MainScore.ModeText = "Test";
+            Game.Display.MainScore.ModeText = "Test";
         }
 
         public bool sw_startButton_active(Switch sw)
@@ -31,14 +31,14 @@ namespace RampantSlug.ServerLibrary.Modes
             //if (Game.trough.is_full())
             //{
                 // Remove attract mode from queue
-                Game.Modes.Remove(this);
+            Game.GamePlay.Modes.Remove(this);
 
                 // Initialize game
-                Game.StartGame();
+            Game.GamePlay.StartGame();
 
                 // Add first player
-                Game.AddPlayer();
-                Game.StartBall();
+            Game.GamePlay.AddPlayer();
+            Game.GamePlay.StartBall();
             //}
             //else
             //{

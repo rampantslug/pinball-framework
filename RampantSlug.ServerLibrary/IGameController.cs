@@ -14,9 +14,12 @@ namespace RampantSlug.ServerLibrary
     {
         IServerBusController ServerBusController { get; }
         //AttrCollection<ushort, string, Switch> Switches { get; set; }
-        IDisplayBackgroundVideo BackgroundVideo { get; }
-        IDisplayMainScore MainScore { get; }
-        Devices Devices { get; set; }
+        //IDisplayBackgroundVideo BackgroundVideo { get; }
+        //IDisplayMainScore MainScore { get; }
+        IDevices Devices { get; set; }
+        IDisplay Display { get; set; }
+        IGamePlay GamePlay { get; set; }
+
         void SaveConfigurationToFile();
 
         void ConnectToHardware();
