@@ -5,9 +5,9 @@
     <Grid
         Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="313" />
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="313" />
+            <ColumnDefinition Width="305" />
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="305" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -37,6 +37,15 @@
                 Grid.ColumnSpan="3"
                 BorderBrush="{StaticResource AccentColorBrush}"
                 BorderThickness="0,0,0,1" />
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12"
+                Text="CONTROL"
+                Foreground="{StaticResource AccentColorBrush}" />
             <Image
                 Margin="5"
                 Grid.Column="0"
@@ -47,15 +56,7 @@
                 Stretch="Uniform"
                 Source="{Binding DeviceTypeImage}"
                 VerticalAlignment="Top" />
-            <TextBlock
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Grid.Row="0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="12"
-                Text="CONTROL"
-                Foreground="{StaticResource AccentColorBrush}" />
+
             <TextBlock
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
@@ -108,7 +109,7 @@
                         DisplayMemberBinding="{Binding Timestamp}" />
                     <GridViewColumn
                         Header="State"
-                        Width="100"
+                        Width="150"
                         DisplayMemberBinding="{Binding State}" />
                 </GridView>
             </ListView.View>
@@ -120,8 +121,7 @@
             Grid.Column="2"
             Grid.Row="0"
             Grid.RowSpan="3">
-            <Grid
-                Margin="5,0,5,0">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="50" />
@@ -144,12 +144,12 @@
                 <Border
                     Grid.Row="0"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="4"
                     BorderBrush="{StaticResource AccentColorBrush}"
                     BorderThickness="0,0,0,1" />
                 <TextBlock
                     Grid.Column="0"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="4"
                     Grid.Row="0"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
@@ -174,6 +174,7 @@
                     HorizontalAlignment="Left" />
                 <TextBox
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
                     Grid.Row="2"
                     Text="{Binding Servo.Name}"
                     VerticalAlignment="Center"
@@ -187,34 +188,72 @@
                     HorizontalAlignment="Left" />
                 <ComboBox
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
                     Grid.Row="3"
-
                     HorizontalAlignment="Left"
-                    Height="24"
-                    Width="80">
+                    Height="24" Width="100">
                     <ComboBoxItem
                         Content="Proc Direct" />
                     <ComboBoxItem
                         Content="Proc Matrix" />
                 </ComboBox>
                 <TextBox
-                    Grid.Column="1"
-                    Grid.Row="3"
+                    Grid.Column="2"
+                    Grid.Row="4"
                     Text="{Binding Servo.Address}"
-
                     HorizontalAlignment="Right"
                     Height="24" />
                 <TextBlock
                     Grid.Column="0"
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Text="Type"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left" />
+                <TextBox
+                    Grid.Column="2"
+                    Grid.Row="5"
+                    x:Name="SwitchType"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Height="24"
+                    Width="50" />
 
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="6"
+                    Text="Virtual Location X"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left" />
+                <TextBox
+                    Grid.Column="2"
+                    Grid.Row="6"
+                    Text="{Binding Servo.VirtualLocationX}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Height="24"
+                    Width="50"
+                    HorizontalContentAlignment="Center" />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="7"
+                    Text="Virtual Location Y"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left" />
+                <TextBox
+                    Grid.Column="2"
+                    Grid.Row="7"
+                    Text="{Binding Servo.VirtualLocationY}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Height="24"
+                    Width="50" />
                 <Button
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Grid.Row="8"
+                    Grid.Row="10"
                     x:Name="RemoveDevice"
                     Content="Remove Device"
                     VerticalAlignment="Center"
@@ -222,9 +261,8 @@
                     Height="24" />
 
                 <Button
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="8"
+                    Grid.Column="3"
+                    Grid.Row="10"
                     x:Name="SaveDevice"
                     Content="Save Device"
                     VerticalAlignment="Center"
