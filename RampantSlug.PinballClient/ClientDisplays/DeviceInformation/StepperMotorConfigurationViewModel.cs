@@ -21,7 +21,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         #region Fields
 
         private StepperMotorViewModel _stepperMotor;
-        private ImageSource _deviceTypeImage;
+        private ImageSource _refinedTypeImage;
 
         #endregion
 
@@ -47,29 +47,29 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public ImageSource DeviceTypeImage
+        public ImageSource RefinedTypeImage
         {
             get
             {
-                return _deviceTypeImage;
+                return _refinedTypeImage;
             }
             set
             {
-                _deviceTypeImage = value;
-                NotifyOfPropertyChange(() => DeviceTypeImage);
+                _refinedTypeImage = value;
+                NotifyOfPropertyChange(() => RefinedTypeImage);
             }
         }
 
-
-        public ObservableCollection<HistoryRowViewModel> PreviousStates
+        public string RefinedType
         {
-            get
+            get { return _stepperMotor.RefinedType; }
+            set
             {
-                return _stepperMotor.PreviousStates;
+                _stepperMotor.RefinedType = value;
+                NotifyOfPropertyChange(() => RefinedType);
             }
-
         }
-        
+
 
         #endregion
 
@@ -86,7 +86,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             var path = System.IO.Directory.GetCurrentDirectory();
             var additionalpath = path + @"\DeviceResources\StepperMotors\bipolar.png";
 
-            DeviceTypeImage = new BitmapImage(new Uri(additionalpath));
+            RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
         }
 
         #endregion

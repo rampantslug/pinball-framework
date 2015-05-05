@@ -71,6 +71,7 @@
       "Type": 0,
       "Address": "PSM-2/0",
       "Name": "leftOutlane",
+      "RefinedType": "Rollover",
       "WiringColors": "Grey/Green",
       "VirtualLocationX": 11,
       "VirtualLocationY": 73
@@ -79,6 +80,7 @@
       "Type": 0,
       "Address": "PSM-2/1",
       "Name": "rightOutlane",
+      "RefinedType": "Rollover",
       "WiringColors": "Grey/Green",
       "VirtualLocationX": 81,
       "VirtualLocationY": 73
@@ -95,6 +97,7 @@
       "Type": 0,
       "Address": "PSM-2/3",
       "Name": "lowerTarget",
+      "RefinedType": "Standup Front mount Round Yellow",
       "WiringColors": "Grey/Green",
       "VirtualLocationX": 20,
       "VirtualLocationY": 59
@@ -103,6 +106,7 @@
       "Type": 0,
       "Address": "PSM-2/4",
       "Name": "middleTarget",
+      "RefinedType": "Standup Front mount Round Yellow",
       "WiringColors": "Grey/Green",
       "VirtualLocationX": 19,
       "VirtualLocationY": 47

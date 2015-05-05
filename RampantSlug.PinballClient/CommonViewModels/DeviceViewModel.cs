@@ -65,7 +65,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-        public int VirtualLocationX
+        public double VirtualLocationX
         {
             get
             {
@@ -78,7 +78,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-        public int VirtualLocationY
+        public double VirtualLocationY
         {
             get
             {
@@ -88,6 +88,19 @@ namespace RampantSlug.PinballClient.CommonViewModels
             {
                 Device.VirtualLocationY = value;
                 NotifyOfPropertyChange(() => VirtualLocationY);
+            }
+        }
+
+        public string RefinedType
+        {
+            get
+            {
+                return Device.RefinedType;
+            }
+            set
+            {
+                Device.RefinedType = value;
+                NotifyOfPropertyChange(() => RefinedType);
             }
         }
 

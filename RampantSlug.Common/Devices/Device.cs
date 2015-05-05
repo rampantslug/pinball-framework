@@ -8,13 +8,11 @@ using Newtonsoft.Json;
 namespace RampantSlug.Common.Devices
 {
     /// <summary>
-    /// Base class for every type of Device found in a Pinball Machine
+    /// Base class for each type of Device found in a Pinball Machine
     /// </summary>
     public abstract class Device : IDevice
     {
-        #region Properties
 
-        //[JsonIgnore]
         public ushort Number { get; set; }
 
         public string Address { get; set; }
@@ -23,26 +21,25 @@ namespace RampantSlug.Common.Devices
 
         public string State { get; set; }
 
+        public double VirtualLocationX { get; set; }
 
-        //[JsonIgnore]
+        public double VirtualLocationY { get; set; }
+
         public DateTime LastChangeTimeStamp { get; set; }
+
+        public string RefinedType { get; set; }
 
         // TODO: Should this be an enum of available colours based on what is set for the project
         public string WiringColors { get; set; }
 
-        #endregion
 
         protected Device()
         {
 
         }
 
-        //public abstract void UpdateNumberFromAddress();
         public abstract bool IsActive { get; }
 
-        public int VirtualLocationX { get; set; }
-
-        public int VirtualLocationY { get; set; }
     }
 }
 

@@ -5,13 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MahApps.Metro.Controls;
 using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
+using System.Windows;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
@@ -20,7 +24,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     {
 
         private SwitchViewModel _switch;
-        private ImageSource _deviceTypeImage;
+        private ImageSource _refinedTypeImage;
 
         #region Properties
 
@@ -45,19 +49,27 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public ImageSource DeviceTypeImage
+        public ImageSource RefinedTypeImage
         {
             get
             {
-                return _deviceTypeImage;
+                return _refinedTypeImage;
             }
             set
             {
-                _deviceTypeImage = value;
-                NotifyOfPropertyChange(() => DeviceTypeImage);
+                _refinedTypeImage = value;
+                NotifyOfPropertyChange(() => RefinedTypeImage);
             }
         }
 
+        public bool RefinedTypeImageExists
+        {
+            get
+            {
+                return RefinedTypeImage != null;
+            }
+           
+        }
 
    /*     public string Type
         {
@@ -114,9 +126,19 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
 
             var path = System.IO.Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\DeviceResources\Switches\rollover.jpg";
+            var additionalpath = path + @"\DeviceResources\Switches\" + switchvm.RefinedType +  ".png";
 
-            DeviceTypeImage = new BitmapImage(new Uri(additionalpath));
+            if (File.Exists(additionalpath))
+            {
+                RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
+            }
+            else
+            {
+                // Image is null so Text below it should show up??
+            }
+
+
+            
         }
 
 
@@ -144,6 +166,18 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             var busController = IoC.Get<IClientBusController>();
             busController.SendCommandDeviceMessage(_switch.Device as Switch, SwitchCommand.HoldActive);
         }
- 
+
+        public async void SelectRefinedType()
+        {
+            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+
+            MessageDialogResult result = await metroWindow.ShowMessageAsync("This is the title", "Some message", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Do something
+            }
+        }
+
     }
 }

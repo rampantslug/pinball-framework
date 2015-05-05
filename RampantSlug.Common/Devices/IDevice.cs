@@ -9,22 +9,21 @@ namespace RampantSlug.Common.Devices
 {
     public interface IDevice
     {
-        //[JsonIgnore]
         ushort Number { get; set; }
 
         string Address { get; set; }
+
         string Name { get; set; }
 
-       // void UpdateNumberFromAddress();
-
-        //[JsonIgnore]
         string State { get; set; }
-        
 
-        //[JsonIgnore]
+        double VirtualLocationX { get; set; }
+
+        double VirtualLocationY { get; set; }
+
         bool IsActive { get; }
 
-        int VirtualLocationX { get; set; }
-        int VirtualLocationY { get; set; }
+        string RefinedType { get; set; }
+
     }
 }

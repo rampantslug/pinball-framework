@@ -21,7 +21,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         #region Fields
 
         private ServoViewModel _servo;
-        private ImageSource _deviceTypeImage;
+        private ImageSource _refinedTypeImage;
 
         #endregion
 
@@ -47,16 +47,16 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public ImageSource DeviceTypeImage
+        public ImageSource RefinedTypeImage
         {
             get
             {
-                return _deviceTypeImage;
+                return _refinedTypeImage;
             }
             set
             {
-                _deviceTypeImage = value;
-                NotifyOfPropertyChange(() => DeviceTypeImage);
+                _refinedTypeImage = value;
+                NotifyOfPropertyChange(() => RefinedTypeImage);
             }
         }
 
@@ -85,7 +85,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             var path = System.IO.Directory.GetCurrentDirectory();
             var additionalpath = path + @"\DeviceResources\Servos\Micro.png";
 
-            DeviceTypeImage = new BitmapImage(new Uri(additionalpath));
+            RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
         }
 
         #endregion
