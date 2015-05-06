@@ -168,20 +168,18 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         public async void SelectRefinedType()
         {
             var metroWindow = (Application.Current.MainWindow as MetroWindow);
-
-
-            var path = System.IO.Directory.GetCurrentDirectory();
+            var path = Directory.GetCurrentDirectory();
             var additionalpath = path + @"\DeviceResources\Switches\";
 
             var dialog = new GallerySelectorDialog(additionalpath, metroWindow);
-
-            await metroWindow.ShowMetroDialogAsync(dialog, null);
+            await metroWindow.ShowMetroDialogAsync(dialog);
 
             var result = await dialog.WaitForButtonPressAsync();
-
-            _switch.RefinedType = result;
-            LoadRefinedImage();
-
+            if (!string.IsNullOrEmpty(result))
+            {
+                _switch.RefinedType = result;
+                LoadRefinedImage();
+            }
             await metroWindow.HideMetroDialogAsync(dialog);
         }
 

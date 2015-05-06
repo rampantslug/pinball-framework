@@ -263,7 +263,7 @@
                     Grid.Row="6"
                     Grid.RowSpan="2"
                     Text="{Binding Switch.RefinedType}"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     HorizontalAlignment="Center" 
                     TextWrapping="Wrap"/>
                 <TextBlock
