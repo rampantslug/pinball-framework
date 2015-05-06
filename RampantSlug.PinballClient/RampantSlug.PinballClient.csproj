@@ -101,6 +101,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\GallerySelectorDialog.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\IDeviceConfigurationScreen.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\LedConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\ModeTree\IModeTree.cs" />
@@ -174,6 +175,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ClientDisplays\DeviceInformation\LedConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceInformation\GallerySelectorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

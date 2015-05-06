@@ -59,6 +59,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _refinedTypeImage = value;
                 NotifyOfPropertyChange(() => RefinedTypeImage);
+                NotifyOfPropertyChange(() => RefinedTypeImageExists);
             }
         }
 
@@ -124,21 +125,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             _switch = switchvm;
 
-
-            var path = System.IO.Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\DeviceResources\Switches\" + switchvm.RefinedType +  ".png";
-
-            if (File.Exists(additionalpath))
-            {
-                RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
-            }
-            else
-            {
-                // Image is null so Text below it should show up??
-            }
-
-
-            
+            LoadRefinedImage();  
         }
 
 
@@ -167,16 +154,35 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             busController.SendCommandDeviceMessage(_switch.Device as Switch, SwitchCommand.HoldActive);
         }
 
+        private void LoadRefinedImage()
+        {
+            var path = Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\Switches\" + _switch.RefinedType + ".png";
+
+            if (File.Exists(additionalpath))
+            {
+                RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
+            }
+        }
+
         public async void SelectRefinedType()
         {
             var metroWindow = (Application.Current.MainWindow as MetroWindow);
 
-            MessageDialogResult result = await metroWindow.ShowMessageAsync("This is the title", "Some message", MessageDialogStyle.AffirmativeAndNegative);
 
-            if (result == MessageDialogResult.Affirmative)
-            {
-                //Do something
-            }
+            var path = System.IO.Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\Switches\";
+
+            var dialog = new GallerySelectorDialog(additionalpath, metroWindow);
+
+            await metroWindow.ShowMetroDialogAsync(dialog, null);
+
+            var result = await dialog.WaitForButtonPressAsync();
+
+            _switch.RefinedType = result;
+            LoadRefinedImage();
+
+            await metroWindow.HideMetroDialogAsync(dialog);
         }
 
     }
