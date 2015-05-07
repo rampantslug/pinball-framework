@@ -94,6 +94,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\BooleanConditionConverter.cs" />
     <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Devices\Coil.cs" />
     <Compile Include="Devices\Device.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeObserver.cs" />
+    <Compile Include="SupportedHardware.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="TimedAction.cs" />
   </ItemGroup>

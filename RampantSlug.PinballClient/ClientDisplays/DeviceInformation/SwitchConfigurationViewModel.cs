@@ -16,6 +16,7 @@ using RampantSlug.Common.Commands;
 using RampantSlug.PinballClient.CommonViewModels;
 using System.Windows;
 using MahApps.Metro.Controls.Dialogs;
+using RampantSlug.Common;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 {
@@ -25,6 +26,22 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         private SwitchViewModel _switch;
         private ImageSource _refinedTypeImage;
+        private ObservableCollection<string> _supportedHardwareSwitches;
+        private string _selectedSupportedHardwareSwitch;
+        private ushort _directSwitchId;
+        private ushort _matrixColumn;
+        private ushort _matrixRow;
+
+
+        private ObservableCollection<string> _inputWirePrimaryColors;
+        private string _selectedInputWirePrimaryColor;
+        private ObservableCollection<string> _inputWireSecondaryColors;
+        private string _selectedInputWireSecondaryColor;
+
+        private ObservableCollection<string> _outputWirePrimaryColors;
+        private string _selectedOutputWirePrimaryColor;
+        private ObservableCollection<string> _outputWireSecondaryColors;
+        private string _selectedOutputWireSecondaryColor;
 
         #region Properties
 
@@ -113,7 +130,172 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
 
         }
-        
+
+        public ObservableCollection<string> SupportedHardwareSwitches
+        {
+            get
+            {
+                return _supportedHardwareSwitches;
+            }
+            set
+            {
+                _supportedHardwareSwitches = value;
+                NotifyOfPropertyChange(() => SupportedHardwareSwitches);
+            }
+        }
+
+        public string SelectedSupportedHardwareSwitch
+        {
+            get { return _selectedSupportedHardwareSwitch; }
+            set
+            {
+                _selectedSupportedHardwareSwitch = value;
+                NotifyOfPropertyChange(() => SelectedSupportedHardwareSwitch);
+                NotifyOfPropertyChange(() => IsMatrixHardware);
+            }
+        }
+
+        public bool IsMatrixHardware
+        {
+            get
+            {
+                string psmName;
+                if (SupportedHardware.SwitchHardware.TryGetValue(SupportedHardware.ProcSwitchMatrix, out psmName))
+                {
+                    if (string.Equals(psmName, SelectedSupportedHardwareSwitch))
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public ushort MatrixColumn
+        {
+            get { return _matrixColumn; }
+            set
+            {
+                _matrixColumn = value;
+                NotifyOfPropertyChange(() => MatrixColumn);
+            }
+        }
+
+        public ushort MatrixRow
+        {
+            get { return _matrixRow; }
+            set
+            {
+                _matrixRow = value;
+                NotifyOfPropertyChange(() => MatrixRow);
+            }
+        }
+
+        public ushort DirectSwitchId
+        {
+            get { return _directSwitchId; }
+            set
+            {
+                _directSwitchId = value;
+                NotifyOfPropertyChange(() => DirectSwitchId);
+            }
+        }
+
+        #region Wire Coloring
+
+        public ObservableCollection<string> InputWirePrimaryColors
+        {
+            get
+            {
+                return _inputWirePrimaryColors;
+            }
+            set
+            {
+                _inputWirePrimaryColors = value;
+                NotifyOfPropertyChange(() => InputWirePrimaryColors);
+            }
+        }
+
+        public string SelectedInputWirePrimaryColor
+        {
+            get { return _selectedInputWirePrimaryColor; }
+            set
+            {
+                _selectedInputWirePrimaryColor = value;
+                NotifyOfPropertyChange(() => SelectedInputWirePrimaryColor);
+            }
+        }
+
+        public ObservableCollection<string> InputWireSecondaryColors
+        {
+            get
+            {
+                return _inputWireSecondaryColors;
+            }
+            set
+            {
+                _inputWireSecondaryColors = value;
+                NotifyOfPropertyChange(() => InputWireSecondaryColors);
+            }
+        }
+
+        public string SelectedInputWireSecondaryColor
+        {
+            get { return _selectedInputWireSecondaryColor; }
+            set
+            {
+                _selectedInputWireSecondaryColor = value;
+                NotifyOfPropertyChange(() => SelectedInputWireSecondaryColor);
+            }
+        }
+
+
+        public ObservableCollection<string> OutputWirePrimaryColors
+        {
+            get
+            {
+                return _outputWirePrimaryColors;
+            }
+            set
+            {
+                _outputWirePrimaryColors = value;
+                NotifyOfPropertyChange(() => OutputWirePrimaryColors);
+            }
+        }
+
+        public string SelectedOutputWirePrimaryColor
+        {
+            get { return _selectedOutputWirePrimaryColor; }
+            set
+            {
+                _selectedOutputWirePrimaryColor = value;
+                NotifyOfPropertyChange(() => SelectedOutputWirePrimaryColor);
+            }
+        }
+
+        public ObservableCollection<string> OutputWireSecondaryColors
+        {
+            get
+            {
+                return _outputWireSecondaryColors;
+            }
+            set
+            {
+                _outputWireSecondaryColors = value;
+                NotifyOfPropertyChange(() => OutputWireSecondaryColors);
+            }
+        }
+
+        public string SelectedOutputWireSecondaryColor
+        {
+            get { return _selectedOutputWireSecondaryColor; }
+            set
+            {
+                _selectedOutputWireSecondaryColor = value;
+                NotifyOfPropertyChange(() => SelectedOutputWireSecondaryColor);
+            }
+        }
+
+        #endregion
+
 
         #endregion
 
@@ -125,7 +307,18 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             _switch = switchvm;
 
-            LoadRefinedImage();  
+            LoadRefinedImage(); 
+            _supportedHardwareSwitches = new ObservableCollection<string>();
+            foreach (var value in SupportedHardware.SwitchHardware.Values)
+            {
+                _supportedHardwareSwitches.Add(value);
+            }
+
+            InputWirePrimaryColors = new ObservableCollection<string>() { "Green", "Red", "Blue", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
+            InputWireSecondaryColors = new ObservableCollection<string>() { "Red", "Green", "Blue", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
+            OutputWirePrimaryColors = new ObservableCollection<string>() { "Blue", "Green", "Red", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
+            OutputWireSecondaryColors = new ObservableCollection<string>() { "Yellow", "Green", "Blue", "Red", "Pink", "White", "Brown", "Black", "Orange" };
+
         }
 
 
