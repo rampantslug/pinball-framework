@@ -21,7 +21,6 @@ namespace RampantSlug.Common.Converters
     /// Arguments of multi value converter may be referred as x,y,z,t (first-fourth argument), or a,b,c,d, or {0}, {1}, {2}, {3}, {4}, ...
     /// The converter supports arithmetic expressions of arbitrary complexity, including nested subexpressions
     /// </remarks>
-
     public class MathConverter : IValueConverter, IMultiValueConverter
     {
         Dictionary<string, IExpression> _storedExpressions = new Dictionary<string, IExpression>();

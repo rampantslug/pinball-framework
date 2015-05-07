@@ -11,6 +11,12 @@ namespace RampantSlug.Common
 {
     public class BusInitializer
     {
+        /// <summary>
+        /// Create a Service Bus.
+        /// </summary>
+        /// <param name="queueName">Name of the queue.</param>
+        /// <param name="moreInitialization">Initialisation to perform on creation.</param>
+        /// <returns>New Service Bus.</returns>
         public static IServiceBus CreateBus(string queueName, Action<ServiceBusConfigurator> moreInitialization)
         {
             Log4NetLogger.Use();

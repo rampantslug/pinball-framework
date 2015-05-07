@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.Common
 {
+    /// <summary>
+    /// Representation of a player in a pinball game.
+    /// </summary>
     public class Player
     {
         /// <summary>

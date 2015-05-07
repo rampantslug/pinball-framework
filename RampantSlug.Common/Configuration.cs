@@ -10,6 +10,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace RampantSlug.Common
 {
+    /// <summary>
+    /// Contains the required configuration information for a pinball machine.
+    /// </summary>
     public class Configuration
     {
         public string ServerName { get; set; }
@@ -24,8 +27,6 @@ namespace RampantSlug.Common
         public List<StepperMotor> StepperMotors { get; set; }
         public List<DCMotor> DCMotors { get; set; }
         public List<Led> Leds { get; set; }
-
-
 
          /// <summary>
         /// Creates a new Configuration object and initializes all subconfiguration objects
@@ -78,8 +79,8 @@ namespace RampantSlug.Common
         /// <returns>A MachineConfiguration object deserialized from the specified Json file</returns>
         public static Configuration FromFile(string PathToFile)
         {
-            StreamReader streamReader = new StreamReader(PathToFile);
-            string text = streamReader.ReadToEnd();
+            var streamReader = new StreamReader(PathToFile);
+            var text = streamReader.ReadToEnd();
             return FromJson(text);
         }
 
@@ -87,14 +88,15 @@ namespace RampantSlug.Common
         /// Convert the entire Configuration to Json code and save to a file
         /// </summary>
         /// <param name="filename">The filename to save to</param>
-        public void ToFile(string PathToFile)
+        public void ToFile(string filename)
         {
-            var serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Ignore;
-            serializer.Formatting = Formatting.Indented;
-            serializer.ContractResolver = new RsContractResolver();
- 
-            using (var sw = new StreamWriter(PathToFile))
+            var serializer = new JsonSerializer
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented,
+                ContractResolver = new RsContractResolver() // Use contract resolver to exclude certain properties
+            };
+            using (var sw = new StreamWriter(filename))
             using (var writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, this);
@@ -115,6 +117,11 @@ namespace RampantSlug.Common
         }
     }
 
+    /// <summary>
+    /// Contract resolver is used to determine when certain properties should be serialised.
+    /// We want ALL properties serialized when using Mass Transit between Client - Server
+    /// But we dont want everything seralized to config file.
+    /// </summary>
     public class RsContractResolver : DefaultContractResolver
  {
         public new static readonly RsContractResolver Instance = new RsContractResolver();

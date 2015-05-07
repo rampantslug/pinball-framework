@@ -8,11 +8,6 @@ namespace RampantSlug.Common.Devices
 {
     public class Driver : Device
     {
-      //  public override void UpdateNumberFromAddress()
-        //{
-        //    Number = ushort.Parse(Address);
-        //}
-
         public override bool IsActive
         {
             get

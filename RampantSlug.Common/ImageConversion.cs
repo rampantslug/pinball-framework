@@ -45,7 +45,6 @@ namespace RampantSlug.Common
             var blobAsNewByteArray = Convert.FromBase64String(inputBlobData);
             var image = ByteArrayToImage(blobAsNewByteArray);
 
-            // Winforms Image we want to get the WPF Image from...
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
             var memoryStream = new MemoryStream();

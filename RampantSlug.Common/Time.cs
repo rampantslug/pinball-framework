@@ -9,7 +9,7 @@ namespace RampantSlug.Common
     public class Time
     {
         /// <summary>
-        /// Get the current unix timestamp
+        /// Get the current unix timestamp.
         /// </summary>
         /// <returns>Number of seconds since the unix epoch</returns>
         public static double GetTime()

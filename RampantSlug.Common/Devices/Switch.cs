@@ -6,25 +6,18 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.Common.Devices
 {
+    /// <summary>
+    /// Represents a switch device in a pinball machine.
+    /// </summary>
     public class Switch: Device, IDevice
     {
-
         public SwitchType Type{ get; set; }
-
-        
-
 
         public Switch()
         {
             State = "Open";
             Type = SwitchType.NO;
         }
-
-
-       // public override void UpdateNumberFromAddress()
-       // {
-       //     Number = (ushort)parse_matrix_num(Address);
-       // }
 
         public override bool IsActive
         {
@@ -34,16 +27,11 @@ namespace RampantSlug.Common.Devices
             }
         }
 
-        private static int parse_matrix_num(string num)
-        {
-            string[] cr_list = num.Split('/');
-            return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
-        }
     }
 
     public enum SwitchType
     {
-        NO = 0,
-        NC = 1
+        NO = 0, // Normally Open 
+        NC = 1 // Normally Closed (Optos)
     };
 }

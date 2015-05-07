@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace RampantSlug.Common
 {
+    /// <summary>
+    /// Helper to allowing two way binding between ActualWidth and ActualHeight of an Image.
+    /// </summary>
     public static class SizeObserver
     {
         public static readonly DependencyProperty ObserveProperty = DependencyProperty.RegisterAttached(

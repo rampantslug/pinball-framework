@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.Common.Devices
 {
+    /// <summary>
+    /// Represents a coil device in a pinball machine.
+    /// </summary>
     public class Coil: Device, IDevice
     {
 
@@ -13,11 +16,6 @@ namespace RampantSlug.Common.Devices
         {
             State = "Inactive";      
         }
-
-   //     public override void UpdateNumberFromAddress()
-   //     {
-   //         Number = ushort.Parse(Address);
-   //     }
 
         public override bool IsActive
         {

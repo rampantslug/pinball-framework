@@ -12,7 +12,6 @@ namespace RampantSlug.Common.Converters
 {
     public class BooleanConverter<T> : IValueConverter
     {
-
         public T False { get; set; }
         public T True { get; set; }
 
@@ -37,7 +36,6 @@ namespace RampantSlug.Common.Converters
     [ValueConversion(typeof(bool), typeof(Brush))]
     public class BooleanToBrushConverter : BooleanConverter<Brush>
     {
-
         /// <summary>
         /// Set us up so we convert true to Green <see cref="SolidColorBrush"/> and
         /// false to a Red SolidColorBrush.
@@ -46,6 +44,9 @@ namespace RampantSlug.Common.Converters
             base(new SolidColorBrush(Colors.Green), new SolidColorBrush(Colors.Red)) { }
     }
 
+    /// <summary>
+    /// Convert from Boolean value to Visibility value.
+    /// </summary>
     public sealed class BooleanToVisibilityConverter : BooleanConverter<Visibility>
     {
         public BooleanToVisibilityConverter() :

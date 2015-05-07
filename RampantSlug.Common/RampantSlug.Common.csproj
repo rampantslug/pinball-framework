@@ -97,7 +97,6 @@
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Devices\Coil.cs" />
     <Compile Include="Devices\Device.cs" />
-    <Compile Include="Devices\DeviceCollection.cs" />
     <Compile Include="Devices\Driver.cs" />
     <Compile Include="Devices\IDevice.cs" />
     <Compile Include="Devices\Led.cs" />
