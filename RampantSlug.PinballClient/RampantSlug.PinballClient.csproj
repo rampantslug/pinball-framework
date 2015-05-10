@@ -100,6 +100,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ClientBusController.cs" />
+    <Compile Include="ClientDisplays\DeviceInformation\DynamicWireIconViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\GallerySelectorDialog.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\IDeviceConfigurationScreen.cs" />
@@ -162,6 +163,10 @@
     </Compile>
     <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
     <Compile Include="CommonViewModels\SwitchViewModel.cs" />
+    <Page Include="ClientDisplays\DeviceInformation\DynamicWireIconView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ClientDisplays\DeviceInformation\CoilConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:cal="http://www.caliburnproject.org"
-             xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common">
+             xmlns:converters="clr-namespace:RampantSlug.Common.Converters;assembly=RampantSlug.Common"
+             xmlns:deviceInformation="clr-namespace:RampantSlug.PinballClient.ClientDisplays.DeviceInformation">
     
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter 
@@ -437,19 +438,15 @@
                     SelectedItem="{Binding SelectedInputWireSecondaryColor}"
                     HorizontalAlignment="Stretch"
                     Height="24"/>
-                <Rectangle 
-                    Width="67"
+                <deviceInformation:DynamicWireIconView 
+                    Width="76"
                     Height="20"
                     Grid.Row="10"
                     Grid.RowSpan="2"
                     Grid.Column="2"
                     Grid.ColumnSpan="2" 
-                    >
-                    <Rectangle.Fill>
-                        <VisualBrush 
-                            Visual="{StaticResource wire_input}" />
-                    </Rectangle.Fill>
-                </Rectangle>
+                    cal:View.Model="{Binding InputWire}"          
+                    />
                 <ComboBox
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
@@ -466,19 +463,17 @@
                     SelectedItem="{Binding SelectedOutputWireSecondaryColor}"
                     HorizontalAlignment="Stretch"
                     Height="24"/>
-                <Rectangle 
-                    Width="67"
+
+                <deviceInformation:DynamicWireIconView 
+                    Width="100"
                     Height="20"
                     Grid.Row="13"
                     Grid.RowSpan="2"
                     Grid.Column="2"
                     Grid.ColumnSpan="2" 
-                    >
-                    <Rectangle.Fill>
-                        <VisualBrush 
-                            Visual="{StaticResource wire_output}" />
-                    </Rectangle.Fill>
-                </Rectangle>
+                    cal:View.Model="{Binding OutputWire}"          
+                    />
+
 
                 <Button
                     Grid.Column="0"

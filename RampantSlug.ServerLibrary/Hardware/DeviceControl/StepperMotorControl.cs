@@ -23,7 +23,7 @@ namespace RampantSlug.ServerLibrary.Hardware.DeviceControl
             Name = stepperMotor.Name;
             State = stepperMotor.State;
             LastChangeTimeStamp = stepperMotor.LastChangeTimeStamp;
-            WiringColors = stepperMotor.WiringColors;
+            //WiringColors = stepperMotor.WiringColors;
             VirtualLocationX = stepperMotor.VirtualLocationX;
             VirtualLocationY = stepperMotor.VirtualLocationY;
         }

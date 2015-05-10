@@ -43,6 +43,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private ObservableCollection<string> _outputWireSecondaryColors;
         private string _selectedOutputWireSecondaryColor;
 
+        public DynamicWireIconViewModel InputWire { get; private set; }
+        public DynamicWireIconViewModel OutputWire { get; private set; }
+
         #region Properties
 
 
@@ -221,6 +224,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _selectedInputWirePrimaryColor = value;
                 NotifyOfPropertyChange(() => SelectedInputWirePrimaryColor);
+                InputWire.PrimaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedInputWirePrimaryColor);
             }
         }
 
@@ -244,6 +248,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _selectedInputWireSecondaryColor = value;
                 NotifyOfPropertyChange(() => SelectedInputWireSecondaryColor);
+                InputWire.SecondaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedInputWireSecondaryColor);
             }
         }
 
@@ -268,6 +273,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _selectedOutputWirePrimaryColor = value;
                 NotifyOfPropertyChange(() => SelectedOutputWirePrimaryColor);
+                OutputWire.PrimaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedOutputWirePrimaryColor);
             }
         }
 
@@ -291,6 +297,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _selectedOutputWireSecondaryColor = value;
                 NotifyOfPropertyChange(() => SelectedOutputWireSecondaryColor);
+                OutputWire.SecondaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedOutputWireSecondaryColor);
             }
         }
 
@@ -314,13 +321,24 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _supportedHardwareSwitches.Add(value);
             }
 
-            InputWirePrimaryColors = new ObservableCollection<string>() { "Green", "Red", "Blue", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
-            InputWireSecondaryColors = new ObservableCollection<string>() { "Red", "Green", "Blue", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
-            OutputWirePrimaryColors = new ObservableCollection<string>() { "Blue", "Green", "Red", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
-            OutputWireSecondaryColors = new ObservableCollection<string>() { "Yellow", "Green", "Blue", "Red", "Pink", "White", "Brown", "Black", "Orange" };
+            InputWirePrimaryColors = ColorBrushesHelper.GetColorStrings();
+            InputWireSecondaryColors = ColorBrushesHelper.GetColorStrings();
+            OutputWirePrimaryColors = ColorBrushesHelper.GetColorStrings();
+            OutputWireSecondaryColors = ColorBrushesHelper.GetColorStrings();
 
+            InputWire = new DynamicWireIconViewModel()
+            {
+                PrimaryWireColor = switchvm.InputWirePrimaryBrush,
+                SecondaryWireColor = switchvm.InputWireSecondaryBrush
+            };
+            OutputWire = new DynamicWireIconViewModel()
+            {
+                PrimaryWireColor = switchvm.OutputWirePrimaryBrush,
+                SecondaryWireColor = switchvm.OutputWireSecondaryBrush
+            };
         }
 
+        
 
 
         public void SaveDevice()

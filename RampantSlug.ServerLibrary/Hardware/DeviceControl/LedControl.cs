@@ -23,7 +23,7 @@ namespace RampantSlug.ServerLibrary.Hardware.DeviceControl
             Name = led.Name;
             State = led.State;
             LastChangeTimeStamp = led.LastChangeTimeStamp;
-            WiringColors = led.WiringColors;
+            //WiringColors = led.WiringColors;
             VirtualLocationX = led.VirtualLocationX;
             VirtualLocationY = led.VirtualLocationY;
         }

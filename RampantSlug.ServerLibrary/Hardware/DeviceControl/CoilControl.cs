@@ -23,7 +23,7 @@ namespace RampantSlug.ServerLibrary.Hardware.DeviceControl
             Name = coil.Name;
             State = coil.State;
             LastChangeTimeStamp = coil.LastChangeTimeStamp;
-            WiringColors = coil.WiringColors;
+            //WiringColors = coil.WiringColors;
             VirtualLocationX = coil.VirtualLocationX;
             VirtualLocationY = coil.VirtualLocationY;
         }

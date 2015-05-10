@@ -23,7 +23,7 @@ namespace RampantSlug.ServerLibrary.Hardware.DeviceControl
             Name = servo.Name;
             State = servo.State;
             LastChangeTimeStamp = servo.LastChangeTimeStamp;
-            WiringColors = servo.WiringColors;
+            //WiringColors = servo.WiringColors;
             VirtualLocationX = servo.VirtualLocationX;
             VirtualLocationY = servo.VirtualLocationY;
         }

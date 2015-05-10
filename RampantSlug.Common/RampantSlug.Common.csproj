@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="AttrCollection.cs" />
     <Compile Include="BusInitializer.cs" />
+    <Compile Include="ColorBrushesHelper.cs" />
     <Compile Include="Commands\StepperMotorCommand.cs" />
     <Compile Include="Commands\ServoCommand.cs" />
     <Compile Include="Commands\CoilCommand.cs" />

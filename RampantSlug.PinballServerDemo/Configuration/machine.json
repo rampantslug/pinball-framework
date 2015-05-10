@@ -7,7 +7,10 @@
       "Type": 0,
       "Address": "PSM-0/0",
       "Name": "startButton",
-      "WiringColors": "Grey/Green",
+      "InputWirePrimaryColor": "Pink",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "White",
+      "OutputWireSecondaryColor": "Red",
       "VirtualLocationX": 12,
       "VirtualLocationY": 96
     },
@@ -15,7 +18,10 @@
       "Type": 0,
       "Address": "PSM-0/2",
       "Name": "leftFlipper",
-      "WiringColors": "Grey/Green",
+      "InputWirePrimaryColor": "Orange",
+      "InputWireSecondaryColor": "Black",
+      "OutputWirePrimaryColor": "Brown",
+      "OutputWireSecondaryColor": "Blue",
       "VirtualLocationX": -4,
       "VirtualLocationY": 79
     },

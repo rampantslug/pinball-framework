@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
+using RampantSlug.Common;
 using RampantSlug.Common.Commands;
 using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.Events;
@@ -44,6 +45,10 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
+        public SolidColorBrush InputWirePrimaryBrush { get; set; }
+        public SolidColorBrush InputWireSecondaryBrush { get; set; }
+        public SolidColorBrush OutputWirePrimaryBrush { get; set; }
+        public SolidColorBrush OutputWireSecondaryBrush { get; set; }
        
 
 
@@ -58,7 +63,10 @@ namespace RampantSlug.PinballClient.CommonViewModels
             _device = switchDevice;
             //SwitchState = switchDevice.State;
 
-
+            InputWirePrimaryBrush = ColorBrushesHelper.ConvertStringToBrush(switchDevice.InputWirePrimaryColor);
+            InputWireSecondaryBrush = ColorBrushesHelper.ConvertStringToBrush(switchDevice.InputWireSecondaryColor);
+            OutputWirePrimaryBrush = ColorBrushesHelper.ConvertStringToBrush(switchDevice.OutputWirePrimaryColor);
+            OutputWireSecondaryBrush = ColorBrushesHelper.ConvertStringToBrush(switchDevice.OutputWireSecondaryColor);
         }
 
         #endregion

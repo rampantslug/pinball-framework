@@ -13,6 +13,12 @@ namespace RampantSlug.Common.Devices
     {
         public SwitchType Type{ get; set; }
 
+        public string InputWirePrimaryColor { get; set; }
+        public string InputWireSecondaryColor { get; set; }
+        public string OutputWirePrimaryColor { get; set; }
+        public string OutputWireSecondaryColor { get; set; }
+
+
         public Switch()
         {
             State = "Open";

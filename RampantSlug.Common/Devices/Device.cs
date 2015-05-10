@@ -55,10 +55,6 @@ namespace RampantSlug.Common.Devices
         /// </summary>
         public string RefinedType { get; set; }
 
-        // TODO: Should this be an enum of available colours based on what is set for the project
-        public string WiringColors { get; set; }
-
-
         protected Device()
         {
 
