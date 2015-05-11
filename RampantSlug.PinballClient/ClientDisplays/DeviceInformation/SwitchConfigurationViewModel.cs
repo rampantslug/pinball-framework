@@ -33,7 +33,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private ushort _matrixColumn;
         private ushort _matrixRow;
 
-
         private ObservableCollection<string> _inputWirePrimaryColors;
         private string _selectedInputWirePrimaryColor;
         private ObservableCollection<string> _inputWireSecondaryColors;
@@ -43,7 +42,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private string _selectedOutputWirePrimaryColor;
         private ObservableCollection<string> _outputWireSecondaryColors;
         private string _selectedOutputWireSecondaryColor;
-        private IAddress _localAddress;
 
         public DynamicWireIconViewModel InputWire { get; private set; }
         public DynamicWireIconViewModel OutputWire { get; private set; }
@@ -95,17 +93,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         }*/
 
 
-        public IAddress LocalAddress
-        {
-            get { return _localAddress; }
-            set
-            {
-                _localAddress = value;
-                NotifyOfPropertyChange(() => LocalAddress);
-            }
-        }
-
-
         public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
             get
@@ -136,10 +123,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _selectedSupportedHardwareSwitch = value;
                 NotifyOfPropertyChange(() => SelectedSupportedHardwareSwitch);
                 NotifyOfPropertyChange(() => IsMatrixHardware);
-
-                //var someType = HardwareType.ProcSwitchMatrix;
-
-                //AddressFactory.CreateAddress(HardwareType)
             }
         }
 
@@ -156,12 +139,14 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _matrixColumn = value;
                 NotifyOfPropertyChange(() => MatrixColumn);
 
-                var smAddress = _switch.Address as PsmAddress;
-                if (smAddress != null)
+                if (IsMatrixHardware)
                 {
-                    smAddress.UpdateColumn(_matrixColumn);
+                    var address = new PsmAddress();
+                    address.UpdateColumn(MatrixColumn);
+                    address.UpdateRow(MatrixRow);
+                    _switch.Address = address;
                     NotifyOfPropertyChange(() => Switch);
-                }
+                }   
             }
         }
 
@@ -173,12 +158,14 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _matrixRow = value;
                 NotifyOfPropertyChange(() => MatrixRow);
 
-                var smAddress = _switch.Address as PsmAddress;
-                if (smAddress != null)
+                if (IsMatrixHardware)
                 {
-                    smAddress.UpdateRow(_matrixRow);
+                    var address = new PsmAddress();
+                    address.UpdateColumn(MatrixColumn);
+                    address.UpdateRow(MatrixRow);
+                    _switch.Address = address;
                     NotifyOfPropertyChange(() => Switch);
-                }
+                }   
             }
         }
 
@@ -190,12 +177,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _directSwitchId = value;
                 NotifyOfPropertyChange(() => DirectSwitchId);
 
-                var dsAddress = _switch.Address as PdsAddress;
-                if (dsAddress != null)
+                if (!IsMatrixHardware)
                 {
-                        dsAddress.UpdateAddressId(_directSwitchId);
-                        NotifyOfPropertyChange(() => Switch);
-                }               
+                    var address = new PdsAddress();
+                    address.UpdateAddressId(DirectSwitchId);
+                    _switch.Address = address;
+                    NotifyOfPropertyChange(() => Switch);
+                }             
             }
         }
 
@@ -314,14 +302,26 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             LoadRefinedImage(); 
             
             // Initialise Address
-            _supportedHardwareSwitches = new ObservableCollection<IAddress>();
-            _supportedHardwareSwitches.Add(new PsmAddress());
-            _supportedHardwareSwitches.Add(new PdsAddress());
-            
-            LocalAddress = _switch.Address;
-            if(LocalAddress is PsmAddress)
-                SelectedSupportedHardwareSwitch = new PsmAddress();
-           
+            _supportedHardwareSwitches = new ObservableCollection<IAddress> {new PsmAddress(), new PdsAddress()};
+
+            var procSwitchMatrix = _switch.Address as PsmAddress;
+            if (procSwitchMatrix != null)
+            {
+                SelectedSupportedHardwareSwitch = SupportedHardwareSwitches[0];
+                MatrixColumn = procSwitchMatrix.MatrixColumn;
+                MatrixRow = procSwitchMatrix.MatrixRow;
+            }
+            else
+            {
+                var procDirectSwitch = _switch.Address as PdsAddress;
+                if (procDirectSwitch != null)
+                {
+                    SelectedSupportedHardwareSwitch = SupportedHardwareSwitches[1];
+                    DirectSwitchId = procDirectSwitch.AddressId;
+                }
+            }
+
+
             // Initialise Wire Colours 
             InputWirePrimaryColors = ColorBrushesHelper.GetColorStrings();
             InputWireSecondaryColors = ColorBrushesHelper.GetColorStrings();
