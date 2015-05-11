@@ -39,10 +39,10 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         public string Address
         {
-            get { return _servo.Address; }
-            set
+            get { return _servo.Address.AddressString; }
+            private set
             {
-                _servo.Address = value;
+                //_servo.Address = value;
                 NotifyOfPropertyChange(() => Address);
             }
         }

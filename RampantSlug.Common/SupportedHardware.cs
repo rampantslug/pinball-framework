@@ -37,5 +37,98 @@ namespace RampantSlug.Common
         {
             {ProcLedBoard,"Proc Led Board"}
         };
+
+        public static bool IsAddressOfHardwareType(string hardware, string address)
+        {
+            // Split out address into Controller and port
+            var controllerPlusPort = address.Split('-');
+
+            if (controllerPlusPort.Count() != 2)
+            {
+                return false;
+            }
+            return string.Equals(controllerPlusPort[0], hardware);
+        }
+
+     /*   public static ushort GetColumn(string address)
+        {
+            var temp = new Address(address);
+        }
+
+        public static ushort GetRow(string address)
+        {
+
+        }*/
+
+
+        private static int ParseAddressString(string address)
+        {
+            if (string.IsNullOrEmpty(address))
+            {
+                return -1;
+            }
+
+            // Split out address into Controller and port
+            var controllerPlusPort = address.Split('-');
+
+            if (controllerPlusPort.Count() != 2)
+            {
+                // Invalid Address
+                // Throw exception, error message and dont process the rest of this Device
+                return -1;
+            }
+
+            switch (controllerPlusPort[0])
+            {
+                // Proc Switch Matrix Address
+                case ProcSwitchMatrix:
+                    {
+                        return parse_matrix_num(controllerPlusPort[1]);
+                    }
+
+                // Proc Direct Switch Address
+                case ProcDirectSwitch:
+                    {
+                        return Int32.Parse(controllerPlusPort[1]);
+                    }
+
+                // Proc Driver Board (Coil?) Address
+                case ProcDriverBoard:
+                    {
+                        return Int32.Parse(controllerPlusPort[1]);
+                    }
+
+                // Proc Led Board Address
+                case ProcLedBoard:
+                    {
+                        return Int32.Parse(controllerPlusPort[1]);
+                    }
+
+                // Arduino Servo Shield Address
+                case ArduinoServoShield:
+                    {
+                        return Int32.Parse(controllerPlusPort[1]);
+                    }
+
+                // Arduino Motor Shield Address
+                case ArduinoMotorShield:
+                    {
+                        return Int32.Parse(controllerPlusPort[1]);
+                    }
+                default:
+                    {
+                        return -1;
+                    }
+            }
+
+        }
+
+        private static int parse_matrix_num(string num)
+        {
+            string[] cr_list = num.Split('/');
+            return (32 + Int32.Parse(cr_list[0]) * 16 + Int32.Parse(cr_list[1]));
+        }
+
+
     }
 }

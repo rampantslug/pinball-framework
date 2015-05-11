@@ -60,8 +60,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         /// <param name="switchDevice"></param>
         public SwitchViewModel(Switch switchDevice)
         {
-            _device = switchDevice;
-            //SwitchState = switchDevice.State;
+            Device = switchDevice;
 
             InputWirePrimaryBrush = ColorBrushesHelper.ConvertStringToBrush(switchDevice.InputWirePrimaryColor);
             InputWireSecondaryBrush = ColorBrushesHelper.ConvertStringToBrush(switchDevice.InputWireSecondaryColor);
@@ -71,25 +70,6 @@ namespace RampantSlug.PinballClient.CommonViewModels
 
         #endregion
 
-        /*
-        internal int FindImages(string slugName, DirectoryInfo outputFolder)
-{
-    if (slugName != null)
-    {
-        List<string> filePathList = Directory.GetFiles(outputFolder.FullName).ToList();
-        List<string> filePathList_ToBeDeleted = new List<string>();
-        foreach (string filePath in filePathList)
-        {                  
-            if (Path.GetFileNameWithoutExtension(filePath).ToLower().Contains("_70x70"))
-            {                           
-                image1.Source = filePath;
-            }                   
-        }
-        int count = 0;
-
-        return count;
-    }
-*/
 
         #region Device Command Methods
 

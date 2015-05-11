@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
+using RampantSlug.Common.DeviceAddress;
 using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.Events;
 
@@ -15,6 +16,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         protected bool _isSelected;
         protected bool _isVisible;
         private ObservableCollection<DeviceViewModel> _children;
+        private IAddress _address;
 
         #region Config persisted Properties
 
@@ -52,15 +54,15 @@ namespace RampantSlug.PinballClient.CommonViewModels
             }
         }
 
-        public string Address
+        public IAddress Address
         {
             get
             {
-                return Device.Address;
+                return _address;
             }
             set
             {
-                Device.Address = value;
+                _address = value;
                 NotifyOfPropertyChange(() => Address);
             }
         }
@@ -151,7 +153,9 @@ namespace RampantSlug.PinballClient.CommonViewModels
                 _device = value;
                 NotifyOfPropertyChange(() => Device);
 
-                // If this has been updated then need to refresh all child properties               
+                // If this has been updated then need to refresh all child properties 
+                Address = AddressFactory.CreateAddress(_device.Address);
+
                 NotifyOfPropertyChange(() => Name);
                 NotifyOfPropertyChange(() => State);
                 NotifyOfPropertyChange(() => IsDeviceActive);
@@ -193,6 +197,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             _children = new ObservableCollection<DeviceViewModel>();
             _isVisible = true;
             _previousStates = new ObservableCollection<HistoryRowViewModel>();
+
+            
         }
 
         #endregion
@@ -220,7 +226,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         public void UpdateDeviceInfo(IDevice device, DateTime timestamp)
         {
             Device = device;
-            
+
             if (PreviousStates.Count > 10)
             {
                 PreviousStates.Remove(PreviousStates.Last());
