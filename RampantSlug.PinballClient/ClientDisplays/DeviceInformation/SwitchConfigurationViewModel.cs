@@ -42,6 +42,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private string _selectedOutputWirePrimaryColor;
         private ObservableCollection<string> _outputWireSecondaryColors;
         private string _selectedOutputWireSecondaryColor;
+        private ObservableCollection<string> _switchTypes;
+        private string _selectedSwitchType;
 
         public DynamicWireIconViewModel InputWire { get; private set; }
         public DynamicWireIconViewModel OutputWire { get; private set; }
@@ -82,17 +84,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
            
         }
 
-     /*   public string Type
-        {
-            get { return _switch.Type.ToString(); }
-            set
-            {
-                _switch.Type = (SwitchType) Enum.Parse(typeof (SwitchType),value, true);
-                NotifyOfPropertyChange(() => Type);
-            }
-        }*/
-
-
         public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
             get
@@ -100,6 +91,40 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 return _switch.PreviousStates;
             }
 
+        }
+
+        public ObservableCollection<string> SwitchTypes
+        {
+            get
+            {
+                return _switchTypes;
+            }
+            set
+            {
+                _switchTypes = value;
+                NotifyOfPropertyChange(() => SwitchTypes);
+            }
+        }
+
+        public string SelectedSwitchType
+        {
+            get
+            {
+                return _selectedSwitchType;
+            }
+            set
+            {
+                _selectedSwitchType = value;
+                NotifyOfPropertyChange(() => SelectedSwitchType);
+                if (string.Equals(SelectedSwitchType, SwitchTypes[0]))
+                {
+                    _switch.Type = SwitchType.NO;
+                }
+                else
+                {
+                    _switch.Type = SwitchType.NC;
+                }
+            }
         }
 
         public ObservableCollection<IAddress> SupportedHardwareSwitches
@@ -301,6 +326,9 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
             LoadRefinedImage(); 
             
+            SwitchTypes = new ObservableCollection<string>(){"Normally Open", "Normally Closed"};
+            SelectedSwitchType = _switch.Type == SwitchType.NO ? SwitchTypes[0] : SwitchTypes[1];
+
             // Initialise Address
             _supportedHardwareSwitches = new ObservableCollection<IAddress> {new PsmAddress(), new PdsAddress()};
 

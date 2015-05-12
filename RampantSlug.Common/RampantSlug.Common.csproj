@@ -122,7 +122,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeviceAddress\PsmAddress.cs" />
     <Compile Include="SizeObserver.cs" />
-    <Compile Include="SupportedHardware.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="TimedAction.cs" />
   </ItemGroup>

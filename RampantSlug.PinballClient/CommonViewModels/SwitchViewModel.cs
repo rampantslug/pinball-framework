@@ -35,7 +35,8 @@ namespace RampantSlug.PinballClient.CommonViewModels
             get { return "Switch"; }
         }
 
-        public string SwitchState
+
+      /*  public string SwitchState
         {
             get { return _switchState; }
             private set
@@ -43,13 +44,26 @@ namespace RampantSlug.PinballClient.CommonViewModels
                 _switchState = value;
                 NotifyOfPropertyChange(() => SwitchState);
             }
-        }
+        }*/
 
         public SolidColorBrush InputWirePrimaryBrush { get; set; }
         public SolidColorBrush InputWireSecondaryBrush { get; set; }
         public SolidColorBrush OutputWirePrimaryBrush { get; set; }
         public SolidColorBrush OutputWireSecondaryBrush { get; set; }
-       
+
+        public SwitchType Type
+        {
+            get
+            {
+                return (Device as Switch).Type;
+            }
+            set
+            {
+                var sw = Device as Switch;
+                sw.Type = value;
+                NotifyOfPropertyChange(()=> Type);
+            }
+        }
 
 
         #region Constructor

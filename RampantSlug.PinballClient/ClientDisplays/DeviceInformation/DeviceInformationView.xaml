@@ -9,7 +9,7 @@
     </UserControl.Resources>
     <Grid>
        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="240" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
