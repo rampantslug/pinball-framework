@@ -67,6 +67,10 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
             {
                 eventAggregator.PublishOnUIThread(new AllServosVisibility() { IsVisible = IsVisible });
             }
+            else if (_deviceType is LedType)
+            {
+                eventAggregator.PublishOnUIThread(new AllLedsVisibility() { IsVisible = IsVisible });
+            }
         }
     }
 }

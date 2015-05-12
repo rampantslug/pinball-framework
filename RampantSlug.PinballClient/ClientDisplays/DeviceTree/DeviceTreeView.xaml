@@ -182,6 +182,7 @@
                         cal:Message.Attach="ChangeVisibility()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=2}, Path=DataContext.IsVisible}"
                         >
                         <Rectangle 
                             Width="12"
@@ -235,6 +236,7 @@
                         cal:Message.Attach="ChangeVisibility()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=2}, Path=DataContext.IsVisible}"
                         >
                         <Rectangle 
                             Width="12"
@@ -316,6 +318,7 @@
                         cal:Message.Attach="ChangeVisibility()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=2}, Path=DataContext.IsVisible}"
                         >
                         <Rectangle 
                             Width="12"
@@ -405,6 +408,7 @@
                         cal:Message.Attach="ChangeVisibility()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=2}, Path=DataContext.IsVisible}"
                         >
                         <Rectangle 
                             Width="12"
@@ -495,6 +499,7 @@
                         cal:Message.Attach="ChangeVisibility()"
                         BorderThickness="0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=2}, Path=DataContext.IsVisible}"
                         >
                         <Rectangle 
                             Width="12"
