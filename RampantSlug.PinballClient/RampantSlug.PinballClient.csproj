@@ -109,6 +109,7 @@
     <Compile Include="ClientDisplays\ModeTree\SwitchHandlerViewModel.cs" />
     <Compile Include="ClientDisplays\ModeTree\ModeItemViewModel.cs" />
     <Compile Include="ClientDisplays\ModeTree\ModeTreeViewModel.cs" />
+    <Compile Include="ClientDisplays\SwitchMatrix\SwitchMatrixItemViewModel.cs" />
     <Compile Include="CommonViewModels\HistoryRowViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
@@ -212,6 +213,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ClientDisplays\Playfield\PlayfieldView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\SwitchMatrix\SwitchMatrixItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
