@@ -323,21 +323,18 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
 
             // Initialise Wire Colours 
+            InputWire = new DynamicWireIconViewModel();
+            OutputWire = new DynamicWireIconViewModel();
+
             InputWirePrimaryColors = ColorBrushesHelper.GetColorStrings();
             InputWireSecondaryColors = ColorBrushesHelper.GetColorStrings();
             OutputWirePrimaryColors = ColorBrushesHelper.GetColorStrings();
             OutputWireSecondaryColors = ColorBrushesHelper.GetColorStrings();
 
-            InputWire = new DynamicWireIconViewModel()
-            {
-                PrimaryWireColor = switchvm.InputWirePrimaryBrush,
-                SecondaryWireColor = switchvm.InputWireSecondaryBrush
-            };
-            OutputWire = new DynamicWireIconViewModel()
-            {
-                PrimaryWireColor = switchvm.OutputWirePrimaryBrush,
-                SecondaryWireColor = switchvm.OutputWireSecondaryBrush
-            };
+            SelectedInputWirePrimaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.InputWirePrimaryBrush);
+            SelectedInputWireSecondaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.InputWireSecondaryBrush);
+            SelectedOutputWirePrimaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.OutputWirePrimaryBrush);
+            SelectedOutputWireSecondaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.OutputWireSecondaryBrush);            
         }
 
         

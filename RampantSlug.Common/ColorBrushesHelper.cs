@@ -59,5 +59,51 @@ namespace RampantSlug.Common
             }
             return Brushes.Transparent;
         }
+
+        public static string ConvertBrushToString(SolidColorBrush brush)
+        {
+            var hexString = brush.ToString();
+
+            switch (hexString)
+            {
+                case "#FF008000":
+                    {
+                        return "Green";
+                    }
+                case "#FFFF0000":
+                    {
+                        return "Red";
+                    }
+                case "#FF0000FF":
+                    {
+                        return "Blue";
+                    }
+                case "#FFFFFF00":
+                    {
+                        return "Yellow";
+                    }
+                case "#FFFFC0CB":
+                    {
+                        return "Pink";
+                    }
+                case "#FFFFFFFF":
+                    {
+                        return "White";
+                    }
+                case "#FFA52A2A":
+                    {
+                        return "Brown";
+                    }
+                case "#FF000000":
+                    {
+                        return "Black";
+                    }
+                case "#FFFFA500":
+                    {
+                        return "Orange";
+                    }
+            }
+            return "White";
+        }
     }
 }
