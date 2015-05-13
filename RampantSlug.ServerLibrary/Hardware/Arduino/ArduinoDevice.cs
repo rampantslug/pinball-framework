@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO.Ports;
+using RampantSlug.Common.Converters;
 using RampantSlug.Common.Logging;
 using RampantSlug.ServerLibrary.Logging;
 
@@ -10,6 +11,8 @@ namespace RampantSlug.ServerLibrary.Hardware.Arduino
     {
         public RsLogManager _logManager { get; set; }
 
+        public string PortName { get; set; }
+
         /// <summary>
         /// Interface for the Serial Port at which an Arduino Board
         /// is connected.
@@ -18,8 +21,10 @@ namespace RampantSlug.ServerLibrary.Hardware.Arduino
 
         public ArduinoDevice()
         {
+            PortName = "COM3";
+
             _logManager = RsLogManager.GetCurrent;
-            _logManager.LogTestMessage("Initializing Arduino-Uno device...");
+            _logManager.LogMessage(LogEventType.Info, OriginatorType.Arduino, "Uno", "Connecting", "Connecting to Arduino on " + PortName);
 
             try
             {
@@ -27,9 +32,7 @@ namespace RampantSlug.ServerLibrary.Hardware.Arduino
             }
             catch (Exception)
             {
-                _logManager.LogTestMessage("Error: Can not connect to the Arduino Board");
-
-                //MessageBox.Show("Error: Can not connect to the Arduino Board - Configure the COM Port in the app.config file and check whether an Arduino Board is connected to your computer.");
+                _logManager.LogMessage(LogEventType.Error, OriginatorType.Arduino, "Uno", "Disconnected", "Failed to connect to Arduino on " + PortName);
             }
 
         }
@@ -39,7 +42,7 @@ namespace RampantSlug.ServerLibrary.Hardware.Arduino
             if (!arduinoBoard.IsOpen)
             {
                 arduinoBoard.DataReceived += arduinoBoard_DataReceived;
-                arduinoBoard.PortName = "COM3";
+                arduinoBoard.PortName = PortName;
                 arduinoBoard.Open();
             }
             else
@@ -79,7 +82,7 @@ namespace RampantSlug.ServerLibrary.Hardware.Arduino
                 }
                 catch (System.IO.IOException ex)
                 {
-                    _logManager.LogTestMessage("Error: Arduino is not connected");
+                    _logManager.LogMessage(LogEventType.Error, OriginatorType.Arduino, "Uno", "Disconnected", "Failed to send data to Arduino on " + PortName);
                 }
             }
             else

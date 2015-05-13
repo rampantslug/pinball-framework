@@ -124,7 +124,7 @@
     <Compile Include="ServerBusController.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessageConsumer.cs" />
     <Compile Include="ContractImplementations\DeviceConfigMessageConsumer.cs" />
-    <Compile Include="ContractImplementations\EventMessage.cs" />
+    <Compile Include="ContractImplementations\LogMessage.cs" />
     <Compile Include="ContractImplementations\ConfigMessage.cs" />
     <Compile Include="ContractImplementations\SimpleMessage.cs" />
     <Compile Include="Events\RequestConfigEvent.cs" />

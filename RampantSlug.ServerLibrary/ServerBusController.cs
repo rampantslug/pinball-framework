@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RampantSlug.Common.Logging;
 
 namespace RampantSlug.ServerLibrary
 {
@@ -31,16 +32,18 @@ namespace RampantSlug.ServerLibrary
           
         }
 
-        public void SendEventMessage(string text) 
+        public void SendLogMessage(LogEventType eventType, OriginatorType originator, string originatorName, string status, string information) 
         {
-            var message = new EventMessage() { Message = text , Timestamp = DateTime.Now };
-            _bus.Publish<EventMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
-        }
-
-        public void SendSimpleMessage(string text)
-        {
-            var message = new SimpleMessage() { Message = text, Timestamp = DateTime.Now };
-            _bus.Publish<SimpleMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
+            var message = new LogMessage()
+            {
+                Timestamp = DateTime.Now,
+                EventType = eventType,
+                OriginatorType = originator,
+                OriginatorName = originatorName,
+                Status = status,
+                Information = information
+            };
+            _bus.Publish<LogMessage>(message, x => { x.SetDeliveryMode(MassTransit.DeliveryMode.InMemory); });
         }
 
         public void SendConfigurationMessage(Configuration configuration)

@@ -25,13 +25,13 @@ namespace RampantSlug.ServerLibrary.Logging
 		    get { return ClassInstance.Value; }
 	    }
 
-        public void LogTestMessage(string message)
+        public void LogMessage(LogEventType eventType, OriginatorType originator, string originatorName, string status, string information)
         {
             if (_busController == null)
             {
                 _busController = IoC.Get<IServerBusController>();
             }
-            _busController.SendEventMessage(message);
+            _busController.SendLogMessage(eventType, originator, originatorName, status, information);
         }
     }
 }

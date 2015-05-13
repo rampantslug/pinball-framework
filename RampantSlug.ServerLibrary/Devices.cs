@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RampantSlug.Common;
 using RampantSlug.Common.Devices;
+using RampantSlug.Common.Logging;
 using RampantSlug.ServerLibrary.Hardware.DeviceControl;
 using RampantSlug.ServerLibrary.Logging;
 
@@ -137,9 +138,7 @@ namespace RampantSlug.ServerLibrary
                     catch
                         (Exception ex)
                     {
-
-                        RsLogManager.GetCurrent.LogTestMessage("Error with Device in config: " + sw.Name + " " + ex.Message);
-
+                        RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, sw.Name, "Configuration", "Problem with device config: " + ex.Message);
                     }
                 }
             }
@@ -151,7 +150,7 @@ namespace RampantSlug.ServerLibrary
             var deviceNumber = ParseAddressString(sw.Address);
             if (deviceNumber == -1)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + sw.Name + ". Address: "+ sw.Address);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, sw.Name, "Configuration", "Invalid device address: " + sw.Address);
                 return false;
             }
             else
@@ -212,9 +211,7 @@ namespace RampantSlug.ServerLibrary
                     catch
                         (Exception ex)
                     {
-
-                        RsLogManager.GetCurrent.LogTestMessage("Error with Device in config: " + coil.Name + " " + ex.Message);
-
+                        RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, coil.Name, "Configuration", "Problem with device config: " + ex.Message);
                     }
                 }
             }
@@ -226,7 +223,7 @@ namespace RampantSlug.ServerLibrary
             var deviceNumber = ParseAddressString(coil.Address);
             if (deviceNumber == -1)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + coil.Name + ". Address: " + coil.Address);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, coil.Name, "Configuration", "Invalid device address: " + coil.Address);
                 return false;
             }
             else
@@ -291,9 +288,7 @@ namespace RampantSlug.ServerLibrary
                     catch
                         (Exception ex)
                     {
-
-                        RsLogManager.GetCurrent.LogTestMessage("Error with Device in config: " + stepperMotor.Name + " " + ex.Message);
-
+                        RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, stepperMotor.Name, "Configuration", "Problem with device config: " + ex.Message);
                     }
                 }
             }
@@ -305,7 +300,7 @@ namespace RampantSlug.ServerLibrary
             var deviceNumber = ParseAddressString(stepperMotor.Address);
             if (deviceNumber == -1)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + stepperMotor.Name + ". Address: " + stepperMotor.Address);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, stepperMotor.Name, "Configuration", "Invalid device address: " + stepperMotor.Address);
                 return false;
             }
             else
@@ -371,9 +366,7 @@ namespace RampantSlug.ServerLibrary
                     catch
                         (Exception ex)
                     {
-
-                        RsLogManager.GetCurrent.LogTestMessage("Error with Device in config: " + servo.Name + " " + ex.Message);
-
+                        RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, servo.Name, "Configuration", "Problem with device config: " + ex.Message);
                     }
                 }
             }
@@ -385,7 +378,7 @@ namespace RampantSlug.ServerLibrary
             var deviceNumber = ParseAddressString(servo.Address);
             if (deviceNumber == -1)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + servo.Name + ". Address: " + servo.Address);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, servo.Name, "Configuration", "Invalid device address: " + servo.Address);
                 return false;
             }
             else
@@ -453,9 +446,7 @@ namespace RampantSlug.ServerLibrary
                     catch
                         (Exception ex)
                     {
-
-                        RsLogManager.GetCurrent.LogTestMessage("Error with Device in config: " + led.Name + " " + ex.Message);
-
+                        RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, led.Name, "Configuration", "Problem with device config: " + ex.Message);
                     }
                 }
             }
@@ -467,7 +458,7 @@ namespace RampantSlug.ServerLibrary
             var deviceNumber = ParseAddressString(led.Address);
             if (deviceNumber == -1)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Invalid device address for: " + led.Name + ". Address: " + led.Address);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, led.Name, "Configuration", "Invalid device address: " + led.Address);
                 return false;
             }
             else

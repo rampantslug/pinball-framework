@@ -26,7 +26,7 @@ namespace RampantSlug.ServerLibrary.Hardware.Proc
         public ProcDevice(RsLogManager logger)
         {
             Logger = logger;
-            Logger.LogTestMessage("Initializing P-ROC device...");
+            Logger.LogMessage(LogEventType.Info, OriginatorType.Proc, "Proc", "Connecting", "Connecting to P-ROC");
 
             // Only support Custom Machines. If we want to allow WPC etc... then need to move MachineType out to variable.
             ProcHandle = PinProc.PRCreate(MachineType.PDB);

@@ -61,8 +61,7 @@ namespace RampantSlug.ServerLibrary.Hardware
             }
             catch (Exception ex)
             {
-                RsLogManager.GetCurrent.LogTestMessage("FATAL ERROR: Could not load P-ROC device.");
-                RsLogManager.GetCurrent.LogTestMessage(ex.Message);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Error, OriginatorType.Proc, "Proc", "Disconnected", "Failed to connect to P-ROC: " + ex.Message);
             }
         }
 

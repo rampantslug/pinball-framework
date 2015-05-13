@@ -22,8 +22,7 @@ namespace RampantSlug.PinballClient
             { 
             x.Subscribe(subs =>
                 {
-                    subs.Consumer<SimpleMessageConsumer>().Transient();
-                    subs.Consumer<EventMessageConsumer>().Transient();
+                    subs.Consumer<LogMessageConsumer>().Transient();
                     subs.Consumer<ConfigMessageConsumer>().Transient();
                     subs.Consumer<UpdateDeviceMessageConsumer>().Transient();
                 });

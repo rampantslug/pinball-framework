@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RampantSlug.ServerLibrary.ContractImplementations
 {
-    class SimpleMessage: ISimpleMessage
+ /*   class SimpleMessage: ISimpleMessage
     {
         public string Message { get; set; }
         public DateTime Timestamp { get; set; }
-    }
+    }*/
 }

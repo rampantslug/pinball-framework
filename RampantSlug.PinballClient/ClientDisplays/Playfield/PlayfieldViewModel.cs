@@ -21,11 +21,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
     public sealed class PlayfieldViewModel : Screen, IPlayfield, 
         IHandle<UpdatePlayfieldImage>,
         IHandle<CommonViewModelsLoaded>,
-        IHandle<AllSwitchesVisibility>,
-        IHandle<AllCoilsVisibility>,
-        IHandle<AllStepperMotorsVisibility>,
-        IHandle<AllServosVisibility>,
-        IHandle<AllLedsVisibility>,
+        IHandle<AllSwitchesVisibilityEvent>,
+        IHandle<AllCoilsVisibilityEvent>,
+        IHandle<AllStepperMotorsVisibilityEvent>,
+        IHandle<AllServosVisibilityEvent>,
+        IHandle<AllLedsVisibilityEvent>,
         IHandle<HighlightSwitch>
     {
         private IEventAggregator _eventAggregator;
@@ -317,27 +317,27 @@ namespace RampantSlug.PinballClient.ClientDisplays.Playfield
 
         }
 
-        public void Handle(AllSwitchesVisibility message)
+        public void Handle(AllSwitchesVisibilityEvent message)
         {
             AllSwitchesVis = message.IsVisible;
         }
 
-        public void Handle(AllCoilsVisibility message)
+        public void Handle(AllCoilsVisibilityEvent message)
         {
             AllCoilsVis = message.IsVisible;
         }
 
-        public void Handle(AllStepperMotorsVisibility message)
+        public void Handle(AllStepperMotorsVisibilityEvent message)
         {
             AllStepperMotorsVis = message.IsVisible;
         }
 
-        public void Handle(AllServosVisibility message)
+        public void Handle(AllServosVisibilityEvent message)
         {
             AllServosVis = message.IsVisible;
         }
 
-        public void Handle(AllLedsVisibility message)
+        public void Handle(AllLedsVisibilityEvent message)
         {
             AllLedsVis = message.IsVisible;
         }

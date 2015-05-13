@@ -5,27 +5,27 @@ using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.Events
 {
-    public class AllSwitchesVisibility
+    public class AllSwitchesVisibilityEvent
     {
         public bool IsVisible { get; set; }
     }
 
-    public class AllCoilsVisibility
+    public class AllCoilsVisibilityEvent
     {
         public bool IsVisible { get; set; }
     }
 
-    public class AllStepperMotorsVisibility
+    public class AllStepperMotorsVisibilityEvent
     {
         public bool IsVisible { get; set; }
     }
 
-    public class AllServosVisibility
+    public class AllServosVisibilityEvent
     {
         public bool IsVisible { get; set; }
     }
 
-    public class AllLedsVisibility
+    public class AllLedsVisibilityEvent
     {
         public bool IsVisible { get; set; }
     }

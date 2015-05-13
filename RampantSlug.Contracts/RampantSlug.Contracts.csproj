@@ -64,8 +64,7 @@
     <Compile Include="IConfigMessage.cs" />
     <Compile Include="IConfigureDeviceMessage.cs" />
     <Compile Include="IUpdateDeviceMessage.cs" />
-    <Compile Include="IEventMessage.cs" />
-    <Compile Include="ISimpleMessage.cs" />
+    <Compile Include="ILogMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

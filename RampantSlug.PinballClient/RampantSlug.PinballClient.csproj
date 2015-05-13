@@ -131,16 +131,16 @@
     <Compile Include="ContractImplementations\UpdateDeviceMessageConsumer.cs" />
     <Compile Include="ContractImplementations\RequestConfigMessage.cs" />
     <Compile Include="ContractImplementations\ConfigureDeviceMessage.cs" />
-    <Compile Include="ContractImplementations\EventMessageConsumer.cs" />
+    <Compile Include="ContractImplementations\LogMessageConsumer.cs" />
     <Compile Include="Events\DeviceChange.cs" />
     <Compile Include="Events\CommonViewModelsLoaded.cs" />
-    <Compile Include="Events\AllDevicesVisibility.cs" />
+    <Compile Include="Events\AllDevicesVisibilityEvent.cs" />
     <Compile Include="Events\UpdateConfigEvent.cs" />
     <Compile Include="Events\UpdateDevice.cs" />
     <Compile Include="Events\UpdatePlayfieldImage.cs" />
     <Compile Include="Events\ShowDeviceConfig.cs" />
     <Compile Include="Events\HighlightDevice.cs" />
-    <Compile Include="Events\DisplayMessageResults.cs" />
+    <Compile Include="Events\LogEvent.cs" />
     <Compile Include="IClientBusController.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceType.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTypeViewModel.cs" />
@@ -162,7 +162,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ContractImplementations\SimpleMessageConsumer.cs" />
     <Compile Include="CommonViewModels\SwitchViewModel.cs" />
     <Page Include="ClientDisplays\DeviceInformation\DynamicWireIconView.xaml">
       <Generator>MSBuild:Compile</Generator>

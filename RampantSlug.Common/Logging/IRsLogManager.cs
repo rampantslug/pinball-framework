@@ -2,6 +2,7 @@
 {
     public interface IRsLogManager
     {
-        void LogTestMessage(string message);
+        void LogMessage(LogEventType eventType, OriginatorType originator, string originatorName, string status,
+            string information);
     }
 }

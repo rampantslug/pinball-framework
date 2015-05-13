@@ -11,13 +11,13 @@ using RampantSlug.PinballClient.Events;
 namespace RampantSlug.PinballClient.ClientDisplays.LogMessages
 {
     //[Export(typeof(IClientDisplay))]
-    public class LogMessagesViewModel : Screen, IHandle<DisplayMessageResults>, ILogMessages//, IClientDisplay
+    public class LogMessagesViewModel : Screen, IHandle<LogEvent>, ILogMessages//, IClientDisplay
     {
-        private BindableCollection<DisplayMessageResults> _events;
+        private BindableCollection<LogEvent> _events;
 
         public string ClientDisplayName { get { return "Log"; } }
 
-        public BindableCollection<DisplayMessageResults> Events
+        public BindableCollection<LogEvent> Events
         {
             get
             {
@@ -34,7 +34,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.LogMessages
         {
            
 
-            _events = new BindableCollection<DisplayMessageResults>();
+            _events = new BindableCollection<LogEvent>();
         }
 
         protected override void OnViewLoaded(object view)
@@ -46,7 +46,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.LogMessages
         }
 
 
-        public void Handle(DisplayMessageResults message)
+        public void Handle(LogEvent message)
         {
             while(Events.Count >= 200)
             {

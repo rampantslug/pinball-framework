@@ -7,11 +7,13 @@ using System.ComponentModel.Composition;
 using RampantSlug.PinballClient;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MahApps.Metro.Controls;
+using RampantSlug.Common.Logging;
 using RampantSlug.PinballClient.ClientDisplays.LogMessages;
 using RampantSlug.PinballClient.ClientDisplays.DeviceInformation;
 using RampantSlug.PinballClient.ClientDisplays.SwitchMatrix;
@@ -426,14 +428,14 @@ namespace RampantSlug.PinballClient {
                 Leds.Add(new LedViewModel(led));
             }
 
-            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            _eventAggregator.PublishOnUIThread(new LogEvent
             {
                 Timestamp = DateTime.Now,
-                EventType = "System",
-                Name = "Received Settings",
-                State = "OK",
-                Information = "Updated system information from config."
-
+                EventType = LogEventType.Info,
+                OriginatorType = OriginatorType.System,
+                OriginatorName = "Machine Settings",
+                Status = "Received",
+                Information = "Received machine settings from server."
             });
 
             // Notify Client Displays that Common View Models are updated
@@ -453,98 +455,103 @@ namespace RampantSlug.PinballClient {
 
 
         public void Handle(UpdateSwitch deviceMessage)
-        {          
-            foreach (var swVM in Switches.Where(swVM => swVM.Number == deviceMessage.Device.Number))
-            {
-                swVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);             
-            }
+        {
+            var switchViewModel = Switches.FirstOrDefault(swVM => swVM.Number == deviceMessage.Device.Number);
 
-            // Now create log message...
-            // TODO: This needs to be cleaned up to have better information            
-            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            if (switchViewModel != null)
             {
-                Timestamp = deviceMessage.Timestamp,
-                EventType = "System",
-                Name = "Event Message",
-                State = "OK",
-                Information = "Switch Event for: " + deviceMessage.Device.Name
-            });
+                 switchViewModel.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+
+                _eventAggregator.PublishOnUIThread(new LogEvent
+                {
+                    Timestamp = deviceMessage.Timestamp,
+                    EventType = LogEventType.Info,
+                    OriginatorType = OriginatorType.Switch,
+                    OriginatorName = switchViewModel.Name,
+                    Status = switchViewModel.State,
+                    Information = "Switch Event for: " + switchViewModel.Name
+                });
+            }
         }
 
         public void Handle(UpdateCoil deviceMessage)
         {
-            foreach (var coilVM in Coils.Where(coilVM => coilVM.Number == deviceMessage.Device.Number))
-            {
-                coilVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
-            }
+            var coilViewModel = Coils.FirstOrDefault(coilVM => coilVM.Number == deviceMessage.Device.Number);
 
-            // Now create log message...
-            // TODO: This needs to be cleaned up to have better information            
-            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            if (coilViewModel != null)
             {
-                Timestamp = deviceMessage.Timestamp,
-                EventType = "System",
-                Name = "Event Message",
-                State = "OK",
-                Information = "Coil Event for: " + deviceMessage.Device.Name
-            });
+                coilViewModel.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+
+                _eventAggregator.PublishOnUIThread(new LogEvent
+                {
+                    Timestamp = deviceMessage.Timestamp,
+                    EventType = LogEventType.Info,
+                    OriginatorType = OriginatorType.Coil,
+                    OriginatorName = coilViewModel.Name,
+                    Status = coilViewModel.State,
+                    Information = "Coil Event for: " + coilViewModel.Name
+                });
+            }
         }
 
         public void Handle(UpdateStepperMotor deviceMessage)
         {
-            foreach (var stepperMotorVM in StepperMotors.Where(stepperMotorVM => stepperMotorVM.Number == deviceMessage.Device.Number))
-            {
-                stepperMotorVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
-            }
+            var stepperMotorViewModel = StepperMotors.FirstOrDefault(stepperMotorVM => stepperMotorVM.Number == deviceMessage.Device.Number);
 
-            // Now create log message...
-            // TODO: This needs to be cleaned up to have better information            
-            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            if (stepperMotorViewModel != null)
             {
-                Timestamp = deviceMessage.Timestamp,
-                EventType = "System",
-                Name = "Event Message",
-                State = "OK",
-                Information = "Stepper Motor Event for: " + deviceMessage.Device.Name
-            });
+                stepperMotorViewModel.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+
+                _eventAggregator.PublishOnUIThread(new LogEvent
+                {
+                    Timestamp = deviceMessage.Timestamp,
+                    EventType = LogEventType.Info,
+                    OriginatorType = OriginatorType.StepperMotor,
+                    OriginatorName = stepperMotorViewModel.Name,
+                    Status = stepperMotorViewModel.State,
+                    Information = "StepperMotor Event for: " + stepperMotorViewModel.Name
+                });
+            }
         }
 
         public void Handle(UpdateServo deviceMessage)
         {
-            foreach (var servoVM in Servos.Where(servoVM => servoVM.Number == deviceMessage.Device.Number))
-            {
-                servoVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
-            }
+            var servoViewModel = Servos.FirstOrDefault(servoVM => servoVM.Number == deviceMessage.Device.Number);
 
-            // Now create log message...
-            // TODO: This needs to be cleaned up to have better information            
-            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            if (servoViewModel != null)
             {
-                Timestamp = deviceMessage.Timestamp,
-                EventType = "System",
-                Name = "Event Message",
-                State = "OK",
-                Information = "Servo Event for: " + deviceMessage.Device.Name
-            });
+                servoViewModel.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+
+                _eventAggregator.PublishOnUIThread(new LogEvent
+                {
+                    Timestamp = deviceMessage.Timestamp,
+                    EventType = LogEventType.Info,
+                    OriginatorType = OriginatorType.Servo,
+                    OriginatorName = servoViewModel.Name,
+                    Status = servoViewModel.State,
+                    Information = "Servo Event for: " + servoViewModel.Name
+                });
+            }
         }
 
         public void Handle(UpdateLed deviceMessage)
         {
-            foreach (var ledVM in Leds.Where(ledVM => ledVM.Number == deviceMessage.Device.Number))
-            {
-                ledVM.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
-            }
+            var ledViewModel = Leds.FirstOrDefault(ledVM => ledVM.Number == deviceMessage.Device.Number);
 
-            // Now create log message...
-            // TODO: This needs to be cleaned up to have better information            
-            _eventAggregator.PublishOnUIThread(new DisplayMessageResults
+            if (ledViewModel != null)
             {
-                Timestamp = deviceMessage.Timestamp,
-                EventType = "System",
-                Name = "Event Message",
-                State = "OK",
-                Information = "Led Event for: " + deviceMessage.Device.Name
-            });
+                ledViewModel.UpdateDeviceInfo(deviceMessage.Device, deviceMessage.Timestamp);
+
+                _eventAggregator.PublishOnUIThread(new LogEvent
+                {
+                    Timestamp = deviceMessage.Timestamp,
+                    EventType = LogEventType.Info,
+                    OriginatorType = OriginatorType.Led,
+                    OriginatorName = ledViewModel.Name,
+                    Status = ledViewModel.State,
+                    Information = "Led Event for: " + ledViewModel.Name
+                });
+            }
         }
 
         #endregion

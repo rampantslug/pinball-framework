@@ -53,23 +53,23 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceTree
 
             if (_deviceType is SwitchType)
             {
-                eventAggregator.PublishOnUIThread(new AllSwitchesVisibility() { IsVisible = IsVisible});
+                eventAggregator.PublishOnUIThread(new AllSwitchesVisibilityEvent() { IsVisible = IsVisible});
             }
             else if (_deviceType is CoilType)
             {
-                eventAggregator.PublishOnUIThread(new AllCoilsVisibility() { IsVisible = IsVisible });
+                eventAggregator.PublishOnUIThread(new AllCoilsVisibilityEvent() { IsVisible = IsVisible });
             }
             else if (_deviceType is StepperMotorType)
             {
-                eventAggregator.PublishOnUIThread(new AllStepperMotorsVisibility() { IsVisible = IsVisible });
+                eventAggregator.PublishOnUIThread(new AllStepperMotorsVisibilityEvent() { IsVisible = IsVisible });
             }
             else if (_deviceType is ServoType)
             {
-                eventAggregator.PublishOnUIThread(new AllServosVisibility() { IsVisible = IsVisible });
+                eventAggregator.PublishOnUIThread(new AllServosVisibilityEvent() { IsVisible = IsVisible });
             }
             else if (_deviceType is LedType)
             {
-                eventAggregator.PublishOnUIThread(new AllLedsVisibility() { IsVisible = IsVisible });
+                eventAggregator.PublishOnUIThread(new AllLedsVisibilityEvent() { IsVisible = IsVisible });
             }
         }
     }

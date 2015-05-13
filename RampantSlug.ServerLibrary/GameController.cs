@@ -150,7 +150,7 @@ namespace RampantSlug.ServerLibrary
             }
             catch (Exception ex)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Error Processing Configuration " + ex.Message);
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Error, OriginatorType.System, "Server", "Configuration", "Error processing configuration: " + ex.Message);
                 return false;
             }
         }
@@ -164,7 +164,7 @@ namespace RampantSlug.ServerLibrary
             }
             else
             {
-                RsLogManager.GetCurrent.LogTestMessage("Server not using hardware. Simulation only.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, "Server", "Simulation", "Server not using hardware. Simulation only.");
             }
         }
 
@@ -247,7 +247,7 @@ namespace RampantSlug.ServerLibrary
 
             if (message.Command == CoilCommand.PulseActive)
             {
-                RsLogManager.GetCurrent.LogTestMessage("Command to pulse Coil: " + message.Device.Name + " to " + message.Command.ToString());
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.Coil, message.Device.Name, message.Command.ToString(), "Client command to pulse Coil.");
                 
                 updatedCoil.State = "Pulsing";
 
@@ -282,7 +282,7 @@ namespace RampantSlug.ServerLibrary
                 _eventAggregator.PublishOnUIThread(new UpdateStepperMotorEvent() { Device = updatedStepperMotor });
             }
 
-            RsLogManager.GetCurrent.LogTestMessage("Command to rotate Stepper Motor: " + message.Device.Name + " to " + message.Command.ToString());
+            RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.StepperMotor, message.Device.Name, message.Command.ToString(), "Client command to rotate Stepper Motor.");
 
            
 
@@ -318,7 +318,7 @@ namespace RampantSlug.ServerLibrary
                 _eventAggregator.PublishOnUIThread(new UpdateServoEvent() { Device = updatedServo });
             }
 
-            RsLogManager.GetCurrent.LogTestMessage("Command to rotate Servo: " + message.Device.Name + " to " + message.Command.ToString());
+            RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.Servo, message.Device.Name, message.Command.ToString(), "Client command to rotate Servo.");
 
         }
 
@@ -337,8 +337,7 @@ namespace RampantSlug.ServerLibrary
                 updatedLed.State = "Off";
                 _eventAggregator.PublishOnUIThread(new UpdateLedEvent() { Device = updatedLed });
             }
-
-            RsLogManager.GetCurrent.LogTestMessage("Command on Led : " + message.Device.Name + " is changing to " + message.Command.ToString());
+            RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.Led, message.Device.Name, message.Command.ToString(), "Client command to change Led.");
         }
 
         #endregion
@@ -524,10 +523,10 @@ namespace RampantSlug.ServerLibrary
             {
                 if (Devices.AddSwitch(updatedSwitch))
                 {
-                    RsLogManager.GetCurrent.LogTestMessage("Added switch " + updatedSwitch.Name + " to config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedSwitch.Name, "Add to config", "Added switch to config.");
                     return true;
                 }
-                RsLogManager.GetCurrent.LogTestMessage("Invalid switch settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedSwitch.Name, "Add to config", "Invalid switch settings. Not saving to config.");
                 return false;
             }
 
@@ -537,17 +536,17 @@ namespace RampantSlug.ServerLibrary
                 if (removeDevice)
                 {
                     Devices.RemoveSwitch(updatedSwitch.Number);
-                    RsLogManager.GetCurrent.LogTestMessage("Removed switch " + updatedSwitch.Name + " from config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedSwitch.Name, "Remove from config", "Removed switch from config.");
                 }
                 else
                 {
                     Devices.UpdateSwitch(updatedSwitch.Number, updatedSwitch);
-                    RsLogManager.GetCurrent.LogTestMessage("Updated switch " + updatedSwitch.Name + "in config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedSwitch.Name, "Update config", "Updated switch in config.");
                 }
                 return true;
             }
                 // Something has gone wrong. Should have generated a Number based on Address
-                RsLogManager.GetCurrent.LogTestMessage("Invalid switch settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedSwitch.Name, "Configuration", "Invalid switch settings. Not saving to config.");
                 return false;
         }
 
@@ -558,10 +557,10 @@ namespace RampantSlug.ServerLibrary
             {
                 if (Devices.AddCoil(updatedCoil))
                 {
-                    RsLogManager.GetCurrent.LogTestMessage("Added coil " + updatedCoil.Name + " to config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedCoil.Name, "Add to config", "Added coil to config.");
                     return true;
                 }
-                RsLogManager.GetCurrent.LogTestMessage("Invalid coil settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedCoil.Name, "Add to config", "Invalid coil settings. Not saving to config.");
                 return false;
             }
 
@@ -571,19 +570,19 @@ namespace RampantSlug.ServerLibrary
                 if (removeDevice)
                 {
                     Devices.RemoveCoil(updatedCoil.Number);
-                    RsLogManager.GetCurrent.LogTestMessage("Removed coil " + updatedCoil.Name + " from config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedCoil.Name, "Remove from config", "Removed coil from config.");
                 }
                 else
                 {
                     Devices.UpdateCoil(updatedCoil.Number, updatedCoil);
-                    RsLogManager.GetCurrent.LogTestMessage("Updated coil " + updatedCoil.Name + "in config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedCoil.Name, "Update config", "Updated coil in config.");
                 }
                 return true;
             }
             else 
             {
                 // Something has gone wrong. Should have generated a Number based on Address
-                RsLogManager.GetCurrent.LogTestMessage("Invalid coil settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedCoil.Name, "Configuration", "Invalid coil settings. Not saving to config.");
                 return false;
             }
         }
@@ -595,10 +594,10 @@ namespace RampantSlug.ServerLibrary
             {
                 if (Devices.AddStepperMotor(updatedStepperMotor))
                 {
-                    RsLogManager.GetCurrent.LogTestMessage("Added stepperMotor " + updatedStepperMotor.Name + " to config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedStepperMotor.Name, "Add to config", "Added stepper motor to config.");
                     return true;
                 }
-                RsLogManager.GetCurrent.LogTestMessage("Invalid stepperMotor settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedStepperMotor.Name, "Add to config", "Invalid stepper motor settings. Not saving to config.");
                 return false;
             }
 
@@ -608,20 +607,19 @@ namespace RampantSlug.ServerLibrary
                 if (removeDevice)
                 {
                     Devices.RemoveStepperMotor(updatedStepperMotor.Number);
-                    RsLogManager.GetCurrent.LogTestMessage("Removed stepper motor " + updatedStepperMotor.Name + " from config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedStepperMotor.Name, "Remove from config", "Removed stepper motor from config.");
                 }
                 else
                 {
                     Devices.UpdateStepperMotor(updatedStepperMotor.Number, updatedStepperMotor);
-                    RsLogManager.GetCurrent.LogTestMessage("Updated stepper motor " + updatedStepperMotor.Name +
-                                                           "in config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedStepperMotor.Name, "Update config", "Updated stepper motor in config.");
                 }
                 return true;
             }
             else 
             {
                 // Something has gone wrong. Should have generated a Number based on Address
-                RsLogManager.GetCurrent.LogTestMessage("Invalid stepper motor settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedStepperMotor.Name, "Configuration", "Invalid stepper motor settings. Not saving to config.");
                 return false;
             }
         }
@@ -633,10 +631,10 @@ namespace RampantSlug.ServerLibrary
             {
                 if (Devices.AddServo(updatedServo))
                 {
-                    RsLogManager.GetCurrent.LogTestMessage("Added servo " + updatedServo.Name + " to config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedServo.Name, "Add to config", "Added servo to config.");
                     return true;
                 }
-                RsLogManager.GetCurrent.LogTestMessage("Invalid servo settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedServo.Name, "Add to config", "Invalid servo settings. Not saving to config.");
                 return false;
             }
 
@@ -646,19 +644,19 @@ namespace RampantSlug.ServerLibrary
                 if (removeDevice)
                 {
                     Devices.RemoveServo(updatedServo.Number);
-                    RsLogManager.GetCurrent.LogTestMessage("Removed servo " + updatedServo.Name + " from config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedServo.Name, "Remove from config", "Removed servo from config.");
                 }
                 else
                 {
                     Devices.UpdateServo(updatedServo.Number, updatedServo);
-                    RsLogManager.GetCurrent.LogTestMessage("Updated servo " + updatedServo.Name + " in config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedServo.Name, "Update config", "Updated servo in config.");
                 }
                 return true;
             }
             else 
             {
                 // Something has gone wrong. Should have generated a Number based on Address
-                RsLogManager.GetCurrent.LogTestMessage("Invalid servo settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedServo.Name, "Configuration", "Invalid servo settings. Not saving to config.");
                 return false;
             }
         }
@@ -670,10 +668,10 @@ namespace RampantSlug.ServerLibrary
             {
                 if (Devices.AddLed(updatedLed))
                 {
-                    RsLogManager.GetCurrent.LogTestMessage("Added led " + updatedLed.Name + " to config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedLed.Name, "Add to config", "Added led to config.");
                     return true;
                 }
-                RsLogManager.GetCurrent.LogTestMessage("Invalid led settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedLed.Name, "Add to config", "Invalid led settings. Not saving to config.");
                 return false;
             }
 
@@ -683,19 +681,19 @@ namespace RampantSlug.ServerLibrary
                 if (removeDevice)
                 {
                     Devices.RemoveLed(updatedLed.Number);
-                    RsLogManager.GetCurrent.LogTestMessage("Removed led " + updatedLed.Name + " from config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedLed.Name, "Remove from config", "Removed led from config.");
                 }
                 else
                 {
                     Devices.UpdateLed(updatedLed.Number, updatedLed);
-                    RsLogManager.GetCurrent.LogTestMessage("Updated led " + updatedLed.Name + "in config.");
+                    RsLogManager.GetCurrent.LogMessage(LogEventType.Info, OriginatorType.System, updatedLed.Name, "Update config", "Updated led in config.");
                 }
                 return true;
             }
             else 
             {                
                 // Something has gone wrong. Should have generated a Number based on Address
-                RsLogManager.GetCurrent.LogTestMessage("Invalid led settings. Not saving to config.");
+                RsLogManager.GetCurrent.LogMessage(LogEventType.Warn, OriginatorType.System, updatedLed.Name, "Configuration", "Invalid led settings. Not saving to config.");
                 return false;
             }
         }

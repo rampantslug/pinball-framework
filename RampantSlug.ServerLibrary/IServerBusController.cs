@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RampantSlug.Common;
+using RampantSlug.Common.Logging;
 
 namespace RampantSlug.ServerLibrary
 {
@@ -12,9 +13,7 @@ namespace RampantSlug.ServerLibrary
     {
         void Start();
 
-        void SendEventMessage(string text);
-
-        void SendSimpleMessage(string text);
+        void SendLogMessage(LogEventType eventType, OriginatorType originator, string originatorName, string status, string information);
 
         void SendConfigurationMessage(Configuration configuration);
 

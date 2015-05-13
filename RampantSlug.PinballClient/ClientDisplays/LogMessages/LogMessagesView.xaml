@@ -20,22 +20,26 @@
                         Header="Timestamp" 
                         Binding="{Binding Timestamp}" 
                         Width="150"/>
-                <DataGridTextColumn 
+                <DataGridTextColumn
                         Header="Event Type" 
                         Binding="{Binding EventType}" 
                         Width="100"/>
                 <DataGridTextColumn 
-                        Header="Name" 
-                        Binding="{Binding Name}" 
+                        Header="Originator Type" 
+                        Binding="{Binding OriginatorType}" 
+                        Width="130"/>
+                <DataGridTextColumn 
+                        Header="Originator Name" 
+                        Binding="{Binding OriginatorName}" 
                         Width="150"/>
                 <DataGridTextColumn 
-                        Header="State" 
-                        Binding="{Binding State}" 
-                        Width="100"/>
+                        Header="Status" 
+                        Binding="{Binding Status}" 
+                        Width="150"/>
                 <DataGridTextColumn 
                         Header="Information" 
                         Binding="{Binding Information}" 
-                        Width="300"/>
+                        />
 
             </DataGrid.Columns>
         </DataGrid>

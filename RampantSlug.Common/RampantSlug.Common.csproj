@@ -118,6 +118,8 @@
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\IRsLogManager.cs" />
     <Compile Include="DeviceAddress\PdsAddress.cs" />
+    <Compile Include="Logging\LogEventType.cs" />
+    <Compile Include="Logging\OriginatorType.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeviceAddress\PsmAddress.cs" />
