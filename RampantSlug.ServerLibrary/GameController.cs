@@ -703,7 +703,7 @@ namespace RampantSlug.ServerLibrary
         {
             var filePath = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
             var config = PopulateConfiguration();
-            config.ToFile(filePath + @"\testoutput.json");
+            config.ToFile(filePath + @"\Configuration\machine.json");
         }
 
 

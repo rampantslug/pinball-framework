@@ -235,6 +235,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _selectedInputWirePrimaryColor = value;
                 NotifyOfPropertyChange(() => SelectedInputWirePrimaryColor);
                 InputWire.PrimaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedInputWirePrimaryColor);
+                Switch.InputWirePrimaryBrush = InputWire.PrimaryWireColor;
             }
         }
 
@@ -259,6 +260,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _selectedInputWireSecondaryColor = value;
                 NotifyOfPropertyChange(() => SelectedInputWireSecondaryColor);
                 InputWire.SecondaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedInputWireSecondaryColor);
+                Switch.InputWireSecondaryBrush = InputWire.SecondaryWireColor;
             }
         }
 
@@ -284,6 +286,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _selectedOutputWirePrimaryColor = value;
                 NotifyOfPropertyChange(() => SelectedOutputWirePrimaryColor);
                 OutputWire.PrimaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedOutputWirePrimaryColor);
+                Switch.OutputWirePrimaryBrush = OutputWire.PrimaryWireColor;
             }
         }
 
@@ -308,6 +311,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
                 _selectedOutputWireSecondaryColor = value;
                 NotifyOfPropertyChange(() => SelectedOutputWireSecondaryColor);
                 OutputWire.SecondaryWireColor = ColorBrushesHelper.ConvertStringToBrush(SelectedOutputWireSecondaryColor);
+                Switch.OutputWireSecondaryBrush = OutputWire.SecondaryWireColor;
             }
         }
 

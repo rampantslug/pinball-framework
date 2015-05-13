@@ -13,7 +13,7 @@ namespace RampantSlug.Common
 
         public static ObservableCollection<string> GetColorStrings()
         {
-            return new ObservableCollection<string>() { "Green", "Red", "Blue", "Yellow", "Pink", "White", "Brown", "Black", "Orange" };
+            return new ObservableCollection<string>() { "Green", "Red", "Blue", "Yellow", "Pink", "White", "Brown", "Black", "Orange", "Gray", "Purple" };
         }
 
         public static SolidColorBrush ConvertStringToBrush(string colorName)
@@ -55,6 +55,14 @@ namespace RampantSlug.Common
                 case "Orange":
                     {
                         return Brushes.Orange;
+                    }
+                case "Gray":
+                    {
+                        return Brushes.Gray;
+                    }
+                case "Purple":
+                    {
+                        return Brushes.Purple;
                     }
             }
             return Brushes.Transparent;
@@ -101,6 +109,14 @@ namespace RampantSlug.Common
                 case "#FFFFA500":
                     {
                         return "Orange";
+                    }
+                case "#FF808080":
+                    {
+                        return "Gray";
+                    }
+                case "#FF800080":
+                    {
+                        return "Purple";
                     }
             }
             return "White";

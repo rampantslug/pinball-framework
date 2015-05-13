@@ -32,6 +32,12 @@ namespace RampantSlug.Common.Devices
         /// </summary>
         public string State { get; set; }
 
+        public string InputWirePrimaryColor { get; set; }
+        public string InputWireSecondaryColor { get; set; }
+        public string OutputWirePrimaryColor { get; set; }
+        public string OutputWireSecondaryColor { get; set; }
+
+
         /// <summary>
         /// Horizontal position of the device on the playfield. 
         /// 0 = left most side of the playfield image, 100 = right most .

@@ -35,7 +35,7 @@ namespace RampantSlug.ServerLibrary
         {
             Attract = new Attract(Game);
             BaseGameMode = new BaseGame(Game);
-            string[] troughSwitchnames = new string[5] { "trough1", "trough2", "trough3", "trough4", "trough5" };
+  /*          string[] troughSwitchnames = new string[5] { "trough1", "trough2", "trough3", "trough4", "trough5" };
             BallTrough = new BallTrough(Game,
                                 troughSwitchnames,
                                 "trough5",
@@ -43,7 +43,7 @@ namespace RampantSlug.ServerLibrary
                                 new string[] { "leftOutlane", "rightOutlane" },
                                 "shooterLane");
             _modes.Add(Attract);
-            _modes.Add(BallTrough);
+            _modes.Add(BallTrough);*/
 
         }
 

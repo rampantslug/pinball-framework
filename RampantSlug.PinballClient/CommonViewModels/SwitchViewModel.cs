@@ -35,21 +35,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
             get { return "Switch"; }
         }
 
-
-      /*  public string SwitchState
-        {
-            get { return _switchState; }
-            private set
-            {
-                _switchState = value;
-                NotifyOfPropertyChange(() => SwitchState);
-            }
-        }*/
-
-        public SolidColorBrush InputWirePrimaryBrush { get; set; }
-        public SolidColorBrush InputWireSecondaryBrush { get; set; }
-        public SolidColorBrush OutputWirePrimaryBrush { get; set; }
-        public SolidColorBrush OutputWireSecondaryBrush { get; set; }
+       
 
         public SwitchType Type
         {

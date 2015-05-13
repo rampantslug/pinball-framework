@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media;
 using Caliburn.Micro;
+using RampantSlug.Common;
 using RampantSlug.Common.DeviceAddress;
 using RampantSlug.Common.Devices;
 using RampantSlug.PinballClient.Events;
@@ -24,7 +26,7 @@ namespace RampantSlug.PinballClient.CommonViewModels
         {
             get
             {
-                return _device.Number;
+                return Device.Number;
             }
         }
 
@@ -63,7 +65,60 @@ namespace RampantSlug.PinballClient.CommonViewModels
             set
             {
                 _address = value;
+                Device.Address = _address.AddressString;
                 NotifyOfPropertyChange(() => Address);
+            }
+        }
+
+        public SolidColorBrush InputWirePrimaryBrush
+        {
+            get
+            {
+                return ColorBrushesHelper.ConvertStringToBrush(Device.InputWirePrimaryColor);
+            }
+            set
+            {
+                var colorString = ColorBrushesHelper.ConvertBrushToString(value);
+                Device.InputWirePrimaryColor = colorString;
+            }
+        }
+
+        public SolidColorBrush InputWireSecondaryBrush
+        {
+            get
+            {
+                return ColorBrushesHelper.ConvertStringToBrush(Device.InputWireSecondaryColor);
+            }
+            set
+            {
+                var colorString = ColorBrushesHelper.ConvertBrushToString(value);
+                Device.InputWireSecondaryColor = colorString;
+            }
+        }
+
+        public SolidColorBrush OutputWirePrimaryBrush
+        {
+            get
+            {
+                return ColorBrushesHelper.ConvertStringToBrush(Device.OutputWirePrimaryColor);
+            }
+            set
+            {
+                var colorString = ColorBrushesHelper.ConvertBrushToString(value);
+                Device.OutputWirePrimaryColor = colorString;
+            }
+        }
+
+        public SolidColorBrush OutputWireSecondaryBrush
+        {
+            get
+            {
+                return ColorBrushesHelper.ConvertStringToBrush(Device.OutputWireSecondaryColor);
+            }
+            set
+            {
+                var colorString = ColorBrushesHelper.ConvertBrushToString(value);
+                Device.OutputWireSecondaryColor = colorString;
             }
         }
 

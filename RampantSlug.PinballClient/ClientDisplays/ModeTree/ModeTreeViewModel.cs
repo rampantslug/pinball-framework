@@ -64,7 +64,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.ModeTree
 
             _firstGeneration.Add(new ModeItemViewModel("Attract", new ObservableCollection<SwitchHandlerViewModel>()
             {
-                new SwitchHandlerViewModel("Start Game", 33, "startButton")
+                new SwitchHandlerViewModel("Start Game", 33, "Start Button")
             }));
 
             _firstGeneration.Add(new ModeItemViewModel("Trough", new ObservableCollection<SwitchHandlerViewModel>()

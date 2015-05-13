@@ -17,6 +17,11 @@ namespace RampantSlug.Common.Devices
 
         string State { get; set; }
 
+        string InputWirePrimaryColor { get; set; }
+        string InputWireSecondaryColor { get; set; }
+        string OutputWirePrimaryColor { get; set; }
+        string OutputWireSecondaryColor { get; set; }
+
         double VirtualLocationX { get; set; }
 
         double VirtualLocationY { get; set; }

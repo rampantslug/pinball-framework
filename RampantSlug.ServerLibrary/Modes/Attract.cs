@@ -26,7 +26,7 @@ namespace RampantSlug.ServerLibrary.Modes
             Game.Display.MainScore.ModeText = "Test";
         }
 
-        public bool sw_startButton_active(Switch sw)
+        public bool sw_Start_Button_active(Switch sw)
         {
             //if (Game.trough.is_full())
             //{
