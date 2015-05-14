@@ -5,12 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using RampantSlug.Common.Commands;
+using RampantSlug.Common.DeviceAddress;
 using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
@@ -20,7 +25,10 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
     {
 
         private LedViewModel _led;
-        private ImageSource _deviceTypeImage;
+        private ImageSource _refinedTypeImage;
+        private ObservableCollection<IAddress> _supportedHardwareLeds;
+        private IAddress _selectedSupportedHardwareLed;
+        private ushort _ledId;
 
         #region Properties
 
@@ -35,36 +43,69 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public string Address
-        {
-            get { return _led.Address.AddressString; }
-            private set
-            {
-                //_led.Address = value;
-                NotifyOfPropertyChange(() => Address);
-            }
-        }
-
-        public ImageSource DeviceTypeImage
+        public ImageSource RefinedTypeImage
         {
             get
             {
-                return _deviceTypeImage;
+                return _refinedTypeImage;
             }
             set
             {
-                _deviceTypeImage = value;
-                NotifyOfPropertyChange(() => DeviceTypeImage);
+                _refinedTypeImage = value;
+                NotifyOfPropertyChange(() => RefinedTypeImage);
+                NotifyOfPropertyChange(() => RefinedTypeImageExists);
             }
+        }
+
+        public bool RefinedTypeImageExists
+        {
+            get
+            {
+                return RefinedTypeImage != null;
+            }
+
         }
 
         public ObservableCollection<HistoryRowViewModel> PreviousStates
         {
             get
             {
-                return _led.PreviousStates;
+                return Led.PreviousStates;
             }
 
+        }
+
+        public ObservableCollection<IAddress> SupportedHardwareLeds
+        {
+            get
+            {
+                return _supportedHardwareLeds;
+            }
+            set
+            {
+                _supportedHardwareLeds = value;
+                NotifyOfPropertyChange(() => SupportedHardwareLeds);
+            }
+        }
+
+        public IAddress SelectedSupportedHardwareLed
+        {
+            get { return _selectedSupportedHardwareLed; }
+            set
+            {
+                _selectedSupportedHardwareLed = value;
+                NotifyOfPropertyChange(() => SelectedSupportedHardwareLed);
+            }
+        }
+
+        public ushort LedId
+        {
+            get { return _ledId; }
+            set
+            {
+                _ledId = value;
+                NotifyOfPropertyChange(() => LedId);
+            }
         }
         
 
@@ -78,11 +119,16 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             _led = ledvm;
 
-            var path = System.IO.Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\DeviceResources\Leds\RGB.png";
+            LoadRefinedImage();
 
-            DeviceTypeImage = new BitmapImage(new Uri(additionalpath));
-            
+            // Initialise Address
+            _supportedHardwareLeds = new ObservableCollection<IAddress> { new PlbAddress() };
+            SelectedSupportedHardwareLed = SupportedHardwareLeds[0];
+            var procLedBoard = Led.Address as PlbAddress;
+            if (procLedBoard != null)
+            {
+                LedId = procLedBoard.AddressId;
+            }
         }
 
 
@@ -108,6 +154,35 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             _led.DeactivateLed();
         }
- 
+
+        private void LoadRefinedImage()
+        {
+            var path = Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\Leds\" + Led.RefinedType + ".png";
+
+            if (File.Exists(additionalpath))
+            {
+                RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
+            }
+        }
+
+        public async void SelectRefinedType()
+        {
+            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+            var path = Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\Leds\";
+
+            var dialog = new GallerySelectorDialog(additionalpath, metroWindow);
+            await metroWindow.ShowMetroDialogAsync(dialog);
+
+            var result = await dialog.WaitForButtonPressAsync();
+            if (!string.IsNullOrEmpty(result))
+            {
+                Led.RefinedType = result;
+                LoadRefinedImage();
+            }
+            await metroWindow.HideMetroDialogAsync(dialog);
+        }
+
     }
 }

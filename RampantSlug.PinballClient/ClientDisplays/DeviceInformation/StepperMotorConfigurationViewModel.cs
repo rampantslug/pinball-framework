@@ -5,12 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using RampantSlug.Common.Commands;
+using RampantSlug.Common.DeviceAddress;
 using RampantSlug.PinballClient.CommonViewModels;
 
 namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
@@ -22,6 +27,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
         private StepperMotorViewModel _stepperMotor;
         private ImageSource _refinedTypeImage;
+        private ObservableCollection<IAddress> _supportedHardwareStepperMotors;
+        private IAddress _selectedSupportedHardwareStepperMotor;
+        private ushort _stepperMotorId;
+
+
 
         #endregion
 
@@ -37,16 +47,6 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
-        public string Address
-        {
-            get { return _stepperMotor.Address.AddressString; }
-            private set
-            {
-                //_stepperMotor.Address = value;
-                NotifyOfPropertyChange(() => Address);
-            }
-        }
-
         public ImageSource RefinedTypeImage
         {
             get
@@ -57,16 +57,58 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             {
                 _refinedTypeImage = value;
                 NotifyOfPropertyChange(() => RefinedTypeImage);
+                NotifyOfPropertyChange(() => RefinedTypeImageExists);
             }
         }
 
-        public string RefinedType
+        public bool RefinedTypeImageExists
         {
-            get { return _stepperMotor.RefinedType; }
+            get
+            {
+                return RefinedTypeImage != null;
+            }
+
+        }
+
+        public ObservableCollection<HistoryRowViewModel> PreviousStates
+        {
+            get
+            {
+                return StepperMotor.PreviousStates;
+            }
+
+        }
+
+        public ObservableCollection<IAddress> SupportedHardwareStepperMotors
+        {
+            get
+            {
+                return _supportedHardwareStepperMotors;
+            }
             set
             {
-                _stepperMotor.RefinedType = value;
-                NotifyOfPropertyChange(() => RefinedType);
+                _supportedHardwareStepperMotors = value;
+                NotifyOfPropertyChange(() => SupportedHardwareStepperMotors);
+            }
+        }
+
+        public IAddress SelectedSupportedHardwareStepperMotor
+        {
+            get { return _selectedSupportedHardwareStepperMotor; }
+            set
+            {
+                _selectedSupportedHardwareStepperMotor = value;
+                NotifyOfPropertyChange(() => SelectedSupportedHardwareStepperMotor);
+            }
+        }
+
+        public ushort StepperMotorId
+        {
+            get { return _stepperMotorId; }
+            set
+            {
+                _stepperMotorId = value;
+                NotifyOfPropertyChange(() => StepperMotorId);
             }
         }
 
@@ -83,10 +125,17 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         {
             _stepperMotor = stepperMotor;
 
-            var path = System.IO.Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\DeviceResources\StepperMotors\bipolar.png";
+            LoadRefinedImage();
 
-            RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
+            // Initialise Address
+            _supportedHardwareStepperMotors = new ObservableCollection<IAddress> { new AmsAddress() };
+            SelectedSupportedHardwareStepperMotor = SupportedHardwareStepperMotors[0];
+            var arduinoMotorShield = StepperMotor.Address as AmsAddress;
+            if (arduinoMotorShield != null)
+            {
+                StepperMotorId = arduinoMotorShield.AddressId;
+            }
+
         }
 
         #endregion
@@ -113,6 +162,33 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             _stepperMotor.RotateCounterClockwise();
         }
 
- 
+        private void LoadRefinedImage()
+        {
+            var path = Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\StepperMotors\" + StepperMotor.RefinedType + ".png";
+
+            if (File.Exists(additionalpath))
+            {
+                RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
+            }
+        }
+
+        public async void SelectRefinedType()
+        {
+            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+            var path = Directory.GetCurrentDirectory();
+            var additionalpath = path + @"\DeviceResources\StepperMotors\";
+
+            var dialog = new GallerySelectorDialog(additionalpath, metroWindow);
+            await metroWindow.ShowMetroDialogAsync(dialog);
+
+            var result = await dialog.WaitForButtonPressAsync();
+            if (!string.IsNullOrEmpty(result))
+            {
+                StepperMotor.RefinedType = result;
+                LoadRefinedImage();
+            }
+            await metroWindow.HideMetroDialogAsync(dialog);
+        }
     }
 }

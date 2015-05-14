@@ -33,8 +33,14 @@ namespace RampantSlug.ServerLibrary
 
         public void Initialise()
         {
-            Attract = new Attract(Game);
-            BaseGameMode = new BaseGame(Game);
+
+            //TODO: These are broken as the current switch handlers require exact string matches
+            // Need to be fixed!
+
+   //         Attract = new Attract(Game);
+   //         BaseGameMode = new BaseGame(Game);
+
+
   /*          string[] troughSwitchnames = new string[5] { "trough1", "trough2", "trough3", "trough4", "trough5" };
             BallTrough = new BallTrough(Game,
                                 troughSwitchnames,

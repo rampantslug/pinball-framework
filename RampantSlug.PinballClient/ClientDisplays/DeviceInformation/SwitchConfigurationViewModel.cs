@@ -24,6 +24,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
 
     public class SwitchConfigurationViewModel : Screen, IDeviceConfigurationScreen
     {
+        #region Fields
 
         private SwitchViewModel _switch;
         private ImageSource _refinedTypeImage;
@@ -32,7 +33,11 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private ushort _directSwitchId;
         private ushort _matrixColumn;
         private ushort _matrixRow;
+        private ObservableCollection<string> _switchTypes;
+        private string _selectedSwitchType;
 
+
+        // Wire Coloring...
         private ObservableCollection<string> _inputWirePrimaryColors;
         private string _selectedInputWirePrimaryColor;
         private ObservableCollection<string> _inputWireSecondaryColors;
@@ -42,11 +47,8 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         private string _selectedOutputWirePrimaryColor;
         private ObservableCollection<string> _outputWireSecondaryColors;
         private string _selectedOutputWireSecondaryColor;
-        private ObservableCollection<string> _switchTypes;
-        private string _selectedSwitchType;
 
-        public DynamicWireIconViewModel InputWire { get; private set; }
-        public DynamicWireIconViewModel OutputWire { get; private set; }
+        #endregion
 
         #region Properties
 
@@ -315,10 +317,16 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             }
         }
 
+        public DynamicWireIconViewModel InputWire { get; private set; }
+        public DynamicWireIconViewModel OutputWire { get; private set; }
+
         #endregion
 
 
         #endregion
+
+        #region Constructor
+
 
         /// <summary>
         /// 
@@ -326,7 +334,7 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
         /// <param name="switchvm"></param>
         public SwitchConfigurationViewModel(SwitchViewModel switchvm) 
         {
-            _switch = switchvm;
+            Switch = switchvm;
 
             LoadRefinedImage(); 
             
@@ -363,13 +371,13 @@ namespace RampantSlug.PinballClient.ClientDisplays.DeviceInformation
             OutputWirePrimaryColors = ColorBrushesHelper.GetColorStrings();
             OutputWireSecondaryColors = ColorBrushesHelper.GetColorStrings();
 
-            SelectedInputWirePrimaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.InputWirePrimaryBrush);
-            SelectedInputWireSecondaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.InputWireSecondaryBrush);
-            SelectedOutputWirePrimaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.OutputWirePrimaryBrush);
-            SelectedOutputWireSecondaryColor = ColorBrushesHelper.ConvertBrushToString(switchvm.OutputWireSecondaryBrush);            
+            SelectedInputWirePrimaryColor = ColorBrushesHelper.ConvertBrushToString(Switch.InputWirePrimaryBrush);
+            SelectedInputWireSecondaryColor = ColorBrushesHelper.ConvertBrushToString(Switch.InputWireSecondaryBrush);
+            SelectedOutputWirePrimaryColor = ColorBrushesHelper.ConvertBrushToString(Switch.OutputWirePrimaryBrush);
+            SelectedOutputWireSecondaryColor = ColorBrushesHelper.ConvertBrushToString(Switch.OutputWireSecondaryBrush);            
         }
 
-        
+        #endregion
 
 
         public void SaveDevice()
