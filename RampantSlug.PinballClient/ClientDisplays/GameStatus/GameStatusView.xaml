@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="RampantSlug.PinballClient.ClientDisplays.GameStatus.GameStatusView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        >
+    <Grid>
+        <TextBlock Text=" Game Status Goes Here"/>
+
+    </Grid>
+</UserControl>
