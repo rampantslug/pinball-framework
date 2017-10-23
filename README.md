@@ -2,6 +2,10 @@
 
 RampantSlug Pinball Framework
 
+[![Build status](https://ci.appveyor.com/api/projects/status/x5dr73knoafe5306?svg=true)](https://ci.appveyor.com/project/rampantslug/pinball-framework)
+
+
+
 ### What is this repository for? ###
 
 * Quick summary
