@@ -1,0 +1,6 @@
+﻿namespace ServerLibraryTests
+{
+    class ServerLibraryBootsrapperTests
+    {
+    }
+}
