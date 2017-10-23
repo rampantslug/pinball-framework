@@ -1,0 +1,4 @@
+﻿Original shapes were drawn in Expression Design using measured mm dimensions from physical inserts. These values are converted to pixels.
+Exported from Expression Design as xaml geometry to be used by WPF.
+
+Shapes that could be built from existing shapes class used that to enable easy changes in code if required. Other shapes, e.g. triangles and arrow have their path geometry inserted into the code.
