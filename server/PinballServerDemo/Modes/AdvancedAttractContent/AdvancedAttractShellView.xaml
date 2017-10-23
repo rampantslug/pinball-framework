@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="PinballServerDemo.Modes.AdvancedAttractContent.AdvancedAttractShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:serverDisplays="clr-namespace:ServerLibrary.ServerDisplays;assembly=ServerLibrary"
+        x:Name="UserControl"
+             >
+    <UserControl.Resources>
+     
+    </UserControl.Resources>
+    <Grid>
+    <MediaElement 
+            x:Name="BackgroundVideoPlayer"
+            UnloadedBehavior="Manual"
+            LoadedBehavior="Manual"
+            serverDisplays:Media.MediaSource="{Binding BackgroundVideoSource}"
+            serverDisplays:Media.PlayerState="{Binding BackgroundVideoState}"
+            Visibility="Visible"
+            cal:Message.Attach="[Event MediaEnded] = [Action IntroFinished()]"
+            />
+        <TextBlock
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            x:Name="MainText"
+            />
+    </Grid>
+</UserControl>
