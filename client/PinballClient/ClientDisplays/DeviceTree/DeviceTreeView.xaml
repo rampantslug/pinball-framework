@@ -1,0 +1,917 @@
+﻿<UserControl x:Class="PinballClient.ClientDisplays.DeviceTree.DeviceTreeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:DeviceTree="clr-namespace:PinballClient.ClientDisplays.DeviceTree"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:commonViewModels="clr-namespace:PinballClient.CommonViewModels"
+        xmlns:converters="clr-namespace:Common.Converters;assembly=Common">
+    <UserControl.Resources>
+        <converters:BooleanConditionConverter x:Key="BooleanConditionConverter" />
+        <converters:ConditionalValue x:Key="StateActiveConditionalValue" ConditionTrueValue="LawnGreen" ConditionFalseValue="Transparent" />
+        <Style 
+            x:Key="VisibilityIcon" 
+            TargetType="{x:Type Rectangle}">
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <DataTrigger 
+                    Binding="{Binding Path=IsVisible}" Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style 
+            x:Key="SwitchesVisibility" 
+            TargetType="{x:Type Rectangle}">    
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                                 Value="true">
+                    <Setter Property="Fill"
+                                    Value="{DynamicResource GrayBrush2}" />
+                </Trigger>
+                <DataTrigger 
+                    Binding="{Binding Path=DataContext.SwitchesVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}"  Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter 
+                        Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush 
+                                Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=DataContext.SwitchesVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style 
+            x:Key="CoilsVisibility" 
+            TargetType="{x:Type Rectangle}">
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                                 Value="true">
+                    <Setter Property="Fill"
+                                    Value="{DynamicResource GrayBrush2}" />
+                </Trigger>
+                <DataTrigger 
+                    Binding="{Binding Path=DataContext.CoilsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}"  Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter 
+                        Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush 
+                                Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=DataContext.CoilsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style 
+            x:Key="StepperMotorsVisibility" 
+            TargetType="{x:Type Rectangle}">
+            
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                                 Value="true">
+                    <Setter Property="Fill"
+                                    Value="{DynamicResource GrayBrush2}" />
+                </Trigger>
+                <DataTrigger 
+                    Binding="{Binding Path=DataContext.StepperMotorsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}"  Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter 
+                        Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush 
+                                Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=DataContext.StepperMotorsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style 
+            x:Key="ServosVisibility" 
+            TargetType="{x:Type Rectangle}">
+            
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                                 Value="true">
+                    <Setter Property="Fill"
+                                    Value="{DynamicResource GrayBrush2}" />
+                </Trigger>
+                <DataTrigger 
+                    Binding="{Binding Path=DataContext.ServosVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}"  Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter 
+                        Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush 
+                                Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=DataContext.ServosVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style 
+            x:Key="LedsVisibility" 
+            TargetType="{x:Type Rectangle}">
+            
+            <!-- Default (when Visibility = True) -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                                 Value="true">
+                    <Setter Property="Fill"
+                                    Value="{DynamicResource GrayBrush2}" />
+                </Trigger>
+                <DataTrigger 
+                    Binding="{Binding Path=DataContext.LedsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}"  Value="True">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Hide"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter 
+                        Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush 
+                                Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger Binding="{Binding Path=DataContext.LedsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}}" Value="False">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="Show"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="OpacityMask">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_moon_new}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="Control.Background" Value="{x:Null}" />
+            <Setter Property="Control.BorderBrush" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}"
+                            >
+                            <ContentPresenter 
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                RecognizesAccessKey="True" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Control.FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="{DynamicResource GrayBrush2}" />
+                   <!-- <Setter Property="Control.Background" Value="{DynamicResource AccentColorBrush}" />
+                    <Setter Property="Control.BorderBrush" Value="{DynamicResource AccentColorBrush}" /> -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="AddDevicePlusButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="8,0,2,0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Rectangle 
+                                    Width="12"
+                                    Height="12"
+                                    Fill="White">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_add}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                            <!-- TODO: Do we want to add a mouseover and pressed state to this?? -->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeviceTextOnlyButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="DeviceRotateClockwiseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_transform_rotate_clockwise}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeviceRotateCounterClockwiseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_transform_rotate_counterclockwise}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+      </Style>
+
+        <Style x:Key="DeviceLightBulbOnButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Rectangle 
+                            Width="12"
+                            Height="12"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_lightbulb_hue_on}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeviceLightBulbOffButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Rectangle 
+                            Margin="0,2,0,0"
+                            Width="8"
+                            Height="10"
+                            >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_lightbulb_hue}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="DeviceVisibilityButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Rectangle                           
+                            Width="12"
+                            Height="8"
+                            Style="{StaticResource VisibilityIcon}"   
+                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                            <!-- TODO: Do we want to add a mouseover and pressed state to this?? -->
+                        </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+    <ScrollViewer>
+        <StackPanel>
+            <!-- Switches -->
+            <Expander
+                >
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Text="SWITCHES"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                />
+                            <Button
+                                Grid.Column="1"
+                                Style="{StaticResource AddDevicePlusButtonStyle}"
+                                cal:Message.Attach="AddSwitch()" 
+                                ToolTip="Add Switch"
+                                />
+                            <Button 
+                                Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                cal:Message.Attach="HideShowSwitches()"
+                                BorderThickness="0"
+                                Style="{StaticResource FlatButton}"    
+                                >
+                                <Rectangle 
+                                    Width="12"
+                                    Height="8"
+                                    Fill="White"
+                                    Style="{StaticResource SwitchesVisibility}"
+                                    >
+                                </Rectangle>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+                <ListView
+                    Background="Transparent"
+                    BorderThickness="0"
+                    x:Name="Switches"
+                    SelectedValue="{Binding SelectedDevice}"
+                    >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="240" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock 
+                                    Text="{Binding Name}"
+                                    VerticalAlignment="Center"
+                                    />
+                                <Button
+                                    Grid.Column="1" 
+                                    Style="{StaticResource DeviceTextOnlyButtonStyle}"
+                                    Content="{Binding State}"
+                                    cal:Message.Attach="ActivateDeviceState()"
+                                    Background="{Binding IsDeviceActive, Converter={StaticResource BooleanConditionConverter}, ConverterParameter={StaticResource StateActiveConditionalValue}}"
+                                    ToolTip="Activate Switch"
+                                    />
+                                <Button 
+                                    Grid.Column="2"
+                                    cal:Message.Attach="ChangeVisibility()"
+                                    Style="{StaticResource DeviceVisibilityButtonStyle}"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}, Path=DataContext.SwitchesVisible}"
+                                    />
+                                <Grid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            FontWeight="Bold" 
+                                            Header="Configure Switch" 
+                                            cal:Message.Attach="ConfigureDevice()" 
+                                            />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>                   
+                </ListView>
+            </Expander>
+
+            <!-- Coils -->
+            <Expander
+                >
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Text="COILS"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                />
+                            <Button
+                                Grid.Column="1"
+                                Style="{StaticResource AddDevicePlusButtonStyle}"
+                                cal:Message.Attach="AddCoil()" 
+                                ToolTip="Add Coil"
+                                />
+                            <Button 
+                                Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                cal:Message.Attach="HideShowCoils()"
+                                BorderThickness="0"
+                                Style="{StaticResource FlatButton}"    
+                                >
+                                <Rectangle 
+                                    Width="12"
+                                    Height="8"
+                                    Fill="White"
+                                    Style="{StaticResource CoilsVisibility}"
+                                    >
+                                </Rectangle>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+                <ListView
+                    Background="Transparent"
+                    BorderThickness="0"
+                    x:Name="Coils"
+                    SelectedValue="{Binding SelectedDevice}"
+                    >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="240" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock 
+                                    Text="{Binding Name}"
+                                    VerticalAlignment="Center"
+                                    />
+                                <Button
+                                    Grid.Column="1" 
+                                    Style="{StaticResource DeviceTextOnlyButtonStyle}"
+                                    Content="Pulse"
+                                    cal:Message.Attach="ActivateDeviceState()"
+                                    Background="{Binding IsDeviceActive, Converter={StaticResource BooleanConditionConverter}, ConverterParameter={StaticResource StateActiveConditionalValue}}"
+                                    ToolTip="Activate Coil"
+                                />
+                                <Button 
+                                    Grid.Column="2"
+                                    cal:Message.Attach="ChangeVisibility()"
+                                    Style="{StaticResource DeviceVisibilityButtonStyle}"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}, Path=DataContext.CoilsVisible}"
+                                    />
+                                <Grid.ContextMenu >
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            FontWeight="Bold" 
+                                            Header="Configure Coil" 
+                                            cal:Message.Attach="ConfigureDevice()" 
+                                            />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+            </Expander>
+
+            <!-- StepperMotors -->
+            <Expander
+                >
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Text="STEPPER MOTORS"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                />
+                            <Button
+                                Grid.Column="1"
+                                Style="{StaticResource AddDevicePlusButtonStyle}"
+                                cal:Message.Attach="AddStepperMotor()" 
+                                ToolTip="Add StepperMotor"
+                                />
+                            <Button 
+                                Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                cal:Message.Attach="HideShowStepperMotors()"
+                                BorderThickness="0"
+                                Style="{StaticResource FlatButton}"    
+                                >
+                                <Rectangle 
+                                    Width="12"
+                                    Height="8"
+                                    Fill="White"
+                                    Style="{StaticResource StepperMotorsVisibility}"
+                                    >
+                                </Rectangle>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+                <ListView
+                    Background="Transparent"
+                    BorderThickness="0"
+                    x:Name="StepperMotors"
+                    SelectedValue="{Binding SelectedDevice}"
+                    >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="240" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock 
+                                    Text="{Binding Name}"
+                                    />
+                                <Button
+                                    Grid.Column="1" 
+                                    Style="{StaticResource DeviceRotateClockwiseButtonStyle}"
+                                    cal:Message.Attach="RotateClockwise()"
+                                    Margin="12,0,0,0"
+                                    ToolTip="Rotate Clockwise"
+                                    />
+                                <Button
+                                    Grid.Column="2" 
+                                    Style="{StaticResource DeviceRotateCounterClockwiseButtonStyle}"
+                                    cal:Message.Attach="RotateCounterClockwise()"
+                                    Margin="0,0,12,0"
+                                    ToolTip="Rotate Counter Clockwise"
+                                    />
+                                <Button 
+                                    Grid.Column="3"
+                                    cal:Message.Attach="ChangeVisibility()"
+                                    Style="{StaticResource DeviceVisibilityButtonStyle}"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}, Path=DataContext.StepperMotorsVisible}"
+                                    />
+                                <Grid.ContextMenu >
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            FontWeight="Bold" 
+                                            Header="Configure Stepper Motor" 
+                                            cal:Message.Attach="ConfigureDevice()" 
+                                            />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+            </Expander>
+
+            <!-- Servos -->
+            <Expander
+                >
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Text="SERVOS"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                />
+                            <Button
+                                Grid.Column="1"
+                                Style="{StaticResource AddDevicePlusButtonStyle}"
+                                cal:Message.Attach="AddServo()" 
+                                ToolTip="Add Servo"
+                                />
+                            <Button 
+                                Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                cal:Message.Attach="HideShowServos()"
+                                BorderThickness="0"
+                                Style="{StaticResource FlatButton}"    
+                                >
+                                <Rectangle 
+                                    Width="12"
+                                    Height="8"
+                                    Fill="White"
+                                    Style="{StaticResource ServosVisibility}"
+                                    >
+                                </Rectangle>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+                <ListView
+                    Background="Transparent"
+                    BorderThickness="0"
+                    x:Name="Servos"
+                    SelectedValue="{Binding SelectedDevice}"
+                    >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="240" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock 
+                                    Text="{Binding Name}"
+                                    />
+                                <Button
+                                    Grid.Column="1" 
+                                    Style="{StaticResource DeviceRotateClockwiseButtonStyle}"
+                                    cal:Message.Attach="RotateClockwise()"
+                                    Margin="12,0,0,0"
+                                    ToolTip="Rotate Clockwise"
+                                    />
+                                <Button
+                                    Grid.Column="2" 
+                                    Style="{StaticResource DeviceRotateCounterClockwiseButtonStyle}"
+                                    cal:Message.Attach="RotateCounterClockwise()"
+                                    Margin="0,0,12,0"
+                                    ToolTip="Rotate Counter Clockwise"
+                                    />
+                                <Button 
+                                    Grid.Column="3"
+                                    cal:Message.Attach="ChangeVisibility()"
+                                    Style="{StaticResource DeviceVisibilityButtonStyle}"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}, Path=DataContext.ServosVisible}"
+                                    />
+                                <Grid.ContextMenu >
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            FontWeight="Bold" 
+                                            Header="Configure Servo" 
+                                            cal:Message.Attach="ConfigureDevice()" 
+                                            />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+            </Expander>
+
+            <!-- Leds -->
+            <Expander
+                >
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Text="LEDS"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                />
+                            <Button
+                                Grid.Column="1"
+                                Style="{StaticResource AddDevicePlusButtonStyle}"
+                                cal:Message.Attach="AddLed()" 
+                                ToolTip="Add Led"
+                                />
+                            <Button 
+                                Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                cal:Message.Attach="HideShowLeds()"
+                                BorderThickness="0"
+                                Style="{StaticResource FlatButton}"    
+                                >
+                                <Rectangle 
+                                    Width="12"
+                                    Height="8"
+                                    Fill="White"
+                                    Style="{StaticResource LedsVisibility}"
+                                    >
+                                </Rectangle>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+                <ListView
+                    Background="Transparent"
+                    BorderThickness="0"
+                    x:Name="Leds"
+                    SelectedValue="{Binding SelectedDevice}"
+                    >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="240" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock 
+                                    Text="{Binding Name}"
+                                    />
+                                <Button
+                                    Grid.Column="1" 
+                                    Style="{StaticResource DeviceLightBulbOffButtonStyle}"
+                                    cal:Message.Attach="DeactivateLed()"
+                                    Margin="12,0,0,0"
+                                    ToolTip="Deactivate Led"
+                                    />
+                                <Button
+                                    Grid.Column="2" 
+                                    Style="{StaticResource DeviceLightBulbOnButtonStyle}"
+                                    cal:Message.Attach="ActivateLed()"
+                                    Margin="0,0,12,0"
+                                    ToolTip="Activate Led"
+                                    />
+                                <Button 
+                                    Grid.Column="3"
+                                    cal:Message.Attach="ChangeVisibility()"
+                                    Style="{StaticResource DeviceVisibilityButtonStyle}"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DeviceTree:DeviceTreeView}}, Path=DataContext.LedsVisible}"
+                                    />
+                                <Grid.ContextMenu >
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            FontWeight="Bold" 
+                                            Header="Configure Led" 
+                                            cal:Message.Attach="ConfigureDevice()" 
+                                            />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

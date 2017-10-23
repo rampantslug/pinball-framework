@@ -1,0 +1,562 @@
+﻿<UserControl x:Class="PinballClient.ClientDisplays.Playfield.PlayfieldView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:playfield="clr-namespace:PinballClient.ClientDisplays.Playfield"
+        xmlns:converters="clr-namespace:Common.Converters;assembly=Common"
+        xmlns:common="clr-namespace:Common;assembly=Common"
+        x:Name="UserControl"
+             >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:MathConverter x:Key="MathConverter" />
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="Control.Background" Value="{x:Null}" />
+            <Setter Property="Control.BorderBrush" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}"
+                            >
+                            <ContentPresenter 
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                RecognizesAccessKey="True" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Control.FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Background" Value="{DynamicResource AccentColorBrush}" />
+                    <Setter Property="Control.BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid
+        Margin="10,20,10,20"
+        x:Name="DevicesContainer"
+        cal:Message.Attach="[Event MouseMove] = [Action MouseMove($source)];
+                            [Event MouseUp] = [Action MouseUp($source)]"
+        >
+        <Image
+            
+            Source="{Binding PlayfieldImage}" 
+            Stretch="Uniform"
+            common:SizeObserver.Observe="True"
+            common:SizeObserver.ObservedHeight="{Binding PlayfieldHeight, Mode=OneWayToSource}"
+            common:SizeObserver.ObservedWidth="{Binding PlayfieldWidth, Mode=OneWayToSource}"
+            ></Image>
+        
+        <!-- Container for the Switches -->
+        <ItemsControl 
+            x:Name="Switches"
+            Visibility="{Binding AllSwitchesVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="IndianRed"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="DarkRed"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="ActivateDeviceState()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+                        
+                        
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the Coils -->
+        <ItemsControl 
+            x:Name="Coils"
+            Visibility="{Binding AllCoilsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="SkyBlue"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="Blue"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="PulseState()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the StepperMotors -->
+        <ItemsControl 
+            x:Name="StepperMotors"
+            Visibility="{Binding AllStepperMotorsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="DimGray"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="Gainsboro"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="RotateToOtherLimit()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the Servos -->
+        <ItemsControl 
+            x:Name="Servos"
+            Visibility="{Binding AllServosVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="BlueViolet"
+                        Width="30" 
+                        Height="30" 
+                        Opacity="0.5"
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <Border
+                            BorderBrush="DarkBlue"
+                            BorderThickness="2"
+                            />
+                        <!-- Highlight for object selection -->
+                        <Grid
+                            Width="30" 
+                            Height="30"
+                            Background="IndianRed"
+                            Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Margin="-2"
+                            >
+                            <Border
+                            BorderBrush="{DynamicResource AccentColorBrush}"
+                            BorderThickness="2"
+                            />
+                            <Grid.Effect
+                            >
+                                <DropShadowEffect
+                                ShadowDepth="0" 
+                                Color="{DynamicResource AccentColor}" 
+                                BlurRadius="20"
+                                >
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                        <Button 
+                            Content="{Binding Number}"
+                            Style="{StaticResource FlatButton}"
+                            cal:Message.Attach="RotateToOtherLimit()"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Container for the Leds -->
+        <ItemsControl 
+            x:Name="Leds"
+            Visibility="{Binding AllLedsVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas 
+                        Width="{Binding PlayfieldWidth}"
+                        Height="{Binding PlayfieldHeight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationX"/>
+                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding 
+                                Converter="{StaticResource MathConverter}" 
+                                ConverterParameter="x*y">
+                                <Binding Path="VirtualLocationY"/>
+                                <Binding Path="DataContext.ScaleFactorY" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        >
+                        <!-- Cant easily set the visibility of a dropshadow so create a 2nd path on top of the first only visible if highlighted -->
+                        <Path 
+                            Fill="{DynamicResource AccentColorBrush}"
+                            Stroke="CadetBlue"
+                            StrokeThickness="3"
+                            Data="{Binding PlayfieldGeometry}"
+                            Visibility="{Binding IsHighlighted, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            >
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="{Binding Angle}"/>
+                                    <ScaleTransform>
+                                        <ScaleTransform.ScaleX>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleX>
+                                        <ScaleTransform.ScaleY>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleY>
+                                    </ScaleTransform>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                            <Path.Effect>
+                                <DropShadowEffect                                   
+                                    ShadowDepth="0" 
+                                    Color="{DynamicResource AccentColor}" 
+                                    BlurRadius="20"
+                                />
+                            </Path.Effect>
+                        </Path>
+                        <Path 
+                            Opacity="0.9"
+                            Fill="{Binding CurrentColor}"
+                            Stroke="CadetBlue"
+                            StrokeThickness="2"
+                            Data="{Binding PlayfieldGeometry}"
+                            cal:Message.Attach="[Event MouseDown] = [Action MouseDown($source)];
+                                                [Event MouseUp] = [Action MouseUp($source)];
+                                               
+                                                [Event MouseEnter] = [Action MouseEnter($source)];
+                                                [Event MouseLeave] = [Action MouseLeave($source)]"
+                            >
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="{Binding Angle}"/>
+                                    <ScaleTransform>
+                                        <ScaleTransform.ScaleX>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleX>
+                                        <ScaleTransform.ScaleY>
+                                            <MultiBinding 
+                                                    Converter="{StaticResource MathConverter}" 
+                                                    ConverterParameter="x*y*z">
+                                                <Binding Path="Scale"/>
+                                                <Binding Path="DataContext.ScaleFactorX" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                                <Binding Path="DataContext.PlayfieldToLedsScale" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type playfield:PlayfieldView}}"/>
+                                            </MultiBinding>
+                                        </ScaleTransform.ScaleY>
+                                    </ScaleTransform>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

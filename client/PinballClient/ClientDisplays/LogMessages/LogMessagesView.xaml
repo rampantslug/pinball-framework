@@ -1,0 +1,49 @@
+﻿<UserControl 
+    x:Class="PinballClient.ClientDisplays.LogMessages.LogMessagesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        >
+    <Grid>
+
+        <DataGrid
+            Background="Transparent"
+            AlternatingRowBackground="Transparent"
+            ItemsSource="{Binding Events}"
+            IsSynchronizedWithCurrentItem="True"
+            AutoGenerateColumns="False"
+            >
+            <DataGrid.Columns>
+
+                    <DataGridTextColumn
+                        Header="Timestamp" 
+                        Binding="{Binding Timestamp}" 
+                        Width="150"/>
+                <DataGridTextColumn
+                        Header="Event Type" 
+                        Binding="{Binding EventType}" 
+                        Width="100"/>
+                <DataGridTextColumn 
+                        Header="Originator Type" 
+                        Binding="{Binding OriginatorType}" 
+                        Width="130"/>
+                <DataGridTextColumn 
+                        Header="Originator Name" 
+                        Binding="{Binding OriginatorName}" 
+                        Width="150"/>
+                <DataGridTextColumn 
+                        Header="Status" 
+                        Binding="{Binding Status}" 
+                        Width="150"/>
+                <DataGridTextColumn 
+                        Header="Information" 
+                        Binding="{Binding Information}" 
+                        />
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</UserControl>
