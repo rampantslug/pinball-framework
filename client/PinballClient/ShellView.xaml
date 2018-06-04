@@ -6,7 +6,23 @@
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:converters="clr-namespace:Common.Converters;assembly=Common"
     xmlns:pinballClient="clr-namespace:PinballClient"
+    xmlns:deviceInformation="clr-namespace:PinballClient.ClientDisplays.DeviceInformation"
+    xmlns:deviceTree="clr-namespace:PinballClient.ClientDisplays.DeviceTree"
+    xmlns:gameStatus="clr-namespace:PinballClient.ClientDisplays.GameStatus"
+    xmlns:ledShowEditor="clr-namespace:PinballClient.ClientDisplays.LedShowEditor"
+    xmlns:ledShowTimeline="clr-namespace:PinballClient.ClientDisplays.LedShowTimeline"
+    xmlns:logMessages="clr-namespace:PinballClient.ClientDisplays.LogMessages"
+    xmlns:mediaTree="clr-namespace:PinballClient.ClientDisplays.MediaTree"
+    xmlns:modeTree="clr-namespace:PinballClient.ClientDisplays.ModeTree"
     xmlns:playfield="clr-namespace:PinballClient.ClientDisplays.Playfield"
+    xmlns:playfieldProperties="clr-namespace:PinballClient.ClientDisplays.PlayfieldProperties"
+    xmlns:showsList="clr-namespace:PinballClient.ClientDisplays.ShowsList"
+    xmlns:switchMatrix="clr-namespace:PinballClient.ClientDisplays.SwitchMatrix"
+    
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+    
     Width="1920"
     Height="1080"
     TitleAlignment="Center">
@@ -278,77 +294,121 @@
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
+<DockPanel>
+        <Menu DockPanel.Dock="Top">
+        <MenuItem Header="_File">
+            <MenuItem Header="_New" />
+            <MenuItem Header="_Open" />
+            <MenuItem Header="Open Recent" />
+            <MenuItem Header="_Save" />
+            <MenuItem Header="Save As" />
+            <MenuItem Header="Close" />
+            <Separator />
+            <MenuItem Header="Export to YAML" />
+            <Separator />
+            <MenuItem Header="_Exit" />
+         </MenuItem>
+            <MenuItem Header="Local/Remote">
+                <MenuItem Header="Copy data to Remote" />
+            </MenuItem>
+       
+            <MenuItem Header="_Hardware">
+                <MenuItem Header="Use Hardware" />
+                <MenuItem Header="Motors" />
+                <MenuItem Header="Lighting" />
+                <MenuItem Header="Coils" />
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="All Layout" />
+                <MenuItem Header="Config Layout" />
+                <MenuItem Header="Control Layout" />
+                <Separator />
+                <MenuItem Header="User Layout 1" />
+                <MenuItem Header="User Layout 2" />
+                <MenuItem Header="User Layout 3" />
+                <Separator />
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="Documentation" />
+                <MenuItem Header="Whats New" />
+                <MenuItem Header="About" />
+            </MenuItem>
 
-    <Grid
+        </Menu>
+    <!--
+        <Grid
         Background="#FFC1C0C0">
-        <Grid.Resources>
-            <converters:BooleanToVisibilityConverter
+            <Grid.Resources>
+                <converters:BooleanToVisibilityConverter
                 x:Key="BooleanToVisibilityConverter"
                 True="Visible"
                 False="Collapsed" />
-            <converters:BooleanToVisibilityConverter
+                <converters:BooleanToVisibilityConverter
                 x:Key="BooleanToInverseVisibilityConverter"
                 True="Collapsed"
                 False="Visible" />
-        </Grid.Resources>
-        <TextBlock
+            </Grid.Resources>
+
+
+
+            <TextBlock
             Text="Load an existing config or create a new one to begin."
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToInverseVisibilityConverter}}" />
-        <Grid
-            Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
-                <ColumnDefinition Width="1000" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="300" />
-            </Grid.RowDefinitions>
-
-            <!-- Left Hand Column Area -->
             <Grid
+            Visibility="{Binding IsConfigLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="1000" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="300" />
+                </Grid.RowDefinitions>
+
+                ~1~ Left Hand Column Area @1@
+                <Grid
                 Grid.Column="0"
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 Margin="2"
                 Background="#FFECECEC">
-                <TabControl
+                    <TabControl
                     x:Name="LeftTabs"
                     TabStripPlacement="Bottom"
                     Background="Transparent">
-                    <TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
                                 Text="{Binding DisplayName}" />
-                        </DataTemplate>
-                    </TabControl.ItemTemplate>
-                </TabControl>
-            </Grid>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                    </TabControl>
+                </Grid>
 
-            <!-- Middle Column Area -->
-            <Grid
+                ~1~ Middle Column Area @1@
+                <Grid
                 Grid.Column="1"
                 Grid.Row="0"
                 Margin="2"
                 Background="#FFECECEC">
-                <TabControl
+                    <TabControl
                     x:Name="MidTabs"
                     TabStripPlacement="Bottom"
                     Background="Transparent">
-                    <TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
                                 Text="{Binding DisplayName}" />
-                        </DataTemplate>
-                    </TabControl.ItemTemplate>
-                </TabControl>
-            </Grid>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                    </TabControl>
+                </Grid>
 
-            <!-- Right Hand Column Area -->
-            <playfield:PlayfieldView
+                ~1~ Right Hand Column Area @1@
+                <playfield:PlayfieldView
                 Grid.Column="2"
                 Grid.ColumnSpan="1"
                 Grid.Row="0"
@@ -357,34 +417,279 @@
                 Background="#FFECECEC"
                 cal:View.Model="{Binding Playfield}" />
 
-            <!-- Bottom Row Area -->
-            <Grid
+                ~1~ Bottom Row Area @1@
+                <Grid
                 Grid.Column="1"
                 Grid.ColumnSpan="1"
                 Grid.Row="1"
                 Margin="2"
                 Background="#FFECECEC">
-                <TabControl
+                    <TabControl
                     x:Name="BottomTabs"
                     TabStripPlacement="Bottom"
                     Background="Transparent">
-                    <TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
                                 Text="{Binding DisplayName}" />
-                        </DataTemplate>
-                    </TabControl.ItemTemplate>
-                </TabControl>
-            </Grid>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                    </TabControl>
+                </Grid>
 
-            <!-- <logMessages:LogMessagesView
+                ~1~ <logMessages:LogMessagesView
             Grid.Column="1"
             Grid.ColumnSpan="1"
             Grid.Row="1"
             Margin="2"
             Background="#FFECECEC"
-            cal:View.Model="{Binding LogMessages}" />-->
+            cal:View.Model="{Binding LogMessages}" />@1@
 
+            </Grid>
         </Grid>
+    </DockPanel>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Theme:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="_themeCombo" SelectedIndex="0" Width="200">
+                <ComboBoxItem Content="Generic" />
+                <ComboBoxItem Content="Aero">
+                    <ComboBoxItem.Tag>
+                        <xcad:AeroTheme />
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="VS2010">
+                    <ComboBoxItem.Tag>
+                        <xcad:VS2010Theme />
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="Metro">
+                    <ComboBoxItem.Tag>
+                        <xcad:MetroTheme />
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+        </StackPanel>-->
+
+
+        <xcad:DockingManager Grid.Row="1"
+                           AllowMixedOrientation="True"
+                           BorderBrush="Black"
+                           BorderThickness="1">
+            <xcad:DockingManager.Theme>
+                <xcad:MetroTheme />
+            </xcad:DockingManager.Theme>
+            <xcad:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconSource}" Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentHeaderTemplate>
+            <xcad:LayoutRoot x:Name="_layoutRoot">
+                <xcad:LayoutPanel Orientation="Horizontal">
+                    <!--<xcad:LayoutAnchorablePane DockWidth="200">
+                        <xcad:LayoutAnchorable ContentId="properties" Title="Properties" CanHide="False" CanClose="False"
+                                            AutoHideWidth="240"
+                                         IconSource="../Images/property-blue.png">
+                            <xctk:PropertyGrid NameColumnWidth="110"
+                        SelectedObject="{Binding ElementName=_layoutRoot, Path=LastFocusedDocument.Content}"/>
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>-->
+                    <!--<xcad:LayoutDocumentPaneGroup >
+                        <xcad:LayoutDocumentPane>
+                            <xcad:LayoutDocument ContentId="document1" Title="Document 1" IconSource="../Images/document.png" >
+                                <Button Content="Document 1 Content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </xcad:LayoutDocument>
+                            <xcad:LayoutDocument ContentId="document2" Title="Document 2" IconSource="../Images/document.png">
+                                <TextBox Text="Document 2 Content" AcceptsReturn="True"/>
+                            </xcad:LayoutDocument>
+                            <xcad:LayoutDocument ContentId="document3" Title="Document 3" IconSource="../Images/document.png">
+                                <TextBox Text="Document 3 Content" AcceptsReturn="True"/>
+                            </xcad:LayoutDocument>
+                            <xcad:LayoutDocument ContentId="document4" Title="Document 4" IconSource="../Images/document.png">
+                                <TextBox Text="Document 4 Content" AcceptsReturn="True"/>
+                            </xcad:LayoutDocument>
+                            <xcad:LayoutDocument ContentId="document5" Title="Document 5" IconSource="../Images/document.png">
+                                <TextBox Text="Document 5 Content" AcceptsReturn="True"/>
+                            </xcad:LayoutDocument>
+                        </xcad:LayoutDocumentPane>
+                    </xcad:LayoutDocumentPaneGroup >-->
+                    <xcad:LayoutAnchorablePaneGroup DockWidth="125">
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable ContentId="deviceTree" Title="Devices">
+                                <deviceTree:DeviceTreeView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding DeviceTree}" />
+                                </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="deviceInformation" Title="DeviceInformation">
+                                <deviceInformation:DeviceInformationView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding DeviceInformation}" />
+                                </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable ContentId="playfield" Title="Playfield">
+                                <playfield:PlayfieldView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding Playfield}" />
+                                </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="gameStatus" Title="Game Status" >
+                                <gameStatus:GameStatusView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding GameStatus}" />
+                                </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="ledShowEditor" Title="LedShowEditor" >
+                                <ledShowEditor:LedShowEditorView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding LedShowEditor}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="ledShowTimeline" Title="LedShowTimeline" >
+                                <ledShowTimeline:LedShowTimelineView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding LedShowTimeline}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="mediaTree" Title="MediaTree" >
+                                <mediaTree:MediaTreeView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding MediaTree}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="modeTree" Title="ModeTree" >
+                                <modeTree:ModeTreeView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding ModeTree}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="playfieldProperties" Title="PlayfieldProperties" >
+                                <playfieldProperties:PlayfieldPropertiesView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding PlayfieldProperties}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="showsList" Title="ShowsList" >
+                                <showsList:ShowsListView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding ShowsList}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="switchMatrix" Title="SwitchMatrix" >
+                                <switchMatrix:SwitchMatrixView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding SwitchMatrix}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="document2" Title="LogMessages" >
+                                <logMessages:LogMessagesView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding LogMessages}" />
+                                </xcad:LayoutAnchorable>
+                          
+                           
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+                </xcad:LayoutPanel>
+
+                <!--<xcad:LayoutRoot.LeftSide>
+                    <xcad:LayoutAnchorSide>
+                        <xcad:LayoutAnchorGroup>
+                            <xcad:LayoutAnchorable Title="Agenda" ContentId="agenda" IconSource="../Images/address-book-open.png">
+                                <TextBlock Text="Agenda Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable Title="Contacts" ContentId="contacts" IconSource="../Images/unity.png" >
+                                <TextBlock Text="Contacts Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorGroup>
+                    </xcad:LayoutAnchorSide>
+                </xcad:LayoutRoot.LeftSide>-->
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+
+        <!-- Original -->
+        <!--<xcad:DockingManager Grid.Row="1" MaxHeight="425"
+                           AllowMixedOrientation="True"
+                           BorderBrush="Black"
+                           BorderThickness="1"
+                           Theme="{Binding ElementName=_themeCombo, Path=SelectedItem.Tag}">
+            <xcad:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconSource}" Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentHeaderTemplate>
+            <xcad:LayoutRoot x:Name="_layoutRoot">
+                <xcad:LayoutPanel Orientation="Horizontal">
+                    <xcad:LayoutAnchorablePane DockWidth="200">
+                        <xcad:LayoutAnchorable ContentId="properties" Title="Properties" CanHide="False" CanClose="False"
+                                            AutoHideWidth="240"
+                                         IconSource="../Images/property-blue.png">
+                            <xctk:PropertyGrid NameColumnWidth="110"
+                        SelectedObject="{Binding ElementName=_layoutRoot, Path=LastFocusedDocument.Content}"/>
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>
+                    <xcad:LayoutDocumentPaneGroup >
+                        <xcad:LayoutDocumentPane>
+                            <xcad:LayoutDocument ContentId="document1" Title="Document 1" IconSource="../Images/document.png" >
+                                <Button Content="Document 1 Content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </xcad:LayoutDocument>
+                            <xcad:LayoutDocument ContentId="document2" Title="Document 2" IconSource="../Images/document.png">
+                                <TextBox Text="Document 2 Content" AcceptsReturn="True"/>
+                            </xcad:LayoutDocument>
+                        </xcad:LayoutDocumentPane>
+                    </xcad:LayoutDocumentPaneGroup >
+                    <xcad:LayoutAnchorablePaneGroup DockWidth="125">
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable ContentId="alarms" Title="Alarms" IconSource="../Images/alarm-clock-blue.png" >
+                                <ListBox>
+                                    <s:String>Alarm 1</s:String>
+                                    <s:String>Alarm 2</s:String>
+                                    <s:String>Alarm 3</s:String>
+                                </ListBox>
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable ContentId="journal" Title="Journal" >
+                                <RichTextBox>
+                                    <FlowDocument>
+                                        <Paragraph FontSize="14" FontFamily="Segoe">
+                                            This is the content of the Journal Pane.
+                                            <LineBreak/>
+                                            A
+                                            <Bold>RichTextBox</Bold> has been added here
+                                        </Paragraph>
+                                    </FlowDocument>
+                                </RichTextBox>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+                </xcad:LayoutPanel>
+
+                <xcad:LayoutRoot.LeftSide>
+                    <xcad:LayoutAnchorSide>
+                        <xcad:LayoutAnchorGroup>
+                            <xcad:LayoutAnchorable Title="Agenda" ContentId="agenda" IconSource="../Images/address-book-open.png">
+                                <TextBlock Text="Agenda Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable Title="Contacts" ContentId="contacts" IconSource="../Images/unity.png" >
+                                <TextBlock Text="Contacts Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorGroup>
+                    </xcad:LayoutAnchorSide>
+                </xcad:LayoutRoot.LeftSide>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>-->
     </Grid>
+    </DockPanel>
+
 </controls:MetroWindow>

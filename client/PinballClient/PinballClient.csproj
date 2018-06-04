@@ -526,6 +526,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DeviceResources\Leds\LedShapes\AllShapes.svg" />
+    <Resource Include="Images\document.png" />
     <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Resources\WindowsIcons-license.txt" />
     <Resource Include="DeviceResources\Leds\LedShapes\Notes.txt" />
