@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using Hardware.DeviceAddress;
 using Common;
+using PinballClient.ClientDisplays.DeviceConfig;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceControl
 {
 
-    public class CoilConfigurationViewModel : DeviceConfigurationViewModel
+    public class CoilControlViewModel : DeviceControlViewModel
     {
         #region Fields
 
@@ -200,7 +201,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
         /// 
         /// </summary>
         /// <param name="coilDevice"></param>
-        public CoilConfigurationViewModel(CoilViewModel coilDevice)
+        public CoilControlViewModel(CoilViewModel coilDevice)
             : base(coilDevice)
         {
             _coil = coilDevice;

@@ -2,16 +2,17 @@
 using BusinessObjects.Devices;
 using Common;
 using Hardware.DeviceAddress;
+using PinballClient.ClientDisplays.DeviceConfig;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceControl
 {
     /// <summary>
     /// 
     /// </summary>
-    public class SwitchConfigurationViewModel : DeviceConfigurationViewModel
+    public class SwitchControlViewModel : DeviceControlViewModel
     {
 
         #region Properties
@@ -266,7 +267,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
         /// 
         /// </summary>
         /// <param name="switchvm"></param>
-        public SwitchConfigurationViewModel(SwitchViewModel switchvm)
+        public SwitchControlViewModel(SwitchViewModel switchvm)
             : base(switchvm)
         {
             Switch = switchvm;

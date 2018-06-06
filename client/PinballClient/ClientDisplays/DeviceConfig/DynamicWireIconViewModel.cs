@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using Common.Commands;
 using PinballClient.CommonViewModels;
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceConfig
 {
 
     public class DynamicWireIconViewModel : Screen

@@ -4,16 +4,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using BusinessObjects.Shapes;
 using Hardware.DeviceAddress;
+using PinballClient.ClientDisplays.DeviceConfig;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceConfig
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LedConfigurationViewModel : DeviceConfigurationViewModel
+    public class LedConfigViewModel : DeviceConfigViewModel
     {
 
         #region Properties
@@ -22,7 +23,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
 
         public LedViewModel Led
         {
-            get { return _led; }
+            get => _led;
             set
             {
                 _led = value;
@@ -34,10 +35,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
 
         public ObservableCollection<IAddress> SupportedHardwareLeds
         {
-            get
-            {
-                return _supportedHardwareLeds;
-            }
+            get => _supportedHardwareLeds;
             set
             {
                 _supportedHardwareLeds = value;
@@ -47,7 +45,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
 
         public IAddress SelectedSupportedHardwareLed
         {
-            get { return _selectedSupportedHardwareLed; }
+            get => _selectedSupportedHardwareLed;
             set
             {
                 _selectedSupportedHardwareLed = value;
@@ -57,25 +55,20 @@ namespace PinballClient.ClientDisplays.DeviceInformation
 
         public ushort LedId
         {
-            get { return _ledId; }
+            get => _ledId;
             set
             {
                 _ledId = value;
                 NotifyOfPropertyChange(() => LedId);
 
-                var address = Led.Address as PlbAddress;
-                if (address != null)
+                if (Led.Address is PlbAddress address)
                 {
                     address.UpdateAddressId(_ledId);
                 }
             }
         }
 
-        public IEnumerable<LedShape> AllShapes
-        {
-            get { return Enum.GetValues(typeof(LedShape)).Cast<LedShape>(); }
-        }
-
+        public IEnumerable<LedShape> AllShapes => Enum.GetValues(typeof(LedShape)).Cast<LedShape>();
 
         #endregion
 
@@ -83,7 +76,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
         /// 
         /// </summary>
         /// <param name="ledvm"></param>
-        public LedConfigurationViewModel(LedViewModel ledvm) 
+        public LedConfigViewModel(LedViewModel ledvm) 
             : base(ledvm)
         {
             _led = ledvm;
@@ -91,8 +84,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
             // Initialise Address
             _supportedHardwareLeds = new ObservableCollection<IAddress> { new PlbAddress() };
             SelectedSupportedHardwareLed = SupportedHardwareLeds[0];
-            var procLedBoard = Led.Address as PlbAddress;
-            if (procLedBoard != null)
+            if (Led.Address is PlbAddress procLedBoard)
             {
                 LedId = procLedBoard.AddressId;
             }

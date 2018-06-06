@@ -5,14 +5,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using PinballClient.ClientDisplays.DeviceConfig;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 using PinballClient.Events;
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceConfig
 {
-    [Export(typeof(IDeviceInformation))]
-    public sealed class DeviceInformationViewModel : Conductor<IScreen>.Collection.OneActive, IDeviceInformation, 
+    [Export(typeof(IDeviceConfig))]
+    public sealed class DeviceInformationViewModel : Conductor<IScreen>.Collection.OneActive, IDeviceConfig, 
         IHandle<ShowSwitchConfigEvent>,
         IHandle<ShowCoilConfigEvent>,
         IHandle<ShowStepperMotorConfigEvent>,
@@ -176,31 +177,31 @@ namespace PinballClient.ClientDisplays.DeviceInformation
 
         private void ShowSwitchConfiguration(SwitchViewModel switchVm)
         {
-            ActivateItem(new SwitchConfigurationViewModel(switchVm));
+            ActivateItem(new SwitchConfigViewModel(switchVm));
             SelectedDevice = switchVm;
         }
 
         private void ShowCoilConfiguration(CoilViewModel coilVm)
         {
-            ActivateItem(new CoilConfigurationViewModel(coilVm));
+            ActivateItem(new CoilConfigViewModel(coilVm));
             SelectedDevice = coilVm;
         }
 
         private void ShowStepperMotorConfiguration(StepperMotorViewModel stepperMotorVm)
         {
-            ActivateItem(new StepperMotorConfigurationViewModel(stepperMotorVm));
+            ActivateItem(new StepperMotorConfigViewModel(stepperMotorVm));
             SelectedDevice = stepperMotorVm;
         }
 
         private void ShowServoConfiguration(ServoViewModel servoVm)
         {
-            ActivateItem(new ServoConfigurationViewModel(servoVm));
+            ActivateItem(new ServoConfigViewModel(servoVm));
             SelectedDevice = servoVm;
         }
 
         private void ShowLedConfiguration(LedViewModel ledVm)
         {
-            ActivateItem(new LedConfigurationViewModel(ledVm));
+            ActivateItem(new LedConfigViewModel(ledVm));
             SelectedDevice = ledVm;
         }
 

@@ -151,13 +151,20 @@
     <Compile Include="ClientComms\ClientCommsControllerBase.cs" />
     <Compile Include="ClientComms\ClientToLocalCommsController.cs" />
     <Compile Include="ClientComms\ClientToServerCommsController.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\DeviceConfigurationViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\DynamicWireIconViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\CoilConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DynamicWireIconViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\CoilConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\CoilControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\DeviceControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\IDeviceControl.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\LedControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\ServoControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\StepperMotorControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\SwitchControlViewModel.cs" />
     <Compile Include="ClientDisplays\Dialogs\DeviceSelectorDialogTests.cs" />
     <Compile Include="ClientDisplays\Dialogs\GallerySelectorDialog.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\IDeviceConfigurationScreen.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\LedConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\IDeviceConfigurationScreen.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\LedConfigViewModel.cs" />
     <Compile Include="ClientDisplays\Dialogs\GallerySelectorDialogTests.cs" />
     <Compile Include="ClientDisplays\Dialogs\LedSelectorDialog.cs" />
     <Compile Include="ClientDisplays\DisplayLoadedEvent.cs" />
@@ -191,8 +198,8 @@
     <Compile Include="CommonViewModels\Devices\SwitchViewModel.cs" />
     <Compile Include="CommonViewModels\EventViewModel.cs" />
     <Compile Include="CommonViewModels\HistoryRowViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\ServoConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\StepperMotorConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\ServoConfigViewModel.cs" />
     <Compile Include="CommonViewModels\DeviceViewModel.cs" />
     <Compile Include="CommonViewModels\IDeviceViewModel.cs" />
     <Compile Include="ClientDisplays\GameStatus\IGameStatus.cs" />
@@ -230,11 +237,11 @@
     <Compile Include="ClientDisplays\LogMessages\ILogMessages.cs" />
     <Compile Include="ClientDisplays\DeviceTree\IDeviceTree.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\ISwitchMatrix.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\IDeviceInformation.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\SwitchConfigurationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\IDeviceConfig.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\SwitchConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTreeViewModel.cs" />
     <Compile Include="ClientDisplays\IClientDisplay.cs" />
-    <Compile Include="ClientDisplays\DeviceInformation\DeviceInformationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceInformationViewModel.cs" />
     <Compile Include="ClientDisplays\LogMessages\LogMessagesViewModel.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\SwitchMatrixViewModel.cs" />
     <Compile Include="ClientComms\IClientCommsController.cs" />
@@ -242,28 +249,51 @@
     <Compile Include="Helpers\GetColorAtPointOnGradientBrush.cs" />
     <Compile Include="IGameState.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ClientDisplays\DeviceInformation\DynamicWireIconView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DynamicWireIconView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceInformation\CoilConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\CoilConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceInformation\ServoConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\ServoConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceInformation\StepperMotorConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\StepperMotorConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceInformation\LedConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\LedConfigView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceControl\CoilControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceControl\LedControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceControl\ServoControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceControl\StepperMotorControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceControl\SwitchControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -275,7 +305,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceInformation\SwitchConfigurationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\SwitchConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -283,7 +313,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClientDisplays\DeviceInformation\DeviceInformationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceInformationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -396,6 +426,15 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="ViewLayouts\CurrentLayout.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ViewLayouts\DefaultLayout.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ViewLayouts\LedShowLayout.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -469,10 +508,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ClientDisplays\DeviceInformation\SwitchMatrixWiring.png" />
+    <Resource Include="ClientDisplays\DeviceConfig\SwitchMatrixWiring.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ClientDisplays\DeviceInformation\DirectSwitchWiring.png" />
+    <Resource Include="ClientDisplays\DeviceConfig\DirectSwitchWiring.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DeviceResources\Switches\Leaf Switch Flipper.png">

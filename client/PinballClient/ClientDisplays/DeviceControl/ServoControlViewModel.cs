@@ -1,15 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using Hardware.DeviceAddress;
+using PinballClient.ClientDisplays.DeviceInformation;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceControl
 {
     /// <summary>
-    /// Class for modifying the configuration of a Servo.
+    /// Class for controlling a Servo.
     /// </summary>
-    public class ServoConfigurationViewModel : DeviceConfigurationViewModel
+    public class ServoControlViewModel : DeviceControlViewModel
     {
 
         #region Properties
@@ -75,7 +76,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
         /// 
         /// </summary>
         /// <param name="servo"></param>
-        public ServoConfigurationViewModel(ServoViewModel servo)
+        public ServoControlViewModel(ServoViewModel servo)
             : base(servo)
         {
             _servo = servo;

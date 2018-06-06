@@ -20,10 +20,10 @@ using PinballClient.ClientDisplays.Dialogs;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceConfig
 {
 
-    public class DeviceConfigurationViewModel : Screen, IDeviceConfigurationScreen
+    public class DeviceConfigViewModel : Screen, IDeviceConfigurationScreen
     {
         #region Fields
 
@@ -130,7 +130,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
         #region Constructor
 
 
-        public DeviceConfigurationViewModel(IDeviceViewModel deviceViewModel)
+        public DeviceConfigViewModel(IDeviceViewModel deviceViewModel)
         {
             _deviceViewModel = deviceViewModel;
 

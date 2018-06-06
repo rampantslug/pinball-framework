@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceConfig
 {
     public interface IDeviceConfigurationScreen : IScreen
     {

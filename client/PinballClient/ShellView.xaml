@@ -22,7 +22,8 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
-    
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    x:Name="mainWindow"
     Width="1920"
     Height="1080"
     TitleAlignment="Center">
@@ -295,10 +296,12 @@
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
 <DockPanel>
+    <!--#region Top Menu -->
+
         <Menu DockPanel.Dock="Top">
         <MenuItem Header="_File">
-            <MenuItem Header="_New" />
-            <MenuItem Header="_Open" />
+            <MenuItem Header="_New"  />
+                <MenuItem Header="_Open" cal:Message.Attach="BrowseLocalConfigLocation" />
             <MenuItem Header="Open Recent" />
             <MenuItem Header="_Save" />
             <MenuItem Header="Save As" />
@@ -306,7 +309,7 @@
             <Separator />
             <MenuItem Header="Export to YAML" />
             <Separator />
-            <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" cal:Message.Attach="Exit"  />
          </MenuItem>
             <MenuItem Header="Local/Remote">
                 <MenuItem Header="Copy data to Remote" />
@@ -319,15 +322,110 @@
                 <MenuItem Header="Coils" />
             </MenuItem>
             <MenuItem Header="_View">
-                <MenuItem Header="All Layout" />
-                <MenuItem Header="Config Layout" />
-                <MenuItem Header="Control Layout" />
+                <MenuItem Header="Default Layout" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="LoadViewLayout">
+                                <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                <cal:Parameter Value="Default" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="Config Layout">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="LoadViewLayout">
+                                <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                <cal:Parameter Value="Config" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="Control Layout">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="LoadViewLayout">
+                            <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                <cal:Parameter Value="Control" />
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="Led Show Layout">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="LoadViewLayout">
+                                <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                <cal:Parameter Value="LedShow" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="User Layout 1" />
-                <MenuItem Header="User Layout 2" />
-                <MenuItem Header="User Layout 3" />
+                <MenuItem Header="User Layout 1" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="LoadViewLayout">
+                                <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                <cal:Parameter Value="User1" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="User Layout 2">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="LoadViewLayout">
+                                <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                <cal:Parameter Value="User2" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem >
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="User Layout 3" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="LoadViewLayout">
+                                        <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                        <cal:Parameter Value="User3" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button Content="Save" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <cal:ActionMessage MethodName="SaveViewLayout">
+                                            <cal:Parameter Value="{Binding ElementName=dockManager}" />
+                                            <cal:Parameter Value="User3" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
                 <Separator />
+                <MenuItem Header="Views">
+                    <MenuItem Header="Device Config" />
+                    <MenuItem Header="Device Control" />
+                    <MenuItem Header="Error List" />
+                    <MenuItem Header="Game Status" />
+                    <MenuItem Header="Led Show Editor" />
+                    <MenuItem Header="Led Show Timeline" />
+                    <MenuItem Header="Log Messages" />
+                    <MenuItem Header="Media Tree" />
+                    <MenuItem Header="Playfield" />
+                    <MenuItem Header="Playfield Properties" />
+                    <MenuItem Header="Led Shows" />
+                    <MenuItem Header="Switch Matrix" />
+                </MenuItem>
             </MenuItem>
+          
             <MenuItem Header="_Help">
                 <MenuItem Header="Documentation" />
                 <MenuItem Header="Whats New" />
@@ -335,7 +433,135 @@
             </MenuItem>
 
         </Menu>
-    <!--
+ 
+    <!--#endregion -->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+            <xcad:DockingManager x:Name="dockManager"
+            Grid.Row="1"
+                           AllowMixedOrientation="True"
+                           BorderBrush="Black"
+                           BorderThickness="1">
+            <xcad:DockingManager.Theme>
+                <xcad:MetroTheme />
+            </xcad:DockingManager.Theme>
+            <xcad:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconSource}" Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentHeaderTemplate>
+            <xcad:LayoutRoot x:Name="_layoutRoot">
+                <xcad:LayoutPanel Orientation="Horizontal">
+                  <xcad:LayoutAnchorablePaneGroup DockWidth="125">
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable ContentId="deviceTree" Title="Devices">
+                                <deviceTree:DeviceTreeView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding DeviceTree}" />
+                                </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="deviceInformation" Title="DeviceInformation">
+                                <deviceInformation:DeviceInformationView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding DeviceInformation}" />
+                                </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable ContentId="playfield" Title="Playfield">
+                                <playfield:PlayfieldView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding Playfield}" />
+                                </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="gameStatus" Title="Game Status" >
+                                <gameStatus:GameStatusView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding GameStatus}" />
+                                </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="ledShowEditor" Title="LedShowEditor" >
+                                <ledShowEditor:LedShowEditorView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding LedShowEditor}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="ledShowTimeline" Title="LedShowTimeline" >
+                                <ledShowTimeline:LedShowTimelineView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding LedShowTimeline}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="mediaTree" Title="MediaTree" >
+                                <mediaTree:MediaTreeView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding MediaTree}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="modeTree" Title="ModeTree" >
+                                <modeTree:ModeTreeView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding ModeTree}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="playfieldProperties" Title="PlayfieldProperties" >
+                                <playfieldProperties:PlayfieldPropertiesView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding PlayfieldProperties}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="showsList" Title="ShowsList" >
+                                <showsList:ShowsListView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding ShowsList}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="switchMatrix" Title="SwitchMatrix" >
+                                <switchMatrix:SwitchMatrixView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding SwitchMatrix}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="document2" Title="LogMessages" >
+                                <logMessages:LogMessagesView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding LogMessages}" />
+                                </xcad:LayoutAnchorable>
+                          
+                           
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+                </xcad:LayoutPanel>
+
+                <!--<xcad:LayoutRoot.LeftSide>
+                    <xcad:LayoutAnchorSide>
+                        <xcad:LayoutAnchorGroup>
+                            <xcad:LayoutAnchorable Title="Agenda" ContentId="agenda" IconSource="../Images/address-book-open.png">
+                                <TextBlock Text="Agenda Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable Title="Contacts" ContentId="contacts" IconSource="../Images/unity.png" >
+                                <TextBlock Text="Contacts Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorGroup>
+                    </xcad:LayoutAnchorSide>
+                </xcad:LayoutRoot.LeftSide>-->
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+
+
+    </Grid>
+    </DockPanel>
+
+</controls:MetroWindow>
+
+<!--
         <Grid
         Background="#FFC1C0C0">
             <Grid.Resources>
@@ -448,176 +674,9 @@
             </Grid>
         </Grid>
     </DockPanel>-->
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-            <TextBlock Text="Theme:" Margin="0,0,10,0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="_themeCombo" SelectedIndex="0" Width="200">
-                <ComboBoxItem Content="Generic" />
-                <ComboBoxItem Content="Aero">
-                    <ComboBoxItem.Tag>
-                        <xcad:AeroTheme />
-                    </ComboBoxItem.Tag>
-                </ComboBoxItem>
-                <ComboBoxItem Content="VS2010">
-                    <ComboBoxItem.Tag>
-                        <xcad:VS2010Theme />
-                    </ComboBoxItem.Tag>
-                </ComboBoxItem>
-                <ComboBoxItem Content="Metro">
-                    <ComboBoxItem.Tag>
-                        <xcad:MetroTheme />
-                    </ComboBoxItem.Tag>
-                </ComboBoxItem>
-            </ComboBox>
-        </StackPanel>-->
-
-
-        <xcad:DockingManager Grid.Row="1"
-                           AllowMixedOrientation="True"
-                           BorderBrush="Black"
-                           BorderThickness="1">
-            <xcad:DockingManager.Theme>
-                <xcad:MetroTheme />
-            </xcad:DockingManager.Theme>
-            <xcad:DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding IconSource}" Margin="0,0,4,0"/>
-                        <TextBlock Text="{Binding Title}" />
-                    </StackPanel>
-                </DataTemplate>
-            </xcad:DockingManager.DocumentHeaderTemplate>
-            <xcad:LayoutRoot x:Name="_layoutRoot">
-                <xcad:LayoutPanel Orientation="Horizontal">
-                    <!--<xcad:LayoutAnchorablePane DockWidth="200">
-                        <xcad:LayoutAnchorable ContentId="properties" Title="Properties" CanHide="False" CanClose="False"
-                                            AutoHideWidth="240"
-                                         IconSource="../Images/property-blue.png">
-                            <xctk:PropertyGrid NameColumnWidth="110"
-                        SelectedObject="{Binding ElementName=_layoutRoot, Path=LastFocusedDocument.Content}"/>
-                        </xcad:LayoutAnchorable>
-                    </xcad:LayoutAnchorablePane>-->
-                    <!--<xcad:LayoutDocumentPaneGroup >
-                        <xcad:LayoutDocumentPane>
-                            <xcad:LayoutDocument ContentId="document1" Title="Document 1" IconSource="../Images/document.png" >
-                                <Button Content="Document 1 Content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="document2" Title="Document 2" IconSource="../Images/document.png">
-                                <TextBox Text="Document 2 Content" AcceptsReturn="True"/>
-                            </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="document3" Title="Document 3" IconSource="../Images/document.png">
-                                <TextBox Text="Document 3 Content" AcceptsReturn="True"/>
-                            </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="document4" Title="Document 4" IconSource="../Images/document.png">
-                                <TextBox Text="Document 4 Content" AcceptsReturn="True"/>
-                            </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="document5" Title="Document 5" IconSource="../Images/document.png">
-                                <TextBox Text="Document 5 Content" AcceptsReturn="True"/>
-                            </xcad:LayoutDocument>
-                        </xcad:LayoutDocumentPane>
-                    </xcad:LayoutDocumentPaneGroup >-->
-                    <xcad:LayoutAnchorablePaneGroup DockWidth="125">
-                        <xcad:LayoutAnchorablePane>
-                            <xcad:LayoutAnchorable ContentId="deviceTree" Title="Devices">
-                                <deviceTree:DeviceTreeView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding DeviceTree}" />
-                                </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="deviceInformation" Title="DeviceInformation">
-                                <deviceInformation:DeviceInformationView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding DeviceInformation}" />
-                                </xcad:LayoutAnchorable>
-                            <xcad:LayoutAnchorable ContentId="playfield" Title="Playfield">
-                                <playfield:PlayfieldView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding Playfield}" />
-                                </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="gameStatus" Title="Game Status" >
-                                <gameStatus:GameStatusView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding GameStatus}" />
-                                </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="ledShowEditor" Title="LedShowEditor" >
-                                <ledShowEditor:LedShowEditorView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding LedShowEditor}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="ledShowTimeline" Title="LedShowTimeline" >
-                                <ledShowTimeline:LedShowTimelineView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding LedShowTimeline}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="mediaTree" Title="MediaTree" >
-                                <mediaTree:MediaTreeView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding MediaTree}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="modeTree" Title="ModeTree" >
-                                <modeTree:ModeTreeView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding ModeTree}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="playfieldProperties" Title="PlayfieldProperties" >
-                                <playfieldProperties:PlayfieldPropertiesView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding PlayfieldProperties}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="showsList" Title="ShowsList" >
-                                <showsList:ShowsListView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding ShowsList}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="switchMatrix" Title="SwitchMatrix" >
-                                <switchMatrix:SwitchMatrixView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding SwitchMatrix}" />
-                            </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="document2" Title="LogMessages" >
-                                <logMessages:LogMessagesView
-                                    Margin="2"
-                                    Background="#FFECECEC"
-                                    cal:View.Model="{Binding LogMessages}" />
-                                </xcad:LayoutAnchorable>
-                          
-                           
-                        </xcad:LayoutAnchorablePane>
-                    </xcad:LayoutAnchorablePaneGroup>
-                </xcad:LayoutPanel>
-
-                <!--<xcad:LayoutRoot.LeftSide>
-                    <xcad:LayoutAnchorSide>
-                        <xcad:LayoutAnchorGroup>
-                            <xcad:LayoutAnchorable Title="Agenda" ContentId="agenda" IconSource="../Images/address-book-open.png">
-                                <TextBlock Text="Agenda Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
-                            </xcad:LayoutAnchorable>
-                            <xcad:LayoutAnchorable Title="Contacts" ContentId="contacts" IconSource="../Images/unity.png" >
-                                <TextBlock Text="Contacts Content" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
-                            </xcad:LayoutAnchorable>
-                        </xcad:LayoutAnchorGroup>
-                    </xcad:LayoutAnchorSide>
-                </xcad:LayoutRoot.LeftSide>-->
-            </xcad:LayoutRoot>
-        </xcad:DockingManager>
-
-        <!-- Original -->
-        <!--<xcad:DockingManager Grid.Row="1" MaxHeight="425"
+<!-- Original -->
+<!--<xcad:DockingManager Grid.Row="1" MaxHeight="425"
                            AllowMixedOrientation="True"
                            BorderBrush="Black"
                            BorderThickness="1"
@@ -689,7 +748,3 @@
                 </xcad:LayoutRoot.LeftSide>
             </xcad:LayoutRoot>
         </xcad:DockingManager>-->
-    </Grid>
-    </DockPanel>
-
-</controls:MetroWindow>

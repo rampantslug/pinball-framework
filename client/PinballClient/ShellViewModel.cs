@@ -22,6 +22,8 @@ using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using PinballClient.ClientComms;
 using PinballClient.ClientDisplays;
+using PinballClient.ClientDisplays.DeviceConfig;
+using PinballClient.ClientDisplays.DeviceControl;
 using PinballClient.ClientDisplays.DeviceInformation;
 using PinballClient.ClientDisplays.DeviceTree;
 using PinballClient.ClientDisplays.GameStatus;
@@ -36,6 +38,8 @@ using PinballClient.ClientDisplays.ShowsList;
 using PinballClient.ClientDisplays.SwitchMatrix;
 using PinballClient.CommonViewModels.Devices;
 using PinballClient.Events;
+using Xceed.Wpf.AvalonDock;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Image = System.Windows.Controls.Image;
 
 namespace PinballClient
@@ -63,7 +67,8 @@ namespace PinballClient
     {
 
         // Client display Modules
-        public IDeviceInformation DeviceInformation { get; private set; }
+        public IDeviceConfig DeviceConfig { get; private set; }
+        public IDeviceControl DeviceControl { get; private set; }
         public IDeviceTree DeviceTree { get; private set; }
         public IGameStatus GameStatus { get; private set; }
         public ILedShowEditor LedShowEditor { get; private set; }
@@ -75,58 +80,6 @@ namespace PinballClient
         public IPlayfieldProperties PlayfieldProperties { get; private set; }
         public IShowsList ShowsList { get; private set; }
         public ISwitchMatrix SwitchMatrix { get; private set; }
-
-        public BindableCollection<IScreen> LeftTabs
-        {
-            get
-            {
-                return _leftTabs;
-            }
-            set
-            {
-                _leftTabs = value;
-                NotifyOfPropertyChange(() => LeftTabs);
-            }
-        }
-
-        public BindableCollection<IScreen> MidTabs
-        {
-            get
-            {
-                return _midTabs;
-            }
-            set
-            {
-                _midTabs = value;
-                NotifyOfPropertyChange(() => MidTabs);
-            }
-        }
-
-        public BindableCollection<IScreen> RightTabs
-        {
-            get
-            {
-                return _rightTabs;
-            }
-            set
-            {
-                _rightTabs = value;
-                NotifyOfPropertyChange(() => RightTabs);
-            }
-        }
-
-        public BindableCollection<IScreen> BottomTabs
-        {
-            get
-            {
-                return _bottomTabs;
-            }
-            set
-            {
-                _bottomTabs = value;
-                NotifyOfPropertyChange(() => BottomTabs);
-            }
-        }
 
         public bool SettingsFlyoutIsOpen
         {
@@ -272,9 +225,9 @@ namespace PinballClient
             IClientToLocalCommsController clientToLocalCommsController,
             IClientToServerCommsController clientToServerCommsController,
             IGameState gameState,
-            
+
             // Displays
-            IDeviceInformation deviceInformation,             
+            IDeviceConfig deviceInformation,             
             IDeviceTree deviceTree,
             IGameStatus gameStatus,
             ILedShowEditor ledShowEditor,
@@ -296,7 +249,7 @@ namespace PinballClient
 
             // Displays
             LogMessages = logMessages;
-            DeviceInformation = deviceInformation;
+            DeviceConfig = deviceInformation;
             
             DeviceTree = deviceTree;
             GameStatus = gameStatus;
@@ -309,10 +262,10 @@ namespace PinballClient
             ShowsList = showsList;
             SwitchMatrix = switchMatrix;
 
-            LeftTabs = new BindableCollection<IScreen>();
+            /*LeftTabs = new BindableCollection<IScreen>();
             MidTabs = new BindableCollection<IScreen>();
             RightTabs = new BindableCollection<IScreen>();
-            BottomTabs = new BindableCollection<IScreen>();
+            BottomTabs = new BindableCollection<IScreen>();*/
 
             // ReSharper disable once VirtualMemberCallInConstructor
             DisplayName = "RS Pinball Client";
@@ -350,29 +303,12 @@ namespace PinballClient
 
         public void Exit()
         {
-            if (UseServer)
-            {
-                _clientToServerCommsController.Stop();
-            }
+           OnDeactivate(true);
         }
 
         protected override void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-
-            LeftTabs.Add(DeviceTree);
-            LeftTabs.Add(ModeTree);
-            LeftTabs.Add(MediaTree);
-            LeftTabs.Add(ShowsList);
-
-            MidTabs.Add(DeviceInformation);
-            MidTabs.Add(SwitchMatrix);
-            MidTabs.Add(GameStatus);
-            MidTabs.Add(LedShowTimeline);
-
-            BottomTabs.Add(LogMessages);
-            BottomTabs.Add(PlayfieldProperties);
-            BottomTabs.Add(LedShowEditor);
 
             _eventAggregator.Subscribe(this);        
         }
@@ -408,11 +344,27 @@ namespace PinballClient
             }
         }
 
-       
+        public void LoadViewLayout(DockingManager dockManager, string viewToLoad)
+        {
+            if (File.Exists($@".\ViewLayouts\{viewToLoad}Layout.config"))
+            {
+                var layoutSerializer = new XmlLayoutSerializer(dockManager);
+                layoutSerializer.Deserialize($@".\ViewLayouts\{viewToLoad}Layout.config");
+            }
+        }
+
+        public void SaveViewLayout(DockingManager dockManager, string viewToSave)
+        {
+            var layoutSerializer = new XmlLayoutSerializer(dockManager);
+            layoutSerializer.Serialize($@".\ViewLayouts\{viewToSave}Layout.config");
+        }
 
         protected override void OnDeactivate(bool close)
         {
-            Exit();
+            if (UseServer)
+            {
+                _clientToServerCommsController.Stop();
+            }
             base.OnDeactivate(close);
         }
 
@@ -463,6 +415,8 @@ namespace PinballClient
                     // Save out to App.Config
                     UpdateSetting("LocalConfigLocation", LocalConfigLocation);
                 }
+
+                LoadConfig();
             }
         }
 
@@ -497,7 +451,7 @@ namespace PinballClient
         public void Handle(ShowSwitchConfigEvent deviceMessage)
         {            
             Playfield.Deactivate(false);
-            DeviceInformation.Activate();
+            DeviceConfig.Activate();
         }
 
         public void Handle(UpdateConfigEvent updateConfigEvent)

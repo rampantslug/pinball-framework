@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="PinballClient.ClientDisplays.DeviceControl.CoilControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:deviceInformation="clr-namespace:PinballClient.ClientDisplays.DeviceInformation">
+    <UserControl.Resources>
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="Control.Background" Value="{x:Null}" />
+            <Setter Property="Control.BorderBrush" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}"
+                            >
+                            <ContentPresenter 
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                RecognizesAccessKey="True" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Control.FontWeight" Value="Bold" />
+                                <Setter Property="Control.Background" Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Background" Value="{DynamicResource AccentColorBrush}" />
+                    <Setter Property="Control.BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RefinedTypeImageExists" TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
+            <!-- If Image does not Exist -->
+            <Style.Triggers>
+                <DataTrigger 
+                    Binding="{Binding Path=RefinedTypeImageExists}" Value="False">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                Text="Type image not found. 
+                                    Please select new image."
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- When Visibility = False -->
+                <DataTrigger 
+                    Binding="{Binding Path=RefinedTypeImageExists}" Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Image
+                                Margin="2,2,0,2"
+                                Grid.Column="3"
+                                Grid.Row="2"
+                                Grid.RowSpan="5"
+                                Width="130"
+                                Height="130"
+                                Stretch="Uniform"
+                                Source="{Binding RefinedTypeImage}"
+                                VerticalAlignment="Top" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid
+        Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="330" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="200" />
+        </Grid.RowDefinitions>
+
+        <!-- Control Section -->
+        <Grid
+            Grid.Column="0"
+            Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="100" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0,0,0,1" />
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="12"
+                Text="CONTROL"
+                Foreground="{StaticResource AccentColorBrush}" />
+            <Image
+                Margin="5"
+                Grid.Column="0"
+                Grid.Row="1"
+                Grid.RowSpan="5"
+                Width="90"
+                Height="90"
+                Stretch="Uniform"
+                Source="{Binding RefinedTypeImage}"
+                VerticalAlignment="Top" />
+            <TextBlock
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                Text="{Binding Coil.State}" />
+            <Button
+                Grid.Column="1"
+                Grid.Row="2"
+                x:Name="PulseState"
+                Content="Pulse" />
+            <Button
+                Grid.Column="2"
+                Grid.Row="2"
+                x:Name="HoldState"
+                Content="Hold" />
+        </Grid>
+
+
+        <!-- History -->
+        <Border
+            Grid.Column="0"
+            Grid.Row="1"
+            BorderBrush="{StaticResource AccentColorBrush}"
+            BorderThickness="0,0,0,1" />
+        <TextBlock
+            Grid.Column="0"
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="12"
+            Text="HISTORY"
+            Foreground="{StaticResource AccentColorBrush}" />
+        <ListView
+            Grid.Column="0"
+            Grid.Row="2"
+            x:Name="PreviousStates">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Header="Timestamp"
+                        Width="150"
+                        DisplayMemberBinding="{Binding Timestamp}" />
+                    <GridViewColumn
+                        Header="State"
+                        Width="150"
+                        DisplayMemberBinding="{Binding State}" />
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+    </Grid>
+</UserControl>

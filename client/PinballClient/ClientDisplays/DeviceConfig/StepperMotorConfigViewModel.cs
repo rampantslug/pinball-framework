@@ -3,12 +3,12 @@ using Hardware.DeviceAddress;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
-namespace PinballClient.ClientDisplays.DeviceInformation
+namespace PinballClient.ClientDisplays.DeviceConfig
 {
     /// <summary>
     /// 
     /// </summary>
-    public class StepperMotorConfigurationViewModel : DeviceConfigurationViewModel
+    public class StepperMotorConfigViewModel : DeviceConfigViewModel
     {
         #region Properties
 
@@ -74,7 +74,7 @@ namespace PinballClient.ClientDisplays.DeviceInformation
         /// 
         /// </summary>
         /// <param name="stepperMotor"></param>
-        public StepperMotorConfigurationViewModel(StepperMotorViewModel stepperMotor)
+        public StepperMotorConfigViewModel(StepperMotorViewModel stepperMotor)
             : base(stepperMotor)
         {
             _stepperMotor = stepperMotor;
