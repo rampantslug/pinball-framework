@@ -301,14 +301,14 @@
 
         <Menu DockPanel.Dock="Top">
         <MenuItem Header="_File">
-            <MenuItem Header="_New"  />
-                <MenuItem Header="_Open" cal:Message.Attach="BrowseLocalConfigLocation" />
-            <MenuItem Header="Open Recent" />
-            <MenuItem Header="_Save" />
-            <MenuItem Header="Save As" />
-            <MenuItem Header="Close" />
+            <MenuItem Header="_New" IsEnabled="False" />
+            <MenuItem Header="_Open" cal:Message.Attach="BrowseLocalConfigLocation" />
+            <MenuItem Header="Open Recent"  IsEnabled="False"/>
+            <MenuItem Header="_Save"  IsEnabled="False"/>
+            <MenuItem Header="Save As" IsEnabled="False" />
+            <MenuItem Header="Close" IsEnabled="False" />
             <Separator />
-            <MenuItem Header="Export to YAML" />
+            <MenuItem Header="Export to YAML"  IsEnabled="False"/>
             <Separator />
             <MenuItem Header="_Exit">
                 <i:Interaction.Triggers>
@@ -321,16 +321,16 @@
             </MenuItem>
             </MenuItem>
             <MenuItem Header="Local/Remote">
-                <MenuItem Header="Copy data to Remote" />
+                <MenuItem Header="Copy data to Remote" IsEnabled="False"/>
             </MenuItem>
        
             <MenuItem Header="_Hardware">
-                <MenuItem Header="Use Hardware" />
-                <MenuItem Header="Motors" />
-                <MenuItem Header="Lighting" />
-                <MenuItem Header="Coils" />
+                <MenuItem Header="Use Hardware" IsEnabled="False"/>
+                <MenuItem Header="Motors" IsEnabled="False"/>
+                <MenuItem Header="Lighting" IsEnabled="False"/>
+                <MenuItem Header="Coils"  IsEnabled="False"/>
             </MenuItem>
-            <MenuItem Header="_View">
+            <MenuItem Header="_View" IsEnabled="False">
                 <MenuItem Header="Default Layout" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -436,9 +436,9 @@
             </MenuItem>
           
             <MenuItem Header="_Help">
-                <MenuItem Header="Documentation" />
-                <MenuItem Header="Whats New" />
-                <MenuItem Header="About" />
+                <MenuItem Header="Documentation" IsEnabled="False"/>
+                <MenuItem Header="Whats New" IsEnabled="False"/>
+                <MenuItem Header="About" IsEnabled="False"/>
             </MenuItem>
 
         </Menu>
