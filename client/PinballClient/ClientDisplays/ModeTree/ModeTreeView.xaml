@@ -54,14 +54,28 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
-    <ItemsControl
+    <Grid>
+        <Grid>
+            <Grid.Effect>
+                <BlurEffect  Radius="5" KernelType="Gaussian"/>
+            </Grid.Effect>
+            <ItemsControl
         Background="Transparent"
         BorderThickness="0"
         x:Name="ModeItems"
         >
       
     </ItemsControl>
-    
-   
+
+    <!-- #region TODO Overlay -->
+    </Grid>
+    <Grid Grid.ColumnSpan="20"
+          Grid.RowSpan="20"
+          Background="Black" Opacity="0.8">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="TODO" Foreground="Azure" HorizontalAlignment="Center" FontSize="48"/>
+            <TextBlock Text="Bug me if important" Foreground="Azure" HorizontalAlignment="Center" FontSize="24"/>
+        </StackPanel>
+    </Grid>
+    </Grid>
 </UserControl>
