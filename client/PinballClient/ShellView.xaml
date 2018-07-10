@@ -7,6 +7,7 @@
     xmlns:converters="clr-namespace:Common.Converters;assembly=Common"
     xmlns:pinballClient="clr-namespace:PinballClient"
     xmlns:deviceConfig="clr-namespace:PinballClient.ClientDisplays.DeviceConfig"
+    xmlns:deviceControl="clr-namespace:PinballClient.ClientDisplays.DeviceControl"
     xmlns:deviceTree="clr-namespace:PinballClient.ClientDisplays.DeviceTree"
     xmlns:gameStatus="clr-namespace:PinballClient.ClientDisplays.GameStatus"
     xmlns:ledShowEditor="clr-namespace:PinballClient.ClientDisplays.LedShowEditor"
@@ -482,7 +483,13 @@
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding DeviceConfig}" />
                                 </xcad:LayoutAnchorable>
-                            <xcad:LayoutAnchorable ContentId="playfield" Title="Playfield">
+                            <xcad:LayoutAnchorable ContentId="deviceControl" Title="Device Control">
+                                <deviceControl:DeviceControlView
+                                    Margin="2"
+                                    Background="#FFECECEC"
+                                    cal:View.Model="{Binding DeviceControl}" />
+                            </xcad:LayoutAnchorable>
+                                <xcad:LayoutAnchorable ContentId="playfield" Title="Playfield">
                                 <playfield:PlayfieldView
                                     Margin="2"
                                     Background="#FFECECEC"
@@ -536,7 +543,7 @@
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding SwitchMatrix}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="document2" Title="Log Messages" >
+                                <xcad:LayoutAnchorable ContentId="logMessages" Title="Log Messages" >
                                 <logMessages:LogMessagesView
                                     Margin="2"
                                     Background="#FFECECEC"

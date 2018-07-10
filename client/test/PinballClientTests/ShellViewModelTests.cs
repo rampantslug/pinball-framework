@@ -7,6 +7,7 @@ using NSubstitute;
 using PinballClient;
 using PinballClient.ClientComms;
 using PinballClient.ClientDisplays.DeviceConfig;
+using PinballClient.ClientDisplays.DeviceControl;
 using PinballClient.ClientDisplays.DeviceTree;
 using PinballClient.ClientDisplays.GameStatus;
 using PinballClient.ClientDisplays.LedShowEditor;
@@ -35,7 +36,8 @@ namespace PinballClientTests
             var clientToServerCommsController = Substitute.For<IClientToServerCommsController>();
             _gameState = new GameState();
 
-            var deviceInformation = Substitute.For<IDeviceConfig>();
+            var deviceConfig = Substitute.For<IDeviceConfig>();
+            var deviceControl = Substitute.For<IDeviceControl>();
             var deviceTree = Substitute.For<IDeviceTree>();
             var gameStatus = Substitute.For<IGameStatus>();
             var ledShowEditor = Substitute.For<ILedShowEditor>();
@@ -55,7 +57,8 @@ namespace PinballClientTests
                 clientToServerCommsController,
                 _gameState, 
 
-                deviceInformation,
+                deviceConfig,
+                deviceControl,
                 deviceTree,
                 gameStatus,
                 ledShowEditor,

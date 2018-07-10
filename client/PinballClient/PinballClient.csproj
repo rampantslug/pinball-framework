@@ -152,7 +152,7 @@
     <Compile Include="ClientComms\ClientToLocalCommsController.cs" />
     <Compile Include="ClientComms\ClientToServerCommsController.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\BaseDeviceConfigViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\DynamicWireIconViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\DynamicWireIconViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\CoilConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceControl\DeviceTypes\CoilControlViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceControl\BaseDeviceControlViewModel.cs" />
@@ -258,7 +258,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ClientDisplays\DeviceConfig\DynamicWireIconView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\DynamicWireIconView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -275,6 +275,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\LedConfigView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ClientDisplays\DeviceControl\DeviceControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -509,10 +513,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ClientDisplays\DeviceConfig\SwitchMatrixWiring.png" />
+    <Resource Include="ClientDisplays\DeviceConfig\DeviceTypes\SwitchMatrixWiring.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ClientDisplays\DeviceConfig\DirectSwitchWiring.png" />
+    <Resource Include="ClientDisplays\DeviceConfig\DeviceTypes\DirectSwitchWiring.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DeviceResources\Switches\Leaf Switch Flipper.png">
