@@ -151,7 +151,7 @@
     <Compile Include="ClientComms\ClientCommsControllerBase.cs" />
     <Compile Include="ClientComms\ClientToLocalCommsController.cs" />
     <Compile Include="ClientComms\ClientToServerCommsController.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\DeviceConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\BaseDeviceConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\DynamicWireIconViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\CoilConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceControl\CoilControlViewModel.cs" />
@@ -241,7 +241,7 @@
     <Compile Include="ClientDisplays\DeviceConfig\SwitchConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTreeViewModel.cs" />
     <Compile Include="ClientDisplays\IClientDisplay.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\DeviceInformationViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceConfigViewModel.cs" />
     <Compile Include="ClientDisplays\LogMessages\LogMessagesViewModel.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\SwitchMatrixViewModel.cs" />
     <Compile Include="ClientComms\IClientCommsController.cs" />
@@ -313,7 +313,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfig\DeviceInformationView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

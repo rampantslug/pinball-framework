@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:converters="clr-namespace:Common.Converters;assembly=Common"
     xmlns:pinballClient="clr-namespace:PinballClient"
-    xmlns:deviceInformation="clr-namespace:PinballClient.ClientDisplays.DeviceInformation"
+    xmlns:deviceConfig="clr-namespace:PinballClient.ClientDisplays.DeviceConfig"
     xmlns:deviceTree="clr-namespace:PinballClient.ClientDisplays.DeviceTree"
     xmlns:gameStatus="clr-namespace:PinballClient.ClientDisplays.GameStatus"
     xmlns:ledShowEditor="clr-namespace:PinballClient.ClientDisplays.LedShowEditor"
@@ -309,8 +309,16 @@
             <Separator />
             <MenuItem Header="Export to YAML" />
             <Separator />
-                <MenuItem Header="_Exit" cal:Message.Attach="Exit"  />
-         </MenuItem>
+            <MenuItem Header="_Exit">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="Exit">
+                                <cal:Parameter Value="{Binding ElementName=mainWindow}" />
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </MenuItem>
+            </MenuItem>
             <MenuItem Header="Local/Remote">
                 <MenuItem Header="Copy data to Remote" />
             </MenuItem>
@@ -468,11 +476,11 @@
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding DeviceTree}" />
                                 </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="deviceInformation" Title="DeviceInformation">
-                                <deviceInformation:DeviceInformationView
+                                <xcad:LayoutAnchorable ContentId="deviceConfig" Title="Device Configuration">
+                                <deviceConfig:DeviceConfigView
                                     Margin="2"
                                     Background="#FFECECEC"
-                                    cal:View.Model="{Binding DeviceInformation}" />
+                                    cal:View.Model="{Binding DeviceConfig}" />
                                 </xcad:LayoutAnchorable>
                             <xcad:LayoutAnchorable ContentId="playfield" Title="Playfield">
                                 <playfield:PlayfieldView
@@ -486,49 +494,49 @@
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding GameStatus}" />
                                 </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="ledShowEditor" Title="LedShowEditor" >
+                                <xcad:LayoutAnchorable ContentId="ledShowEditor" Title="Led Show Editor" >
                                 <ledShowEditor:LedShowEditorView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding LedShowEditor}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="ledShowTimeline" Title="LedShowTimeline" >
+                                <xcad:LayoutAnchorable ContentId="ledShowTimeline" Title="Led Show Timeline" >
                                 <ledShowTimeline:LedShowTimelineView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding LedShowTimeline}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="mediaTree" Title="MediaTree" >
+                                <xcad:LayoutAnchorable ContentId="mediaTree" Title="Media Tree" >
                                 <mediaTree:MediaTreeView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding MediaTree}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="modeTree" Title="ModeTree" >
+                                <xcad:LayoutAnchorable ContentId="modeTree" Title="Mode Tree" >
                                 <modeTree:ModeTreeView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding ModeTree}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="playfieldProperties" Title="PlayfieldProperties" >
+                                <xcad:LayoutAnchorable ContentId="playfieldProperties" Title="Playfield Properties" >
                                 <playfieldProperties:PlayfieldPropertiesView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding PlayfieldProperties}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="showsList" Title="ShowsList" >
+                                <xcad:LayoutAnchorable ContentId="showsList" Title="Shows List" >
                                 <showsList:ShowsListView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding ShowsList}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="switchMatrix" Title="SwitchMatrix" >
+                                <xcad:LayoutAnchorable ContentId="switchMatrix" Title="Switch Matrix" >
                                 <switchMatrix:SwitchMatrixView
                                     Margin="2"
                                     Background="#FFECECEC"
                                     cal:View.Model="{Binding SwitchMatrix}" />
                             </xcad:LayoutAnchorable>
-                                <xcad:LayoutAnchorable ContentId="document2" Title="LogMessages" >
+                                <xcad:LayoutAnchorable ContentId="document2" Title="Log Messages" >
                                 <logMessages:LogMessagesView
                                     Margin="2"
                                     Background="#FFECECEC"

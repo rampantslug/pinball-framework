@@ -9,7 +9,7 @@ namespace PinballClient.ClientDisplays.DeviceConfig
     /// <summary>
     /// Class for modifying the configuration of a Servo.
     /// </summary>
-    public class ServoConfigViewModel : DeviceConfigViewModel
+    public class ServoConfigViewModel : BaseDeviceConfigViewModel
     {
 
         #region Properties

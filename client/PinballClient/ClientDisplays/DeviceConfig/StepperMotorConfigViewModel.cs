@@ -8,7 +8,7 @@ namespace PinballClient.ClientDisplays.DeviceConfig
     /// <summary>
     /// 
     /// </summary>
-    public class StepperMotorConfigViewModel : DeviceConfigViewModel
+    public class StepperMotorConfigViewModel : BaseDeviceConfigViewModel
     {
         #region Properties
 

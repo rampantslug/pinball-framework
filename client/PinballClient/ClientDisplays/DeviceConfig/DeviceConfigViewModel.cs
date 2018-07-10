@@ -1,192 +1,280 @@
-﻿using Caliburn.Micro;
-using RampantSlug.PinballClient.ContractImplementations;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Hardware.DeviceAddress;
+using Caliburn.Micro;
 using Common;
-using Common.Commands;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using PinballClient.ClientDisplays.Dialogs;
+using Hardware.DeviceAddress;
+using PinballClient.ClientDisplays.DeviceConfig;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
+using PinballClient.Events;
 
 namespace PinballClient.ClientDisplays.DeviceConfig
 {
-
-    public class DeviceConfigViewModel : Screen, IDeviceConfigurationScreen
+    [Export(typeof(IDeviceConfig))]
+    public sealed class DeviceConfigViewModel : Conductor<IScreen>.Collection.OneActive, IDeviceConfig, 
+        IHandle<ShowSwitchConfigEvent>,
+        IHandle<ShowCoilConfigEvent>,
+        IHandle<ShowStepperMotorConfigEvent>,
+        IHandle<ShowServoConfigEvent>,
+        IHandle<ShowLedConfigEvent>,
+        IHandle<UpdatePlayfieldImageEvent>,
+        IHandle<HighlightSwitchEvent>,
+        IHandle<HighlightCoilEvent>,
+        IHandle<HighlightStepperMotorEvent>,
+        IHandle<HighlightServoEvent>,
+        IHandle<HighlightLedEvent>
     {
-        #region Fields
-
-        private IDeviceViewModel _deviceViewModel;
-
-        private ImageSource _refinedTypeImage;
-        private ObservableCollection<IAddress> _supportedHardwareCoils;
-        private IAddress _selectedSupportedHardwareCoil;
-
-
-
-
-        #endregion
 
         #region Properties
 
-        protected virtual string RefinedTypeLocationPrefix { get; }
+        public string DeviceType => SelectedDevice != null ? SelectedDevice.GetType().ToString() : string.Empty;
 
-        public IDeviceViewModel DeviceVm
-        {
-            get { return _deviceViewModel; }
-            set
-            {
-                _deviceViewModel = value;
-                NotifyOfPropertyChange(() => DeviceVm);
-            }
-        }
 
-        public ImageSource RefinedTypeImage
+        public ImageSource PlayfieldImage
         {
             get
             {
-                return _refinedTypeImage;
-            }
-            set
-            {
-                _refinedTypeImage = value;
-                NotifyOfPropertyChange(() => RefinedTypeImage);
-                NotifyOfPropertyChange(() => RefinedTypeImageExists);
-            }
-        }
-
-        public bool RefinedTypeImageExists
-        {
-            get
-            {
-                return RefinedTypeImage != null;
-            }
-
-        }
-
-
-        public ObservableCollection<HistoryRowViewModel> PreviousStates
-        {
-            get
-            {
-                return _deviceViewModel.PreviousStates;
-            }
-
-        }
-
-        public ObservableCollection<IAddress> SupportedHardwareCoils
-        {
-            get
-            {
-                return _supportedHardwareCoils;
-            }
-            set
-            {
-                _supportedHardwareCoils = value;
-                NotifyOfPropertyChange(() => SupportedHardwareCoils);
-            }
-        }
-
-        public IAddress SelectedSupportedHardwareCoil
-        {
-            get { return _selectedSupportedHardwareCoil; }
-            set
-            {
-                _selectedSupportedHardwareCoil = value;
-                NotifyOfPropertyChange(() => SelectedSupportedHardwareCoil);
-            }
-        }
-        /*
-        public ushort CoilId
-        {
-            get { return _deId; }
-            set
-            {
-                _coilId = value;
-                NotifyOfPropertyChange(() => CoilId);
-                var address = Coil.Address as PdbAddress;
-                if (address != null)
+                if (_playfieldImage == null)
                 {
-                    address.UpdateAddressId(_coilId);
+                    if(_gameState.PlayfieldImage != null)
+                        _playfieldImage = ImageConversion.ConvertStringToImage(_gameState.PlayfieldImage);
                 }
-            }
-        }*/
 
+                return _playfieldImage;
+            }
+            set
+            {
+                _playfieldImage = value;
+                NotifyOfPropertyChange(() => PlayfieldImage);
+            }
+        }
+
+        public double ScaleFactorX
+        {
+            get
+            {
+                return _scaleFactorX;
+            }
+            set
+            {
+                _scaleFactorX = value;
+                NotifyOfPropertyChange(() => ScaleFactorX);
+            }
+        }
+
+        public double ScaleFactorY
+        {
+            get
+            {
+                return _scaleFactorY;
+            }
+            set
+            {
+                _scaleFactorY = value;
+                NotifyOfPropertyChange(() => ScaleFactorY);
+            }
+        }
+
+
+
+        public DeviceViewModel SelectedDevice
+        {
+            get
+            {
+                return _selectedDevice;
+            }
+            set
+            {    
+                _selectedDevice = value;
+                NotifyOfPropertyChange(() => SelectedDevice);
+                NotifyOfPropertyChange(() => DeviceType);
+            }
+        }
 
 
         #endregion
 
-        #region Constructor
 
-
-        public DeviceConfigViewModel(IDeviceViewModel deviceViewModel)
+        [ImportingConstructor]
+        public DeviceConfigViewModel(IEventAggregator eventAggregator, IGameState gameState)
         {
-            _deviceViewModel = deviceViewModel;
+            _eventAggregator = eventAggregator;
+            _gameState = gameState;
 
-            LoadRefinedImage();
+            DisplayName = "Device Config";
 
-            // Initialise Address
-     /*       _supportedHardwareCoils = new ObservableCollection<IAddress> {new PdbAddress()};
-            SelectedSupportedHardwareCoil = SupportedHardwareCoils[0];
-            var procDriverBoard = Coil.Address as PdbAddress;
-            if (procDriverBoard != null)
+            // These 2 values assume an image size of 200x400
+            ScaleFactorX = 2;
+            ScaleFactorY = 4;
+        }
+
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+
+            _eventAggregator.Subscribe(this);
+            _eventAggregator.PublishOnUIThread(new DisplayLoadedEvent());
+        }
+
+        /*
+        *  Handle show config event
+        */
+
+        public void Handle(ShowSwitchConfigEvent deviceMessage)
+        {
+            ShowSwitchConfiguration(deviceMessage.SwitchVm);  
+        }
+
+        public void Handle(ShowCoilConfigEvent deviceMessage)
+        {
+            ShowCoilConfiguration(deviceMessage.CoilVm);
+        }
+
+        public void Handle(ShowStepperMotorConfigEvent deviceMessage)
+        {
+            ShowStepperMotorConfiguration(deviceMessage.StepperMotorVm);
+        }
+
+        public void Handle(ShowServoConfigEvent deviceMessage)
+        {
+            ShowServoConfiguration(deviceMessage.ServoVm);
+        }
+
+        public void Handle(ShowLedConfigEvent deviceMessage)
+        {
+            ShowLedConfiguration(deviceMessage.LedVm);
+        }
+
+        /*
+         *  Handle various highlight events
+         */
+
+        public void Handle(HighlightSwitchEvent deviceMessage)
+        {
+            ShowSwitchConfiguration(deviceMessage.SwitchVm);
+        }
+
+        public void Handle(HighlightCoilEvent deviceMessage)
+        {
+            ShowCoilConfiguration(deviceMessage.CoilVm);
+        }
+
+        public void Handle(HighlightStepperMotorEvent deviceMessage)
+        {
+            ShowStepperMotorConfiguration(deviceMessage.StepperMotorVm);
+        }
+
+        public void Handle(HighlightServoEvent deviceMessage)
+        {
+            ShowServoConfiguration(deviceMessage.ServoVm);
+        }
+
+        public void Handle(HighlightLedEvent deviceMessage)
+        {
+            ShowLedConfiguration(deviceMessage.LedVm);
+        }
+
+        private void ShowSwitchConfiguration(SwitchViewModel switchVm)
+        {
+            ActivateItem(new SwitchConfigViewModel(switchVm));
+            SelectedDevice = switchVm;
+        }
+
+        private void ShowCoilConfiguration(CoilViewModel coilVm)
+        {
+            ActivateItem(new CoilConfigViewModel(coilVm));
+            SelectedDevice = coilVm;
+        }
+
+        private void ShowStepperMotorConfiguration(StepperMotorViewModel stepperMotorVm)
+        {
+            ActivateItem(new StepperMotorConfigViewModel(stepperMotorVm));
+            SelectedDevice = stepperMotorVm;
+        }
+
+        private void ShowServoConfiguration(ServoViewModel servoVm)
+        {
+            ActivateItem(new ServoConfigViewModel(servoVm));
+            SelectedDevice = servoVm;
+        }
+
+        private void ShowLedConfiguration(LedViewModel ledVm)
+        {
+            ActivateItem(new LedConfigViewModel(ledVm));
+            SelectedDevice = ledVm;
+        }
+
+
+        /// <summary>
+        /// Update playfield image based on received settings
+        /// </summary>
+        /// <param name="message"></param>
+        public void Handle(UpdatePlayfieldImageEvent message)
+        {
+            PlayfieldImage = ImageConversion.ConvertStringToImage(message.PlayfieldImage);
+
+        }
+
+        #region Handle Mouse movement / Dragging of Device
+
+        public void MouseEnter(object source)
+        {
+            // change mouse cursor
+            Mouse.OverrideCursor = Cursors.Hand;
+        }
+
+        public void MouseLeave(object source)
+        {
+            // change mouse cursor
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        public Point StartingPoint { get; set; }
+
+        public void MouseDown(object source)
+        {
+            
+
+            var myGrid = source as Grid;
+            if (myGrid != null)
             {
-                _deviceId = procDriverBoard.AddressId;
+                //var parent = myGrid.Parent;
+                //if (parent != null)
+                //{                 
+                StartingPoint = Mouse.GetPosition(myGrid);
+
             }
-            */
+        }
+
+        public void MouseMove(object source)
+        {
+            var myGrid = source as Grid;
+            if (Mouse.LeftButton == MouseButtonState.Pressed && myGrid != null && SelectedDevice != null)
+            {
+
+                    var currentPoint = Mouse.GetPosition(myGrid);
+                    var xDelta = currentPoint.X - StartingPoint.X;
+                    var yDelta = currentPoint.Y - StartingPoint.Y;
+
+                    SelectedDevice.VirtualLocationX = SelectedDevice.VirtualLocationX + (int)(xDelta/ScaleFactorX);
+                    SelectedDevice.VirtualLocationY = SelectedDevice.VirtualLocationY + (int)(yDelta/ScaleFactorY);
+            }
         }
 
         #endregion
 
-        public void SaveDevice()
-        {
-            _deviceViewModel.Save();
-        }
 
-        public void RemoveDevice()
-        {
-           _deviceViewModel.Remove();
-        }
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IGameState _gameState;
 
-        private void LoadRefinedImage()
-        {
-            var path = Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\DeviceResources\" + RefinedTypeLocationPrefix + @"\" + DeviceVm.RefinedType + ".png";
+        private DeviceViewModel _selectedDevice;
+        private ImageSource _playfieldImage;
+        private double _scaleFactorX;
+        private double _scaleFactorY;
 
-            if (File.Exists(additionalpath))
-            {
-                RefinedTypeImage = new BitmapImage(new Uri(additionalpath));
-            }
-        }
-
-        public async void SelectRefinedType()
-        {
-            var metroWindow = (Application.Current.MainWindow as MetroWindow);
-            var path = Directory.GetCurrentDirectory();
-            var additionalpath = path + @"\DeviceResources\"+ RefinedTypeLocationPrefix + @"\";
-
-            var dialog = new GallerySelectorDialog(additionalpath, metroWindow);
-            await metroWindow.ShowMetroDialogAsync(dialog);
-
-            var result = await dialog.WaitForButtonPressAsync();
-            if (!string.IsNullOrEmpty(result))
-            {
-                DeviceVm.RefinedType = result;
-                LoadRefinedImage();
-            }
-            await metroWindow.HideMetroDialogAsync(dialog);
-        }
- 
     }
 }

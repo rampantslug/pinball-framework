@@ -7,7 +7,7 @@ using PinballClient.CommonViewModels.Devices;
 namespace PinballClient.ClientDisplays.DeviceConfig
 {
 
-    public class CoilConfigViewModel : DeviceConfigViewModel
+    public class CoilConfigViewModel : BaseDeviceConfigViewModel
     {
         #region Fields
 

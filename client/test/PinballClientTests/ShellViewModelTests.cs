@@ -7,7 +7,6 @@ using NSubstitute;
 using PinballClient;
 using PinballClient.ClientComms;
 using PinballClient.ClientDisplays.DeviceConfig;
-using PinballClient.ClientDisplays.DeviceInformation;
 using PinballClient.ClientDisplays.DeviceTree;
 using PinballClient.ClientDisplays.GameStatus;
 using PinballClient.ClientDisplays.LedShowEditor;

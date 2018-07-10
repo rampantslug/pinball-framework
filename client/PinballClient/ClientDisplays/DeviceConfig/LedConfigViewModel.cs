@@ -14,7 +14,7 @@ namespace PinballClient.ClientDisplays.DeviceConfig
     /// <summary>
     /// 
     /// </summary>
-    public class LedConfigViewModel : DeviceConfigViewModel
+    public class LedConfigViewModel : BaseDeviceConfigViewModel
     {
 
         #region Properties

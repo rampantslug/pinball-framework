@@ -24,7 +24,6 @@ using PinballClient.ClientComms;
 using PinballClient.ClientDisplays;
 using PinballClient.ClientDisplays.DeviceConfig;
 using PinballClient.ClientDisplays.DeviceControl;
-using PinballClient.ClientDisplays.DeviceInformation;
 using PinballClient.ClientDisplays.DeviceTree;
 using PinballClient.ClientDisplays.GameStatus;
 using PinballClient.ClientDisplays.LedShowEditor;
@@ -301,9 +300,14 @@ namespace PinballClient
             RsLog.Info("Retrieved key|value from App.Config: LocalConfigLocation | " + LocalConfigLocation);
         }
 
-        public void Exit()
+        public void Exit(object view)
         {
-           OnDeactivate(true);
+            OnDeactivate(true);
+            
+            if (view is Window shell)
+            {
+                shell.Close();
+            }
         }
 
         protected override void OnViewLoaded(object view)

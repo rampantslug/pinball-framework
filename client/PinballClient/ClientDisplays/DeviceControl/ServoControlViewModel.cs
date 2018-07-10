@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using Hardware.DeviceAddress;
-using PinballClient.ClientDisplays.DeviceInformation;
 using PinballClient.CommonViewModels;
 using PinballClient.CommonViewModels.Devices;
 
