@@ -23,8 +23,7 @@ using PinballClient.CommonViewModels.Devices;
 
 namespace PinballClient.ClientDisplays.DeviceControl
 {
-    [Export(typeof(IDeviceControl))]
-    public class DeviceControlViewModel : Screen, IDeviceControl
+    public class BaseDeviceControlViewModel : Screen, IDeviceConfigurationScreen
     {
         #region Fields
 
@@ -131,11 +130,11 @@ namespace PinballClient.ClientDisplays.DeviceControl
         #region Constructor
 
 
-        public DeviceControlViewModel()
+        public BaseDeviceControlViewModel(IDeviceViewModel deviceViewModel)
         {
-            //_deviceViewModel = deviceViewModel;
+            _deviceViewModel = deviceViewModel;
 
-            //LoadRefinedImage();
+            LoadRefinedImage();
 
             // Initialise Address
      /*       _supportedHardwareCoils = new ObservableCollection<IAddress> {new PdbAddress()};

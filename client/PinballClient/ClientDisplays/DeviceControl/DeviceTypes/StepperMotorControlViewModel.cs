@@ -8,7 +8,7 @@ namespace PinballClient.ClientDisplays.DeviceControl
     /// <summary>
     /// 
     /// </summary>
-    public class StepperMotorControlViewModel : DeviceControlViewModel
+    public class StepperMotorControlViewModel : BaseDeviceControlViewModel
     {
         #region Properties
 

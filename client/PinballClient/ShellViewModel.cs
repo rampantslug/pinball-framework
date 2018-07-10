@@ -226,7 +226,8 @@ namespace PinballClient
             IGameState gameState,
 
             // Displays
-            IDeviceConfig deviceInformation,             
+            IDeviceConfig deviceInformation, 
+            IDeviceControl deviceControl,
             IDeviceTree deviceTree,
             IGameStatus gameStatus,
             ILedShowEditor ledShowEditor,
@@ -249,7 +250,7 @@ namespace PinballClient
             // Displays
             LogMessages = logMessages;
             DeviceConfig = deviceInformation;
-            
+            DeviceControl = deviceControl;
             DeviceTree = deviceTree;
             GameStatus = gameStatus;
             LedShowEditor = ledShowEditor;
@@ -891,12 +892,6 @@ namespace PinballClient
         private readonly IClientToServerCommsController _clientToServerCommsController;
         private readonly IEventAggregator _eventAggregator;
         private readonly IGameState _gameState;
-
-        // Containers to break up the UI elements
-        private BindableCollection<IScreen> _leftTabs;
-        private BindableCollection<IScreen> _midTabs;
-        private BindableCollection<IScreen> _rightTabs;
-        private BindableCollection<IScreen> _bottomTabs;
 
         private bool _settingsFlyoutIsOpen;
         private bool _connectedToServer;

@@ -9,7 +9,7 @@ namespace PinballClient.ClientDisplays.DeviceControl
     /// <summary>
     /// Class for controlling a Servo.
     /// </summary>
-    public class ServoControlViewModel : DeviceControlViewModel
+    public class ServoControlViewModel : BaseDeviceControlViewModel
     {
 
         #region Properties

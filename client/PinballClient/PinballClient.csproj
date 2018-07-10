@@ -153,18 +153,19 @@
     <Compile Include="ClientComms\ClientToServerCommsController.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\BaseDeviceConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\DynamicWireIconViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\CoilConfigViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceControl\CoilControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\CoilConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\DeviceTypes\CoilControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\BaseDeviceControlViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceControl\DeviceControlViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceControl\IDeviceControl.cs" />
-    <Compile Include="ClientDisplays\DeviceControl\LedControlViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceControl\ServoControlViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceControl\StepperMotorControlViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceControl\SwitchControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\DeviceTypes\LedControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\DeviceTypes\ServoControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\DeviceTypes\StepperMotorControlViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceControl\DeviceTypes\SwitchControlViewModel.cs" />
     <Compile Include="ClientDisplays\Dialogs\DeviceSelectorDialogTests.cs" />
     <Compile Include="ClientDisplays\Dialogs\GallerySelectorDialog.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\IDeviceConfigurationScreen.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\LedConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\LedConfigViewModel.cs" />
     <Compile Include="ClientDisplays\Dialogs\GallerySelectorDialogTests.cs" />
     <Compile Include="ClientDisplays\Dialogs\LedSelectorDialog.cs" />
     <Compile Include="ClientDisplays\DisplayLoadedEvent.cs" />
@@ -198,8 +199,8 @@
     <Compile Include="CommonViewModels\Devices\SwitchViewModel.cs" />
     <Compile Include="CommonViewModels\EventViewModel.cs" />
     <Compile Include="CommonViewModels\HistoryRowViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\StepperMotorConfigViewModel.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\ServoConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\StepperMotorConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\ServoConfigViewModel.cs" />
     <Compile Include="CommonViewModels\DeviceViewModel.cs" />
     <Compile Include="CommonViewModels\IDeviceViewModel.cs" />
     <Compile Include="ClientDisplays\GameStatus\IGameStatus.cs" />
@@ -238,7 +239,7 @@
     <Compile Include="ClientDisplays\DeviceTree\IDeviceTree.cs" />
     <Compile Include="ClientDisplays\SwitchMatrix\ISwitchMatrix.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\IDeviceConfig.cs" />
-    <Compile Include="ClientDisplays\DeviceConfig\SwitchConfigViewModel.cs" />
+    <Compile Include="ClientDisplays\DeviceConfig\DeviceTypes\SwitchConfigViewModel.cs" />
     <Compile Include="ClientDisplays\DeviceTree\DeviceTreeViewModel.cs" />
     <Compile Include="ClientDisplays\IClientDisplay.cs" />
     <Compile Include="ClientDisplays\DeviceConfig\DeviceConfigViewModel.cs" />
@@ -261,39 +262,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfig\CoilConfigView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\CoilConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfig\ServoConfigView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\ServoConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfig\StepperMotorConfigView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\StepperMotorConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfig\LedConfigView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\LedConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceControl\CoilControlView.xaml">
+    <Page Include="ClientDisplays\DeviceControl\DeviceTypes\CoilControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceControl\LedControlView.xaml">
+    <Page Include="ClientDisplays\DeviceControl\DeviceTypes\LedControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceControl\ServoControlView.xaml">
+    <Page Include="ClientDisplays\DeviceControl\DeviceTypes\ServoControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceControl\StepperMotorControlView.xaml">
+    <Page Include="ClientDisplays\DeviceControl\DeviceTypes\StepperMotorControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceControl\SwitchControlView.xaml">
+    <Page Include="ClientDisplays\DeviceControl\DeviceTypes\SwitchControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -305,7 +306,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ClientDisplays\DeviceConfig\SwitchConfigView.xaml">
+    <Page Include="ClientDisplays\DeviceConfig\DeviceTypes\SwitchConfigView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
