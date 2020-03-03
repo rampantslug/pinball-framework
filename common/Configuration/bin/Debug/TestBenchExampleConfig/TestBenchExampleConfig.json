@@ -1,0 +1,434 @@
+﻿{
+  "ServerName": "Test Bench",
+  "ServerIcon": "appbar_marvel_avengers",
+  "UseHardware": false,
+  "Switches": [
+    {
+      "Type": 0,
+      "Address": "PSM-0/0",
+      "Name": "Start Button",
+      "InputWirePrimaryColor": "Brown",
+      "InputWireSecondaryColor": "Brown",
+      "OutputWirePrimaryColor": "Brown",
+      "OutputWireSecondaryColor": "Brown",
+      "VirtualLocationX": 22.0,
+      "VirtualLocationY": 86.0,
+      "RefinedType": "Micro Switch Start Button"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/0",
+      "Name": "Left Flipper Button",
+      "InputWirePrimaryColor": "Brown",
+      "InputWireSecondaryColor": "Brown",
+      "OutputWirePrimaryColor": "Brown",
+      "OutputWireSecondaryColor": "Brown",
+      "VirtualLocationX": 72.0,
+      "VirtualLocationY": 16.0,
+      "RefinedType": "Leaf Switch Flipper"
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/1",
+      "Name": "6 Ball Trough 1",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 67.0,
+      "VirtualLocationY": 74.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/2",
+      "Name": "6 Ball Trough 2",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 63.0,
+      "VirtualLocationY": 74.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/3",
+      "Name": "6 Ball Trough 3",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 58.0,
+      "VirtualLocationY": 73.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/4",
+      "Name": "6 Ball Trough 4",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 55.0,
+      "VirtualLocationY": 75.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/5",
+      "Name": "6 Ball Trough 5",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 41.0,
+      "VirtualLocationY": 75.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/6",
+      "Name": "6 Ball Trough 6",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 39.0,
+      "VirtualLocationY": 74.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 1,
+      "Address": "PSM-0/7",
+      "Name": "6 Ball Trough Jam",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 25.0,
+      "VirtualLocationY": 76.0,
+      "RefinedType": "Opto 5 Ball Trough "
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-0/8",
+      "Name": "Shooter Lane",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 25.0,
+      "VirtualLocationY": 67.0,
+      "RefinedType": "Micro Switch Rollover Shooter Lane"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/1",
+      "Name": "Target 1 Blue Round",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 81.0,
+      "VirtualLocationY": 18.0,
+      "RefinedType": "Target Standup Front-Mount Round Blue"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/2",
+      "Name": "Target 2",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 80.0,
+      "VirtualLocationY": 24.0,
+      "RefinedType": "Target Standup Front-Mount Square Green"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/3",
+      "Name": "Target 3",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 81.0,
+      "VirtualLocationY": 30.0,
+      "RefinedType": "Target Standup Front-Mount Rectangle Blue"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/4",
+      "Name": "Target 4",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 81.0,
+      "VirtualLocationY": 34.0,
+      "RefinedType": "Target Standup Front-Mount Oblong Yellow"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/5",
+      "Name": "Target 5",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 81.0,
+      "VirtualLocationY": 39.0,
+      "RefinedType": "Target Standup Rear-Mount Oblong Red"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/6",
+      "Name": "Rollover",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 49.0,
+      "VirtualLocationY": 17.0,
+      "RefinedType": "Micro Switch Rollover Loop Left"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-0/9",
+      "Name": "Spinner",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 45.0,
+      "VirtualLocationY": 77.0,
+      "RefinedType": "Micro Switch Spinner"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/7",
+      "Name": "Slingshot",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 26.0,
+      "VirtualLocationY": 10.0,
+      "RefinedType": "Leaf Switch"
+    },
+    {
+      "Type": 0,
+      "Address": "PSM-1/8",
+      "Name": "Pop Bumper",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 34.0,
+      "VirtualLocationY": 27.0,
+      "RefinedType": "Leaf Switch Spoon Stack"
+    }
+  ],
+  "Coils": [
+    {
+      "Address": "PDB-01",
+      "Name": "Ball Trough Eject",
+      "InputWirePrimaryColor": "Green",
+      "InputWireSecondaryColor": "Green",
+      "OutputWirePrimaryColor": "Green",
+      "OutputWireSecondaryColor": "Green",
+      "VirtualLocationX": 28.0,
+      "VirtualLocationY": 84.0
+    },
+    {
+      "Address": "PDB-02",
+      "Name": "Auto Launch",
+      "InputWirePrimaryColor": "White",
+      "InputWireSecondaryColor": "White",
+      "OutputWirePrimaryColor": "White",
+      "OutputWireSecondaryColor": "White",
+      "VirtualLocationX": 14.0,
+      "VirtualLocationY": 67.0
+    },
+    {
+      "Address": "PDB-03",
+      "Name": "Popper",
+      "InputWirePrimaryColor": "White",
+      "InputWireSecondaryColor": "White",
+      "OutputWirePrimaryColor": "White",
+      "OutputWireSecondaryColor": "White",
+      "VirtualLocationX": 59.0,
+      "VirtualLocationY": 66.0
+    },
+    {
+      "Address": "PDB-04",
+      "Name": "Flipper Left Power",
+      "InputWirePrimaryColor": "White",
+      "InputWireSecondaryColor": "White",
+      "OutputWirePrimaryColor": "White",
+      "OutputWireSecondaryColor": "White",
+      "VirtualLocationX": 25.0,
+      "VirtualLocationY": 53.0
+    },
+    {
+      "Address": "PDB-05",
+      "Name": "Flipper Left Hold",
+      "InputWirePrimaryColor": "White",
+      "InputWireSecondaryColor": "White",
+      "OutputWirePrimaryColor": "White",
+      "OutputWireSecondaryColor": "White",
+      "VirtualLocationX": 33.0,
+      "VirtualLocationY": 53.0
+    }
+  ],
+  "Servos": [
+    {
+      "Address": "ASS-4",
+      "Name": "Wall Gate",
+      "VirtualLocationX": 18.0,
+      "VirtualLocationY": 40.0,
+      "RefinedType": "Micro"
+    },
+    {
+      "Address": "ASS-5",
+      "Name": "Diverter 1",
+      "VirtualLocationX": 18.0,
+      "VirtualLocationY": 45.0
+    }
+  ],
+  "StepperMotors": [
+    {
+      "Address": "AMS-6",
+      "Name": "Map Tilt",
+      "VirtualLocationX": 17.0,
+      "VirtualLocationY": 30.0,
+      "RefinedType": "bipolar"
+    }
+  ],
+  "DCMotors": [],
+  "Leds": [
+    {
+      "Address": "PLB-101",
+      "Name": "Led 1",
+      "IsSingleColor": false,
+      "VirtualLocationX": 74.0,
+      "VirtualLocationY": 57.0,
+      "Angle": 0.0,
+      "Scale": 1.0,
+      "Shape": 2
+    },
+    {
+      "Address": "PLB-102",
+      "Name": "Led 2",
+      "IsSingleColor": false,
+      "VirtualLocationX": 59.0,
+      "VirtualLocationY": 57.0,
+      "Angle": 18.620689655172413,
+      "Scale": 1.0,
+      "Shape": 4
+    },
+    {
+      "Address": "PLB-103",
+      "Name": "Led 4",
+      "IsSingleColor": false,
+      "VirtualLocationX": 69.0,
+      "VirtualLocationY": 51.0,
+      "Angle": 15.517241379310345,
+      "Scale": 0.74137931034482762,
+      "Shape": 5
+    }
+  ],
+  "Modes": [
+    {
+      "Title": "Basic Attract",
+      "ModeEvents": [
+        {
+          "Name": "Start Button Pressed",
+          "AssociatedSwitchName": "Start Button"
+        }
+      ],
+      "RequiredDevices": []
+    },
+    {
+      "Title": "Ball Trough",
+      "ModeEvents": [
+        {
+          "Name": "Shooter Lane Active",
+          "AssociatedSwitchName": ""
+        },
+        {
+          "Name": "Trough Eject Active",
+          "AssociatedSwitchName": ""
+        },
+        {
+          "Name": "Ball Trough #1",
+          "AssociatedSwitchName": ""
+        }
+      ],
+      "RequiredDevices": [
+        {
+          "Name": "Trough Eject Coil",
+          "TypeOfDevice": "Coil",
+          "RequiredDeviceName": "Pop Bumper 1"
+        },
+        {
+          "Name": "Plunger Auto Fire Coil ",
+          "TypeOfDevice": "Coil",
+          "RequiredDeviceName": "Pop Bumper 2"
+        },
+        {
+          "Name": "Shooter Lane Switch ",
+          "TypeOfDevice": "Switch",
+          "RequiredDeviceName": "Shooter Lane"
+        }
+      ]
+    },
+    {
+      "Title": "Base Game",
+      "ModeEvents": [
+        {
+          "Name": "Lower Target Active",
+          "AssociatedSwitchName": ""
+        },
+        {
+          "Name": "Middle Target Active",
+          "AssociatedSwitchName": ""
+        },
+        {
+          "Name": "Right Outlane Active",
+          "AssociatedSwitchName": ""
+        }
+      ],
+      "RequiredDevices": []
+    },
+    {
+      "Title": "Advanced Attract",
+      "ModeEvents": [
+        {
+          "Name": "Start Button Pressed",
+          "AssociatedSwitchName": "Start Button"
+        }
+      ],
+      "RequiredDevices": [
+        {
+          "Name": "Tree Servo",
+          "TypeOfDevice": "Servo"
+        }
+      ]
+    },
+    {
+      "Title": "MultiBall",
+      "ModeEvents": [
+        {
+          "Name": "3 Ball Multiball",
+          "AssociatedSwitchName": "Start Button"
+        }
+      ],
+      "RequiredDevices": []
+    }
+  ],
+  "MediaBaseFileLocation": "C:\\Dev\\pinball-framework\\Bin\\Server\\MediaResources"
+}
